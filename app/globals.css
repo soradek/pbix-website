@@ -1,0 +1,286 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-green: #1e9953;
+  --color-green-hover: #17803f;
+  --color-text-primary: #1d1d1f;
+  --color-text-secondary: #6e6e73;
+  --color-surface: rgba(0, 0, 0, 0.03);
+  --color-border: rgba(0, 0, 0, 0.08);
+  --font-family-sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #1d1d1f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #ffffff;
+  color: #1d1d1f;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: rgba(30, 153, 83, 0.2);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f5f5f7;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+/* ── Custom cursor (desktop only) ─────────────────── */
+@media (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+
+  .cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    background: #1e9953;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    will-change: transform;
+    transition:
+      width 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      height 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      background 0.2s,
+      opacity 0.2s;
+  }
+
+  .cursor-dot--active {
+    width: 52px;
+    height: 52px;
+    background: #ffffff;
+    mix-blend-mode: difference;
+  }
+
+  .cursor-dot--hidden {
+    opacity: 0;
+  }
+}
+
+/* ── Clients marquee ──────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.333%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Responsive layout helpers ────────────────────── */
+
+/* Hero */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* Stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+/* Spec cards */
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+/* Featured training */
+.featured-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* About section */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* Benefits */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
+}
+
+/* Why section (2 cols) */
+.two-col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+/* Training cards */
+.training-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+/* What you get */
+.receive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+/* Testimonials */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+/* Steps */
+.steps-item {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* ── Mobile ────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Cursor off on touch */
+  *, *::before, *::after {
+    cursor: auto !important;
+  }
+  .cursor-dot { display: none !important; }
+
+  /* Hero */
+  .hero-section {
+    padding-top: 80px !important;
+    min-height: auto !important;
+  }
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 48px !important;
+  }
+  .hero-visual {
+    display: none !important;
+  }
+
+  /* Stats */
+  .stats-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+  .stat-divider {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(0,0,0,0.08) !important;
+    padding-bottom: 32px !important;
+    margin-bottom: 32px !important;
+  }
+  .stat-divider:last-child {
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Featured */
+  .featured-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+    padding: 40px 28px !important;
+  }
+  .featured-mockup { display: none !important; }
+
+  /* About */
+  .about-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  .about-photo-sticky { position: relative !important; top: auto !important; }
+
+  /* Benefits */
+  .benefits-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 24px !important;
+  }
+
+  /* 2-col → 1-col */
+  .two-col-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  /* Steps */
+  .steps-item {
+    grid-template-columns: 60px 1fr !important;
+    gap: 20px !important;
+  }
+  .steps-num { font-size: 40px !important; }
+
+  /* Generic section padding */
+  .section-xl { padding-top: 80px !important; padding-bottom: 80px !important; }
+  .section-lg { padding-top: 60px !important; padding-bottom: 60px !important; }
+
+  /* CTA box */
+  .cta-box { padding: 48px 28px !important; }
+
+  /* Training hero */
+  .training-hero { padding-top: 100px !important; padding-bottom: 60px !important; }
+  .training-desc-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .benefits-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .receive-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .hero-section h1 { letter-spacing: -1.5px !important; }
+}
+
+/* ── Reduced motion ──────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
