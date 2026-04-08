@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code: Kroniki Terminala — Samouczek RPG</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap');
+
+:root {
+  --bg: #06060f;
+  --panel: #0e0e1c;
+  --panel2: #11112a;
+  --border: #2e2260;
+  --border-glow: #5a3fa0;
+  --accent: #7b5ea7;
+  --gold: #f0c040;
+  --gold2: #ffd700;
+  --green: #4ade80;
+  --red: #f87171;
+  --blue: #60a5fa;
+  --text: #ddd5f0;
+  --dim: #5a5078;
+  --claude: #da7756;
+  --claude2: #ff9a70;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+
+html,body{
+  height:100%;
+  overflow:hidden;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'VT323',monospace;
+  font-size:22px;
+}
+
+/* ── STAR CANVAS ── */
+#stars-canvas{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  z-index:0;pointer-events:none;
+}
+
+/* ── SCANLINES ── */
+#scanlines{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0,0,0,0.08) 3px,
+    rgba(0,0,0,0.08) 4px
+  );
+  z-index:1;pointer-events:none;
+}
+
+/* ── FLASH OVERLAY ── */
+#flash{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:#7b5ea7;opacity:0;z-index:200;pointer-events:none;
+  transition:opacity 0.05s;
+}
+
+/* ── PARTICLES ── */
+#particles{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  z-index:150;pointer-events:none;overflow:hidden;
+}
+.particle{
+  position:absolute;
+  width:6px;height:6px;
+  border-radius:50%;
+  pointer-events:none;
+  animation:particle-fly 1s ease-out forwards;
+}
+@keyframes particle-fly{
+  0%{opacity:1;transform:translate(0,0) scale(1);}
+  100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(0);}
+}
+.xp-popup{
+  position:absolute;
+  font-family:'Press Start 2P',monospace;
+  font-size:11px;
+  color:var(--gold);
+  text-shadow:0 0 10px var(--gold);
+  pointer-events:none;
+  animation:xp-rise 1.2s ease-out forwards;
+  white-space:nowrap;
+}
+@keyframes xp-rise{
+  0%{opacity:1;transform:translateY(0) scale(1);}
+  50%{opacity:1;transform:translateY(-40px) scale(1.2);}
+  100%{opacity:0;transform:translateY(-80px) scale(0.8);}
+}
+
+/* ── WRAPPER ── */
+#root{
+  position:relative;z-index:2;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  padding:8px 12px 8px;
+  gap:8px;
+}
+
+/* ── HEADER ── */
+#title-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-shrink:0;
+  padding:0 4px;
+}
+#title-bar h1{
+  font-family:'Press Start 2P',monospace;
+  font-size:13px;
+  color:var(--gold);
+  text-shadow:0 0 18px #f0c04099,0 0 40px #f0c04044;
+  letter-spacing:2px;
+  line-height:1;
+}
+#title-bar .subtitle{
+  color:var(--dim);
+  font-size:17px;
+  letter-spacing:3px;
+}
+#title-bar .version{
+  font-family:'Press Start 2P',monospace;
+  font-size:8px;
+  color:var(--dim);
+  text-align:right;
+  line-height:2;
+}
+
+/* ── GAME GRID ── */
+#game-wrapper{
+  display:grid;
+  grid-template-columns:270px 1fr;
+  gap:10px;
+  flex:1;
+  min-height:0;
+}
+
+#left-col,#right-col{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  min-height:0;
+}
+#right-col{flex:1;}
+
+/* ── PANELS ── */
+.panel{
+  background:var(--panel);
+  border:2px solid var(--border);
+  border-radius:3px;
+  padding:14px 16px;
+  position:relative;
+  overflow:hidden;
+}
+.panel::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(123,94,167,0.04) 0%,transparent 60%);
+  pointer-events:none;
+}
+.panel.glow-anim{
+  animation:panel-glow 0.4s ease-out;
+}
+@keyframes panel-glow{
+  0%{box-shadow:0 0 0 2px var(--accent),0 0 30px var(--accent);}
+  100%{box-shadow:none;}
+}
+.panel-title{
+  font-family:'Press Start 2P',monospace;
+  font-size:8px;
+  color:var(--accent);
+  border-bottom:1px solid var(--border);
+  padding-bottom:8px;
+  margin-bottom:10px;
+  letter-spacing:1px;
+  text-shadow:0 0 8px var(--accent);
+}
+
+/* ── HERO STATS ── */
+#stats-panel{flex:0 0 auto;}
+
+/* desktop: flex ignorowany, działa jak block */
+.hero-section-mobile { display: contents; }
+.hero-info { display: contents; }
+
+.hero-avatar{
+  text-align:center;
+  font-size:52px;
+  margin-bottom:6px;
+  filter:drop-shadow(0 0 12px #7b5ea799);
+  animation:hero-float 3s ease-in-out infinite;
+}
+@keyframes hero-float{
+  0%,100%{transform:translateY(0) rotate(-2deg);}
+  50%{transform:translateY(-8px) rotate(2deg);}
+}
+.hero-name{
+  text-align:center;
+  color:var(--gold);
+  font-size:22px;
+  margin-bottom:4px;
+  text-shadow:0 0 10px #f0c04066;
+}
+.hero-class{
+  text-align:center;
+  color:var(--accent);
+  font-size:15px;
+  margin-bottom:12px;
+  letter-spacing:1px;
+}
+.stat-row{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:5px;font-size:18px;
+}
+.stat-label{color:var(--dim);}
+.stat-value{
+  color:var(--green);
+  transition:color 0.3s,transform 0.3s;
+}
+.stat-value.bump{
+  color:var(--gold);
+  transform:scale(1.4);
+}
+
+.level-wrap{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-bottom:3px;
+  font-size:14px;
+  color:var(--dim);
+}
+.level-wrap span{color:var(--gold);font-size:16px;}
+.xp-bar-wrap{
+  background:#0a0a1a;
+  border:1px solid var(--border);
+  border-radius:2px;
+  height:8px;
+  margin-bottom:12px;
+  overflow:hidden;
+  position:relative;
+}
+.xp-bar{
+  height:100%;
+  background:linear-gradient(90deg,var(--accent),var(--gold));
+  transition:width 0.6s cubic-bezier(0.4,0,0.2,1);
+  position:relative;
+}
+.xp-bar::after{
+  content:'';
+  position:absolute;top:0;right:0;
+  width:3px;height:100%;
+  background:white;
+  opacity:0.7;
+  animation:xp-shimmer 1.5s ease-in-out infinite;
+}
+@keyframes xp-shimmer{0%,100%{opacity:0.7;}50%{opacity:0.2;}}
+
+/* ── QUEST LOG ── */
+#quest-panel{flex:1;min-height:0;overflow-y:auto;}
+.quest-item{
+  font-size:17px;padding:5px 4px;
+  color:var(--dim);
+  display:flex;gap:8px;align-items:center;
+  border-radius:2px;
+  transition:all 0.3s;
+}
+.quest-item.active{
+  color:var(--gold);
+  text-shadow:0 0 8px #f0c04066;
+  animation:quest-pulse 2s ease-in-out infinite;
+}
+@keyframes quest-pulse{
+  0%,100%{opacity:1;}50%{opacity:0.7;}
+}
+.quest-item.done{
+  color:var(--green);
+  text-decoration:line-through;
+  opacity:0.7;
+}
+.quest-item.just-done{
+  animation:quest-complete 0.6s ease-out;
+}
+@keyframes quest-complete{
+  0%{background:#4ade8033;transform:translateX(-4px);}
+  50%{background:#4ade8022;}
+  100%{background:transparent;transform:translateX(0);}
+}
+.quest-icon{flex-shrink:0;width:16px;}
+
+/* ── SCENE ── */
+#scene-panel{
+  flex:1;min-height:0;
+  display:flex;flex-direction:column;gap:10px;
+  overflow:hidden;
+}
+#scene-panel.scene-enter{
+  animation:scene-enter 0.35s ease-out;
+}
+@keyframes scene-enter{
+  0%{opacity:0;transform:translateY(8px);}
+  100%{opacity:1;transform:translateY(0);}
+}
+
+#scene-header{
+  display:flex;align-items:center;gap:14px;
+  flex-shrink:0;
+}
+#scene-art{
+  font-size:56px;
+  filter:drop-shadow(0 0 16px #7b5ea799);
+  animation:art-idle 4s ease-in-out infinite;
+  flex-shrink:0;
+  line-height:1;
+}
+@keyframes art-idle{
+  0%,100%{transform:scale(1) rotate(0deg);}
+  25%{transform:scale(1.05) rotate(-3deg);}
+  75%{transform:scale(0.97) rotate(3deg);}
+}
+#chapter-label{
+  font-family:'Press Start 2P',monospace;
+  font-size:9px;
+  color:var(--accent);
+  letter-spacing:2px;
+  text-shadow:0 0 10px var(--accent);
+  line-height:1.6;
+}
+
+#dialogue-box{
+  flex:1;min-height:0;overflow-y:auto;
+  background:#08081a;
+  border:2px solid var(--border);
+  border-radius:3px;
+  padding:18px 20px;
+  position:relative;
+}
+#dialogue-box::-webkit-scrollbar{width:4px;}
+#dialogue-box::-webkit-scrollbar-track{background:#0a0a1a;}
+#dialogue-box::-webkit-scrollbar-thumb{background:var(--border);}
+
+.speaker{
+  font-family:'Press Start 2P',monospace;
+  font-size:8px;
+  margin-bottom:12px;
+  letter-spacing:1px;
+}
+.speaker.npc{
+  color:var(--claude);
+  text-shadow:0 0 10px var(--claude);
+}
+.speaker.narrator{color:var(--dim);}
+.speaker.system{color:var(--blue);text-shadow:0 0 10px var(--blue);}
+
+#dialogue-text{
+  font-size:22px;
+  line-height:1.75;
+}
+#typing-cursor{
+  display:inline-block;
+  width:10px;height:3px;
+  background:var(--text);
+  margin-left:2px;
+  vertical-align:middle;
+  animation:cursor-blink 0.7s step-end infinite;
+}
+@keyframes cursor-blink{0%,100%{opacity:1;}50%{opacity:0;}}
+
+.highlight{color:var(--gold);font-weight:bold;text-shadow:0 0 8px #f0c04066;}
+.cmd{
+  color:var(--green);
+  background:#04120a;
+  padding:1px 7px;border-radius:2px;
+  font-size:20px;
+  border:1px solid #1a3a1a;
+  text-shadow:0 0 6px #4ade8044;
+}
+.tip{color:var(--blue);}
+.warn{color:var(--red);text-shadow:0 0 6px #f8717144;}
+
+/* ── CHOICES ── */
+#choices-panel{flex:0 0 auto;}
+#choices{display:flex;flex-direction:column;gap:7px;}
+
+.choice-btn{
+  background:linear-gradient(135deg,#110d24 0%,#0d0b1e 100%);
+  border:2px solid var(--border);
+  border-radius:3px;
+  color:var(--text);
+  font-family:'VT323',monospace;
+  font-size:21px;
+  padding:10px 16px;
+  cursor:pointer;
+  text-align:left;
+  transition:all 0.12s;
+  line-height:1.4;
+  position:relative;
+  overflow:hidden;
+}
+.choice-btn::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;
+  width:3px;
+  background:var(--accent);
+  opacity:0;
+  transition:opacity 0.12s;
+}
+.choice-btn:hover{
+  background:linear-gradient(135deg,#1e1540 0%,#16112e 100%);
+  border-color:var(--accent);
+  color:var(--gold);
+  transform:translateX(5px);
+  box-shadow:0 0 16px rgba(123,94,167,0.3),-4px 0 16px rgba(123,94,167,0.2);
+}
+.choice-btn:hover::before{opacity:1;}
+.choice-btn:active{transform:translateX(3px);}
+
+.choice-btn.correct{
+  border-color:var(--green);
+  color:var(--green);
+  background:#041408;
+  box-shadow:0 0 20px rgba(74,222,128,0.4);
+  animation:answer-correct 0.4s ease-out;
+}
+@keyframes answer-correct{
+  0%{transform:scale(1.03);}50%{transform:scale(1.01);}100%{transform:scale(1);}
+}
+.choice-btn.wrong{
+  border-color:var(--red);
+  color:var(--red);
+  background:#140404;
+  animation:answer-wrong 0.3s ease-out;
+}
+@keyframes answer-wrong{
+  0%,100%{transform:translateX(0);}
+  25%{transform:translateX(-5px);}
+  75%{transform:translateX(5px);}
+}
+.choice-btn:disabled{cursor:default;transform:none;}
+
+.choice-prefix{
+  color:var(--accent);
+  margin-right:10px;
+  font-family:'Press Start 2P',monospace;
+  font-size:10px;
+  text-shadow:0 0 8px var(--accent);
+}
+
+/* ── NOTIFICATION ── */
+#notif{
+  position:fixed;top:16px;right:16px;
+  background:linear-gradient(135deg,#1a1030,#120e28);
+  border:2px solid var(--gold);
+  border-radius:4px;
+  padding:14px 20px;
+  font-size:19px;
+  color:var(--gold);
+  max-width:320px;
+  transform:translateX(120%);
+  transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  z-index:300;
+  box-shadow:0 0 30px rgba(240,192,64,0.3);
+}
+#notif.show{transform:translateX(0);}
+#notif .notif-title{
+  font-family:'Press Start 2P',monospace;
+  font-size:8px;
+  margin-bottom:6px;
+  color:var(--gold2);
+  text-shadow:0 0 10px var(--gold);
+}
+
+/* ── CODE BLOCK ── */
+.code-block{
+  background:#040810;
+  border:1px solid #1a1a40;
+  border-left:3px solid var(--accent);
+  border-radius:0 3px 3px 0;
+  padding:10px 14px;
+  margin:8px 0;
+  font-size:18px;
+  color:var(--green);
+  white-space:pre;
+  overflow-x:auto;
+  line-height:1.6;
+  text-shadow:0 0 4px rgba(74,222,128,0.3);
+}
+.code-block::-webkit-scrollbar{height:3px;}
+.code-block::-webkit-scrollbar-track{background:#0a0a1a;}
+.code-block::-webkit-scrollbar-thumb{background:var(--border);}
+
+/* ── FINALE ── */
+#finale{
+  display:none;
+  position:relative;z-index:10;
+  width:100%;max-width:1200px;
+  margin:0 auto;
+  text-align:center;
+  padding:24px;
+  animation:finale-enter 0.6s ease-out;
+}
+@keyframes finale-enter{
+  0%{opacity:0;transform:scale(0.95);}
+  100%{opacity:1;transform:scale(1);}
+}
+#finale h2{
+  font-family:'Press Start 2P',monospace;
+  font-size:18px;
+  color:var(--gold);
+  line-height:2;
+  text-shadow:0 0 30px var(--gold),0 0 60px #f0c04066;
+  margin-bottom:24px;
+  animation:title-glow 2s ease-in-out infinite;
+}
+@keyframes title-glow{
+  0%,100%{text-shadow:0 0 30px var(--gold),0 0 60px #f0c04066;}
+  50%{text-shadow:0 0 50px var(--gold),0 0 100px #f0c04088;}
+}
+#finale .scroll{
+  background:linear-gradient(135deg,#0e0e20,#12102a);
+  border:2px solid var(--gold);
+  border-radius:6px;
+  padding:24px 36px;
+  text-align:left;
+  max-width:860px;
+  margin:0 auto 20px;
+  font-size:20px;
+  line-height:1.9;
+  box-shadow:0 0 40px rgba(240,192,64,0.15);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0 40px;
+}
+#finale .scroll h3{
+  font-family:'Press Start 2P',monospace;
+  font-size:9px;
+  color:var(--accent);
+  margin-bottom:14px;
+  grid-column:1/-1;
+}
+#finale .scroll li{
+  margin-bottom:5px;list-style:none;padding-left:6px;
+}
+#finale .scroll li::before{content:"▸ ";color:var(--gold);}
+#restart-btn{
+  font-family:'Press Start 2P',monospace;
+  font-size:10px;
+  background:linear-gradient(135deg,var(--accent),#5a3f90);
+  border:2px solid var(--accent);
+  border-radius:4px;
+  color:white;
+  padding:14px 32px;
+  cursor:pointer;
+  margin-top:10px;
+  transition:all 0.15s;
+  box-shadow:0 0 20px rgba(123,94,167,0.4);
+}
+#restart-btn:hover{
+  background:linear-gradient(135deg,#9b7ec8,#7b5ea7);
+  box-shadow:0 0 30px rgba(123,94,167,0.7);
+  transform:scale(1.05);
+}
+
+/* ── LEVEL UP OVERLAY ── */
+#levelup-overlay{
+  position:fixed;inset:0;z-index:250;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  background:rgba(10,8,20,0.85);
+  opacity:0;pointer-events:none;
+  transition:opacity 0.3s;
+}
+#levelup-overlay.show{opacity:1;pointer-events:all;}
+#levelup-overlay .lvl-text{
+  font-family:'Press Start 2P',monospace;
+  font-size:28px;
+  color:var(--gold);
+  text-shadow:0 0 40px var(--gold);
+  animation:lvl-bounce 0.5s ease-out;
+  text-align:center;line-height:2;
+}
+@keyframes lvl-bounce{
+  0%{transform:scale(0.5);opacity:0;}
+  70%{transform:scale(1.1);}
+  100%{transform:scale(1);opacity:1;}
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE — iPhone & mobile (max 768px)
+═══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  html, body {
+    height: auto;
+    overflow: auto;
+    font-size: 19px;
+  }
+
+  /* root scrolluje zamiast być zablokowany */
+  #root {
+    height: auto;
+    min-height: 100dvh;
+    padding: 10px 10px env(safe-area-inset-bottom, 10px);
+    gap: 10px;
+    overflow: visible;
+  }
+
+  /* ── HEADER: kompaktowy, wyśrodkowany ── */
+  #title-bar {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+    padding: 6px 4px;
+  }
+  #title-bar h1 {
+    font-size: 9px;
+    letter-spacing: 1px;
+    line-height: 1.6;
+  }
+  #title-bar .subtitle {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+  #title-bar .version {
+    font-size: 7px;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  /* ── GAME GRID: jedna kolumna ── */
+  #game-wrapper {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    flex: none;
+  }
+
+  #left-col, #right-col {
+    min-height: auto;
+    gap: 10px;
+  }
+
+  /* ── STATS: poziomy układ avatar + statsy ── */
+  #stats-panel {
+    padding: 12px 14px;
+  }
+  .hero-section-mobile {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+  }
+  .hero-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .hero-avatar {
+    font-size: 42px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+    text-align: left;
+  }
+  .hero-name  { font-size: 20px; margin-bottom: 2px; text-align: left; }
+  .hero-class { font-size: 13px; margin-bottom: 0;   text-align: left; }
+  .level-wrap { font-size: 13px; }
+  .xp-bar-wrap { margin-bottom: 8px; }
+  .stat-row { font-size: 17px; margin-bottom: 4px; }
+
+  /* ── EKWIPUNEK — mniejszy font ── */
+  #inventory { font-size: 15px !important; line-height: 1.9 !important; }
+
+  /* ── QUEST LOG: compact ── */
+  #quest-panel { flex: none; }
+  .quest-item { font-size: 15px; padding: 4px 4px; }
+
+  /* ── SCENE ── */
+  #scene-panel {
+    flex: none;
+    min-height: auto;
+    overflow: visible;
+  }
+  #scene-art  { font-size: 44px; }
+  #chapter-label { font-size: 8px; }
+  #dialogue-box {
+    min-height: 180px;
+    max-height: 45vh;
+    overflow-y: auto;
+    padding: 14px 14px;
+  }
+  #dialogue-text { font-size: 19px; line-height: 1.65; }
+  .speaker { font-size: 7px; margin-bottom: 8px; }
+
+  /* ── CODE BLOCK — przewijalne poziomo ── */
+  .code-block { font-size: 14px; }
+
+  /* ── CHOICES — większe tap targety ── */
+  #choices-panel { flex: none; }
+  .choice-btn {
+    font-size: 19px;
+    padding: 12px 14px;
+    min-height: 48px;
+  }
+  .choice-prefix { font-size: 9px; }
+
+  /* ── NOTIF — pełna szerokość na dole ── */
+  #notif {
+    top: auto;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    right: 10px;
+    left: 10px;
+    max-width: none;
+    font-size: 17px;
+    transform: translateY(200%);
+  }
+  #notif.show { transform: translateY(0); }
+
+  /* ── LEVEL-UP overlay: mniejszy tekst ── */
+  #levelup-overlay .lvl-text { font-size: 18px; }
+
+  /* ── FINALE ── */
+  #finale { padding: 16px 12px; }
+  #finale h2 { font-size: 11px; margin-bottom: 16px; }
+  #finale .scroll {
+    grid-template-columns: 1fr;
+    padding: 16px 18px;
+    font-size: 17px;
+    gap: 0;
+  }
+  #restart-btn { font-size: 8px; padding: 12px 20px; }
+}
+
+/* ── iPhone SE / bardzo małe (max 390px) ── */
+@media (max-width: 390px) {
+  html, body { font-size: 17px; }
+  #title-bar h1 { font-size: 8px; }
+  #dialogue-text { font-size: 18px; }
+  .choice-btn { font-size: 17px; }
+  #scene-art { font-size: 36px; }
+  .hero-avatar { font-size: 36px; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="stars-canvas"></canvas>
+<div id="scanlines"></div>
+<div id="flash"></div>
+<div id="particles"></div>
+
+<div id="levelup-overlay">
+  <div class="lvl-text" id="lvl-text">⭐ LEVEL UP! ⭐<br><span id="lvl-new-class" style="font-size:14px;color:var(--accent)"></span></div>
+</div>
+
+<div id="root">
+  <!-- HEADER -->
+  <div id="title-bar">
+    <div>
+      <h1>⚔ CLAUDE CODE: KRONIKI TERMINALA ⚔</h1>
+    </div>
+    <div class="subtitle">— Interaktywny Samouczek RPG —</div>
+    <div class="version">v2.0<br>Radosław Sobczak</div>
+  </div>
+
+  <!-- GAME GRID -->
+  <div id="game-wrapper">
+
+    <!-- LEFT COLUMN -->
+    <div id="left-col">
+      <div class="panel" id="stats-panel">
+        <div class="panel-title">▸ BOHATER</div>
+        <div class="hero-section-mobile">
+          <div class="hero-avatar">🧙</div>
+          <div class="hero-info">
+            <div class="hero-name" id="hero-name">Nowicjusz</div>
+            <div class="hero-class" id="hero-class">Terminaler Lv.1</div>
+          </div>
+        </div>
+
+        <div class="level-wrap">POZIOM <span id="lvl-display">1</span></div>
+        <div class="xp-bar-wrap"><div class="xp-bar" id="xp-bar" style="width:0%"></div></div>
+
+        <div class="stat-row"><span class="stat-label">⚡ XP</span><span class="stat-value" id="xp-val">0 / 700</span></div>
+        <div class="stat-row"><span class="stat-label">📖 Wiedza</span><span class="stat-value" id="stat-know">0</span></div>
+        <div class="stat-row"><span class="stat-label">🛠 Praktyka</span><span class="stat-value" id="stat-prac">0</span></div>
+        <div class="stat-row"><span class="stat-label">🔑 Komendy</span><span class="stat-value" id="stat-cmd">0</span></div>
+
+        <div class="panel-title" style="margin-top:14px">▸ EKWIPUNEK</div>
+        <div id="inventory" style="font-size:17px;line-height:2.1;color:var(--dim)">
+          <div>[ ] Wiedza o Claude Code</div>
+          <div>[ ] Znajomość komend /</div>
+          <div>[ ] Praca z plikami</div>
+          <div>[ ] Tajemnica CLAUDE.md</div>
+        </div>
+      </div>
+
+      <div class="panel" id="quest-panel">
+        <div class="panel-title">▸ DZIENNIK QUESTÓW</div>
+        <div id="quest-log">
+          <div class="quest-item active" id="q0"><span class="quest-icon">▶</span>Przebudzenie Terminala</div>
+          <div class="quest-item" id="q1"><span class="quest-icon">○</span>Pierwsze Zaklęcie</div>
+          <div class="quest-item" id="q2"><span class="quest-icon">○</span>Tajemnica Plików</div>
+          <div class="quest-item" id="q3"><span class="quest-icon">○</span>Kodeks Ukośnika</div>
+          <div class="quest-item" id="q4"><span class="quest-icon">○</span>Strażnik Uprawnień</div>
+          <div class="quest-item" id="q5"><span class="quest-icon">○</span>Księga CLAUDE.md</div>
+          <div class="quest-item" id="q6"><span class="quest-icon">○</span>Mistrz Terminala</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div id="right-col">
+      <div class="panel" id="scene-panel">
+        <div id="scene-header">
+          <div id="scene-art">🌑</div>
+          <div id="chapter-label">PROLOG</div>
+        </div>
+        <div id="dialogue-box">
+          <div class="speaker narrator">NARRATOR</div>
+          <div id="dialogue-text"></div>
+        </div>
+      </div>
+
+      <div class="panel" id="choices-panel">
+        <div class="panel-title">▸ AKCJE</div>
+        <div id="choices"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FINALE -->
+<div id="finale">
+  <h2>🏆 QUEST UKOŃCZONY! 🏆<br>ZOSTAŁEŚ MISTRZEM TERMINALA</h2>
+  <div class="scroll">
+    <h3>📜 KODEKS MISTRZA — ŚCIĄGAWKA</h3>
+    <li><span class="cmd">claude</span> — uruchamia Claude Code w terminalu</li>
+    <li><span class="cmd">claude "pytanie"</span> — tryb jednorazowy</li>
+    <li><span class="cmd">/help</span> — lista wszystkich komend</li>
+    <li><span class="cmd">/clear</span> — czyści kontekst rozmowy</li>
+    <li><span class="cmd">/compact</span> — kompresuje kontekst</li>
+    <li><span class="cmd">/review-pr</span> — przegląd pull requesta</li>
+    <li><span class="cmd">/commit</span> — inteligentny git commit</li>
+    <li>Claude <strong>czyta, edytuje i tworzy pliki</strong> autonomicznie</li>
+    <li>System <strong>uprawnień</strong> chroni Twoje dane</li>
+    <li><span class="cmd">CLAUDE.md</span> — pamięć projektu, czytana przy starcie</li>
+    <li>Tryb <span class="cmd">--dangerously-skip-permissions</span> tylko w kontenerach</li>
+  </div>
+  <button id="restart-btn" onclick="restartGame()">▶ ZAGRAJ PONOWNIE</button>
+</div>
+
+<!-- NOTIFICATION -->
+<div id="notif">
+  <div class="notif-title" id="notif-title">OSIĄGNIĘCIE!</div>
+  <div id="notif-text"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+//  STARS BACKGROUND
+// ═══════════════════════════════════════════════
+(function(){
+  const canvas = document.getElementById('stars-canvas');
+  const ctx = canvas.getContext('2d');
+  let W,H,stars=[];
+  function resize(){
+    W=canvas.width=window.innerWidth;
+    H=canvas.height=window.innerHeight;
+  }
+  function mkStars(){
+    stars=[];
+    for(let i=0;i<180;i++){
+      stars.push({
+        x:Math.random()*W, y:Math.random()*H,
+        r:Math.random()*1.5+0.3,
+        a:Math.random(),
+        da:(Math.random()-0.5)*0.008,
+        vx:(Math.random()-0.5)*0.08,
+        vy:(Math.random()-0.5)*0.08
+      });
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    for(const s of stars){
+      s.a+=s.da;
+      if(s.a<0.1||s.a>1){s.da*=-1;}
+      s.x+=s.vx; s.y+=s.vy;
+      if(s.x<0)s.x=W; if(s.x>W)s.x=0;
+      if(s.y<0)s.y=H; if(s.y>H)s.y=0;
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(200,180,255,${s.a*0.7})`;
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',()=>{resize();mkStars();});
+  resize();mkStars();draw();
+})();
+
+// ═══════════════════════════════════════════════
+//  GAME STATE
+// ═══════════════════════════════════════════════
+const state = {
+  xp: 0, level: 1, know: 0, prac: 0, cmd: 0,
+  questsDone: [], inventory: [false,false,false,false],
+  node: 'intro_0', typing: false
+};
+const XP_PER_LEVEL = 700;
+
+// ═══════════════════════════════════════════════
+//  DIALOGUE TREE
+// ═══════════════════════════════════════════════
+const nodes = {
+
+  intro_0: {
+    chapter: 'PROLOG', art: '🌑',
+    speaker: 'NARRATOR',
+    text: `Rok 2025. Królestwo Kodu pogrążone jest w mroku.\n\nStare zaklęcia pisane ręcznie trwają godzinami. Błędy mnożą się jak grzyby po deszczu. Programiści płaczą nad pustymi ekranami o 3 w nocy.\n\nAle legenda mówi o <span class="highlight">Krysztale Terminala</span> — magicznym artefakcie zdolnym pisać kod, czytać pliki i rozwiązywać błędy na życzenie.\n\nTy — dzielny <span class="highlight">Nowicjusz</span> — wyruszasz na poszukiwanie tej mocy.`,
+    choices: [
+      { label: 'Wyruszam w podróż! Jestem gotów!', next: 'intro_1', xp: 30 },
+      { label: 'Co to jest Claude Code właściwie?', next: 'intro_what' }
+    ]
+  },
+
+  intro_what: {
+    chapter: 'PROLOG', art: '📖',
+    speaker: 'NARRATOR',
+    text: `<span class="highlight">Claude Code</span> to asystent AI działający bezpośrednio w Twoim <span class="tip">terminalu</span>.\n\nMoże:\n• Czytać i edytować pliki w Twoim projekcie\n• Pisać kod, naprawiać błędy\n• Wykonywać komendy bash\n• Rozmawiać z Tobą o architekturze\n• Commitować zmiany do git\n\nTo nie chatbot na stronie — to <span class="highlight">agent działający w Twoim środowisku</span>.`,
+    choices: [
+      { label: 'Teraz rozumiem. Wyruszam!', next: 'intro_1', xp: 50 }
+    ]
+  },
+
+  intro_1: {
+    chapter: 'PROLOG', art: '🏰',
+    speaker: 'NARRATOR',
+    text: `Docierasz do <span class="highlight">Bramy Terminala</span>. Wielkie wrota z mrocznego żelaza stoją przede Tobą.\n\nNa kamiennej tablicy wyryty jest napis:\n\n<div class="code-block">  $ claude\n  ╔══════════════════════════╗\n  ║  CLAUDE CODE v1.x        ║\n  ║  Witaj w Królestwie!     ║\n  ╚══════════════════════════╝</div>\n\nZza wrót wyłania się tajemnicza postać w szacie koloru <span class="highlight" style="color:var(--claude)">pomarańczowo-miedzianym</span>.`,
+    choices: [
+      { label: 'Kim jesteś, tajemnicza postaci?', next: 'meet_claude' }
+    ]
+  },
+
+  meet_claude: {
+    chapter: 'PROLOG', art: '🤖',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `Witaj, Nowicjuszu! Jestem <span class="highlight">Claude</span> — Twój przewodnik po Królestwie Kodu.\n\nAby mnie przywołać, wystarczy w terminalu wpisać:\n\n<div class="code-block">  claude</div>\n\nMożesz też zadać mi pytanie od razu:\n\n<div class="code-block">  claude "co robi ta funkcja?"</div>\n\nGdy jesteś już w sesji — po prostu piszesz do mnie jak do czarownika. Jestem tu, by służyć!`,
+    choices: [
+      { label: 'Jak mogę Cię uruchomić po raz pierwszy?', next: 'install_info', stat: 'know' },
+      { label: 'Świetnie! Co możesz dla mnie zrobić?', next: 'ch1_start', xp: 80, questDone: 0 }
+    ]
+  },
+
+  install_info: {
+    chapter: 'PROLOG', art: '⚙️',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `Instalacja jest prosta! Potrzebujesz <span class="highlight">Node.js</span>, a potem:\n\n<div class="code-block">  npm install -g @anthropic-ai/claude-code</div>\n\nAlbo możesz użyć aplikacji desktopowej na Mac/Windows, lub rozszerzenia do <span class="tip">VS Code / JetBrains</span>.\n\nPo instalacji wpisz <span class="cmd">claude</span> w terminalu — i zaczynamy przygodę!`,
+    choices: [
+      { label: 'Rozumiem! Czas na przygodę.', next: 'ch1_start', xp: 60, questDone: 0 }
+    ]
+  },
+
+  ch1_start: {
+    chapter: 'ROZDZIAŁ I — PIERWSZE ZAKLĘCIE', art: '💬',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `Doskonale! Teraz naucz się <span class="highlight">pierwszego zaklęcia</span> — rozmowy ze mną.\n\nGdy jesteś w sesji, po prostu piszesz co chcesz:\n\n<div class="code-block">  > Hej Claude, co to jest rekurencja?\n  > Napraw błąd w pliku app.js\n  > Wyjaśnij mi ten kod: [wklej kod]</div>\n\nJestem kontekstowy — <span class="tip">pamiętam całą naszą rozmowę</span> w danej sesji. Możesz budować na wcześniejszych wiadomościach!`,
+    choices: [
+      { label: 'Sprawdź moją wiedzę — quiz!', next: 'ch1_quiz' },
+      { label: 'Pokaż mi przykładową rozmowę', next: 'ch1_demo' }
+    ]
+  },
+
+  ch1_demo: {
+    chapter: 'ROZDZIAŁ I — PIERWSZE ZAKLĘCIE', art: '📺',
+    speaker: 'NARRATOR',
+    text: `Obserwujesz demonstrację w Kryształowej Kuli:\n\n<div class="code-block">  Ty: Napisz funkcję w Pythonie, która\n      sprawdza czy liczba jest parzysta.\n\n  Claude: def is_even(n):\n              return n % 2 == 0\n\n  Ty: Teraz dodaj obsługę błędów.\n\n  Claude: def is_even(n):\n              if not isinstance(n, int):\n                  raise TypeError("...")\n              return n % 2 == 0</div>\n\nClaude <span class="highlight">pamięta kontekst</span> — nie musisz powtarzać co to była za funkcja!`,
+    choices: [
+      { label: 'Rozumiem! Czas na quiz.', next: 'ch1_quiz', xp: 40 }
+    ]
+  },
+
+  ch1_quiz: {
+    chapter: 'ROZDZIAŁ I — QUIZ', art: '❓',
+    speaker: 'NARRATOR',
+    text: `<span class="highlight">⚔ PRÓBA WIEDZY ⚔</span>\n\nJaką komendą uruchamiasz Claude Code w terminalu?`,
+    isQuiz: true,
+    choices: [
+      { label: 'python claude.py', next: 'ch1_q_wrong', correct: false },
+      { label: 'claude', next: 'ch1_q_right', correct: true, xp: 100, stat: 'know' },
+      { label: 'run claude-code', next: 'ch1_q_wrong', correct: false },
+      { label: 'npm start claude', next: 'ch1_q_wrong', correct: false }
+    ]
+  },
+
+  ch1_q_wrong: {
+    chapter: 'ROZDZIAŁ I — QUIZ', art: '💀',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="warn">Nie tym razem, Nowicjuszu!</span>\n\nPrawidłowa odpowiedź to po prostu:\n\n<div class="code-block">  claude</div>\n\nTo tyle! Jedna komenda i jesteś w sesji. Spróbuj zapamiętać to zaklęcie.`,
+    choices: [
+      { label: 'Rozumiem. Idę dalej.', next: 'ch2_start', xp: 20, questDone: 1 }
+    ]
+  },
+
+  ch1_q_right: {
+    chapter: 'ROZDZIAŁ I — QUIZ', art: '✨',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="highlight">BRAWO!</span> Dokładnie tak! Samo <span class="cmd">claude</span> wystarczy.\n\n<span class="highlight">+100 XP • +1 Wiedza</span>\n\nPierwsze zaklęcie opanowane. Czas na głębsze tajemnice Królestwa...`,
+    choices: [
+      { label: 'Dalej, do kolejnej przygody!', next: 'ch2_start', questDone: 1 }
+    ]
+  },
+
+  ch2_start: {
+    chapter: 'ROZDZIAŁ II — TAJEMNICA PLIKÓW', art: '📁',
+    speaker: 'NARRATOR',
+    text: `Wkraczasz do <span class="highlight">Biblioteki Plików</span> — ogromnej komnaty pełnej ksiąg z kodem.\n\nStary Archiwista podchodzi do Ciebie z wytrzeszczonymi oczami:\n<em>"Claude... on może czytać WSZYSTKIE nasze pliki! Edytować je! Tworzyć nowe!"</em>\n\nTo prawda. Claude ma dostęp do Twojego projektu i może autonomicznie:\n• <span class="tip">Czytać</span> pliki\n• <span class="tip">Edytować</span> istniejące pliki\n• <span class="tip">Tworzyć</span> nowe pliki\n• <span class="tip">Uruchamiać</span> komendy w terminalu`,
+    choices: [
+      { label: 'Jak poprosić Claude o przeczytanie pliku?', next: 'ch2_read' },
+      { label: 'Jak poprosić o edycję kodu?', next: 'ch2_edit' }
+    ]
+  },
+
+  ch2_read: {
+    chapter: 'ROZDZIAŁ II — TAJEMNICA PLIKÓW', art: '👁️',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `Wystarczy powiedzieć mi co chcesz!\n\n<div class="code-block">  > Przeczytaj plik src/app.js\n    i powiedz mi co robi\n\n  > Znajdź wszystkie TODO w projekcie\n\n  > Sprawdź czy są jakieś błędy\n    w folderze /components</div>\n\nSam <span class="highlight">decyduję które pliki przeczytać</span>, aby odpowiedzieć na Twoje pytanie. Nie musisz mi podawać ścieżek — zrobię to za Ciebie!`,
+    choices: [
+      { label: 'A jak edytować pliki?', next: 'ch2_edit', stat: 'know' },
+      { label: 'Pokaż mi quiz z rozdziału!', next: 'ch2_quiz', xp: 50 }
+    ]
+  },
+
+  ch2_edit: {
+    chapter: 'ROZDZIAŁ II — TAJEMNICA PLIKÓW', art: '✏️',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `Edycja jest równie prosta!\n\n<div class="code-block">  > Dodaj obsługę błędów do\n    funkcji fetchUser w api.js\n\n  > Zmień styl przycisku na\n    niebieski w styles.css\n\n  > Napraw TypeScript errors\n    w całym projekcie</div>\n\nPrzed każdą edycją <span class="tip">pokazuję Ci co zamierzam zmienić</span>. Możesz zatwierdzić lub odrzucić zmiany. Jesteś zawsze w kontroli!`,
+    choices: [
+      { label: 'Super! Czas na quiz.', next: 'ch2_quiz', xp: 50, stat: 'prac' }
+    ]
+  },
+
+  ch2_quiz: {
+    chapter: 'ROZDZIAŁ II — QUIZ', art: '❓',
+    speaker: 'NARRATOR',
+    text: `<span class="highlight">⚔ PRÓBA WIEDZY ⚔</span>\n\nChcesz żeby Claude znalazł i naprawił wszystkie błędy TypeScript w projekcie. Co wpisujesz?`,
+    isQuiz: true,
+    choices: [
+      { label: '"Napraw wszystkie błędy TypeScript w projekcie"', next: 'ch2_q_right', correct: true, xp: 120, stat: 'prac' },
+      { label: 'Muszę ręcznie podać każdy plik z błędem', next: 'ch2_q_wrong', correct: false },
+      { label: 'Nie da się — Claude nie rozumie TypeScript', next: 'ch2_q_wrong2', correct: false },
+      { label: 'Muszę najpierw uruchomić tsc i skopiować output', next: 'ch2_q_partial', correct: false }
+    ]
+  },
+
+  ch2_q_wrong: {
+    chapter: 'ROZDZIAŁ II — QUIZ', art: '🤔',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `Niezupełnie! <span class="warn">Nie musisz podawać każdego pliku z osobna.</span>\n\nWystarczy:\n<div class="code-block">  > Napraw wszystkie błędy TypeScript</div>\n\nSam przeszukam projekt, znajdę błędy i naprawię je. <span class="highlight">Jestem agentem — działam autonomicznie!</span>`,
+    choices: [
+      { label: 'Aha, rozumiem! Dalej.', next: 'ch2_q_after', xp: 30, questDone: 2 }
+    ]
+  },
+
+  ch2_q_wrong2: {
+    chapter: 'ROZDZIAŁ II — QUIZ', art: '😮',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `Oho! <span class="warn">Jak najbardziej rozumiem TypeScript!</span>\n\nRozumiem dziesiątki języków: Python, JavaScript, TypeScript, Go, Rust, Java, C++, SQL i wiele innych.\n\nWystarczy powiedzieć mi co poprawić, a zrobię to!`,
+    choices: [
+      { label: 'Wow, nie wiedziałem! Idę dalej.', next: 'ch2_q_after', xp: 30, questDone: 2 }
+    ]
+  },
+
+  ch2_q_partial: {
+    chapter: 'ROZDZIAŁ II — QUIZ', art: '💡',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `To <span class="tip">działa, ale jest zbędne!</span>\n\nMogę sam uruchomić <span class="cmd">tsc</span> w terminalu, zobaczyć błędy i je naprawić. Nie potrzebujesz mi pomagać — to moja praca!\n\nPo prostu powiedz: <em>"Napraw błędy TypeScript"</em> i ja zajmę się resztą.`,
+    choices: [
+      { label: 'Niesamowite! Idę dalej.', next: 'ch2_q_after', xp: 60, questDone: 2 }
+    ]
+  },
+
+  ch2_q_right: {
+    chapter: 'ROZDZIAŁ II — QUIZ', art: '🎯',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="highlight">PERFEKCYJNIE!</span>\n\nDokładnie tak! Wystarczy jedno zdanie w naturalnym języku. Sam:\n1. Uruchomię <span class="cmd">tsc</span> żeby zobaczyć błędy\n2. Znajdę odpowiednie pliki\n3. Naprawię każdy błąd\n4. Sprawdzę czy wszystko działa\n\n<span style="color:var(--gold)">+120 XP • +1 Praktyka</span>`,
+    choices: [
+      { label: 'Naprzód, do Kodeksu Ukośnika!', next: 'ch3_start', questDone: 2 }
+    ]
+  },
+
+  ch2_q_after: {
+    chapter: 'ROZDZIAŁ II', art: '📁',
+    speaker: 'NARRATOR',
+    text: `Udało Ci się zrozumieć Tajemnicę Plików.\n\nMożesz kontynuować podróż do następnej komnaty...`,
+    choices: [
+      { label: 'Idę do Kodeksu Ukośnika!', next: 'ch3_start' }
+    ]
+  },
+
+  ch3_start: {
+    chapter: 'ROZDZIAŁ III — KODEKS UKOŚNIKA', art: '⚡',
+    speaker: 'NARRATOR',
+    text: `Wchodzisz do <span class="highlight">Komnaty Zaklęć Specjalnych</span>.\n\nNa ścianach wyryte są tajemnicze symbole zaczynające się od ukośnika: <span class="highlight">/</span>\n\nClaude podchodzi z ekscytacją:\n<em>"To są Komendy Specjalne — skróty do potężnych rytuałów!"</em>\n\nW Claude Code możesz wpisać <span class="cmd">/</span> i nacisnąć Tab, żeby zobaczyć wszystkie dostępne komendy.`,
+    choices: [
+      { label: 'Pokaż mi najważniejsze komendy!', next: 'ch3_commands' },
+      { label: 'Co robi /help?', next: 'ch3_help' }
+    ]
+  },
+
+  ch3_help: {
+    chapter: 'ROZDZIAŁ III — KODEKS UKOŚNIKA', art: '📋',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="cmd">/help</span> wyświetla listę wszystkich dostępnych komend!\n\nTo zawsze Twój <span class="highlight">pierwszy przystanek</span>, gdy jesteś zagubiony. Wpisz:\n\n<div class="code-block">  /help</div>\n\ni zobaczysz wszystko co możesz zrobić w aktualnej sesji.`,
+    choices: [
+      { label: 'Pokaż mi teraz wszystkie kluczowe komendy!', next: 'ch3_commands', xp: 30 }
+    ]
+  },
+
+  ch3_commands: {
+    chapter: 'ROZDZIAŁ III — KODEKS UKOŚNIKA', art: '📜',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `Oto <span class="highlight">Kodeks Ukośnika</span> — kluczowe komendy:\n\n<div class="code-block">  /help      — lista wszystkich komend\n  /clear     — czyści kontekst rozmowy\n  /compact   — kompresuje kontekst *\n  /review-pr — przegląd pull requesta\n  /commit    — inteligentny git commit\n  /doctor    — diagnostyka środowiska</div>\n\n<span class="tip">* /compact jest ważne!</span> Gdy rozmowa jest długa, tokeny się kończą. /compact podsumowuje historię i zwalnia miejsce.`,
+    choices: [
+      { label: 'Powiedz mi więcej o /compact!', next: 'ch3_compact', stat: 'cmd' },
+      { label: 'A jak działa /commit?', next: 'ch3_commit' },
+      { label: 'Quiz czas!', next: 'ch3_quiz', xp: 60 }
+    ]
+  },
+
+  ch3_compact: {
+    chapter: 'ROZDZIAŁ III — KODEKS UKOŚNIKA', art: '🗜️',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="cmd">/compact</span> to jedno z moich ulubionych zaklęć!\n\nKiedy pracujesz ze mną długo, kontekst rośnie i zajmuje dużo tokenów. <span class="tip">/compact</span> sprytnie podsumowuje naszą rozmowę, zachowując ważne informacje, ale zwalniając miejsce.\n\nUżyj go gdy:\n• Sesja trwa bardzo długo\n• Widzisz ostrzeżenie o kontekście\n• Chcesz "odświeżyć" pamięć bez utraty postępu`,
+    choices: [
+      { label: 'Rozumiem. Co z /commit?', next: 'ch3_commit', stat: 'cmd' },
+      { label: 'Przejdź do quizu!', next: 'ch3_quiz', xp: 40 }
+    ]
+  },
+
+  ch3_commit: {
+    chapter: 'ROZDZIAŁ III — KODEKS UKOŚNIKA', art: '📦',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="cmd">/commit</span> to magiczny skrót do git!\n\nZamiast ręcznie pisać wiadomość commita, powiedz mi:\n<div class="code-block">  /commit</div>\n\nSam:\n1. Sprawdzę co zostało zmienione\n2. Zrozumiem <span class="highlight">dlaczego</span> te zmiany powstały\n3. Napiszę sensowną wiadomość commita\n4. Wykonam <span class="cmd">git commit</span>\n\nNigdy więcej <em>"fix stuff"</em> jako commit message!`,
+    choices: [
+      { label: 'Genialnie! Czas na quiz.', next: 'ch3_quiz', xp: 50, stat: 'cmd' }
+    ]
+  },
+
+  ch3_quiz: {
+    chapter: 'ROZDZIAŁ III — QUIZ', art: '❓',
+    speaker: 'NARRATOR',
+    text: `<span class="highlight">⚔ PRÓBA WIEDZY ⚔</span>\n\nTwoja sesja z Claude trwa już godzinę. Kontekst rozmowy jest ogromny i zaczyna się zapychać. Która komenda pomoże?`,
+    isQuiz: true,
+    choices: [
+      { label: '/clear — czyści wszystko i zaczynamy od nowa', next: 'ch3_q_partial', correct: false },
+      { label: '/compact — kompresuje kontekst zachowując postęp', next: 'ch3_q_right', correct: true, xp: 130, stat: 'cmd' },
+      { label: '/help — pokaże mi co robić', next: 'ch3_q_wrong', correct: false },
+      { label: 'Wyłączam i włączam Claude od nowa', next: 'ch3_q_wrong2', correct: false }
+    ]
+  },
+
+  ch3_q_wrong: {
+    chapter: 'ROZDZIAŁ III', art: '🤔',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="warn">Hmm, /help pokaże Ci komendy</span>, ale nie rozwiąże problemu zapychającego się kontekstu!\n\nPotrzebujesz <span class="cmd">/compact</span> — kompresuje historię rozmowy, zachowując ważne informacje, ale zwalniając miejsce na tokeny.`,
+    choices: [
+      { label: 'Teraz rozumiem! Dalej.', next: 'ch4_start', xp: 30, questDone: 3 }
+    ]
+  },
+
+  ch3_q_wrong2: {
+    chapter: 'ROZDZIAŁ III', art: '😅',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="warn">Wyłączenie i włączenie straci CAŁY postęp!</span>\n\nZamast tego użyj <span class="cmd">/compact</span> — sprytnie podsumowuje rozmowę, zachowuje kontekst projektu, ale zwalnia miejsce w oknie kontekstu.`,
+    choices: [
+      { label: 'O, o wiele lepiej! Idę dalej.', next: 'ch4_start', xp: 30, questDone: 3 }
+    ]
+  },
+
+  ch3_q_partial: {
+    chapter: 'ROZDZIAŁ III', art: '💡',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="tip">/clear działa, ale jest radykalne!</span>\n\nCzyszczy CAŁY kontekst — jakbyś zaczął od zera. Stracisz historię rozmowy.\n\nLepszym wyborem jest <span class="cmd">/compact</span> — <span class="highlight">kompresuje</span> kontekst, zachowując ważne informacje, ale zwalniając tokeny. Użyj /clear tylko gdy naprawdę chcesz zacząć od nowa.`,
+    choices: [
+      { label: 'Rozróżniam już te dwie! Dalej.', next: 'ch4_start', xp: 60, questDone: 3 }
+    ]
+  },
+
+  ch3_q_right: {
+    chapter: 'ROZDZIAŁ III — QUIZ', art: '🌟',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="highlight">ZNAKOMICIE!</span>\n\nDokładnie! <span class="cmd">/compact</span> to właściwe narzędzie:\n• Zachowuje ważny kontekst\n• Zwalnia tokeny\n• Nie tracisz postępu pracy\n\n/clear to opcja nuklearna — używaj tylko gdy naprawdę chcesz zacząć od zera.\n\n<span style="color:var(--gold)">+130 XP • +1 Komendy</span>`,
+    choices: [
+      { label: 'Do następnej komnaty!', next: 'ch4_start', questDone: 3 }
+    ]
+  },
+
+  ch4_start: {
+    chapter: 'ROZDZIAŁ IV — STRAŻNIK UPRAWNIEŃ', art: '🛡️',
+    speaker: 'NARRATOR',
+    text: `Przed kolejną komnatą stoi potężny <span class="highlight">Strażnik Uprawnień</span>.\n\nJego pancerz pokryty jest pytaniami: <em>"Czy jesteś pewien? Czy na pewno to chcesz zrobić?"</em>\n\nClaude szepcze Ci do ucha:\n<em>"To ważny strażnik. System uprawnień chroni Cię przed przypadkowymi działaniami. Zrozum go dobrze!"</em>`,
+    choices: [
+      { label: 'Czym jest system uprawnień?', next: 'ch4_explain' },
+      { label: 'Jak go skonfigurować?', next: 'ch4_modes' }
+    ]
+  },
+
+  ch4_explain: {
+    chapter: 'ROZDZIAŁ IV — STRAŻNIK UPRAWNIEŃ', art: '🔒',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `Gdy wykonuję <span class="highlight">potencjalnie ryzykowne akcje</span> — jak edycja pliku, uruchomienie komendy, czy push do git — <span class="tip">proszę Cię o zgodę</span>.\n\nMożesz:\n• <span style="color:var(--green)">Zatwierdzić</span> — wykonuję akcję\n• <span class="warn">Odrzucić</span> — pomijam tę akcję\n• <span class="tip">Zatwierdź wszystko</span> — ufasz mi w tej sesji\n\nTo <span class="highlight">Ty zawsze jesteś w kontroli</span>. Jestem potężny, ale działam za Twoją zgodą.`,
+    choices: [
+      { label: 'A jakie są tryby uprawnień?', next: 'ch4_modes', stat: 'prac' },
+      { label: 'Idź do quizu!', next: 'ch4_quiz', xp: 50 }
+    ]
+  },
+
+  ch4_modes: {
+    chapter: 'ROZDZIAŁ IV — STRAŻNIK UPRAWNIEŃ', art: '⚙️',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `Istnieją trzy tryby pracy:\n\n<div class="code-block">  1. Ręczny (domyślny)\n     Pytam o zgodę przed każdą akcją.\n\n  2. Auto-zatwierdzaj\n     Ufasz mi — działam bez pytania\n     (do skonfigurowania w ustawieniach)\n\n  3. --dangerously-skip-permissions\n     Tryb pełnego zaufania. Używaj\n     TYLKO w izolowanych środowiskach!</div>\n\n<span class="warn">Uwaga:</span> Flaga <span class="cmd">--dangerously-skip-permissions</span> jest dla kontenerów Docker i CI/CD — nie do codziennej pracy!`,
+    choices: [
+      { label: 'Kiedy używać trybu niebezpiecznego?', next: 'ch4_danger' },
+      { label: 'Rozumiem! Quiz proszę.', next: 'ch4_quiz', xp: 60 }
+    ]
+  },
+
+  ch4_danger: {
+    chapter: 'ROZDZIAŁ IV — STRAŻNIK UPRAWNIEŃ', art: '⚠️',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="warn">UWAGA NOWICJUSZU!</span>\n\n<span class="cmd">--dangerously-skip-permissions</span> używaj TYLKO gdy:\n\n• Pracujesz w <span class="tip">kontenerze Docker</span> bez ważnych danych\n• Uruchamiasz <span class="tip">automatyczne CI/CD</span> pipeline\n• Jesteś w <span class="tip">izolowanym środowisku testowym</span>\n\n<span class="warn">NIGDY</span> na swoim głównym komputerze z ważnymi plikami! Błąd może być nieodwracalny.`,
+    choices: [
+      { label: 'Zapamiętam to ostrzeżenie. Quiz!', next: 'ch4_quiz', xp: 40, stat: 'prac' }
+    ]
+  },
+
+  ch4_quiz: {
+    chapter: 'ROZDZIAŁ IV — QUIZ', art: '❓',
+    speaker: 'NARRATOR',
+    text: `<span class="highlight">⚔ PRÓBA WIEDZY ⚔</span>\n\nClaude pyta Cię o zgodę na edycję pliku <em>config.json</em>. Chcesz żeby zrobił to i wszystkie kolejne akcje bez pytania w tej sesji. Co robisz?`,
+    isQuiz: true,
+    choices: [
+      { label: 'Klikam "Odrzuć" — nie chcę żeby edytował', next: 'ch4_q_wrong', correct: false },
+      { label: 'Klikam "Zatwierdź wszystko" aby mu zaufać w tej sesji', next: 'ch4_q_right', correct: true, xp: 120, stat: 'prac' },
+      { label: 'Używam --dangerously-skip-permissions', next: 'ch4_q_danger', correct: false },
+      { label: 'Muszę najpierw zrestartować Claude z innymi flagami', next: 'ch4_q_wrong2', correct: false }
+    ]
+  },
+
+  ch4_q_wrong: {
+    chapter: 'ROZDZIAŁ IV', art: '🤦',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="warn">Odrzucenie anuluje akcję</span> — Claude jej nie wykona.\n\nJeśli chcesz mu zaufać na czas sesji, wybierz opcję <span class="highlight">"Zatwierdź wszystko"</span> lub podobną. Pozwala to działać bez pytania o zgodę przy każdej akcji.`,
+    choices: [
+      { label: 'Jasne! Idę dalej.', next: 'ch5_start', xp: 30, questDone: 4 }
+    ]
+  },
+
+  ch4_q_wrong2: {
+    chapter: 'ROZDZIAŁ IV', art: '🤔',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `Nie trzeba restartować! <span class="warn">To byłoby bardzo uciążliwe.</span>\n\nGdy pojawia się prośba o zgodę, masz opcję <span class="highlight">"Zatwierdź wszystko"</span> — działa od razu w bieżącej sesji.`,
+    choices: [
+      { label: 'O, to proste! Dalej.', next: 'ch5_start', xp: 30, questDone: 4 }
+    ]
+  },
+
+  ch4_q_danger: {
+    chapter: 'ROZDZIAŁ IV', art: '☠️',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="warn">NIEBEZPIECZNA ŚCIEŻKA!</span>\n\n<span class="cmd">--dangerously-skip-permissions</span> to opcja dla kontenerów i CI/CD — nie dla codziennej pracy.\n\nZamiast tego, gdy pojawia się prośba o zgodę, po prostu wybierz <span class="highlight">"Zatwierdź wszystko"</span>. Prosto i bezpiecznie!`,
+    choices: [
+      { label: 'Rozumiem różnicę! Idę dalej.', next: 'ch5_start', xp: 50, questDone: 4 }
+    ]
+  },
+
+  ch4_q_right: {
+    chapter: 'ROZDZIAŁ IV — QUIZ', art: '🛡️',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="highlight">DOSKONALE!</span>\n\n"Zatwierdź wszystko" to właściwy wybór dla wygodnej pracy — działa w bieżącej sesji i nie wymaga restartu.\n\n<span class="cmd">--dangerously-skip-permissions</span> zostawiamy dla kontenerów i CI/CD. Dobry wybór!\n\n<span style="color:var(--gold)">+120 XP • +1 Praktyka</span>`,
+    choices: [
+      { label: 'Do Księgi CLAUDE.md!', next: 'ch5_start', questDone: 4 }
+    ]
+  },
+
+  ch5_start: {
+    chapter: 'ROZDZIAŁ V — KSIĘGA CLAUDE.md', art: '📗',
+    speaker: 'NARRATOR',
+    text: `W samym sercu Królestwa Kodu, na złotym postumencie, leży <span class="highlight">Święta Księga CLAUDE.md</span>.\n\nLegenda mówi, że każdy kto umieści tę Księgę w swoim projekcie, <span class="tip">Claude będzie pamiętał jej treść</span> na początku każdej sesji.\n\nStary Mędrzec szepcze: <em>"To pamięć projektu. Instrukcje dla maszyny. Wiedza trwała..."</em>`,
+    choices: [
+      { label: 'Czym dokładnie jest CLAUDE.md?', next: 'ch5_explain' },
+      { label: 'Co powinienem w niej zapisać?', next: 'ch5_content' }
+    ]
+  },
+
+  ch5_explain: {
+    chapter: 'ROZDZIAŁ V — KSIĘGA CLAUDE.md', art: '📗',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="highlight">CLAUDE.md</span> to plik tekstowy (Markdown) umieszczony w <span class="tip">głównym katalogu projektu</span>.\n\nGdy zaczynam sesję w tym projekcie, <span class="highlight">automatycznie go czytam</span> i stosuję się do jego zawartości.\n\nTo jak <span class="tip">list instruktażowy</span> zostawiony mi przez Ciebie przed każdą pracą. Bez niego — muszę za każdym razem pytać o kontekst projektu.`,
+    choices: [
+      { label: 'Co w nim zapisać?', next: 'ch5_content', stat: 'know' },
+      { label: 'Quiz!', next: 'ch5_quiz', xp: 50 }
+    ]
+  },
+
+  ch5_content: {
+    chapter: 'ROZDZIAŁ V — KSIĘGA CLAUDE.md', art: '✍️',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `Dobry CLAUDE.md zawiera:\n\n<div class="code-block">  # Opis projektu\n  To jest API serwisu e-commerce...\n\n  # Stack technologiczny\n  - Node.js + TypeScript\n  - PostgreSQL + Prisma\n  - Testy: Jest + Supertest\n\n  # Ważne zasady\n  - Zawsze pisz testy do nowych funkcji\n  - Używaj konwencji nazewniczej camelCase\n  - Nigdy nie commituj bez /review-pr\n\n  # Komendy\n  - npm run dev  — uruchom serwer\n  - npm test     — uruchom testy</div>`,
+    choices: [
+      { label: 'Świetnie! Tworzę CLAUDE.md w każdym projekcie!', next: 'ch5_quiz', xp: 70, stat: 'know' }
+    ]
+  },
+
+  ch5_quiz: {
+    chapter: 'ROZDZIAŁ V — QUIZ', art: '❓',
+    speaker: 'NARRATOR',
+    text: `<span class="highlight">⚔ PRÓBA WIEDZY ⚔</span>\n\nKiedy Claude czyta plik CLAUDE.md?`,
+    isQuiz: true,
+    choices: [
+      { label: 'Tylko gdy go o to poprosisz', next: 'ch5_q_wrong', correct: false },
+      { label: 'Automatycznie na początku każdej sesji w tym projekcie', next: 'ch5_q_right', correct: true, xp: 130, stat: 'know' },
+      { label: 'Raz przy instalacji Claude Code', next: 'ch5_q_wrong2', correct: false },
+      { label: 'CLAUDE.md nie istnieje — to nie jest prawdziwa funkcja', next: 'ch5_q_wrong3', correct: false }
+    ]
+  },
+
+  ch5_q_wrong: {
+    chapter: 'ROZDZIAŁ V', art: '📖',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="warn">Nie! To byłoby mało praktyczne.</span>\n\nCzytam CLAUDE.md <span class="highlight">automatycznie</span>, gdy zaczynam sesję w projekcie. Nie musisz mi o tym przypominać — dzieje się to zawsze, jeśli plik istnieje.`,
+    choices: [
+      { label: 'O, tak wygodniej! Idę dalej.', next: 'ch6_start', xp: 30, questDone: 5 }
+    ]
+  },
+
+  ch5_q_wrong2: {
+    chapter: 'ROZDZIAŁ V', art: '🔄',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="warn">Nie, nie przy instalacji!</span>\n\nCzytam CLAUDE.md <span class="highlight">na początku każdej sesji</span> w projekcie. Nie tylko raz. Każda sesja = nowe odczytanie pliku. To sprawia, że zmiany w CLAUDE.md działają natychmiast!`,
+    choices: [
+      { label: 'Sprytne! Idę dalej.', next: 'ch6_start', xp: 30, questDone: 5 }
+    ]
+  },
+
+  ch5_q_wrong3: {
+    chapter: 'ROZDZIAŁ V', art: '😲',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="warn">CLAUDE.md jak najbardziej istnieje!</span>\n\nTo jedna z najpotężniejszych funkcji. Stwórz plik <span class="cmd">CLAUDE.md</span> w głównym katalogu projektu, a będę go czytał automatycznie na początku każdej sesji!`,
+    choices: [
+      { label: 'Teraz wiem! Idę dalej.', next: 'ch6_start', xp: 40, questDone: 5 }
+    ]
+  },
+
+  ch5_q_right: {
+    chapter: 'ROZDZIAŁ V — QUIZ', art: '📗',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="highlight">MISTRZOWSKA ODPOWIEDŹ!</span>\n\nDokładnie! Automatycznie, na początku każdej sesji, bez żadnych dodatkowych komend.\n\nTo sprawia, że CLAUDE.md jest tak potężny — Twoje instrukcje i kontekst projektu zawsze są ze mną od pierwszej chwili.\n\n<span style="color:var(--gold)">+130 XP • +1 Wiedza</span>`,
+    choices: [
+      { label: 'Ostatni rozdział — do finału!', next: 'ch6_start', questDone: 5 }
+    ]
+  },
+
+  ch6_start: {
+    chapter: 'ROZDZIAŁ VI — MISTRZ TERMINALA', art: '👑',
+    speaker: 'NARRATOR',
+    text: `Stoisz przed <span class="highlight">Tronem Mistrza Terminala</span>.\n\nNa tronie siedzi potężny... Twój przyszły ja! Wersja Ciebie, która opanowała Claude Code do perfekcji.\n\n<em>"Aby zająć to miejsce"</em> — mówi przyszłe Ty — <em>"musisz zdać ostateczny egzamin. Pytanie przekrojowe. Gotowy?"</em>`,
+    choices: [
+      { label: 'JESTEM GOTOWY! Dawaj!', next: 'ch6_quiz' },
+      { label: 'Daj mi chwilę — powtórz kluczowe pojęcia', next: 'ch6_review' }
+    ]
+  },
+
+  ch6_review: {
+    chapter: 'ROZDZIAŁ VI — POWTÓRKA', art: '🔮',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `Szybka powtórka przed bitwą:\n\n<div class="code-block">  claude          — uruchamiasz sesję\n  /compact        — kompresuj kontekst\n  /clear          — wyczyść wszystko\n  /commit         — git commit z AI\n  /review-pr      — przegląd PR\n  /help           — lista komend\n\n  CLAUDE.md       — pamięć projektu\n  Uprawnienia     — kontrolujesz akcje\n  Pliki           — czytam/edytuję/tworzę\n  Bash            — uruchamiam komendy</div>`,
+    choices: [
+      { label: 'Gotowy! Do boju!', next: 'ch6_quiz', xp: 30 }
+    ]
+  },
+
+  ch6_quiz: {
+    chapter: 'ROZDZIAŁ VI — OSTATECZNY EGZAMIN', art: '⚔️',
+    speaker: 'NARRATOR',
+    text: `<span class="highlight">⚔ WIELKA PRÓBA ⚔</span>\n\nJesteś nowym programistą w zespole. Dostajesz dostęp do projektu i chcesz jak najlepiej skonfigurować pracę z Claude Code.\n\n<span class="tip">Co robisz PIERWSZEGO dnia?</span>`,
+    isQuiz: true,
+    choices: [
+      { label: 'Tworzę CLAUDE.md z opisem projektu i konwencjami', next: 'ch6_q_right', correct: true, xp: 200, stat: 'prac' },
+      { label: 'Nic — Claude sam wszystko wywnioskuje', next: 'ch6_q_partial', correct: false },
+      { label: 'Instaluję Claude i od razu piszę kod z jego pomocą', next: 'ch6_q_partial2', correct: false },
+      { label: 'Używam --dangerously-skip-permissions dla szybkości', next: 'ch6_q_wrong', correct: false }
+    ]
+  },
+
+  ch6_q_wrong: {
+    chapter: 'ROZDZIAŁ VI', art: '☠️',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="warn">Nie! Na cudzym projekcie z prawdziwymi danymi?!</span>\n\n<span class="cmd">--dangerously-skip-permissions</span> to tryb dla izolowanych środowisk, nie do codziennej pracy.\n\nPierwszego dnia stwórz <span class="highlight">CLAUDE.md</span> z kontekstem projektu — to da Claude fundament do pracy!`,
+    choices: [
+      { label: 'Zapamiętam to! Kończę quest.', next: 'ch6_finale', xp: 50, questDone: 6 }
+    ]
+  },
+
+  ch6_q_partial: {
+    chapter: 'ROZDZIAŁ VI', art: '🤔',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="tip">Mogę wiele wywnioskować</span>, ale to nie optymalny start!\n\nBez <span class="highlight">CLAUDE.md</span> nie znam:\n• Konwencji kodowania zespołu\n• Stack technologicznego\n• Specjalnych zasad projektu\n• Ważnych komend\n\nStwórz CLAUDE.md pierwszego dnia — oszczędzi to czas w każdej kolejnej sesji!`,
+    choices: [
+      { label: 'Racja! Tworzę CLAUDE.md od razu.', next: 'ch6_finale', xp: 80, questDone: 6 }
+    ]
+  },
+
+  ch6_q_partial2: {
+    chapter: 'ROZDZIAŁ VI', art: '💡',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="tip">Dobry start, ale można lepiej!</span>\n\nPisanie kodu od razu jest w porządku, ale <span class="highlight">pierwszego dnia</span> warto zainwestować 10 minut na stworzenie <span class="cmd">CLAUDE.md</span>.\n\nDzięki temu każda kolejna sesja zaczyna się z pełnym kontekstem projektu!`,
+    choices: [
+      { label: 'Mądre! Robię CLAUDE.md.', next: 'ch6_finale', xp: 80, questDone: 6 }
+    ]
+  },
+
+  ch6_q_right: {
+    chapter: 'ROZDZIAŁ VI', art: '🏆',
+    speaker: 'CLAUDE (AI Czarodziej)', speakerClass: 'npc',
+    text: `<span class="highlight">PERFEKCJA! TO MYŚLENIE MISTRZA!</span>\n\n<span class="cmd">CLAUDE.md</span> pierwszego dnia to najlepsza inwestycja. 10 minut pisania = oszczędność godzin w kolejnych sesjach.\n\nW pliku zapisujesz:\n• Co robi projekt\n• Jakiego stack używacie\n• Konwencje zespołu\n• Ważne komendy\n\nI Claude zawsze startuje z pełną wiedzą!\n\n<span style="color:var(--gold)">+200 XP • +1 Praktyka</span>`,
+    choices: [
+      { label: 'CZAS NA TRON MISTRZA!', next: 'ch6_finale', questDone: 6 }
+    ]
+  },
+
+  ch6_finale: {
+    chapter: 'EPILOG', art: '🏆',
+    speaker: 'NARRATOR',
+    text: `Siadasz na <span class="highlight">Tronie Mistrza Terminala</span>.\n\nKroniki Terminala zostają uzupełnione o Twoje imię.\n\nClaude kłania się nisko:\n\n<em>"Gratulacje, Mistrzu. Opanowałeś podstawy. Ale pamiętaj — prawdziwa moc pochodzi z praktyki. Im więcej ze mną pracujesz, tym więcej odkrywasz."</em>\n\nNowe horyzonty czekają: <span class="tip">Multi-agent workflows, hooks, MCP servers, custom skills...</span>\n\n<span class="highlight">Ale to historia na inną przygodę.</span>`,
+    choices: [
+      { label: '[ ZAKOŃCZ PRZYGODĘ — POKAŻ ŚCIĄGAWKĘ ]', next: '__finale__', xp: 100 }
+    ]
+  }
+};
+
+// ═══════════════════════════════════════════════
+//  ENGINE
+// ═══════════════════════════════════════════════
+
+let typingTimer = null;
+
+function gotoNode(nodeId) {
+  if (nodeId === '__finale__') { showFinale(); return; }
+  state.node = nodeId;
+  const n = nodes[nodeId];
+  if (!n) return;
+
+  // Flash transition
+  flashScreen();
+
+  // Scene enter animation
+  const sp = document.getElementById('scene-panel');
+  sp.classList.remove('scene-enter');
+  void sp.offsetWidth;
+  sp.classList.add('scene-enter');
+
+  // Update art + chapter
+  document.getElementById('scene-art').textContent = n.art || '🌑';
+  document.getElementById('chapter-label').textContent = n.chapter || '';
+
+  // Speaker
+  const dlg = document.getElementById('dialogue-box');
+  const spEl = dlg.querySelector('.speaker');
+  spEl.className = 'speaker ' + (n.speakerClass || 'narrator');
+  spEl.textContent = n.speaker || 'NARRATOR';
+
+  // Typewriter for text
+  startTypewriter(n.text || '', n.choices || [], n.isQuiz || false);
+}
+
+function startTypewriter(html, choices, isQuiz) {
+  if (typingTimer) clearTimeout(typingTimer);
+  const el = document.getElementById('dialogue-text');
+
+  // For texts with HTML tags — render instantly but with fade-in
+  el.innerHTML = html + '<span id="typing-cursor"></span>';
+  el.style.opacity = '0';
+  el.style.transition = 'opacity 0.2s';
+  requestAnimationFrame(() => {
+    el.style.opacity = '1';
+    setTimeout(() => {
+      const cur = document.getElementById('typing-cursor');
+      if (cur) cur.remove();
+      renderChoices(choices, isQuiz);
+    }, 200);
+  });
+}
+
+function renderChoices(choices, isQuiz) {
+  const el = document.getElementById('choices');
+  el.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  choices.forEach((c, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.style.opacity = '0';
+    btn.style.transform = 'translateY(10px)';
+    btn.innerHTML = `<span class="choice-prefix">${letters[i]})</span> ${c.label}`;
+    btn.onclick = () => handleChoice(c, btn, choices, isQuiz);
+    el.appendChild(btn);
+    setTimeout(() => {
+      btn.style.transition = 'opacity 0.2s, transform 0.2s';
+      btn.style.opacity = '1';
+      btn.style.transform = '';
+    }, i * 60);
+  });
+}
+
+function handleChoice(choice, btn, allChoices, isQuiz) {
+  if (isQuiz) {
+    document.querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
+    if (choice.correct === true) {
+      btn.classList.add('correct');
+      spawnParticles(btn, '#4ade80');
+    } else if (choice.correct === false) {
+      btn.classList.add('wrong');
+      allChoices.forEach((c, i) => {
+        if (c.correct === true)
+          document.querySelectorAll('.choice-btn')[i].classList.add('correct');
+      });
+    }
+    setTimeout(() => applyAndGo(choice), 900);
+  } else {
+    applyAndGo(choice);
+  }
+}
+
+function applyAndGo(choice) {
+  if (choice.xp) gainXP(choice.xp);
+  if (choice.stat) {
+    state[choice.stat]++;
+    const el = document.getElementById('stat-' + choice.stat);
+    if (el) {
+      el.textContent = state[choice.stat];
+      el.classList.add('bump');
+      setTimeout(() => el.classList.remove('bump'), 300);
+    }
+  }
+  if (choice.questDone !== undefined) completeQuest(choice.questDone);
+  gotoNode(choice.next);
+}
+
+function gainXP(amount) {
+  state.xp += amount;
+  spawnXPPopup('+' + amount + ' XP');
+  const xpNeeded = state.level * XP_PER_LEVEL;
+  if (state.xp >= xpNeeded) {
+    state.xp -= xpNeeded;
+    state.level++;
+    document.getElementById('lvl-display').textContent = state.level;
+    updateClass();
+    showLevelUp();
+  }
+  updateXPBar();
+}
+
+function updateXPBar() {
+  const needed = state.level * XP_PER_LEVEL;
+  const pct = Math.min(100, (state.xp / needed) * 100);
+  document.getElementById('xp-bar').style.width = pct + '%';
+  document.getElementById('xp-val').textContent = state.xp + ' / ' + needed;
+}
+
+function getClass(lvl) {
+  const cls = ['Terminaler','Kodowy Adept','Skryptowy Mag','Archiwista Kodu','Mistrz Terminala'];
+  return cls[Math.min(lvl-1, cls.length-1)];
+}
+function updateClass() {
+  document.getElementById('hero-class').textContent = getClass(state.level) + ' Lv.' + state.level;
+}
+
+function completeQuest(idx) {
+  if (state.questsDone.includes(idx)) return;
+  state.questsDone.push(idx);
+  const qEl = document.getElementById('q' + idx);
+  if (qEl) {
+    qEl.className = 'quest-item done just-done';
+    qEl.querySelector('.quest-icon').textContent = '✓';
+    setTimeout(() => qEl.classList.remove('just-done'), 600);
+  }
+  const next = document.getElementById('q' + (idx+1));
+  if (next) next.className = 'quest-item active';
+
+  if (idx===0) unlockInv(0,'✅ Wiedza o Claude Code');
+  if (idx===2) unlockInv(1,'✅ Praca z plikami');
+  if (idx===3) unlockInv(2,'✅ Znajomość komend /');
+  if (idx===5) unlockInv(3,'✅ Tajemnica CLAUDE.md');
+
+  const names=['Przebudzenie','Pierwsze Zaklęcie','Tajemnica Plików','Kodeks Ukośnika','Strażnik Uprawnień','Księga CLAUDE.md','Mistrz Terminala'];
+  showNotif('QUEST UKOŃCZONY!', '⚔ ' + (names[idx]||'Quest '+idx));
+
+  // Glow quest panel
+  const qp = document.getElementById('quest-panel');
+  qp.classList.add('glow-anim');
+  setTimeout(() => qp.classList.remove('glow-anim'), 400);
+}
+
+function unlockInv(i, text) {
+  const items = document.getElementById('inventory').children;
+  if (items[i]) { items[i].textContent = text; items[i].style.color = 'var(--green)'; }
+}
+
+function showNotif(title, text) {
+  const el = document.getElementById('notif');
+  document.getElementById('notif-title').textContent = title;
+  document.getElementById('notif-text').textContent = text;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3200);
+}
+
+function showLevelUp() {
+  const ov = document.getElementById('levelup-overlay');
+  document.getElementById('lvl-text').innerHTML =
+    '⭐ LEVEL UP! ⭐<br><span style="font-size:12px;color:var(--accent)">' + getClass(state.level) + ' Lv.' + state.level + '</span>';
+  ov.classList.add('show');
+  setTimeout(() => ov.classList.remove('show'), 2200);
+  spawnBurstParticles();
+}
+
+function flashScreen() {
+  const f = document.getElementById('flash');
+  f.style.opacity = '0.12';
+  setTimeout(() => { f.style.opacity = '0'; }, 80);
+}
+
+function spawnParticles(btn, color) {
+  const rect = btn.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 16; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const angle = (i / 16) * Math.PI * 2;
+    const dist = 60 + Math.random() * 80;
+    p.style.cssText = `
+      left:${cx}px; top:${cy}px;
+      background:${color};
+      --dx:${Math.cos(angle)*dist}px;
+      --dy:${Math.sin(angle)*dist}px;
+      box-shadow:0 0 6px ${color};
+    `;
+    container.appendChild(p);
+    setTimeout(() => p.remove(), 1000);
+  }
+}
+
+function spawnBurstParticles() {
+  const container = document.getElementById('particles');
+  const cx = window.innerWidth / 2;
+  const cy = window.innerHeight / 2;
+  const colors = ['#f0c040','#7b5ea7','#4ade80','#60a5fa','#da7756'];
+  for (let i = 0; i < 40; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.width = p.style.height = (4 + Math.random()*6) + 'px';
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 80 + Math.random() * 200;
+    const color = colors[Math.floor(Math.random()*colors.length)];
+    p.style.cssText = `
+      left:${cx}px; top:${cy}px;
+      background:${color};
+      width:${4+Math.random()*6}px;height:${4+Math.random()*6}px;
+      --dx:${Math.cos(angle)*dist}px;
+      --dy:${Math.sin(angle)*dist}px;
+      box-shadow:0 0 8px ${color};
+      animation-duration:${0.8+Math.random()*0.6}s;
+    `;
+    container.appendChild(p);
+    setTimeout(() => p.remove(), 1500);
+  }
+}
+
+function spawnXPPopup(text) {
+  const statsRect = document.getElementById('xp-val').getBoundingClientRect();
+  const el = document.createElement('div');
+  el.className = 'xp-popup';
+  el.textContent = text;
+  el.style.left = (statsRect.left + 10) + 'px';
+  el.style.top = statsRect.top + 'px';
+  document.getElementById('particles').appendChild(el);
+  setTimeout(() => el.remove(), 1200);
+}
+
+function showFinale() {
+  document.getElementById('root').style.display = 'none';
+  const fin = document.getElementById('finale');
+  fin.style.display = 'block';
+  spawnBurstParticles();
+  setTimeout(spawnBurstParticles, 600);
+  gainXP(100);
+}
+
+function restartGame() {
+  state.xp=0;state.level=1;state.know=0;state.prac=0;state.cmd=0;
+  state.questsDone=[];state.inventory=[false,false,false,false];
+  document.getElementById('root').style.display = 'flex';
+  document.getElementById('finale').style.display = 'none';
+  document.getElementById('lvl-display').textContent='1';
+  document.getElementById('stat-know').textContent='0';
+  document.getElementById('stat-prac').textContent='0';
+  document.getElementById('stat-cmd').textContent='0';
+  document.getElementById('hero-class').textContent='Terminaler Lv.1';
+  updateXPBar();
+  for(let i=0;i<=6;i++){
+    const q=document.getElementById('q'+i);
+    if(q){q.className='quest-item'+(i===0?' active':'');q.querySelector('.quest-icon').textContent=i===0?'▶':'○';}
+  }
+  const items=document.getElementById('inventory').children;
+  const def=['[ ] Wiedza o Claude Code','[ ] Znajomość komend /','[ ] Praca z plikami','[ ] Tajemnica CLAUDE.md'];
+  for(let i=0;i<4;i++){items[i].textContent=def[i];items[i].style.color='';}
+  gotoNode('intro_0');
+}
+
+// ── START ──
+gotoNode('intro_0');
+</script>
+</body>
+</html>
