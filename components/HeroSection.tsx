@@ -238,8 +238,7 @@ export default function HeroSection() {
               <AnalyticsCard />
             </motion.div>
 
-            {/* Floating badges */}
-            <FloatingBadge text="Power BI" delay={0.9} x="-10%" y="10%" />
+            {/* Floating badge */}
             <FloatingBadge text="DAX · SQL · VBA" delay={1.1} x="60%" y="78%" />
 
             {/* Decorative ring */}

@@ -8,12 +8,11 @@ export default function ClientsMarquee() {
   return (
     <section style={{
       padding: '80px 0',
-      borderTop: '1px solid rgba(0,0,0,0.08)',
-      borderBottom: '1px solid rgba(0,0,0,0.08)',
       overflow: 'hidden',
+      background: 'linear-gradient(135deg, #003d20 0%, #1e9953 55%, #006633 100%)',
     }}>
       <div style={{ textAlign: 'center', marginBottom: '48px', padding: '0 24px' }}>
-        <div style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', color: '#6e6e73' }}>
+        <div style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(255,255,255,0.7)', fontWeight: 700 }}>
           Zaufali mi
         </div>
       </div>
@@ -25,15 +24,15 @@ export default function ClientsMarquee() {
               style={{
                 padding: '0 56px',
                 fontSize: '18px',
-                fontWeight: 500,
-                color: 'rgba(0,0,0,0.28)',
+                fontWeight: 700,
+                color: 'rgba(255,255,255,0.75)',
                 whiteSpace: 'nowrap',
                 letterSpacing: '-0.3px',
                 flexShrink: 0,
                 transition: 'color 0.3s',
               }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#1e9953'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(0,0,0,0.28)'; }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#ffffff'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.75)'; }}
             >
               {client}
             </div>

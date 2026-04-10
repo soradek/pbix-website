@@ -262,18 +262,17 @@ export default function Home() {
               <div className="about-photo-sticky" style={{ position: 'sticky', top: '88px' }}>
                 <div style={{
                   width: '100%',
-                  aspectRatio: '1',
+                  aspectRatio: '3/4',
                   maxWidth: '320px',
-                  background: 'rgba(0,0,0,0.04)',
-                  border: '1px solid rgba(0,0,0,0.08)',
                   borderRadius: '28px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '80px',
+                  overflow: 'hidden',
+                  boxShadow: '0 24px 64px rgba(0,0,0,0.12)',
                 }}>
-                  {/* placeholder – do zastąpienia zdjęciem */}
-                  👨‍💼
+                  <img
+                    src="/radek.jpg"
+                    alt="Radosław Sobczak"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  />
                 </div>
               </div>
             </ScrollReveal>
@@ -364,36 +363,60 @@ export default function Home() {
 
       {/* ── JAK TO DZIAŁA ─────────────────────────── */}
       <section className="section-xl" style={{ padding: '120px 24px' }}>
-        <div style={{ maxWidth: '860px', margin: '0 auto' }}>
-          <ScrollReveal>
-            <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-              <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '2px', color: '#6e6e73', marginBottom: '16px' }}>Jak to działa</div>
-              <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-1px', margin: 0 }}>
-                Trzy proste kroki
-              </h2>
-            </div>
-          </ScrollReveal>
-          {[
-            { num: '01', title: 'Wysyłasz zapytanie', desc: 'Napisz do mnie lub wypełnij formularz. Opiszę, które szkolenie najlepiej odpowiada Twoim potrzebom.' },
-            { num: '02', title: 'Ustalamy miejsce i zakres', desc: 'Dostosowuję program do potrzeb Twojej firmy lub grupy. Decydujemy o formie, terminie i lokalizacji.' },
-            { num: '03', title: 'Realizujemy szkolenie', desc: 'Dwudniowe, intensywne warsztaty pełne praktycznych ćwiczeń. Odchodzisz z wiedzą gotową do wdrożenia.' },
-          ].map((step, i) => (
-            <ScrollReveal key={step.num} delay={i * 0.12}>
-              <div
-                className="steps-item"
-                style={{
-                  padding: '48px 0',
-                  borderBottom: i < 2 ? '1px solid rgba(0,0,0,0.07)' : 'none',
-                }}
-              >
-                <div className="steps-num" style={{ fontSize: '56px', fontWeight: 800, color: 'rgba(0,0,0,0.07)', letterSpacing: '-2px', lineHeight: 1, userSelect: 'none' }}>{step.num}</div>
-                <div>
-                  <h3 style={{ fontSize: '22px', fontWeight: 600, color: '#1d1d1f', margin: '0 0 10px' }}>{step.title}</h3>
-                  <p style={{ color: '#6e6e73', fontSize: '15px', lineHeight: 1.75, margin: 0 }}>{step.desc}</p>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div className="steps-two-col">
+            {/* Left – text */}
+            <div>
+              <ScrollReveal>
+                <div style={{ marginBottom: '64px' }}>
+                  <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '2px', color: '#6e6e73', marginBottom: '16px' }}>Jak to działa</div>
+                  <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-1px', margin: 0 }}>
+                    Trzy proste kroki
+                  </h2>
                 </div>
+              </ScrollReveal>
+              {[
+                { num: '01', title: 'Wysyłasz zapytanie', desc: 'Napisz do mnie lub wypełnij formularz. Opiszę, które szkolenie najlepiej odpowiada Twoim potrzebom.' },
+                { num: '02', title: 'Ustalamy miejsce i zakres', desc: 'Dostosowuję program do potrzeb Twojej firmy lub grupy. Decydujemy o formie, terminie i lokalizacji.' },
+                { num: '03', title: 'Realizujemy szkolenie', desc: 'Dwudniowe, intensywne warsztaty pełne praktycznych ćwiczeń. Odchodzisz z wiedzą gotową do wdrożenia.' },
+              ].map((step, i) => (
+                <ScrollReveal key={step.num} delay={i * 0.12}>
+                  <div
+                    className="steps-item"
+                    style={{
+                      padding: '40px 0',
+                      borderBottom: i < 2 ? '1px solid rgba(0,0,0,0.07)' : 'none',
+                    }}
+                  >
+                    <div className="steps-num" style={{ fontSize: '56px', fontWeight: 800, color: 'rgba(0,0,0,0.07)', letterSpacing: '-2px', lineHeight: 1, userSelect: 'none' }}>{step.num}</div>
+                    <div>
+                      <h3 style={{ fontSize: '22px', fontWeight: 600, color: '#1d1d1f', margin: '0 0 10px' }}>{step.title}</h3>
+                      <p style={{ color: '#6e6e73', fontSize: '15px', lineHeight: 1.75, margin: 0 }}>{step.desc}</p>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+
+            {/* Right – photo */}
+            <ScrollReveal delay={0.2}>
+              <div className="steps-photo" style={{
+                borderRadius: '28px',
+                overflow: 'hidden',
+                boxShadow: '0 32px 80px rgba(0,0,0,0.14)',
+                height: '100%',
+                minHeight: '480px',
+                position: 'sticky',
+                top: '88px',
+              }}>
+                <img
+                  src="/radek2.jpg"
+                  alt="Szkolenie Power BI"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                />
               </div>
             </ScrollReveal>
-          ))}
+          </div>
         </div>
       </section>
 
