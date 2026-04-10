@@ -187,12 +187,26 @@ html {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
+  align-items: stretch;
+}
+
+.steps-photo-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+/* FAQ + CTA 2-col */
+.faq-cta-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 80px;
   align-items: start;
 }
 
-.steps-photo {
-  border-radius: 28px;
-  overflow: hidden;
+/* Testimonials 3-card row */
+.testimonials-row {
+  display: flex;
+  gap: 24px;
 }
 
 /* ── Mobile ────────────────────────────────────────── */
@@ -264,13 +278,31 @@ html {
   /* Steps */
   .steps-two-col {
     grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+  .steps-photo-wrapper {
+    display: none !important;
+  }
+
+  /* FAQ + CTA */
+  .faq-cta-grid {
+    grid-template-columns: 1fr !important;
     gap: 48px !important;
   }
-  .steps-photo {
-    min-height: 300px !important;
+  .faq-cta-sticky {
     position: relative !important;
     top: auto !important;
   }
+
+  /* Testimonials */
+  .testimonials-row {
+    flex-direction: column !important;
+  }
+  .testimonials-row > div:nth-child(2),
+  .testimonials-row > div:nth-child(3) {
+    display: none !important;
+  }
+
   .steps-item {
     grid-template-columns: 60px 1fr !important;
     gap: 20px !important;

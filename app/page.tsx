@@ -1,14 +1,15 @@
 'use client';
 
+import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/components/ScrollReveal';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 import { trainings } from '@/data/trainings';
 import { testimonials } from '@/data/testimonials';
 import { faqItems } from '@/data/faq';
 import HeroSection from '@/components/HeroSection';
-import FAQSection from '@/components/FAQSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import ClientsMarquee from '@/components/ClientsMarquee';
 import {
@@ -27,6 +28,7 @@ const categoryIcon = (cat: string) => {
 
 export default function Home() {
   const featuredTraining = trainings[0];
+  const [faqOpen, setFaqOpen] = useState<number | null>(null);
 
   const specializations = [
     {
@@ -289,33 +291,11 @@ export default function Home() {
               </p>
 
               {/* Quote */}
-              <div style={{ borderLeft: '3px solid #1e9953', paddingLeft: '24px', marginBottom: '40px' }}>
+              <div style={{ borderLeft: '3px solid #1e9953', paddingLeft: '24px' }}>
+                <div style={{ color: '#6e6e73', fontSize: '14px', marginBottom: '10px' }}>Podczas każdego szkolenia towarzyszy mi zasada:</div>
                 <div style={{ fontSize: '21px', fontWeight: 600, color: '#1d1d1f', lineHeight: 1.4, fontStyle: 'italic' }}>
                   &ldquo;Robisz raz – używasz cały czas.&rdquo;
                 </div>
-                <div style={{ color: '#6e6e73', fontSize: '13px', marginTop: '8px' }}>Zasada każdego szkolenia</div>
-              </div>
-
-              {/* Badges */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                {[
-                  'Certyfikowany Trener Microsoft (MCT)',
-                  'Ponad 3 000 godzin szkoleń',
-                  'Korporacje i MŚP',
-                  'Szkolenia w PL i EN',
-                ].map(badge => (
-                  <div key={badge} style={{
-                    background: 'rgba(30,153,83,0.07)',
-                    border: '1px solid rgba(30,153,83,0.18)',
-                    borderRadius: '980px',
-                    padding: '7px 16px',
-                    fontSize: '13px',
-                    color: '#1e9953',
-                    fontWeight: 500,
-                  }}>
-                    {badge}
-                  </div>
-                ))}
               </div>
             </ScrollReveal>
           </div>
@@ -399,59 +379,131 @@ export default function Home() {
             </div>
 
             {/* Right – photo */}
-            <ScrollReveal delay={0.2}>
-              <div className="steps-photo" style={{
+            <div className="steps-photo-wrapper">
+              <div style={{
                 borderRadius: '28px',
                 overflow: 'hidden',
                 boxShadow: '0 32px 80px rgba(0,0,0,0.14)',
                 height: '100%',
-                minHeight: '480px',
-                position: 'sticky',
-                top: '88px',
               }}>
                 <img
                   src="/radek2.jpg"
                   alt="Szkolenie Power BI"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%', display: 'block' }}
                 />
               </div>
-            </ScrollReveal>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── FAQ ───────────────────────────────────── */}
-      <FAQSection items={faqItems} />
-
-      {/* ── CTA ───────────────────────────────────── */}
+      {/* ── FAQ + CTA (merged 2-col) ──────────────── */}
       <section style={{ padding: '120px 24px', background: '#f9f9f9' }}>
-        <div style={{ maxWidth: '760px', margin: '0 auto', textAlign: 'center' }}>
-          <ScrollReveal>
-            <div
-              className="cta-box"
-              style={{
-                background: 'linear-gradient(135deg, rgba(30,153,83,0.07) 0%, rgba(30,153,83,0.03) 100%)',
-                border: '1px solid rgba(30,153,83,0.16)',
-                borderRadius: '32px',
-                padding: '80px 64px',
-              }}
-            >
-              <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-1px', margin: '0 0 14px' }}>
-                Gotowy na zmianę?
-              </h2>
-              <p style={{ color: '#6e6e73', fontSize: '17px', lineHeight: 1.7, margin: '0 0 40px' }}>
-                Napisz do mnie – ustalmy zakres szkolenia.
-              </p>
-              <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <Link href="/kontakt" style={{ background: '#1e9953', color: 'white', textDecoration: 'none', padding: '15px 32px', borderRadius: '980px', fontSize: '15px', fontWeight: 600 }}>
-                  Skontaktuj się
-                </Link>
-                <Link href="/szkolenia" style={{ border: '1.5px solid rgba(0,0,0,0.15)', color: '#1d1d1f', textDecoration: 'none', padding: '15px 32px', borderRadius: '980px', fontSize: '15px', fontWeight: 500 }}>
-                  Zobacz szkolenia
-                </Link>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div className="faq-cta-grid">
+
+            {/* Left – FAQ */}
+            <div>
+              <ScrollReveal>
+                <div style={{ marginBottom: '48px' }}>
+                  <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '2px', color: '#6e6e73', marginBottom: '16px' }}>FAQ</div>
+                  <h2 style={{ fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-1px', margin: 0 }}>
+                    Najczęściej zadawane pytania
+                  </h2>
+                </div>
+              </ScrollReveal>
+              <div>
+                {faqItems.map((item, i) => (
+                  <ScrollReveal key={i} delay={i * 0.05}>
+                    <div style={{ borderBottom: '1px solid rgba(0,0,0,0.08)' }}>
+                      <button
+                        onClick={() => setFaqOpen(faqOpen === i ? null : i)}
+                        style={{
+                          width: '100%',
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          padding: '22px 0',
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          gap: '16px',
+                          textAlign: 'left',
+                        }}
+                        aria-expanded={faqOpen === i}
+                      >
+                        <span style={{ fontSize: '16px', fontWeight: 500, color: '#1d1d1f', lineHeight: 1.4 }}>{item.q}</span>
+                        <motion.span
+                          animate={{ rotate: faqOpen === i ? 45 : 0 }}
+                          style={{ fontSize: '24px', color: faqOpen === i ? '#1e9953' : '#6e6e73', flexShrink: 0, lineHeight: 1 }}
+                        >
+                          +
+                        </motion.span>
+                      </button>
+                      <AnimatePresence>
+                        {faqOpen === i && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            style={{ overflow: 'hidden' }}
+                          >
+                            <div style={{ paddingBottom: '22px', color: '#6e6e73', fontSize: '15px', lineHeight: 1.75 }}>
+                              {item.a}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </ScrollReveal>
+                ))}
               </div>
             </div>
-          </ScrollReveal>
+
+            {/* Right – CTA */}
+            <div className="faq-cta-sticky" style={{ position: 'sticky', top: '88px', alignSelf: 'start' }}>
+              <ScrollReveal delay={0.1}>
+                <div style={{
+                  background: 'linear-gradient(135deg, #003d20 0%, #1e9953 55%, #006633 100%)',
+                  borderRadius: '28px',
+                  padding: '56px 48px',
+                  textAlign: 'center',
+                }}>
+                  {/* Decorative circle */}
+                  <div style={{
+                    width: '64px', height: '64px',
+                    background: 'rgba(255,255,255,0.12)',
+                    borderRadius: '50%',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    margin: '0 auto 28px',
+                    fontSize: '28px',
+                  }}>
+                    🎯
+                  </div>
+                  <h2 style={{ fontSize: 'clamp(24px, 3vw, 32px)', fontWeight: 700, color: '#ffffff', letterSpacing: '-0.8px', margin: '0 0 14px', lineHeight: 1.2 }}>
+                    Gotowy na zmianę?
+                  </h2>
+                  <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '16px', lineHeight: 1.7, margin: '0 0 36px' }}>
+                    Napisz do mnie – ustalmy zakres i termin szkolenia dopasowanego do Twoich potrzeb.
+                  </p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <Link href="/kontakt" style={{ background: '#ffffff', color: '#1e9953', textDecoration: 'none', padding: '15px 32px', borderRadius: '980px', fontSize: '15px', fontWeight: 700, display: 'block', textAlign: 'center' }}>
+                      Skontaktuj się
+                    </Link>
+                    <Link href="/szkolenia" style={{ border: '1.5px solid rgba(255,255,255,0.35)', color: '#ffffff', textDecoration: 'none', padding: '15px 32px', borderRadius: '980px', fontSize: '15px', fontWeight: 500, display: 'block', textAlign: 'center' }}>
+                      Zobacz szkolenia
+                    </Link>
+                  </div>
+                  {/* Trust signal */}
+                  <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.55)', fontSize: '13px' }}>
+                    3 500+ uczestników · certyfikat MCT
+                  </div>
+                </div>
+              </ScrollReveal>
+            </div>
+
+          </div>
         </div>
       </section>
 
