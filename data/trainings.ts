@@ -8,6 +8,12 @@ export interface FAQItem {
   a: string;
 }
 
+export interface PricingTier {
+  maxPeople: number;
+  price: number;
+  priceLabel: string;
+}
+
 export interface Training {
   slug: string;
   title: string;
@@ -15,6 +21,7 @@ export interface Training {
   duration: string;
   price: number;
   priceLabel: string;
+  pricingTiers: PricingTier[];
   description: string;
   targetAudience: string[];
   benefits: string[];
@@ -30,8 +37,13 @@ export const trainings: Training[] = [
     title: 'Microsoft Power BI',
     category: 'Power BI',
     duration: '2 dni / 16 godzin',
-    price: 6500,
-    priceLabel: '6 500 zł',
+    price: 4500,
+    priceLabel: 'od 4 500 zł',
+    pricingTiers: [
+      { maxPeople: 5, price: 4500, priceLabel: '4 500 zł' },
+      { maxPeople: 7, price: 5500, priceLabel: '5 500 zł' },
+      { maxPeople: 10, price: 6500, priceLabel: '6 500 zł' },
+    ],
     description: 'Szkolenie „Microsoft Power BI" to idealny start dla każdego, kto chce wejść w świat nowoczesnej analizy danych i dynamicznych raportów. Uczestnicy poznają pełen proces pracy z Power BI – od pobierania i przekształcania danych, przez budowanie czytelnych wizualizacji, aż po publikację raportów dostępnych online i na urządzeniach mobilnych. Kurs kładzie nacisk na praktykę, dzięki czemu już w trakcie zajęć uczestnicy tworzą własne raporty gotowe do wykorzystania w codziennej pracy.',
     targetAudience: [
       'Użytkownicy Power BI Desktop chcący rozwinąć umiejętności zaawansowanego modelowania i przetwarzania danych',
@@ -67,8 +79,13 @@ export const trainings: Training[] = [
     title: 'Microsoft DAX',
     category: 'Power BI',
     duration: '2 dni / 16 godzin',
-    price: 5500,
-    priceLabel: '5 500 zł',
+    price: 3900,
+    priceLabel: 'od 3 900 zł',
+    pricingTiers: [
+      { maxPeople: 5, price: 3900, priceLabel: '3 900 zł' },
+      { maxPeople: 7, price: 4700, priceLabel: '4 700 zł' },
+      { maxPeople: 10, price: 5500, priceLabel: '5 500 zł' },
+    ],
     description: 'Szkolenie Microsoft DAX wprowadza uczestników w świat języka Data Analysis Expressions – narzędzia niezbędnego do budowania zaawansowanych modeli analitycznych w Power BI. Uczestnicy zdobędą umiejętność tworzenia precyzyjnych miar, kolumn obliczeniowych oraz złożonych wyrażeń, które pozwolą wyciągnąć z danych znacznie więcej niż standardowe wizualizacje.',
     targetAudience: [
       'Analitycy potrzebujący narzędzi do budowania rozbudowanych raportów i wielowymiarowych analiz',
@@ -98,8 +115,13 @@ export const trainings: Training[] = [
     title: 'Microsoft Power Query',
     category: 'Power BI',
     duration: '2 dni / 16 godzin',
-    price: 5000,
-    priceLabel: '5 000 zł',
+    price: 3500,
+    priceLabel: 'od 3 500 zł',
+    pricingTiers: [
+      { maxPeople: 5, price: 3500, priceLabel: '3 500 zł' },
+      { maxPeople: 7, price: 4300, priceLabel: '4 300 zł' },
+      { maxPeople: 10, price: 5000, priceLabel: '5 000 zł' },
+    ],
     description: 'Szkolenie Microsoft Power Query to kurs dla osób, które chcą w pełni zapanować nad procesem przygotowywania danych w Power BI. Uczestnicy poznają edytor Power Query od środka – nauczą się automatyzować pobieranie danych, czyścić je ze źródeł tak różnych jak Excel, bazy SQL czy pliki PDF, a także budować własne, reużywalne funkcje w języku M.',
     targetAudience: [
       'Regularni użytkownicy Power BI szukający narzędzi do zaawansowanego przekształcania danych',
@@ -129,8 +151,13 @@ export const trainings: Training[] = [
     title: 'MS Excel – Poziom podstawowy',
     category: 'Excel',
     duration: '2 dni / 16 godzin',
-    price: 3900,
-    priceLabel: '3 900 zł',
+    price: 2700,
+    priceLabel: 'od 2 700 zł',
+    pricingTiers: [
+      { maxPeople: 5, price: 2700, priceLabel: '2 700 zł' },
+      { maxPeople: 7, price: 3300, priceLabel: '3 300 zł' },
+      { maxPeople: 10, price: 3900, priceLabel: '3 900 zł' },
+    ],
     description: 'Szkolenie MS Excel: Poziom podstawowy to solidny start dla każdego, kto chce nauczyć się Excela od podstaw i wykorzystać go w codziennej pracy. W ciągu dwóch dni uczestnicy opanują obsługę arkuszy, podstawowe formuły, formatowanie danych i tworzenie tabel przestawnych – wszystko na praktycznych przykładach z życia zawodowego.',
     targetAudience: [
       'Osoby zaczynające pracę z Excelem lub posiadające jedynie szczątkowe doświadczenie',
@@ -160,8 +187,13 @@ export const trainings: Training[] = [
     title: 'MS Excel – Poziom średniozaawansowany',
     category: 'Excel',
     duration: '2 dni / 16 godzin',
-    price: 4500,
-    priceLabel: '4 500 zł',
+    price: 3200,
+    priceLabel: 'od 3 200 zł',
+    pricingTiers: [
+      { maxPeople: 5, price: 3200, priceLabel: '3 200 zł' },
+      { maxPeople: 7, price: 3900, priceLabel: '3 900 zł' },
+      { maxPeople: 10, price: 4500, priceLabel: '4 500 zł' },
+    ],
     description: 'Szkolenie MS Excel na poziomie średniozaawansowanym to kurs dla osób, które już znają podstawy arkusza kalkulacyjnego i chcą znacząco podnieść swoją efektywność. Uczestnicy opanują zaawansowane funkcje wyszukiwania i logiki, nauczą się tworzyć dynamiczne tabele przestawne oraz stosować formatowanie warunkowe oparte na formułach – umiejętności, które robią realną różnicę w codziennej pracy analitycznej.',
     targetAudience: [
       'Osoby, które ukończyły poziom podstawowy lub samodzielnie opanowały fundamenty Excela',
@@ -191,8 +223,13 @@ export const trainings: Training[] = [
     title: 'MS Excel – Poziom zaawansowany',
     category: 'Excel',
     duration: '2 dni / 16 godzin',
-    price: 5500,
-    priceLabel: '5 500 zł',
+    price: 3900,
+    priceLabel: 'od 3 900 zł',
+    pricingTiers: [
+      { maxPeople: 5, price: 3900, priceLabel: '3 900 zł' },
+      { maxPeople: 7, price: 4700, priceLabel: '4 700 zł' },
+      { maxPeople: 10, price: 5500, priceLabel: '5 500 zł' },
+    ],
     description: 'Szkolenie MS Excel na poziomie zaawansowanym to kurs dla doświadczonych użytkowników, którzy chcą w pełni wykorzystać możliwości nowoczesnego Excela. Program obejmuje funkcje dynamiczne i tablicowe z pakietu Excel 365, narzędzia Power Query i Power Pivot, zaawansowane analizy warunkowe oraz tworzenie interaktywnych dashboardów – wiedza, która realnie odróżnia sprawnego analityka od eksperta.',
     targetAudience: [
       'Doświadczeni użytkownicy Excela posiadający wiedzę z poziomu średniozaawansowanego',
@@ -222,8 +259,13 @@ export const trainings: Training[] = [
     title: 'MS Excel VBA',
     category: 'Excel',
     duration: '2 dni / 16 godzin',
-    price: 5000,
-    priceLabel: '5 000 zł',
+    price: 3500,
+    priceLabel: 'od 3 500 zł',
+    pricingTiers: [
+      { maxPeople: 5, price: 3500, priceLabel: '3 500 zł' },
+      { maxPeople: 7, price: 4300, priceLabel: '4 300 zł' },
+      { maxPeople: 10, price: 5000, priceLabel: '5 000 zł' },
+    ],
     description: 'Szkolenie MS Excel VBA otwiera drzwi do prawdziwej automatyzacji pracy w arkuszach kalkulacyjnych. Uczestnicy poznają środowisko Visual Basic for Applications od pierwszej linii kodu – przez zmienne, pętle i logikę warunkową, aż po tworzenie własnych funkcji, formularzy użytkownika i reagowanie na zdarzenia Excela. Po szkoleniu powtarzalne zadania, które zajmowały godziny, będą wykonywane jednym kliknięciem.',
     targetAudience: [
       'Zaawansowani użytkownicy Excela szukający narzędzi do automatyzacji powtarzalnych czynności',
@@ -254,8 +296,13 @@ export const trainings: Training[] = [
     title: 'MS Excel Power Query',
     category: 'Excel',
     duration: '2 dni / 16 godzin',
-    price: 4500,
-    priceLabel: '4 500 zł',
+    price: 3200,
+    priceLabel: 'od 3 200 zł',
+    pricingTiers: [
+      { maxPeople: 5, price: 3200, priceLabel: '3 200 zł' },
+      { maxPeople: 7, price: 3900, priceLabel: '3 900 zł' },
+      { maxPeople: 10, price: 4500, priceLabel: '4 500 zł' },
+    ],
     description: 'Szkolenie MS Excel Power Query to kurs dla osób, które chcą raz na zawsze porzucić ręczne kopiowanie i wklejanie danych do Excela. Uczestnicy nauczą się importować, łączyć i przekształcać dane z różnych źródeł bezpośrednio w Excelu – bez makr, bez programowania, bez żmudnych operacji ręcznych. Power Query w Excelu to ta sama technologia co w Power BI, lecz dostępna natywnie w arkuszu.',
     targetAudience: [
       'Użytkownicy Excela na poziomie średniozaawansowanym lub zaawansowanym',
@@ -285,8 +332,13 @@ export const trainings: Training[] = [
     title: 'Microsoft SQL Server',
     category: 'SQL',
     duration: '2 dni / 16 godzin',
-    price: 5500,
-    priceLabel: '5 500 zł',
+    price: 3900,
+    priceLabel: 'od 3 900 zł',
+    pricingTiers: [
+      { maxPeople: 5, price: 3900, priceLabel: '3 900 zł' },
+      { maxPeople: 7, price: 4700, priceLabel: '4 700 zł' },
+      { maxPeople: 10, price: 5500, priceLabel: '5 500 zł' },
+    ],
     description: 'Szkolenie Microsoft SQL Server to praktyczny kurs pisania zapytań SQL dla analityków, specjalistów BI i wszystkich, którzy chcą sprawnie pobierać i analizować dane z relacyjnych baz danych. Uczestnicy poznają środowisko SQL Server Management Studio, opanują składnię SELECT od podstaw do podzapytań i wyrażeń CTE, a także nauczą się modyfikować dane i rozumieć podstawy wydajności zapytań.',
     targetAudience: [
       'Analitycy danych i specjaliści BI pobierający dane z baz na potrzeby raportów i dashboardów',
@@ -317,8 +369,13 @@ export const trainings: Training[] = [
     title: 'MS Excel BI',
     category: 'Wizualizacja danych',
     duration: '2 dni / 16 godzin',
-    price: 5500,
-    priceLabel: '5 500 zł',
+    price: 3900,
+    priceLabel: 'od 3 900 zł',
+    pricingTiers: [
+      { maxPeople: 5, price: 3900, priceLabel: '3 900 zł' },
+      { maxPeople: 7, price: 4700, priceLabel: '4 700 zł' },
+      { maxPeople: 10, price: 5500, priceLabel: '5 500 zł' },
+    ],
     description: 'Szkolenie MS Excel BI pokazuje, że Excel potrafi znacznie więcej niż arkusz kalkulacyjny – to pełnoprawna platforma Business Intelligence dostępna bez dodatkowych licencji. Uczestnicy nauczą się łączyć Power Query, Power Pivot i zaawansowane wykresy w jeden spójny ekosystem, tworząc interaktywne dashboardy analityczne bezpośrednio w Excelu. To "Power BI w Excelu" – bez konieczności wdrażania osobnego narzędzia.',
     targetAudience: [
       'Zaawansowani użytkownicy Excela chcący tworzyć profesjonalne dashboardy analityczne',
@@ -348,8 +405,13 @@ export const trainings: Training[] = [
     title: 'MS PowerPoint',
     category: 'Wizualizacja danych',
     duration: '2 dni / 16 godzin',
-    price: 3900,
-    priceLabel: '3 900 zł',
+    price: 2700,
+    priceLabel: 'od 2 700 zł',
+    pricingTiers: [
+      { maxPeople: 5, price: 2700, priceLabel: '2 700 zł' },
+      { maxPeople: 7, price: 3300, priceLabel: '3 300 zł' },
+      { maxPeople: 10, price: 3900, priceLabel: '3 900 zł' },
+    ],
     description: 'Szkolenie MS PowerPoint to kurs komunikacji wizualnej dla osób, które chcą, by ich prezentacje mówiły same za siebie. Uczestnicy nauczą się projektować spójne szablony firmowe, dobierać wykresy i układy do konkretnych danych, stosować animacje z umiarem oraz budować narrację slajdu, która prowadzi odbiorcę od pytania do odpowiedzi. Efekt: prezentacje, które wyglądają profesjonalnie i są skuteczne.',
     targetAudience: [
       'Menedżerowie i specjaliści regularnie prezentujący dane i raporty zarządowi lub klientom',
@@ -379,8 +441,13 @@ export const trainings: Training[] = [
     title: 'MS Excel + PowerPoint – Wizualizacja danych',
     category: 'Wizualizacja danych',
     duration: '2 dni / 16 godzin',
-    price: 4500,
-    priceLabel: '4 500 zł',
+    price: 3200,
+    priceLabel: 'od 3 200 zł',
+    pricingTiers: [
+      { maxPeople: 5, price: 3200, priceLabel: '3 200 zł' },
+      { maxPeople: 7, price: 3900, priceLabel: '3 900 zł' },
+      { maxPeople: 10, price: 4500, priceLabel: '4 500 zł' },
+    ],
     description: 'Szkolenie MS Excel + PowerPoint – Wizualizacja danych to kompletny kurs dla osób, które chcą opanować cały łańcuch wartości raportowania: od surowych danych w Excelu po gotową, przekonującą prezentację w PowerPoint. Uczestnicy poznają zasady doboru wykresów, spójność wizualną między narzędziami oraz techniki tworzenia raportów zarządczych, które są zarówno analitycznie rzetelne, jak i estetycznie profesjonalne.',
     targetAudience: [
       'Analitycy i kontrolerzy regularnie tworzący raporty zarządcze lub prezentacje dla klientów',
@@ -410,8 +477,13 @@ export const trainings: Training[] = [
     title: 'MS Excel AI – współpraca z chatbotami',
     category: 'Excel',
     duration: '2 dni / 16 godzin',
-    price: 7500,
-    priceLabel: '7 500 zł',
+    price: 5000,
+    priceLabel: 'od 5 000 zł',
+    pricingTiers: [
+      { maxPeople: 5, price: 5000, priceLabel: '5 000 zł' },
+      { maxPeople: 7, price: 6300, priceLabel: '6 300 zł' },
+      { maxPeople: 10, price: 7500, priceLabel: '7 500 zł' },
+    ],
     description: 'Szkolenie stanowi praktyczne wprowadzenie do wykorzystania sztucznej inteligencji w codziennej pracy z programem Excel. Uczestnicy poznają sposoby wykorzystania narzędzi AI do automatyzacji zadań, generowania formuł, czyszczenia i transformacji danych oraz wspierania procesów decyzyjnych. Program łączy nowoczesne możliwości sztucznej inteligencji z klasycznymi technikami automatyzacji w Excelu, w tym VBA, umożliwiając tworzenie wydajnych, skalowalnych i biznesowo użytecznych rozwiązań. Szkolenie ma charakter praktyczny i opiera się na rzeczywistych zastosowaniach.',
     targetAudience: [
       'Użytkownicy Excela chcący zwiększyć swoją efektywność dzięki AI',

@@ -66,11 +66,24 @@ export default function TrainingPageClient({ training }: { training: Training })
               </div>
             </div>
             <div style={{ width: '1px', background: 'rgba(0,0,0,0.08)' }} />
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <IconTag size={18} color="#6e6e73" />
-              <div>
-                <div style={{ fontSize: '11px', color: '#6e6e73', marginBottom: '1px', textTransform: 'uppercase', letterSpacing: '0.8px' }}>Cena</div>
-                <div style={{ fontSize: '26px', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-0.5px' }}>{training.priceLabel}</div>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
+                <IconTag size={18} color="#6e6e73" />
+                <div style={{ fontSize: '11px', color: '#6e6e73', textTransform: 'uppercase', letterSpacing: '0.8px' }}>Cena netto za grupę</div>
+              </div>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                {training.pricingTiers.map((tier) => (
+                  <div key={tier.maxPeople} style={{
+                    background: 'rgba(30,153,83,0.06)',
+                    border: '1px solid rgba(30,153,83,0.16)',
+                    borderRadius: '12px',
+                    padding: '10px 16px',
+                    textAlign: 'center',
+                  }}>
+                    <div style={{ fontSize: '10px', color: '#6e6e73', marginBottom: '4px', whiteSpace: 'nowrap' }}>do {tier.maxPeople} osób</div>
+                    <div style={{ fontSize: '18px', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-0.3px' }}>{tier.priceLabel}</div>
+                  </div>
+                ))}
               </div>
             </div>
             {training.language && (
