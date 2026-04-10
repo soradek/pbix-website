@@ -126,40 +126,45 @@ export default function Home() {
           <div className="spec-grid">
             {specializations.map((spec, i) => (
               <ScrollReveal key={spec.title} delay={i * 0.08}>
-                <div
-                  style={{
-                    background: '#ffffff',
-                    border: '1px solid rgba(0,0,0,0.08)',
-                    borderRadius: '20px',
-                    padding: '36px 32px',
-                    height: '100%',
-                    transition: 'all 0.3s',
-                    boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
-                  }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.borderColor = 'rgba(30,153,83,0.3)';
-                    e.currentTarget.style.boxShadow = '0 8px 32px rgba(30,153,83,0.10)';
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.borderColor = 'rgba(0,0,0,0.08)';
-                    e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.04)';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
+                <Link
+                  href={`/szkolenia?kategoria=${encodeURIComponent(spec.category)}`}
+                  style={{ textDecoration: 'none', display: 'block', height: '100%' }}
                 >
-                  <div style={{ marginBottom: '20px', width: '52px', height: '52px', background: 'rgba(30,153,83,0.08)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    {spec.icon}
-                  </div>
-                  <h3 style={{ fontSize: '20px', fontWeight: 600, color: '#1d1d1f', margin: '0 0 10px' }}>{spec.title}</h3>
-                  <p style={{ color: '#6e6e73', fontSize: '14px', lineHeight: 1.7, margin: '0 0 24px' }}>{spec.desc}</p>
-                  <Link
-                    href={`/szkolenia?kategoria=${encodeURIComponent(spec.category)}`}
-                    style={{ color: '#1e9953', textDecoration: 'none', fontSize: '14px', fontWeight: 500, display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                  <div
+                    style={{
+                      background: '#ffffff',
+                      border: '1px solid rgba(0,0,0,0.08)',
+                      borderRadius: '20px',
+                      padding: '36px 32px',
+                      height: '100%',
+                      transition: 'all 0.3s',
+                      boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      boxSizing: 'border-box',
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.borderColor = 'rgba(30,153,83,0.3)';
+                      e.currentTarget.style.boxShadow = '0 8px 32px rgba(30,153,83,0.10)';
+                      e.currentTarget.style.transform = 'translateY(-4px)';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.borderColor = 'rgba(0,0,0,0.08)';
+                      e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.04)';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }}
                   >
-                    Dowiedz się więcej
-                    <IconArrowRight size={14} color="#1e9953" />
-                  </Link>
-                </div>
+                    <div style={{ marginBottom: '20px', width: '52px', height: '52px', background: 'rgba(30,153,83,0.08)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {spec.icon}
+                    </div>
+                    <h3 style={{ fontSize: '20px', fontWeight: 600, color: '#1d1d1f', margin: '0 0 10px' }}>{spec.title}</h3>
+                    <p style={{ color: '#6e6e73', fontSize: '14px', lineHeight: 1.7, margin: '0 0 24px', flex: 1 }}>{spec.desc}</p>
+                    <div style={{ color: '#1e9953', fontSize: '14px', fontWeight: 500, display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                      Dowiedz się więcej
+                      <IconArrowRight size={14} color="#1e9953" />
+                    </div>
+                  </div>
+                </Link>
               </ScrollReveal>
             ))}
           </div>
@@ -192,15 +197,15 @@ export default function Home() {
                 <p style={{ color: 'rgba(255,255,255,0.72)', fontSize: '15px', lineHeight: 1.75, margin: '0 0 32px', maxWidth: '440px' }}>
                   {featuredTraining.description.substring(0, 180)}...
                 </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginBottom: '36px', flexWrap: 'wrap' }}>
-                  <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginBottom: '36px', flexWrap: 'nowrap' }}>
+                  <div style={{ flexShrink: 0 }}>
                     <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.45)', marginBottom: '3px', textTransform: 'uppercase', letterSpacing: '1px' }}>Czas trwania</div>
-                    <div style={{ fontSize: '16px', fontWeight: 600, color: '#fff' }}>{featuredTraining.duration}</div>
+                    <div style={{ fontSize: '16px', fontWeight: 600, color: '#fff', whiteSpace: 'nowrap' }}>{featuredTraining.duration}</div>
                   </div>
-                  <div style={{ width: '1px', height: '36px', background: 'rgba(255,255,255,0.2)' }} />
-                  <div>
+                  <div style={{ width: '1px', height: '36px', background: 'rgba(255,255,255,0.2)', flexShrink: 0 }} />
+                  <div style={{ flexShrink: 0 }}>
                     <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.45)', marginBottom: '3px', textTransform: 'uppercase', letterSpacing: '1px' }}>Cena</div>
-                    <div style={{ fontSize: '24px', fontWeight: 700, color: '#fff' }}>{featuredTraining.priceLabel}</div>
+                    <div style={{ fontSize: '22px', fontWeight: 700, color: '#fff', whiteSpace: 'nowrap' }}>{featuredTraining.priceLabel}</div>
                   </div>
                 </div>
                 <Link

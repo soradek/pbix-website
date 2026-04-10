@@ -37,7 +37,7 @@ export default function Navbar() {
     >
       <nav style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         {/* Logo */}
-        <Link href="/" style={{ textDecoration: 'none' }}>
+        <Link href="/" onClick={() => setIsOpen(false)} style={{ textDecoration: 'none' }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span style={{ fontSize: '20px', fontWeight: 600, color: '#1d1d1f', letterSpacing: '-0.5px' }}>pbix.pl</span>
             <span style={{ fontSize: '10px', color: '#6e6e73', textTransform: 'uppercase', letterSpacing: '1px', lineHeight: 1 }}>Radosław Sobczak</span>

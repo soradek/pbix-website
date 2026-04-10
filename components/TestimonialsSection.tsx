@@ -82,12 +82,14 @@ function TestimonialCard({ t, small = false }: { t: Testimonial; small?: boolean
 const GAP = 24;
 const VISIBLE_DESKTOP = 3;
 const VISIBLE_MOBILE = 1;
+const SWIPE_THRESHOLD = 40;
 
 export default function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
   const [active, setActive] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const [cardWidth, setCardWidth] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const touchStartX = useRef<number | null>(null);
   const total = testimonials.length;
 
   useEffect(() => {
@@ -115,6 +117,19 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
   const prev = () => setActive(a => (a <= 0 ? maxActive : a - 1));
   const next = () => setActive(a => (a >= maxActive ? 0 : a + 1));
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const delta = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(delta) > SWIPE_THRESHOLD) {
+      delta > 0 ? next() : prev();
+    }
+    touchStartX.current = null;
+  };
+
   return (
     <section style={{ padding: isMobile ? '72px 16px' : '120px 24px', background: '#f5f5f7' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -128,7 +143,12 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
         </ScrollReveal>
 
         {/* Sliding track */}
-        <div ref={containerRef} style={{ overflow: 'hidden' }}>
+        <div
+          ref={containerRef}
+          style={{ overflow: 'hidden', touchAction: 'pan-y' }}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           <motion.div
             animate={{ x: cardWidth ? -clampedActive * step : 0 }}
             transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
