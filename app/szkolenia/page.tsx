@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/components/ScrollReveal';
@@ -18,17 +19,27 @@ const getCategoryIcon = (cat: string, size = 20) => {
   return null;
 };
 
-export default function SzkoleniasPage() {
-  const [activeCategory, setActiveCategory] = useState<string>('Wszystkie');
+const VALID_CATEGORIES = ['Power BI', 'Excel', 'SQL', 'Wizualizacja danych'];
+
+function SzkoleniasContent() {
+  const searchParams = useSearchParams();
+  const [activeCategory, setActiveCategory] = useState<string>(() => {
+    const kat = searchParams.get('kategoria');
+    return kat && VALID_CATEGORIES.includes(kat) ? kat : 'Wszystkie';
+  });
+
+  useEffect(() => {
+    const kat = searchParams.get('kategoria');
+    if (kat && VALID_CATEGORIES.includes(kat)) setActiveCategory(kat);
+    else setActiveCategory('Wszystkie');
+  }, [searchParams]);
 
   const filtered = activeCategory === 'Wszystkie'
     ? trainings
     : trainings.filter(t => t.category === activeCategory);
 
   return (
-    <main style={{ background: '#ffffff', minHeight: '100vh' }}>
-      <Navbar />
-
+    <>
       {/* Hero */}
       <section style={{ padding: '140px 24px 72px', textAlign: 'center' }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
@@ -78,7 +89,7 @@ export default function SzkoleniasPage() {
           </div>
 
           <div className="training-grid">
-            {filtered.map((training, i) => (
+            {filtered.map((training) => (
               <TrainingCardLocal key={training.slug} training={training} />
             ))}
           </div>
@@ -111,7 +122,17 @@ export default function SzkoleniasPage() {
           </ScrollReveal>
         </div>
       </section>
+    </>
+  );
+}
 
+export default function SzkoleniasPage() {
+  return (
+    <main style={{ background: '#ffffff', minHeight: '100vh' }}>
+      <Navbar />
+      <Suspense fallback={<div style={{ minHeight: '60vh' }} />}>
+        <SzkoleniasContent />
+      </Suspense>
       <Footer />
     </main>
   );

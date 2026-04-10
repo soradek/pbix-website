@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Training } from '@/data/trainings';
@@ -12,6 +12,10 @@ import {
 
 export default function TrainingPageClient({ training }: { training: Training }) {
   const [openModule, setOpenModule] = useState<number | null>(0);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [training.slug]);
 
   return (
     <>
