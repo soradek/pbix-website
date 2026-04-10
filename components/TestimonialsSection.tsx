@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Testimonial } from '@/data/testimonials';
 import ScrollReveal from './ScrollReveal';
 
@@ -25,9 +25,9 @@ function TestimonialCard({ t }: { t: Testimonial }) {
       padding: '36px 32px',
       display: 'flex',
       flexDirection: 'column',
-      flex: 1,
-      minWidth: 0,
+      height: '100%',
       boxShadow: '0 8px 32px rgba(30,153,83,0.25)',
+      boxSizing: 'border-box',
     }}>
       <StarRow />
       <div style={{
@@ -76,22 +76,32 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   );
 }
 
-// Pure x-axis slide — no opacity, no absolute positioning
-const slideVariants = {
-  enter: (dir: number) => ({ x: dir > 0 ? '100%' : '-100%' }),
-  center: { x: '0%' },
-  exit: (dir: number) => ({ x: dir > 0 ? '-100%' : '100%' }),
-};
+const GAP = 24;
+const VISIBLE = 3;
 
 export default function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
   const [active, setActive] = useState(0);
-  const [direction, setDirection] = useState(1);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [cardWidth, setCardWidth] = useState(0);
   const total = testimonials.length;
+  const maxActive = total - VISIBLE;
 
-  const prev = () => { setDirection(-1); setActive(a => (a - 1 + total) % total); };
-  const next = () => { setDirection(1); setActive(a => (a + 1) % total); };
+  useEffect(() => {
+    const update = () => {
+      if (containerRef.current) {
+        const w = containerRef.current.offsetWidth;
+        setCardWidth((w - GAP * (VISIBLE - 1)) / VISIBLE);
+      }
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
 
-  const visible = [0, 1, 2].map(offset => testimonials[(active + offset) % total]);
+  const step = cardWidth + GAP;
+
+  const prev = () => setActive(a => (a <= 0 ? maxActive : a - 1));
+  const next = () => setActive(a => (a >= maxActive ? 0 : a + 1));
 
   return (
     <section style={{ padding: '120px 24px', background: '#f5f5f7' }}>
@@ -105,28 +115,28 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
           </div>
         </ScrollReveal>
 
-        {/* overflow:hidden clips slide, mode="wait" prevents height doubling */}
-        <div style={{ overflow: 'hidden' }}>
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={active}
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.40, ease: [0.22, 1, 0.36, 1] }}
-              className="testimonials-row"
-              style={{ display: 'flex', gap: '24px', alignItems: 'stretch' }}
-            >
-              {visible.map((t, i) => (
-                <TestimonialCard key={i} t={t} />
-              ))}
-            </motion.div>
-          </AnimatePresence>
+        {/* Sliding track — moves by 1 card per click */}
+        <div ref={containerRef} style={{ overflow: 'hidden' }}>
+          <motion.div
+            animate={{ x: cardWidth ? -active * step : 0 }}
+            transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+            style={{ display: 'flex', gap: `${GAP}px` }}
+          >
+            {testimonials.map((t, i) => (
+              <div
+                key={i}
+                style={{
+                  flex: `0 0 ${cardWidth || `calc((100% - ${GAP * (VISIBLE - 1)}px) / ${VISIBLE})`}px`,
+                  minWidth: cardWidth ? `${cardWidth}px` : `calc((100% - ${GAP * (VISIBLE - 1)}px) / ${VISIBLE})`,
+                }}
+              >
+                <TestimonialCard t={t} />
+              </div>
+            ))}
+          </motion.div>
         </div>
 
-        {/* Navigation — centered */}
+        {/* Navigation */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', marginTop: '48px' }}>
           <button
             onClick={prev}
@@ -146,10 +156,10 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
           </button>
 
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-            {testimonials.map((_, i) => (
+            {Array.from({ length: maxActive + 1 }, (_, i) => (
               <button
                 key={i}
-                onClick={() => { setDirection(i > active ? 1 : -1); setActive(i); }}
+                onClick={() => setActive(i)}
                 style={{
                   width: i === active ? '28px' : '8px', height: '8px',
                   borderRadius: '4px',

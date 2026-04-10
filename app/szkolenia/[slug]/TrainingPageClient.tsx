@@ -12,10 +12,21 @@ import {
 
 export default function TrainingPageClient({ training }: { training: Training }) {
   const [openModule, setOpenModule] = useState<number | null>(0);
+  const isExcel = training.category === 'Excel';
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [training.slug]);
+
+  // Hero text colors: white on dark video (Excel), normal otherwise
+  const heroTextPrimary = isExcel ? '#ffffff' : '#1d1d1f';
+  const heroTextSecondary = isExcel ? 'rgba(255,255,255,0.80)' : '#6e6e73';
+  const heroBadgeBg = isExcel ? 'rgba(255,255,255,0.12)' : 'rgba(30,153,83,0.08)';
+  const heroBadgeBorder = isExcel ? 'rgba(255,255,255,0.25)' : 'rgba(30,153,83,0.2)';
+  const heroBadgeColor = isExcel ? '#ffffff' : '#1e9953';
+  const heroDivider = isExcel ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.08)';
+  const heroPricingBg = isExcel ? 'rgba(255,255,255,0.10)' : 'rgba(30,153,83,0.06)';
+  const heroPricingBorder = isExcel ? 'rgba(255,255,255,0.20)' : 'rgba(30,153,83,0.16)';
 
   return (
     <>
@@ -24,22 +35,54 @@ export default function TrainingPageClient({ training }: { training: Training })
         className="training-hero"
         style={{
           padding: '140px 24px 100px',
-          background: 'linear-gradient(180deg, rgba(30,153,83,0.04) 0%, rgba(255,255,255,0) 100%)',
+          background: training.category === 'Excel'
+            ? 'transparent'
+            : 'linear-gradient(180deg, rgba(30,153,83,0.04) 0%, rgba(255,255,255,0) 100%)',
           borderBottom: '1px solid rgba(0,0,0,0.07)',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+        {/* Video background for Excel trainings */}
+        {training.category === 'Excel' && (
+          <>
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                zIndex: 0,
+              }}
+            >
+              <source src="/BG-EX.mp4" type="video/mp4" />
+            </video>
+            {/* Semi-transparent overlay — video is dark so subtle lift */}
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(135deg, rgba(0,20,8,0.72) 0%, rgba(0,40,16,0.60) 50%, rgba(0,20,8,0.70) 100%)',
+              zIndex: 1,
+            }} />
+          </>
+        )}
+        <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
           {/* Category badge */}
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: '6px',
-            background: 'rgba(30,153,83,0.08)',
-            border: '1px solid rgba(30,153,83,0.2)',
+            background: heroBadgeBg,
+            border: `1px solid ${heroBadgeBorder}`,
             borderRadius: '980px',
             padding: '5px 14px',
             fontSize: '11px',
             letterSpacing: '1.5px',
             textTransform: 'uppercase' as const,
-            color: '#1e9953',
+            color: heroBadgeColor,
             fontWeight: 600,
             marginBottom: '20px',
           }}>
@@ -50,7 +93,7 @@ export default function TrainingPageClient({ training }: { training: Training })
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            style={{ fontSize: 'clamp(36px, 6vw, 68px)', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-2px', lineHeight: 1.05, margin: '0 0 32px' }}
+            style={{ fontSize: 'clamp(36px, 6vw, 68px)', fontWeight: 700, color: heroTextPrimary, letterSpacing: '-2px', lineHeight: 1.05, margin: '0 0 32px', textShadow: isExcel ? '0 2px 12px rgba(0,0,0,0.4)' : 'none' }}
           >
             {training.title}
           </motion.h1>
@@ -63,29 +106,29 @@ export default function TrainingPageClient({ training }: { training: Training })
             style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', marginBottom: '44px' }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <IconClock size={18} color="#6e6e73" />
+              <IconClock size={18} color={heroTextSecondary} />
               <div>
-                <div style={{ fontSize: '11px', color: '#6e6e73', marginBottom: '1px', textTransform: 'uppercase', letterSpacing: '0.8px' }}>Czas trwania</div>
-                <div style={{ fontSize: '16px', fontWeight: 600, color: '#1d1d1f' }}>{training.duration}</div>
+                <div style={{ fontSize: '11px', color: heroTextSecondary, marginBottom: '1px', textTransform: 'uppercase', letterSpacing: '0.8px' }}>Czas trwania</div>
+                <div style={{ fontSize: '16px', fontWeight: 600, color: heroTextPrimary }}>{training.duration}</div>
               </div>
             </div>
-            <div style={{ width: '1px', background: 'rgba(0,0,0,0.08)' }} />
+            <div style={{ width: '1px', background: heroDivider }} />
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                <IconTag size={18} color="#6e6e73" />
-                <div style={{ fontSize: '11px', color: '#6e6e73', textTransform: 'uppercase', letterSpacing: '0.8px' }}>Cena netto za grupę</div>
+                <IconTag size={18} color={heroTextSecondary} />
+                <div style={{ fontSize: '11px', color: heroTextSecondary, textTransform: 'uppercase', letterSpacing: '0.8px' }}>Cena netto za grupę</div>
               </div>
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                 {training.pricingTiers.map((tier) => (
                   <div key={tier.maxPeople} style={{
-                    background: 'rgba(30,153,83,0.06)',
-                    border: '1px solid rgba(30,153,83,0.16)',
+                    background: heroPricingBg,
+                    border: `1px solid ${heroPricingBorder}`,
                     borderRadius: '12px',
                     padding: '10px 16px',
                     textAlign: 'center',
                   }}>
-                    <div style={{ fontSize: '10px', color: '#6e6e73', marginBottom: '4px', whiteSpace: 'nowrap' }}>do {tier.maxPeople} osób</div>
-                    <div style={{ fontSize: '18px', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-0.3px' }}>{tier.priceLabel}</div>
+                    <div style={{ fontSize: '10px', color: heroTextSecondary, marginBottom: '4px', whiteSpace: 'nowrap' }}>do {tier.maxPeople} osób</div>
+                    <div style={{ fontSize: '18px', fontWeight: 700, color: heroTextPrimary, letterSpacing: '-0.3px' }}>{tier.priceLabel}</div>
                   </div>
                 ))}
               </div>
@@ -94,8 +137,8 @@ export default function TrainingPageClient({ training }: { training: Training })
               <>
                 <div style={{ width: '1px', background: 'rgba(0,0,0,0.08)' }} />
                 <div>
-                  <div style={{ fontSize: '11px', color: '#6e6e73', marginBottom: '1px', textTransform: 'uppercase', letterSpacing: '0.8px' }}>Język</div>
-                  <div style={{ fontSize: '15px', fontWeight: 500, color: '#1d1d1f' }}>{training.language}</div>
+                  <div style={{ fontSize: '11px', color: heroTextSecondary, marginBottom: '1px', textTransform: 'uppercase', letterSpacing: '0.8px' }}>Język</div>
+                  <div style={{ fontSize: '15px', fontWeight: 500, color: heroTextPrimary }}>{training.language}</div>
                 </div>
               </>
             )}
@@ -110,7 +153,7 @@ export default function TrainingPageClient({ training }: { training: Training })
             <Link href="/zapisy" style={{ background: '#1e9953', color: 'white', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 600 }}>
               Zapisz się
             </Link>
-            <Link href="/kontakt" style={{ border: '1.5px solid rgba(0,0,0,0.15)', color: '#1d1d1f', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 500 }}>
+            <Link href="/kontakt" style={{ border: `1.5px solid ${isExcel ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.15)'}`, color: isExcel ? '#ffffff' : '#1d1d1f', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 500 }}>
               Zapytaj o termin
             </Link>
           </motion.div>

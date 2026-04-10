@@ -53,7 +53,7 @@ export default function KontaktPage() {
                 Napisz do mnie
               </h1>
               <p style={{ color: '#6e6e73', fontSize: '17px', lineHeight: 1.6, margin: 0 }}>
-                Opisz swoje potrzeby, a dobiorę szkolenie dopasowane do Twojego poziomu i celów.
+                Opisz swoje potrzeby, a dobiorę szkolenie dopasowane do<br />Twojego poziomu i celów.
               </p>
             </div>
           </ScrollReveal>
