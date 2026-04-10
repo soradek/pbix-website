@@ -6,13 +6,13 @@ import Footer from '@/components/Footer';
 import ScrollReveal from '@/components/ScrollReveal';
 import Link from 'next/link';
 import { trainings, Training } from '@/data/trainings';
-import { IconBarChart, IconGrid, IconDatabase, IconPieChart, IconArrowRight } from '@/components/Icons';
+import { IconBarChart, IconExcel, IconDatabase, IconPieChart, IconArrowRight } from '@/components/Icons';
 
 const categories = ['Wszystkie', 'Power BI', 'Excel', 'SQL', 'Wizualizacja danych'] as const;
 
 const getCategoryIcon = (cat: string, size = 20) => {
   if (cat === 'Power BI') return <IconBarChart size={size} color="currentColor" />;
-  if (cat === 'Excel') return <IconGrid size={size} color="currentColor" />;
+  if (cat === 'Excel') return <IconExcel size={size} color="currentColor" />;
   if (cat === 'SQL') return <IconDatabase size={size} color="currentColor" />;
   if (cat === 'Wizualizacja danych') return <IconPieChart size={size} color="currentColor" />;
   return null;

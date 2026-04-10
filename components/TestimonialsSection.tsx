@@ -33,7 +33,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
       <div style={{
         fontSize: '64px',
         lineHeight: 0.7,
-        color: 'rgba(255,255,255,0.4)',
+        color: 'rgba(255,255,255,0.35)',
         fontFamily: 'Georgia, serif',
         marginBottom: '16px',
         userSelect: 'none',
@@ -76,6 +76,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   );
 }
 
+// Pure x-axis slide — no opacity, no absolute positioning
 const slideVariants = {
   enter: (dir: number) => ({ x: dir > 0 ? '100%' : '-100%' }),
   center: { x: '0%' },
@@ -93,7 +94,7 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
   const visible = [0, 1, 2].map(offset => testimonials[(active + offset) % total]);
 
   return (
-    <section style={{ padding: '120px 24px', background: '#f5f5f7', overflow: 'hidden' }}>
+    <section style={{ padding: '120px 24px', background: '#f5f5f7' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <ScrollReveal>
           <div style={{ textAlign: 'center', marginBottom: '72px' }}>
@@ -104,9 +105,9 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
           </div>
         </ScrollReveal>
 
-        {/* Sliding cards — overflow hidden clips the sliding motion */}
-        <div style={{ position: 'relative', overflow: 'hidden', minHeight: '340px' }}>
-          <AnimatePresence initial={false} custom={direction} mode="sync">
+        {/* overflow:hidden clips slide, mode="wait" prevents height doubling */}
+        <div style={{ overflow: 'hidden' }}>
+          <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={active}
               custom={direction}
@@ -114,14 +115,9 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.40, ease: [0.22, 1, 0.36, 1] }}
               className="testimonials-row"
-              style={{
-                display: 'flex',
-                gap: '24px',
-                position: 'absolute',
-                width: '100%',
-              }}
+              style={{ display: 'flex', gap: '24px', alignItems: 'stretch' }}
             >
               {visible.map((t, i) => (
                 <TestimonialCard key={i} t={t} />
@@ -130,8 +126,8 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
           </AnimatePresence>
         </div>
 
-        {/* Navigation */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px', marginTop: '48px' }}>
+        {/* Navigation — centered */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', marginTop: '48px' }}>
           <button
             onClick={prev}
             style={{
@@ -140,6 +136,7 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
               color: '#1d1d1f', fontSize: '18px', cursor: 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               boxShadow: '0 2px 8px rgba(0,0,0,0.08)', transition: 'all 0.2s', flexShrink: 0,
+              outline: 'none',
             }}
             onMouseEnter={e => { e.currentTarget.style.background = '#1e9953'; e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = '#1e9953'; }}
             onMouseLeave={e => { e.currentTarget.style.background = '#ffffff'; e.currentTarget.style.color = '#1d1d1f'; e.currentTarget.style.borderColor = 'rgba(0,0,0,0.12)'; }}
@@ -148,7 +145,7 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
             ←
           </button>
 
-          <div style={{ display: 'flex', gap: '8px' }}>
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
             {testimonials.map((_, i) => (
               <button
                 key={i}
@@ -159,6 +156,7 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
                   background: i === active ? '#1e9953' : 'rgba(0,0,0,0.18)',
                   border: 'none', cursor: 'pointer', padding: 0,
                   transition: 'all 0.3s ease',
+                  outline: 'none',
                 }}
                 aria-label={`Opinia ${i + 1}`}
               />
@@ -169,13 +167,14 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
             onClick={next}
             style={{
               width: '48px', height: '48px', borderRadius: '50%',
-              background: '#1e9953', border: '1.5px solid #1e9953',
+              background: '#1e9953', border: 'none',
               color: '#ffffff', fontSize: '18px', cursor: 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxShadow: '0 2px 8px rgba(30,153,83,0.3)', transition: 'all 0.2s', flexShrink: 0,
+              boxShadow: '0 4px 12px rgba(30,153,83,0.35)', transition: 'all 0.2s', flexShrink: 0,
+              outline: 'none',
             }}
-            onMouseEnter={e => { e.currentTarget.style.background = '#17803f'; e.currentTarget.style.borderColor = '#17803f'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = '#1e9953'; e.currentTarget.style.borderColor = '#1e9953'; }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#17803f'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(30,153,83,0.5)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = '#1e9953'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(30,153,83,0.35)'; }}
             aria-label="Następna opinia"
           >
             →
