@@ -16,6 +16,23 @@ export function IconBarChart({ size = 24, color = 'currentColor', strokeWidth = 
   );
 }
 
+export function IconExcel({ size = 24, color = 'currentColor', strokeWidth = 1.75 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
+      {/* Table grid */}
+      <rect x="2" y="8" width="20" height="13" rx="2"/>
+      <line x1="2" y1="12" x2="22" y2="12"/>
+      <line x1="2" y1="16" x2="22" y2="16"/>
+      <line x1="9" y1="8" x2="9" y2="21"/>
+      <line x1="16" y1="8" x2="16" y2="21"/>
+      {/* f(x) formula bar */}
+      <path d="M4 6 Q6 2 8 6" strokeWidth={strokeWidth * 0.9}/>
+      <line x1="10" y1="4" x2="14" y2="4"/>
+      <line x1="12" y1="2" x2="12" y2="6"/>
+    </svg>
+  );
+}
+
 export function IconGrid({ size = 24, color = 'currentColor', strokeWidth = 1.75 }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">

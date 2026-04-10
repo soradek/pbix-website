@@ -18,15 +18,15 @@ export const faqItems: FAQItem[] = [
   },
   {
     q: 'Dlaczego możesz mi zaufać?',
-    a: 'W ciągu ostatnich 5 lat z moich szkoleń skorzystało ponad 3 500 osób. Jestem Certyfikowanym Trenerem Microsoftu (MCT) – co oznacza zdany egzamin merytoryczny i potwierdzenie umiejętności dydaktycznych.',
+    a: 'W ciągu ostatnich 7 lat z moich szkoleń skorzystało ponad 4 500 osób z firm takich jak Volkswagen, Lufthansa, Coca-Cola czy Boston Scientific. Jestem Certyfikowanym Trenerem Microsoftu (MCT) – tytuł ten wymaga zdania egzaminu merytorycznego i potwierdzenia umiejętności dydaktycznych bezpośrednio przez Microsoft. Każde szkolenie kończę anonimową ankietą ewaluacyjną – wyniki są konsekwentnie powyżej 4,8/5.',
   },
   {
     q: 'Czy zajęcia są praktyczne, czy teoretyczne?',
     a: 'Kurs łączy solidne podstawy teoretyczne z przykładami biznesowymi. Największą wartość stanowią ćwiczenia oparte na realnych sytuacjach, które najczęściej sprawiają kursantom trudność.',
   },
   {
-    q: 'Czy certyfikat poszkoleniowy jest przydatny?',
-    a: 'Ukończenie szkolenia potwierdza certyfikat w wersji polskiej i angielskiej. To mocny argument na rozmowie kwalifikacyjnej, a ja chętnie potwierdzę Twoje umiejętności na LinkedIn.',
+    q: 'Czy po szkoleniu dostanę certyfikat?',
+    a: 'Tak – każdy uczestnik otrzymuje certyfikat ukończenia w wersji polskiej i angielskiej. Ponieważ jestem Certyfikowanym Trenerem Microsoft (MCT), certyfikat wydany przeze mnie ma realną wagę na rynku pracy i jest chętnie uznawany przez pracodawców. To mocny argument na rozmowie kwalifikacyjnej, a ja chętnie potwierdzę Twoje umiejętności na LinkedIn.',
   },
   {
     q: 'Co jeśli nie mam wymaganego oprogramowania?',

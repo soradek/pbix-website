@@ -13,7 +13,7 @@ import HeroSection from '@/components/HeroSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import ClientsMarquee from '@/components/ClientsMarquee';
 import {
-  IconBarChart, IconGrid, IconDatabase, IconPieChart,
+  IconBarChart, IconExcel, IconDatabase, IconPieChart,
   IconTarget, IconBriefcase, IconZap, IconUser,
   IconArrowRight,
 } from '@/components/Icons';
@@ -21,7 +21,7 @@ import {
 const categoryIcon = (cat: string) => {
   const s = { size: 28, color: '#1e9953' };
   if (cat === 'Power BI') return <IconBarChart {...s} />;
-  if (cat === 'Excel') return <IconGrid {...s} />;
+  if (cat === 'Excel') return <IconExcel {...s} />;
   if (cat === 'SQL') return <IconDatabase {...s} />;
   return <IconPieChart {...s} />;
 };
@@ -38,7 +38,7 @@ export default function Home() {
       category: 'Power BI',
     },
     {
-      icon: <IconGrid size={32} color="#1e9953" />,
+      icon: <IconExcel size={32} color="#1e9953" />,
       title: 'Excel',
       desc: 'Od podstaw po VBA i Power Query. Excel jako platforma analityczna, nie tylko arkusz kalkulacyjny.',
       category: 'Excel',
@@ -76,7 +76,7 @@ export default function Home() {
     {
       icon: <IconUser size={32} color="#1e9953" />,
       title: 'Indywidualne podejście',
-      desc: 'Dostosowuję tempo i zakres do poziomu grupy. Nikt nie jest pozostawiony za sobą.',
+      desc: 'Dostosowuję tempo i zakres do poziomu grupy. Nikt nie jest pozostawiony samemu sobie.',
     },
   ];
 
@@ -284,7 +284,7 @@ export default function Home() {
                 Radosław Sobczak
               </h2>
               <p style={{ color: '#6e6e73', fontSize: '16px', lineHeight: 1.85, marginBottom: '20px' }}>
-                Jestem certyfikowanym trenerem Microsoft (MCT) specjalizującym się w szkoleniach z Power BI, Excela, SQL i VBA. Przez ponad 5 lat pracy szkoleniowej przeszkoliłem ponad 3 500 uczestników – od pracowników korporacji po właścicieli małych firm.
+                Jestem certyfikowanym trenerem Microsoft (MCT) specjalizującym się w szkoleniach z Power BI, Excela, SQL i VBA. Przez ponad 7 lat pracy szkoleniowej przeszkoliłem ponad 4 500 uczestników – od pracowników korporacji po właścicieli małych firm.
               </p>
               <p style={{ color: '#6e6e73', fontSize: '16px', lineHeight: 1.85, marginBottom: '40px' }}>
                 Moim celem nie jest nauczenie Cię obsługi narzędzia, lecz pokazanie, jak rozwiązywać realne problemy biznesowe. Każde szkolenie opieram na przykładach z prawdziwych projektów.
@@ -470,22 +470,11 @@ export default function Home() {
                   padding: '56px 48px',
                   textAlign: 'center',
                 }}>
-                  {/* Decorative circle */}
-                  <div style={{
-                    width: '64px', height: '64px',
-                    background: 'rgba(255,255,255,0.12)',
-                    borderRadius: '50%',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    margin: '0 auto 28px',
-                    fontSize: '28px',
-                  }}>
-                    🎯
-                  </div>
-                  <h2 style={{ fontSize: 'clamp(24px, 3vw, 32px)', fontWeight: 700, color: '#ffffff', letterSpacing: '-0.8px', margin: '0 0 14px', lineHeight: 1.2 }}>
-                    Gotowy na zmianę?
+                  <h2 style={{ fontSize: 'clamp(22px, 2.5vw, 30px)', fontWeight: 700, color: '#ffffff', letterSpacing: '-0.8px', margin: '0 0 14px', lineHeight: 1.2 }}>
+                    Porozmawiajmy o Twoim szkoleniu.
                   </h2>
-                  <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '16px', lineHeight: 1.7, margin: '0 0 36px' }}>
-                    Napisz do mnie – ustalmy zakres i termin szkolenia dopasowanego do Twoich potrzeb.
+                  <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px', lineHeight: 1.75, margin: '0 0 36px' }}>
+                    Napisz do mnie – ustalmy zakres i termin zajęć dopasowanych do Twoich potrzeb.
                   </p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                     <Link href="/kontakt" style={{ background: '#ffffff', color: '#1e9953', textDecoration: 'none', padding: '15px 32px', borderRadius: '980px', fontSize: '15px', fontWeight: 700, display: 'block', textAlign: 'center' }}>
@@ -497,7 +486,7 @@ export default function Home() {
                   </div>
                   {/* Trust signal */}
                   <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.55)', fontSize: '13px' }}>
-                    3 500+ uczestników · certyfikat MCT
+                    4 500+ uczestników · certyfikat MCT
                   </div>
                 </div>
               </ScrollReveal>

@@ -30,6 +30,7 @@ body {
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 72px; /* compensate for fixed navbar height */
 }
 
 ::selection {
@@ -92,7 +93,7 @@ html {
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee 28s linear infinite;
+  animation: marquee 42s linear infinite;
 }
 
 .marquee-track:hover {

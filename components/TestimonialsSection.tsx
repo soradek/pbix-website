@@ -9,7 +9,7 @@ function StarRow() {
   return (
     <div style={{ display: 'flex', gap: '3px', marginBottom: '20px' }}>
       {[1, 2, 3, 4, 5].map(i => (
-        <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="#1e9953">
+        <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="#facc15">
           <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
         </svg>
       ))}
@@ -20,21 +20,20 @@ function StarRow() {
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
     <div style={{
-      background: '#ffffff',
-      border: '1px solid rgba(0,0,0,0.08)',
+      background: 'linear-gradient(135deg, #1a8a49 0%, #1e9953 60%, #178040 100%)',
       borderRadius: '20px',
       padding: '36px 32px',
-      boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
       display: 'flex',
       flexDirection: 'column',
       flex: 1,
       minWidth: 0,
+      boxShadow: '0 8px 32px rgba(30,153,83,0.25)',
     }}>
       <StarRow />
       <div style={{
         fontSize: '64px',
         lineHeight: 0.7,
-        color: '#1e9953',
+        color: 'rgba(255,255,255,0.4)',
         fontFamily: 'Georgia, serif',
         marginBottom: '16px',
         userSelect: 'none',
@@ -42,7 +41,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
         &ldquo;
       </div>
       <p style={{
-        color: '#3d3d3f',
+        color: '#ffffff',
         fontSize: '15px',
         lineHeight: 1.75,
         margin: '0 0 28px',
@@ -56,47 +55,42 @@ function TestimonialCard({ t }: { t: Testimonial }) {
         alignItems: 'center',
         gap: '14px',
         paddingTop: '20px',
-        borderTop: '1px solid rgba(0,0,0,0.07)',
+        borderTop: '1px solid rgba(255,255,255,0.18)',
       }}>
         <div style={{
           width: '44px', height: '44px',
           borderRadius: '50%',
-          background: 'linear-gradient(135deg, #1e9953, #17803f)',
+          background: 'rgba(255,255,255,0.2)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: '17px', fontWeight: 700, color: 'white', flexShrink: 0,
+          border: '1.5px solid rgba(255,255,255,0.3)',
         }}>
           {t.name.charAt(0)}
         </div>
         <div>
-          <div style={{ fontSize: '14px', fontWeight: 700, color: '#1d1d1f' }}>{t.name}</div>
-          <div style={{ fontSize: '12px', color: '#6e6e73', marginTop: '2px' }}>{t.role} · {t.company}</div>
+          <div style={{ fontSize: '14px', fontWeight: 700, color: '#ffffff' }}>{t.name}</div>
+          <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.65)', marginTop: '2px' }}>{t.role} · {t.company}</div>
         </div>
       </div>
     </div>
   );
 }
 
+const slideVariants = {
+  enter: (dir: number) => ({ x: dir > 0 ? '100%' : '-100%' }),
+  center: { x: '0%' },
+  exit: (dir: number) => ({ x: dir > 0 ? '-100%' : '100%' }),
+};
+
 export default function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
   const [active, setActive] = useState(0);
   const [direction, setDirection] = useState(1);
   const total = testimonials.length;
 
-  const prev = () => {
-    setDirection(-1);
-    setActive(a => (a - 1 + total) % total);
-  };
-  const next = () => {
-    setDirection(1);
-    setActive(a => (a + 1) % total);
-  };
+  const prev = () => { setDirection(-1); setActive(a => (a - 1 + total) % total); };
+  const next = () => { setDirection(1); setActive(a => (a + 1) % total); };
 
   const visible = [0, 1, 2].map(offset => testimonials[(active + offset) % total]);
-
-  const variants = {
-    enter: (dir: number) => ({ x: dir * 80, opacity: 0 }),
-    center: { x: 0, opacity: 1 },
-    exit: (dir: number) => ({ x: dir * -80, opacity: 0 }),
-  };
 
   return (
     <section style={{ padding: '120px 24px', background: '#f5f5f7', overflow: 'hidden' }}>
@@ -110,19 +104,24 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
           </div>
         </ScrollReveal>
 
-        {/* Sliding cards */}
-        <div style={{ position: 'relative', overflow: 'hidden' }}>
-          <AnimatePresence mode="wait" custom={direction}>
+        {/* Sliding cards — overflow hidden clips the sliding motion */}
+        <div style={{ position: 'relative', overflow: 'hidden', minHeight: '340px' }}>
+          <AnimatePresence initial={false} custom={direction} mode="sync">
             <motion.div
               key={active}
               custom={direction}
-              variants={variants}
+              variants={slideVariants}
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
               className="testimonials-row"
-              style={{ display: 'flex', gap: '24px' }}
+              style={{
+                display: 'flex',
+                gap: '24px',
+                position: 'absolute',
+                width: '100%',
+              }}
             >
               {visible.map((t, i) => (
                 <TestimonialCard key={i} t={t} />

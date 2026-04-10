@@ -21,7 +21,7 @@ export default function HeroSection() {
         backgroundPosition: 'center center',
         backgroundRepeat: 'no-repeat',
       }} />
-      {/* Dark overlay – zapewnia czytelność */}
+      {/* Dark overlay */}
       <div style={{
         position: 'absolute', inset: 0,
         background: 'linear-gradient(135deg, rgba(0,0,0,0.72) 0%, rgba(0,20,10,0.65) 50%, rgba(0,0,0,0.60) 100%)',
@@ -38,25 +38,6 @@ export default function HeroSection() {
       }} />
 
       <div style={{ position: 'relative', zIndex: 1, maxWidth: '860px', margin: '0 auto', width: '100%' }}>
-
-        {/* Badge */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: '8px',
-            background: 'rgba(30,153,83,0.25)',
-            border: '1px solid rgba(30,153,83,0.5)',
-            borderRadius: '980px',
-            padding: '6px 16px',
-            fontSize: '11px',
-            letterSpacing: '1.5px',
-            textTransform: 'uppercase' as const,
-            color: '#5dca87',
-            marginBottom: '32px',
-          }}>
-            <span style={{ width: '6px', height: '6px', background: '#1e9953', borderRadius: '50%', display: 'inline-block' }} />
-            Certyfikowany Trener Microsoft (MCT)
-          </div>
-        </motion.div>
 
         {/* H1 */}
         <motion.h1
@@ -83,7 +64,7 @@ export default function HeroSection() {
           transition={{ duration: 0.7, delay: 0.2 }}
           style={{
             fontSize: 'clamp(16px, 2vw, 19px)',
-            color: 'rgba(255,255,255,0.75)',
+            color: '#ffffff',
             lineHeight: 1.75,
             margin: '0 0 44px',
             maxWidth: '540px',
@@ -132,32 +113,13 @@ export default function HeroSection() {
             Napisz do mnie
           </Link>
         </motion.div>
-
-        {/* Social proof */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          style={{ display: 'flex', gap: '40px', marginTop: '56px', flexWrap: 'wrap' }}
-        >
-          {[
-            { value: '4 500+', label: 'uczestników' },
-            { value: '7 lat', label: 'doświadczenia' },
-            { value: '4 000+', label: 'godzin szkoleń' },
-          ].map((s) => (
-            <div key={s.label}>
-              <div style={{ fontSize: '22px', fontWeight: 700, color: '#ffffff', letterSpacing: '-0.5px' }}>{s.value}</div>
-              <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.55)', marginTop: '3px' }}>{s.label}</div>
-            </div>
-          ))}
-        </motion.div>
       </div>
 
       {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.4 }}
+        transition={{ delay: 1.2 }}
         style={{ position: 'absolute', bottom: '32px', left: '50%', transform: 'translateX(-50%)' }}
       >
         <motion.div
