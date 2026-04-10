@@ -17,7 +17,7 @@ function StarRow() {
   );
 }
 
-function TestimonialCard({ t, key: _key }: { t: Testimonial; key?: number }) {
+function TestimonialCard({ t }: { t: Testimonial }) {
   return (
     <div style={{
       background: '#ffffff',
@@ -31,7 +31,6 @@ function TestimonialCard({ t, key: _key }: { t: Testimonial; key?: number }) {
       minWidth: 0,
     }}>
       <StarRow />
-      {/* Quote mark */}
       <div style={{
         fontSize: '64px',
         lineHeight: 0.7,
@@ -60,17 +59,11 @@ function TestimonialCard({ t, key: _key }: { t: Testimonial; key?: number }) {
         borderTop: '1px solid rgba(0,0,0,0.07)',
       }}>
         <div style={{
-          width: '44px',
-          height: '44px',
+          width: '44px', height: '44px',
           borderRadius: '50%',
           background: 'linear-gradient(135deg, #1e9953, #17803f)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '17px',
-          fontWeight: 700,
-          color: 'white',
-          flexShrink: 0,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: '17px', fontWeight: 700, color: 'white', flexShrink: 0,
         }}>
           {t.name.charAt(0)}
         </div>
@@ -83,19 +76,30 @@ function TestimonialCard({ t, key: _key }: { t: Testimonial; key?: number }) {
   );
 }
 
-const VISIBLE = 3;
-
 export default function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
   const [active, setActive] = useState(0);
+  const [direction, setDirection] = useState(1);
   const total = testimonials.length;
 
-  const prev = () => setActive(a => (a - 1 + total) % total);
-  const next = () => setActive(a => (a + 1) % total);
+  const prev = () => {
+    setDirection(-1);
+    setActive(a => (a - 1 + total) % total);
+  };
+  const next = () => {
+    setDirection(1);
+    setActive(a => (a + 1) % total);
+  };
 
   const visible = [0, 1, 2].map(offset => testimonials[(active + offset) % total]);
 
+  const variants = {
+    enter: (dir: number) => ({ x: dir * 80, opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (dir: number) => ({ x: dir * -80, opacity: 0 }),
+  };
+
   return (
-    <section style={{ padding: '120px 24px', background: '#f5f5f7' }}>
+    <section style={{ padding: '120px 24px', background: '#f5f5f7', overflow: 'hidden' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <ScrollReveal>
           <div style={{ textAlign: 'center', marginBottom: '72px' }}>
@@ -106,15 +110,17 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
           </div>
         </ScrollReveal>
 
-        {/* Cards */}
-        <div style={{ position: 'relative' }}>
-          <AnimatePresence mode="wait">
+        {/* Sliding cards */}
+        <div style={{ position: 'relative', overflow: 'hidden' }}>
+          <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={active}
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -30 }}
-              transition={{ duration: 0.35 }}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
               className="testimonials-row"
               style={{ display: 'flex', gap: '24px' }}
             >
@@ -127,51 +133,32 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
 
         {/* Navigation */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px', marginTop: '48px' }}>
-          {/* Prev arrow */}
           <button
             onClick={prev}
             style={{
-              width: '48px', height: '48px',
-              borderRadius: '50%',
-              background: '#ffffff',
-              border: '1.5px solid rgba(0,0,0,0.12)',
-              color: '#1d1d1f',
-              fontSize: '18px',
-              cursor: 'pointer',
+              width: '48px', height: '48px', borderRadius: '50%',
+              background: '#ffffff', border: '1.5px solid rgba(0,0,0,0.12)',
+              color: '#1d1d1f', fontSize: '18px', cursor: 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-              transition: 'all 0.2s',
-              flexShrink: 0,
+              boxShadow: '0 2px 8px rgba(0,0,0,0.08)', transition: 'all 0.2s', flexShrink: 0,
             }}
-            onMouseEnter={e => {
-              e.currentTarget.style.background = '#1e9953';
-              e.currentTarget.style.color = '#fff';
-              e.currentTarget.style.borderColor = '#1e9953';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.background = '#ffffff';
-              e.currentTarget.style.color = '#1d1d1f';
-              e.currentTarget.style.borderColor = 'rgba(0,0,0,0.12)';
-            }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#1e9953'; e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = '#1e9953'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = '#ffffff'; e.currentTarget.style.color = '#1d1d1f'; e.currentTarget.style.borderColor = 'rgba(0,0,0,0.12)'; }}
             aria-label="Poprzednia opinia"
           >
             ←
           </button>
 
-          {/* Dots */}
           <div style={{ display: 'flex', gap: '8px' }}>
             {testimonials.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setActive(i)}
+                onClick={() => { setDirection(i > active ? 1 : -1); setActive(i); }}
                 style={{
-                  width: i === active ? '28px' : '8px',
-                  height: '8px',
+                  width: i === active ? '28px' : '8px', height: '8px',
                   borderRadius: '4px',
                   background: i === active ? '#1e9953' : 'rgba(0,0,0,0.18)',
-                  border: 'none',
-                  cursor: 'pointer',
-                  padding: 0,
+                  border: 'none', cursor: 'pointer', padding: 0,
                   transition: 'all 0.3s ease',
                 }}
                 aria-label={`Opinia ${i + 1}`}
@@ -179,30 +166,17 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
             ))}
           </div>
 
-          {/* Next arrow */}
           <button
             onClick={next}
             style={{
-              width: '48px', height: '48px',
-              borderRadius: '50%',
-              background: '#1e9953',
-              border: '1.5px solid #1e9953',
-              color: '#ffffff',
-              fontSize: '18px',
-              cursor: 'pointer',
+              width: '48px', height: '48px', borderRadius: '50%',
+              background: '#1e9953', border: '1.5px solid #1e9953',
+              color: '#ffffff', fontSize: '18px', cursor: 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxShadow: '0 2px 8px rgba(30,153,83,0.3)',
-              transition: 'all 0.2s',
-              flexShrink: 0,
+              boxShadow: '0 2px 8px rgba(30,153,83,0.3)', transition: 'all 0.2s', flexShrink: 0,
             }}
-            onMouseEnter={e => {
-              e.currentTarget.style.background = '#17803f';
-              e.currentTarget.style.borderColor = '#17803f';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.background = '#1e9953';
-              e.currentTarget.style.borderColor = '#1e9953';
-            }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#17803f'; e.currentTarget.style.borderColor = '#17803f'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = '#1e9953'; e.currentTarget.style.borderColor = '#1e9953'; }}
             aria-label="Następna opinia"
           >
             →

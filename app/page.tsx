@@ -90,9 +90,9 @@ export default function Home() {
         <div style={{ maxWidth: '960px', margin: '0 auto' }}>
           <div className="stats-grid">
             {[
-              { number: '3 000+', label: 'godzin na salach szkoleniowych' },
-              { number: '3 500+', label: 'przeszkolonych uczestników' },
-              { number: '5 lat', label: 'doświadczenia jako trener' },
+              { number: '4 000+', label: 'godzin na salach szkoleniowych' },
+              { number: '4 500+', label: 'przeszkolonych uczestników' },
+              { number: '7 lat', label: 'doświadczenia jako trener' },
             ].map((stat, i) => (
               <ScrollReveal key={stat.number} delay={i * 0.1}>
                 <div
@@ -387,7 +387,7 @@ export default function Home() {
                 height: '100%',
               }}>
                 <img
-                  src="/radek2.jpg"
+                  src="/radek3.png"
                   alt="Szkolenie Power BI"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%', display: 'block' }}
                 />
