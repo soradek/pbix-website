@@ -7,6 +7,11 @@ export default function CustomCursor() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
+    // Skip on touch devices
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    // Skip if user prefers reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     const cursor = cursorRef.current;
     if (!cursor) return;
 
@@ -15,10 +20,16 @@ export default function CustomCursor() {
     let mouseX = 0;
     let mouseY = 0;
     let raf: number;
+    let moving = false;
+    let idleTimer: ReturnType<typeof setTimeout>;
 
     const onMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      moving = true;
+      clearTimeout(idleTimer);
+      // Stop loop after 2s idle to save CPU
+      idleTimer = setTimeout(() => { moving = false; }, 2000);
 
       const target = e.target as HTMLElement;
       const isMagnetic =
@@ -33,25 +44,28 @@ export default function CustomCursor() {
     };
 
     const loop = () => {
-      posX += (mouseX - posX) * 0.12;
-      posY += (mouseY - posY) * 0.12;
-      cursor.style.transform = `translate(${posX - cursor.offsetWidth / 2}px, ${posY - cursor.offsetHeight / 2}px)`;
+      if (moving) {
+        posX += (mouseX - posX) * 0.12;
+        posY += (mouseY - posY) * 0.12;
+        cursor.style.transform = `translate(${posX - cursor.offsetWidth / 2}px, ${posY - cursor.offsetHeight / 2}px)`;
+      }
       raf = requestAnimationFrame(loop);
     };
 
     const onMouseLeave = () => cursor.classList.add('cursor-dot--hidden');
     const onMouseEnter = () => cursor.classList.remove('cursor-dot--hidden');
 
-    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mousemove', onMouseMove, { passive: true });
     document.addEventListener('mouseleave', onMouseLeave);
     document.addEventListener('mouseenter', onMouseEnter);
-    loop();
+    raf = requestAnimationFrame(loop);
 
     return () => {
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseleave', onMouseLeave);
       document.removeEventListener('mouseenter', onMouseEnter);
       cancelAnimationFrame(raf);
+      clearTimeout(idleTimer);
     };
   }, []);
 

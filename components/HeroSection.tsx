@@ -20,6 +20,7 @@ export default function HeroSection() {
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
         backgroundRepeat: 'no-repeat',
+        willChange: 'transform',
       }} />
       {/* Dark overlay */}
       <div style={{

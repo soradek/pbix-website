@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Testimonial } from '@/data/testimonials';
 import ScrollReveal from './ScrollReveal';
@@ -92,7 +92,7 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
   const touchStartX = useRef<number | null>(null);
   const total = testimonials.length;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const update = () => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);

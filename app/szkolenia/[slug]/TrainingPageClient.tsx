@@ -12,6 +12,7 @@ import {
 
 export default function TrainingPageClient({ training }: { training: Training }) {
   const [openModule, setOpenModule] = useState<number | null>(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Video mapping per category
   const videoBg: Record<string, string> = {
@@ -23,6 +24,10 @@ export default function TrainingPageClient({ training }: { training: Training })
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
+    setIsMobile(window.innerWidth < 768);
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
   }, [training.slug]);
 
   // Hero text colors: white on dark video, normal otherwise
@@ -51,13 +56,14 @@ export default function TrainingPageClient({ training }: { training: Training })
         }}
       >
         {/* Video background (Excel → BG-EX.mp4, Power BI → BG-AI.mp4) */}
-        {hasVideo && (
+        {hasVideo && !isMobile && (
           <>
             <video
               autoPlay
               muted
               loop
               playsInline
+              preload="metadata"
               style={{
                 position: 'absolute',
                 inset: 0,

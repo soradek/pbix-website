@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/components/ScrollReveal';
@@ -275,9 +276,12 @@ export default function Home() {
                   overflow: 'hidden',
                   boxShadow: '0 24px 64px rgba(0,0,0,0.12)',
                 }}>
-                  <img
+                  <Image
                     src="/radek.jpg"
-                    alt="Radosław Sobczak"
+                    alt="Radosław Sobczak – Certyfikowany Trener Microsoft"
+                    width={320}
+                    height={400}
+                    quality={82}
                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                   />
                 </div>
@@ -391,9 +395,13 @@ export default function Home() {
                 boxShadow: '0 32px 80px rgba(0,0,0,0.14)',
                 height: '100%',
               }}>
-                <img
+                <Image
                   src="/radek3.png"
-                  alt="Szkolenie Power BI"
+                  alt="Szkolenie Power BI – Radosław Sobczak"
+                  width={560}
+                  height={640}
+                  quality={80}
+                  loading="lazy"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%', display: 'block' }}
                 />
               </div>
