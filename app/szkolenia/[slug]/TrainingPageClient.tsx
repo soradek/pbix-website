@@ -12,21 +12,28 @@ import {
 
 export default function TrainingPageClient({ training }: { training: Training }) {
   const [openModule, setOpenModule] = useState<number | null>(0);
-  const isExcel = training.category === 'Excel';
+
+  // Video mapping per category
+  const videoBg: Record<string, string> = {
+    'Excel': '/BG-EX.mp4',
+    'Power BI': '/BG-AI.mp4',
+  };
+  const videoSrc = videoBg[training.category] ?? null;
+  const hasVideo = !!videoSrc;
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [training.slug]);
 
-  // Hero text colors: white on dark video (Excel), normal otherwise
-  const heroTextPrimary = isExcel ? '#ffffff' : '#1d1d1f';
-  const heroTextSecondary = isExcel ? 'rgba(255,255,255,0.80)' : '#6e6e73';
-  const heroBadgeBg = isExcel ? 'rgba(255,255,255,0.12)' : 'rgba(30,153,83,0.08)';
-  const heroBadgeBorder = isExcel ? 'rgba(255,255,255,0.25)' : 'rgba(30,153,83,0.2)';
-  const heroBadgeColor = isExcel ? '#ffffff' : '#1e9953';
-  const heroDivider = isExcel ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.08)';
-  const heroPricingBg = isExcel ? 'rgba(255,255,255,0.10)' : 'rgba(30,153,83,0.06)';
-  const heroPricingBorder = isExcel ? 'rgba(255,255,255,0.20)' : 'rgba(30,153,83,0.16)';
+  // Hero text colors: white on dark video, normal otherwise
+  const heroTextPrimary = hasVideo ? '#ffffff' : '#1d1d1f';
+  const heroTextSecondary = hasVideo ? 'rgba(255,255,255,0.80)' : '#6e6e73';
+  const heroBadgeBg = hasVideo ? 'rgba(255,255,255,0.12)' : 'rgba(30,153,83,0.08)';
+  const heroBadgeBorder = hasVideo ? 'rgba(255,255,255,0.25)' : 'rgba(30,153,83,0.2)';
+  const heroBadgeColor = hasVideo ? '#ffffff' : '#1e9953';
+  const heroDivider = hasVideo ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.08)';
+  const heroPricingBg = hasVideo ? 'rgba(255,255,255,0.10)' : 'rgba(30,153,83,0.06)';
+  const heroPricingBorder = hasVideo ? 'rgba(255,255,255,0.20)' : 'rgba(30,153,83,0.16)';
 
   return (
     <>
@@ -35,7 +42,7 @@ export default function TrainingPageClient({ training }: { training: Training })
         className="training-hero"
         style={{
           padding: '140px 24px 100px',
-          background: training.category === 'Excel'
+          background: hasVideo
             ? 'transparent'
             : 'linear-gradient(180deg, rgba(30,153,83,0.04) 0%, rgba(255,255,255,0) 100%)',
           borderBottom: '1px solid rgba(0,0,0,0.07)',
@@ -43,8 +50,8 @@ export default function TrainingPageClient({ training }: { training: Training })
           overflow: 'hidden',
         }}
       >
-        {/* Video background for Excel trainings */}
-        {training.category === 'Excel' && (
+        {/* Video background (Excel → BG-EX.mp4, Power BI → BG-AI.mp4) */}
+        {hasVideo && (
           <>
             <video
               autoPlay
@@ -60,9 +67,9 @@ export default function TrainingPageClient({ training }: { training: Training })
                 zIndex: 0,
               }}
             >
-              <source src="/BG-EX.mp4" type="video/mp4" />
+              <source src={videoSrc!} type="video/mp4" />
             </video>
-            {/* Semi-transparent overlay — video is dark so subtle lift */}
+            {/* Semi-transparent overlay for readability */}
             <div style={{
               position: 'absolute',
               inset: 0,
@@ -93,7 +100,7 @@ export default function TrainingPageClient({ training }: { training: Training })
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            style={{ fontSize: 'clamp(36px, 6vw, 68px)', fontWeight: 700, color: heroTextPrimary, letterSpacing: '-2px', lineHeight: 1.05, margin: '0 0 32px', textShadow: isExcel ? '0 2px 12px rgba(0,0,0,0.4)' : 'none' }}
+            style={{ fontSize: 'clamp(36px, 6vw, 68px)', fontWeight: 700, color: heroTextPrimary, letterSpacing: '-2px', lineHeight: 1.05, margin: '0 0 32px', textShadow: hasVideo ? '0 2px 12px rgba(0,0,0,0.4)' : 'none' }}
           >
             {training.title}
           </motion.h1>
@@ -153,7 +160,7 @@ export default function TrainingPageClient({ training }: { training: Training })
             <Link href="/zapisy" style={{ background: '#1e9953', color: 'white', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 600 }}>
               Zapisz się
             </Link>
-            <Link href="/kontakt" style={{ border: `1.5px solid ${isExcel ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.15)'}`, color: isExcel ? '#ffffff' : '#1d1d1f', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 500 }}>
+            <Link href="/kontakt" style={{ border: `1.5px solid ${hasVideo ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.15)'}`, color: hasVideo ? '#ffffff' : '#1d1d1f', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 500 }}>
               Zapytaj o termin
             </Link>
           </motion.div>
