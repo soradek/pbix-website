@@ -16,7 +16,7 @@ export default function HeroSection() {
       {/* Background photo */}
       <div style={{
         position: 'absolute', inset: 0,
-        backgroundImage: 'url(/tlo.png)',
+        backgroundImage: 'url(/tlo.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
         backgroundRepeat: 'no-repeat',

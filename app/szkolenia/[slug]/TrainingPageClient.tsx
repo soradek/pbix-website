@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Training } from '@/data/trainings';
+import { faqItems } from '@/data/faq';
 import ScrollReveal from '@/components/ScrollReveal';
 import {
   IconFolder, IconFlask, IconAward, IconMessageCircle,
@@ -44,6 +45,7 @@ export default function TrainingPageClient({ training }: { training: Training })
   const heroDivider = hasVideo ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.08)';
   const heroPricingBg = hasVideo ? 'rgba(255,255,255,0.10)' : 'rgba(30,153,83,0.06)';
   const heroPricingBorder = hasVideo ? 'rgba(255,255,255,0.20)' : 'rgba(30,153,83,0.16)';
+  const heroShadow = hasVideo ? '0 1px 8px rgba(0,0,0,0.55)' : 'none';
 
   return (
     <>
@@ -53,7 +55,7 @@ export default function TrainingPageClient({ training }: { training: Training })
         style={{
           padding: '140px 24px 100px',
           background: hasVideo
-            ? 'transparent'
+            ? '#001a0a'
             : 'linear-gradient(180deg, rgba(30,153,83,0.04) 0%, rgba(255,255,255,0) 100%)',
           borderBottom: '1px solid rgba(0,0,0,0.07)',
           position: 'relative',
@@ -103,6 +105,7 @@ export default function TrainingPageClient({ training }: { training: Training })
             color: heroBadgeColor,
             fontWeight: 600,
             marginBottom: '20px',
+            textShadow: heroShadow,
           }}>
             {training.category}
           </div>
@@ -111,7 +114,7 @@ export default function TrainingPageClient({ training }: { training: Training })
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            style={{ fontSize: 'clamp(36px, 6vw, 68px)', fontWeight: 700, color: heroTextPrimary, letterSpacing: '-2px', lineHeight: 1.05, margin: '0 0 32px', textShadow: hasVideo ? '0 2px 12px rgba(0,0,0,0.4)' : 'none' }}
+            style={{ fontSize: 'clamp(36px, 6vw, 68px)', fontWeight: 700, color: heroTextPrimary, letterSpacing: '-2px', lineHeight: 1.05, margin: '0 0 32px', textShadow: heroShadow }}
           >
             {training.title}
           </motion.h1>
@@ -126,15 +129,15 @@ export default function TrainingPageClient({ training }: { training: Training })
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <IconClock size={18} color={heroTextSecondary} />
               <div>
-                <div style={{ fontSize: '11px', color: heroTextSecondary, marginBottom: '1px', textTransform: 'uppercase', letterSpacing: '0.8px' }}>Czas trwania</div>
-                <div style={{ fontSize: '16px', fontWeight: 600, color: heroTextPrimary }}>{training.duration}</div>
+                <div style={{ fontSize: '11px', color: heroTextSecondary, marginBottom: '1px', textTransform: 'uppercase', letterSpacing: '0.8px', textShadow: heroShadow }}>Czas trwania</div>
+                <div style={{ fontSize: '16px', fontWeight: 600, color: heroTextPrimary, textShadow: heroShadow }}>{training.duration}</div>
               </div>
             </div>
             <div style={{ width: '1px', background: heroDivider }} />
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
                 <IconTag size={18} color={heroTextSecondary} />
-                <div style={{ fontSize: '11px', color: heroTextSecondary, textTransform: 'uppercase', letterSpacing: '0.8px' }}>Cena netto za grupę</div>
+                <div style={{ fontSize: '11px', color: heroTextSecondary, textTransform: 'uppercase', letterSpacing: '0.8px', textShadow: heroShadow }}>Cena netto za grupę</div>
               </div>
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                 {training.pricingTiers.map((tier) => (
@@ -145,8 +148,8 @@ export default function TrainingPageClient({ training }: { training: Training })
                     padding: '10px 16px',
                     textAlign: 'center',
                   }}>
-                    <div style={{ fontSize: '10px', color: heroTextSecondary, marginBottom: '4px', whiteSpace: 'nowrap' }}>do {tier.maxPeople} osób</div>
-                    <div style={{ fontSize: '18px', fontWeight: 700, color: heroTextPrimary, letterSpacing: '-0.3px' }}>{tier.priceLabel}</div>
+                    <div style={{ fontSize: '10px', color: heroTextSecondary, marginBottom: '4px', whiteSpace: 'nowrap', textShadow: heroShadow }}>do {tier.maxPeople} osób</div>
+                    <div style={{ fontSize: '18px', fontWeight: 700, color: heroTextPrimary, letterSpacing: '-0.3px', textShadow: heroShadow }}>{tier.priceLabel}</div>
                   </div>
                 ))}
               </div>
@@ -155,8 +158,8 @@ export default function TrainingPageClient({ training }: { training: Training })
               <>
                 <div style={{ width: '1px', background: 'rgba(0,0,0,0.08)' }} />
                 <div>
-                  <div style={{ fontSize: '11px', color: heroTextSecondary, marginBottom: '1px', textTransform: 'uppercase', letterSpacing: '0.8px' }}>Język</div>
-                  <div style={{ fontSize: '15px', fontWeight: 500, color: heroTextPrimary }}>{training.language}</div>
+                  <div style={{ fontSize: '11px', color: heroTextSecondary, marginBottom: '1px', textTransform: 'uppercase', letterSpacing: '0.8px', textShadow: heroShadow }}>Język</div>
+                  <div style={{ fontSize: '15px', fontWeight: 500, color: heroTextPrimary, textShadow: heroShadow }}>{training.language}</div>
                 </div>
               </>
             )}
@@ -168,12 +171,12 @@ export default function TrainingPageClient({ training }: { training: Training })
             transition={{ duration: 0.6, delay: 0.2 }}
             style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}
           >
-            <Link href="/zapisy" style={{ background: '#1e9953', color: 'white', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 600 }}>
-              Zapisz się
-            </Link>
-            <Link href="/kontakt" style={{ border: `1.5px solid ${hasVideo ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.15)'}`, color: hasVideo ? '#ffffff' : '#1d1d1f', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 500 }}>
+            <Link href="/kontakt" style={{ background: '#1e9953', color: 'white', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 600 }}>
               Zapytaj o termin
             </Link>
+            <a href="#faq" style={{ border: `1.5px solid ${hasVideo ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.15)'}`, color: hasVideo ? '#ffffff' : '#1d1d1f', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 500 }}>
+              Najczęściej zadawane pytania
+            </a>
           </motion.div>
         </div>
       </section>
@@ -339,6 +342,20 @@ export default function TrainingPageClient({ training }: { training: Training })
         </section>
       )}
 
+      {/* Global FAQ */}
+      <section id="faq" style={{ padding: '0 24px 80px' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+          <ScrollReveal>
+            <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 40px', letterSpacing: '-0.5px' }}>Najczęściej zadawane pytania</h2>
+          </ScrollReveal>
+          <div>
+            {faqItems.map((item, i) => (
+              <FAQItem key={i} item={item} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section style={{ padding: '0 24px 120px' }}>
         <div style={{ maxWidth: '680px', margin: '0 auto', textAlign: 'center' }}>
@@ -356,15 +373,13 @@ export default function TrainingPageClient({ training }: { training: Training })
                 Gotowy na szkolenie?
               </h2>
               <p style={{ color: '#6e6e73', fontSize: '15px', lineHeight: 1.7, margin: '0 0 32px' }}>
-                Zarezerwuj miejsce lub zapytaj o najbliższy termin.
+                Skontaktuj się ze mną przez formularz lub napisz maila.
               </p>
               <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <Link href="/zapisy" style={{ background: '#1e9953', color: 'white', textDecoration: 'none', padding: '13px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 600 }}>
-                  Zapisz się
+                <Link href="/kontakt" style={{ background: '#1e9953', color: 'white', textDecoration: 'none', padding: '13px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 600 }}>
+                  Zadaj pytanie
                 </Link>
-                <Link href="/szkolenia" style={{ border: '1.5px solid rgba(0,0,0,0.15)', color: '#1d1d1f', textDecoration: 'none', padding: '13px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 500 }}>
-                  Inne szkolenia
-                </Link>
+                <EmailButton />
               </div>
             </div>
           </ScrollReveal>
@@ -393,5 +408,18 @@ function FAQItem({ item }: { item: { q: string; a: string } }) {
         )}
       </AnimatePresence>
     </div>
+  );
+}
+
+function EmailButton() {
+  const href = (() => {
+    const d = new Date();
+    const date = `${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}`;
+    return `mailto:kontakt@pbix.pl?subject=${encodeURIComponent(`${date} Pytanie o szkolenie`)}`;
+  })();
+  return (
+    <a href={href} style={{ border: '1.5px solid rgba(0,0,0,0.15)', color: '#1d1d1f', textDecoration: 'none', padding: '13px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 500 }}>
+      Napisz email
+    </a>
   );
 }
