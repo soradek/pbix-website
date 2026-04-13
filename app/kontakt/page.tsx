@@ -10,6 +10,7 @@ export default function KontaktPage() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', training: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<typeof formData>>({});
+  const [loading, setLoading] = useState(false);
 
   function validate() {
     const e: Partial<typeof formData> = {};
@@ -19,11 +20,21 @@ export default function KontaktPage() {
     return e;
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
-    setSubmitted(true);
+    setLoading(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'kontakt', ...formData }),
+      });
+      if (res.ok) setSubmitted(true);
+    } finally {
+      setLoading(false);
+    }
   }
 
   const inputStyle = (field: keyof typeof formData): React.CSSProperties => ({
@@ -59,21 +70,34 @@ export default function KontaktPage() {
           </ScrollReveal>
 
           {submitted ? (
-            <ScrollReveal>
+            <>
+              {/* Overlay */}
               <div style={{
-                background: 'rgba(30,153,83,0.06)',
-                border: '1px solid rgba(30,153,83,0.25)',
-                borderRadius: '20px',
-                padding: '48px 40px',
-                textAlign: 'center',
+                position: 'fixed', inset: 0,
+                background: 'rgba(0,0,0,0.45)',
+                zIndex: 100,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                padding: '24px',
               }}>
-                <div style={{ fontSize: '48px', marginBottom: '20px' }}>✅</div>
-                <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#1d1d1f', margin: '0 0 12px' }}>Wiadomość wysłana!</h2>
-                <p style={{ color: '#6e6e73', fontSize: '16px', lineHeight: 1.7, margin: 0 }}>
-                  Dziękuję za kontakt. Odpiszę w ciągu 1-2 dni roboczych.
-                </p>
+                <div style={{
+                  background: '#ffffff',
+                  borderRadius: '24px',
+                  padding: '48px 40px',
+                  textAlign: 'center',
+                  maxWidth: '480px',
+                  width: '100%',
+                  boxShadow: '0 24px 64px rgba(0,0,0,0.2)',
+                }}>
+                  <div style={{ fontSize: '48px', marginBottom: '20px' }}>😊</div>
+                  <h2 style={{ fontSize: '22px', fontWeight: 600, color: '#1d1d1f', margin: '0 0 14px' }}>
+                    Twoja wiadomość została wysłana.
+                  </h2>
+                  <p style={{ color: '#6e6e73', fontSize: '16px', lineHeight: 1.7, margin: 0 }}>
+                    Odpowiem na nią najszybciej jak tylko będę mógł. Do usłyszenia 😊
+                  </p>
+                </div>
               </div>
-            </ScrollReveal>
+            </>
           ) : (
             <ScrollReveal delay={0.1}>
               <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -148,23 +172,24 @@ export default function KontaktPage() {
 
                 <button
                   type="submit"
+                  disabled={loading}
                   style={{
-                    background: '#1e9953',
+                    background: loading ? '#6e6e73' : '#1e9953',
                     color: 'white',
                     border: 'none',
                     padding: '16px',
                     borderRadius: '12px',
                     fontSize: '16px',
                     fontWeight: 500,
-                    cursor: 'pointer',
+                    cursor: loading ? 'not-allowed' : 'pointer',
                     fontFamily: 'inherit',
                     transition: 'background 0.2s',
                     marginTop: '8px',
                   }}
-                  onMouseEnter={e => (e.currentTarget.style.background = '#17803f')}
-                  onMouseLeave={e => (e.currentTarget.style.background = '#1e9953')}
+                  onMouseEnter={e => { if (!loading) e.currentTarget.style.background = '#17803f'; }}
+                  onMouseLeave={e => { if (!loading) e.currentTarget.style.background = '#1e9953'; }}
                 >
-                  Wyślij wiadomość
+                  {loading ? 'Wysyłanie...' : 'Wyślij wiadomość'}
                 </button>
               </form>
             </ScrollReveal>

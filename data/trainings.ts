@@ -509,7 +509,6 @@ export const trainings: Training[] = [
       { title: 'Tworzenie własnego chatbota w Excelu', items: ['Koncepcja chatbota i jego rola w środowisku arkusza', 'Definiowanie kontekstu i instrukcji dla asystenta AI', 'Dostosowanie chatbota do struktury danych i potrzeb biznesowych', 'Testowanie i iteracyjne doskonalenie rozwiązania'] },
       { title: 'Podstawy automatyzacji – makra i AI', items: ['Czym są makra i jak działają w Excelu', 'Nagrywanie pierwszego makra i analiza jego działania', 'Generowanie kodu automatyzacji przy wsparciu AI', 'Uruchamianie makr przyciskami i skrótami klawiszowymi'] },
       { title: 'Automatyzacja z AI – zaawansowane zastosowania', items: ['Tworzenie procedur automatyzujących wieloetapowe zadania', 'Analiza i modyfikacja gotowych rozwiązań z pomocą AI', 'Łączenie formuł, danych i automatyzacji w jednym procesie', 'Typowe pułapki i jak ich unikać przy pracy z AI'] },
-      { title: 'Warsztaty praktyczne – scenariusze biznesowe', items: ['Praca na rzeczywistych zestawach danych z różnych branż', 'Budowa własnego mini-projektu łączącego AI i automatyzację', 'Prezentacja rozwiązań i dyskusja grupowa', 'Plan dalszego rozwoju i polecane źródła do samodzielnej nauki'] },
     ],
     faq: [
       { q: 'Czy muszę znać VBA przed szkoleniem?', a: 'Nie. Podstawy VBA są integralną częścią szkolenia. Omawiamy je krok po kroku, a narzędzia AI znacznie ułatwiają ich przyswojenie.' },

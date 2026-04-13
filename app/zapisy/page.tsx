@@ -7,15 +7,10 @@ import ScrollReveal from '@/components/ScrollReveal';
 import { trainings } from '@/data/trainings';
 
 export default function ZapisyPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    training: '',
-    form: '',
-    message: '',
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', training: '', form: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<typeof formData>>({});
+  const [loading, setLoading] = useState(false);
 
   function validate() {
     const e: Partial<typeof formData> = {};
@@ -25,11 +20,21 @@ export default function ZapisyPage() {
     return e;
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
-    setSubmitted(true);
+    setLoading(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'zapisy', ...formData }),
+      });
+      if (res.ok) setSubmitted(true);
+    } finally {
+      setLoading(false);
+    }
   }
 
   const inputStyle = (field: keyof typeof formData): React.CSSProperties => ({
@@ -65,21 +70,31 @@ export default function ZapisyPage() {
           </ScrollReveal>
 
           {submitted ? (
-            <ScrollReveal>
+            <div style={{
+              position: 'fixed', inset: 0,
+              background: 'rgba(0,0,0,0.45)',
+              zIndex: 100,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              padding: '24px',
+            }}>
               <div style={{
-                background: 'rgba(30,153,83,0.06)',
-                border: '1px solid rgba(30,153,83,0.25)',
-                borderRadius: '20px',
+                background: '#ffffff',
+                borderRadius: '24px',
                 padding: '48px 40px',
                 textAlign: 'center',
+                maxWidth: '480px',
+                width: '100%',
+                boxShadow: '0 24px 64px rgba(0,0,0,0.2)',
               }}>
-                <div style={{ fontSize: '48px', marginBottom: '20px' }}>🎉</div>
-                <h2 style={{ fontSize: '24px', fontWeight: 600, color: '#1d1d1f', margin: '0 0 12px' }}>Zgłoszenie przyjęte!</h2>
+                <div style={{ fontSize: '48px', marginBottom: '20px' }}>😊</div>
+                <h2 style={{ fontSize: '22px', fontWeight: 600, color: '#1d1d1f', margin: '0 0 14px' }}>
+                  Twoja wiadomość została wysłana.
+                </h2>
                 <p style={{ color: '#6e6e73', fontSize: '16px', lineHeight: 1.7, margin: 0 }}>
-                  Świetnie! Odezwę się w ciągu 24 godzin z potwierdzeniem terminu i szczegółami organizacyjnymi.
+                  Odpowiem na nią najszybciej jak tylko będę mógł. Do usłyszenia 😊
                 </p>
               </div>
-            </ScrollReveal>
+            </div>
           ) : (
             <ScrollReveal delay={0.1}>
               <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -155,23 +170,24 @@ export default function ZapisyPage() {
 
                 <button
                   type="submit"
+                  disabled={loading}
                   style={{
-                    background: '#1e9953',
+                    background: loading ? '#6e6e73' : '#1e9953',
                     color: 'white',
                     border: 'none',
                     padding: '16px',
                     borderRadius: '12px',
                     fontSize: '16px',
                     fontWeight: 500,
-                    cursor: 'pointer',
+                    cursor: loading ? 'not-allowed' : 'pointer',
                     fontFamily: 'inherit',
                     transition: 'background 0.2s',
                     marginTop: '8px',
                   }}
-                  onMouseEnter={e => (e.currentTarget.style.background = '#17803f')}
-                  onMouseLeave={e => (e.currentTarget.style.background = '#1e9953')}
+                  onMouseEnter={e => { if (!loading) e.currentTarget.style.background = '#17803f'; }}
+                  onMouseLeave={e => { if (!loading) e.currentTarget.style.background = '#1e9953'; }}
                 >
-                  Wyślij zgłoszenie
+                  {loading ? 'Wysyłanie...' : 'Wyślij zgłoszenie'}
                 </button>
               </form>
             </ScrollReveal>

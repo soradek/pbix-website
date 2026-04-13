@@ -52,7 +52,7 @@ export const metadata: Metadata = {
       'Certyfikowany Trener Microsoft (MCT). Praktyczne szkolenia z Power BI, Excel, SQL i VBA. Ponad 4 500 uczestników, 7 lat doświadczenia. Zamów szkolenie dla swojej firmy.',
     images: [
       {
-        url: '/radek.jpg',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Radosław Sobczak – Certyfikowany Trener Microsoft Power BI, Excel, SQL',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     title: 'Szkolenia Power BI, Excel, SQL | Radosław Sobczak MCT',
     description:
       'Certyfikowany Trener Microsoft (MCT). Praktyczne szkolenia z Power BI, Excel, SQL i VBA dla firm. Ponad 4 500 uczestników.',
-    images: ['/radek.jpg'],
+    images: ['/og-image.jpg'],
   },
   alternates: {
     canonical: siteUrl,
