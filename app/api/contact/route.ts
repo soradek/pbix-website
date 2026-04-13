@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
     const result = await resend.emails.send({
       from: 'pbix.pl <noreply@pbix.pl>',
       to: ['radoslaw.sobczak@pbix.pl', 'kontakt@pbix.pl'],
-      reply_to: email,
+      replyTo: email,
       subject,
       html,
     });
