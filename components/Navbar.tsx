@@ -15,6 +15,7 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
+    { href: '#', label: 'v1.1.4', style: { opacity: 0.35, fontSize: '11px', cursor: 'default', pointerEvents: 'none' as const } },
     { href: '/#o-mnie', label: 'O mnie' },
     { href: '/szkolenia', label: 'Szkolenia' },
     { href: '/kontakt', label: 'Kontakt' },
@@ -48,11 +49,11 @@ export default function Navbar() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }} className="desktop-nav">
           {navLinks.map(link => (
             <Link
-              key={link.href}
+              key={link.label}
               href={link.href}
-              style={{ color: '#1d1d1f', textDecoration: 'none', fontSize: '14px', opacity: 0.7, transition: 'opacity 0.2s' }}
-              onMouseEnter={e => (e.currentTarget.style.opacity = '1')}
-              onMouseLeave={e => (e.currentTarget.style.opacity = '0.7')}
+              style={{ color: '#1d1d1f', textDecoration: 'none', fontSize: '14px', opacity: 0.7, transition: 'opacity 0.2s', ...link.style }}
+              onMouseEnter={e => { if (!link.style) e.currentTarget.style.opacity = '1'; }}
+              onMouseLeave={e => { if (!link.style) e.currentTarget.style.opacity = '0.7'; }}
             >
               {link.label}
             </Link>
@@ -110,9 +111,9 @@ export default function Navbar() {
             }}
           >
             <div style={{ padding: '16px 24px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {navLinks.map(link => (
+              {navLinks.filter(link => !link.style).map(link => (
                 <Link
-                  key={link.href}
+                  key={link.label}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
                   style={{ color: '#1d1d1f', textDecoration: 'none', fontSize: '16px', padding: '12px 0', borderBottom: '1px solid rgba(0,0,0,0.06)' }}
