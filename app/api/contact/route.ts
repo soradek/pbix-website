@@ -31,16 +31,17 @@ export async function POST(req: NextRequest) {
     `;
 
   try {
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: 'pbix.pl <noreply@pbix.pl>',
-      to: 'kontakt@pbix.pl',
-      replyTo: email,
+      to: ['radoslaw.sobczak@pbix.pl', 'kontakt@pbix.pl'],
+      reply_to: email,
       subject,
       html,
     });
+    console.log('Resend result:', JSON.stringify(result));
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error(err);
-    return NextResponse.json({ ok: false }, { status: 500 });
+    console.error('Resend error:', err);
+    return NextResponse.json({ ok: false, error: String(err) }, { status: 500 });
   }
 }
