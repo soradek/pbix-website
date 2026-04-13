@@ -209,22 +209,24 @@ export default function Home() {
                     <div style={{ fontSize: '22px', fontWeight: 700, color: '#fff', whiteSpace: 'nowrap' }}>{featuredTraining.priceLabel}</div>
                   </div>
                 </div>
-                <Link
-                  href={`/szkolenia/${featuredTraining.slug}`}
-                  style={{
-                    display: 'inline-block',
-                    background: '#fff',
-                    color: '#1e9953',
-                    textDecoration: 'none',
-                    padding: '14px 28px',
-                    borderRadius: '980px',
-                    fontSize: '14px',
-                    fontWeight: 700,
-                    letterSpacing: '-0.2px',
-                  }}
-                >
-                  Sprawdź program szkolenia
-                </Link>
+                <div className="featured-cta-wrap">
+                  <Link
+                    href={`/szkolenia/${featuredTraining.slug}`}
+                    style={{
+                      display: 'inline-block',
+                      background: '#fff',
+                      color: '#1e9953',
+                      textDecoration: 'none',
+                      padding: '14px 28px',
+                      borderRadius: '980px',
+                      fontSize: '14px',
+                      fontWeight: 700,
+                      letterSpacing: '-0.2px',
+                    }}
+                  >
+                    Sprawdź program szkolenia
+                  </Link>
+                </div>
               </div>
 
               {/* Dashboard mockup */}

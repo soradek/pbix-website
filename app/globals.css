@@ -254,6 +254,7 @@ html {
     padding: 40px 28px !important;
   }
   .featured-mockup { display: none !important; }
+  .featured-cta-wrap { text-align: center; }
 
   /* About */
   .about-grid {

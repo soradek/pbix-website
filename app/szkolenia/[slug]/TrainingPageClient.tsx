@@ -14,12 +14,17 @@ export default function TrainingPageClient({ training }: { training: Training })
   const [openModule, setOpenModule] = useState<number | null>(0);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Video mapping per category
-  const videoBg: Record<string, string> = {
-    'Excel': '/BG-EX.mp4',
-    'Power BI': '/BG-AI.mp4',
+  // Video mapping: slug overrides category
+  const videoBySlug: Record<string, string> = {
+    'excel-ai': '/BG-AI.webm',
   };
-  const videoSrc = videoBg[training.category] ?? null;
+  const videoByCategory: Record<string, string> = {
+    'Excel': '/BG-EX.webm',
+    'Power BI': '/BG-BI.mp4',
+    'SQL': '/BG-BI.mp4',
+    'Wizualizacja danych': '/BG-Viz.mp4',
+  };
+  const videoSrc = videoBySlug[training.slug] ?? videoByCategory[training.category] ?? null;
   const hasVideo = !!videoSrc;
 
   useEffect(() => {
@@ -73,7 +78,7 @@ export default function TrainingPageClient({ training }: { training: Training })
                 zIndex: 0,
               }}
             >
-              <source src={videoSrc!} type="video/mp4" />
+              <source src={videoSrc!} type={videoSrc!.endsWith('.webm') ? 'video/webm' : 'video/mp4'} />
             </video>
             {/* Semi-transparent overlay for readability */}
             <div style={{
