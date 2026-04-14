@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: '%s | pbix.pl – Radosław Sobczak',
   },
   description:
-    'Praktyczne szkolenia z Power BI, Excel, SQL i VBA dla firm. Przekuj dane w wiedzę! Zamów szkolenie dla Twojego zespołu.',
+    'Praktyczne szkolenia dla firm. Przekuj dane w wiedzę! Zamów szkolenie dla Twojego zespołu.',
   keywords: [
     'Power BI szkolenie',
     'szkolenia Excel',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     siteName: 'pbix.pl – Radosław Sobczak',
     title: 'Szkolenia Power BI, Excel, SQL | Radosław Sobczak MCT',
     description:
-      'Praktyczne szkolenia z Power BI, Excel, SQL i VBA dla firm. Przekuj dane w wiedzę! Zamów szkolenie dla Twojego zespołu.',
+      'Praktyczne szkolenia dla firm. Przekuj dane w wiedzę! Zamów szkolenie dla Twojego zespołu.',
     images: [
       {
         url: 'https://www.pbix.pl/og-image.jpg',
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Szkolenia Power BI, Excel, SQL | Radosław Sobczak MCT',
     description:
-      'Praktyczne szkolenia z Power BI, Excel, SQL i VBA dla firm. Przekuj dane w wiedzę! Zamów szkolenie dla Twojego zespołu.',
+      'Praktyczne szkolenia dla firm. Przekuj dane w wiedzę! Zamów szkolenie dla Twojego zespołu.',
     images: ['https://www.pbix.pl/og-image.jpg'],
   },
   alternates: {

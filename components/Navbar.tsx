@@ -15,7 +15,7 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { href: '#', label: 'v1.1.9', style: { opacity: 0.35, fontSize: '11px', cursor: 'default', pointerEvents: 'none' as const } },
+    { href: '#', label: 'v1.2.0', style: { opacity: 0.35, fontSize: '11px', cursor: 'default', pointerEvents: 'none' as const } },
     { href: '/#o-mnie', label: 'O mnie' },
     { href: '/szkolenia', label: 'Szkolenia' },
     { href: '/kontakt', label: 'Kontakt' },
