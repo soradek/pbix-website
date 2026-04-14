@@ -193,7 +193,7 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
                 key={i}
                 onClick={() => setActive(i)}
                 style={{
-                  width: i === clampedActive ? '24px' : '7px', height: '7px',
+                  width: i === clampedActive ? '24px' : '12px', height: '12px',
                   borderRadius: '4px',
                   background: i === clampedActive ? '#1e9953' : 'rgba(0,0,0,0.18)',
                   border: 'none', cursor: 'pointer', padding: 0,

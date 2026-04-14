@@ -14,8 +14,13 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
   const navLinks = [
-    { href: '#', label: 'v1.2.1', style: { opacity: 0.35, fontSize: '11px', cursor: 'default', pointerEvents: 'none' as const } },
+    { href: '#', label: 'v1.3.0', style: { opacity: 0.35, fontSize: '11px', cursor: 'default', pointerEvents: 'none' as const } },
     { href: '/#o-mnie', label: 'O mnie' },
     { href: '/szkolenia', label: 'Szkolenia' },
     { href: '/kontakt', label: 'Kontakt' },
@@ -142,12 +147,6 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      <style>{`
-        @media (max-width: 768px) {
-          .desktop-nav { display: none !important; }
-          .mobile-menu-btn { display: flex !important; }
-        }
-      `}</style>
     </header>
   );
 }

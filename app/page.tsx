@@ -104,7 +104,7 @@ export default function Home() {
                     borderRight: i < 2 ? '1px solid rgba(0,0,0,0.08)' : 'none',
                   }}
                 >
-                  <div style={{ fontSize: '52px', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-2px', lineHeight: 1.1 }}>{stat.number}</div>
+                  <div style={{ fontSize: 'clamp(36px, 8vw, 52px)', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-2px', lineHeight: 1.1 }}>{stat.number}</div>
                   <div style={{ color: '#6e6e73', fontSize: '14px', marginTop: '6px' }}>{stat.label}</div>
                 </div>
               </ScrollReveal>
@@ -398,7 +398,7 @@ export default function Home() {
                 height: '100%',
               }}>
                 <Image
-                  src="/radek3.png"
+                  src="/radek3.jpg"
                   alt="Szkolenie Power BI – Radosław Sobczak"
                   width={560}
                   height={640}

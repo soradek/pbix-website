@@ -71,7 +71,7 @@ function SzkoleniasContent() {
                     background: active ? '#1e9953' : '#ffffff',
                     border: `1px solid ${active ? '#1e9953' : 'rgba(0,0,0,0.1)'}`,
                     color: active ? 'white' : '#6e6e73',
-                    padding: '9px 18px',
+                    padding: '12px 20px',
                     borderRadius: '980px',
                     fontSize: '13px',
                     fontWeight: 500,

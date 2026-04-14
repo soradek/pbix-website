@@ -148,7 +148,7 @@ export default function TrainingPageClient({ training }: { training: Training })
                     padding: '10px 16px',
                     textAlign: 'center',
                   }}>
-                    <div style={{ fontSize: '10px', color: heroTextSecondary, marginBottom: '4px', whiteSpace: 'nowrap', textShadow: heroShadow }}>do {tier.maxPeople} osób</div>
+                    <div style={{ fontSize: '12px', color: heroTextSecondary, marginBottom: '4px', whiteSpace: 'nowrap', textShadow: heroShadow }}>do {tier.maxPeople} osób</div>
                     <div style={{ fontSize: '18px', fontWeight: 700, color: heroTextPrimary, letterSpacing: '-0.3px', textShadow: heroShadow }}>{tier.priceLabel}</div>
                   </div>
                 ))}

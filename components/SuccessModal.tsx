@@ -68,15 +68,6 @@ export default function SuccessModal({ onClose }: { onClose: () => void }) {
           </svg>
         </div>
 
-        <style>{`
-          @keyframes circleIn {
-            to { stroke-dashoffset: 0; }
-          }
-          @keyframes checkIn {
-            to { stroke-dashoffset: 0; }
-          }
-        `}</style>
-
         <h2 style={{ fontSize: '22px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 12px', letterSpacing: '-0.3px' }}>
           Twoja wiadomość została wysłana.
         </h2>

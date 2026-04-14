@@ -1,15 +1,3 @@
-@import "tailwindcss";
-
-@theme {
-  --color-green: #1e9953;
-  --color-green-hover: #17803f;
-  --color-text-primary: #1d1d1f;
-  --color-text-secondary: #6e6e73;
-  --color-surface: rgba(0, 0, 0, 0.03);
-  --color-border: rgba(0, 0, 0, 0.08);
-  --font-family-sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
-}
-
 :root {
   --background: #ffffff;
   --foreground: #1d1d1f;
@@ -80,6 +68,14 @@ html {
   .cursor-dot--hidden {
     opacity: 0;
   }
+}
+
+/* ── Success modal animations ─────────────────────── */
+@keyframes circleIn {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes checkIn {
+  to { stroke-dashoffset: 0; }
 }
 
 /* ── Clients marquee ──────────────────────────────── */
@@ -206,6 +202,12 @@ html {
 .testimonials-row {
   display: flex;
   gap: 24px;
+}
+
+/* ── Navbar responsive ─────────────────────────────── */
+@media (max-width: 768px) {
+  .desktop-nav { display: none !important; }
+  .mobile-menu-btn { display: flex !important; }
 }
 
 /* ── Mobile ────────────────────────────────────────── */

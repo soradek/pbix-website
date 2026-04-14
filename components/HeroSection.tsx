@@ -20,7 +20,6 @@ export default function HeroSection() {
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
         backgroundRepeat: 'no-repeat',
-        willChange: 'transform',
       }} />
       {/* Dark overlay */}
       <div style={{
@@ -125,7 +124,7 @@ export default function HeroSection() {
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
+          transition={{ repeat: 3, duration: 1.8, ease: 'easeInOut' }}
           style={{ color: 'rgba(255,255,255,0.35)', fontSize: '20px', textAlign: 'center' }}
         >
           ↓
