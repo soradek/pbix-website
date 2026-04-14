@@ -59,7 +59,7 @@ export default function Navbar() {
             </Link>
           ))}
           <Link
-            href="/zapisy"
+            href="/kontakt"
             style={{
               backgroundColor: '#1e9953',
               color: 'white',
@@ -72,7 +72,7 @@ export default function Navbar() {
             onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#17803f')}
             onMouseLeave={e => (e.currentTarget.style.backgroundColor = '#1e9953')}
           >
-            Zapisz się
+            Zapytaj o termin
           </Link>
         </div>
 
@@ -122,7 +122,7 @@ export default function Navbar() {
                 </Link>
               ))}
               <Link
-                href="/zapisy"
+                href="/kontakt"
                 onClick={() => setIsOpen(false)}
                 style={{
                   backgroundColor: '#1e9953',
@@ -135,7 +135,7 @@ export default function Navbar() {
                   fontSize: '15px',
                 }}
               >
-                Zapisz się
+                Zapytaj o termin
               </Link>
             </div>
           </motion.div>

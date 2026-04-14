@@ -26,7 +26,7 @@ export default function Footer() {
                 { href: '/', label: 'Strona główna' },
                 { href: '/szkolenia', label: 'Szkolenia' },
                 { href: '/kontakt', label: 'Kontakt' },
-                { href: '/zapisy', label: 'Zapisz się' },
+                { href: '/kontakt', label: 'Zapytaj o termin' },
               ].map(link => (
                 <Link key={link.href} href={link.href} style={{ color: '#1d1d1f', textDecoration: 'none', fontSize: '14px', opacity: 0.7 }}>{link.label}</Link>
               ))}

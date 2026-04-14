@@ -64,10 +64,10 @@ export default function ZapisyPage() {
             <div style={{ textAlign: 'center', marginBottom: '64px' }}>
               <div style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', color: '#6e6e73', marginBottom: '16px' }}>Zapisy</div>
               <h1 style={{ fontSize: 'clamp(40px, 6vw, 64px)', fontWeight: 600, color: '#1d1d1f', letterSpacing: '-2px', margin: '0 0 20px', lineHeight: 1.05 }}>
-                Zapisz się na szkolenie
+                Zamów szkolenie dla zespołu
               </h1>
               <p style={{ color: '#6e6e73', fontSize: '17px', lineHeight: 1.6, margin: 0 }}>
-                Wypełnij formularz – skontaktuję się w ciągu 24 godzin, aby potwierdzić termin i szczegóły.
+                Wypełnij formularz – skontaktuję się w ciągu 24 godzin, aby omówić szczegóły i dopasować program do potrzeb Twojego zespołu.
               </p>
             </div>
           </ScrollReveal>
@@ -136,7 +136,7 @@ export default function ZapisyPage() {
                 <textarea
                   value={formData.message}
                   onChange={e => setFormData(p => ({ ...p, message: e.target.value }))}
-                  placeholder="Liczba uczestników, preferowany termin, poziom zaawansowania grupy..."
+                  placeholder="Liczba pracowników, preferowany termin, poziom zaawansowania zespołu..."
                   rows={4}
                   style={{ ...inputStyle('message'), resize: 'vertical', lineHeight: 1.6 }}
                   onFocus={e => (e.target.style.borderColor = '#1e9953')}

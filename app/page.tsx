@@ -92,7 +92,7 @@ export default function Home() {
           <div className="stats-grid">
             {[
               { number: '4 000+', label: 'godzin na salach szkoleniowych' },
-              { number: '4 500+', label: 'przeszkolonych uczestników' },
+              { number: '4 500+', label: 'przeszkolonych pracowników' },
               { number: '7 lat', label: 'doświadczenia jako trener' },
             ].map((stat, i) => (
               <ScrollReveal key={stat.number} delay={i * 0.1}>
@@ -295,10 +295,10 @@ export default function Home() {
                 Radosław Sobczak
               </h2>
               <p style={{ color: '#6e6e73', fontSize: '16px', lineHeight: 1.85, marginBottom: '20px' }}>
-                Jestem certyfikowanym trenerem Microsoft (MCT) specjalizującym się w szkoleniach z Power BI, Excela, SQL i VBA. Przez ponad 7 lat pracy szkoleniowej przeszkoliłem ponad 4 500 uczestników – od pracowników korporacji po właścicieli małych firm.
+                Jestem certyfikowanym trenerem Microsoft (MCT) specjalizującym się w szkoleniach z Power BI, Excela, SQL i VBA. Przez ponad 7 lat pracy szkoleniowej przeszkoliłem ponad 4 500 pracowników firm takich jak Volkswagen, Lufthansa, Coca-Cola czy Boston Scientific.
               </p>
               <p style={{ color: '#6e6e73', fontSize: '16px', lineHeight: 1.85, marginBottom: '40px' }}>
-                Moim celem nie jest nauczenie Cię obsługi narzędzia, lecz pokazanie, jak rozwiązywać realne problemy biznesowe. Każde szkolenie opieram na przykładach z prawdziwych projektów.
+                Moim celem nie jest nauczenie Twojego zespołu obsługi narzędzia, lecz pokazanie, jak rozwiązywać realne problemy biznesowe. Każde szkolenie opieram na przykładach z prawdziwych projektów i dopasowuję do specyfiki firmy.
               </p>
 
               {/* Quote */}
@@ -501,7 +501,7 @@ export default function Home() {
                   </div>
                   {/* Trust signal */}
                   <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.55)', fontSize: '13px' }}>
-                    4 500+ uczestników · certyfikat MCT
+                    4 500+ przeszkolonych pracowników · certyfikat MCT
                   </div>
                 </div>
               </ScrollReveal>

@@ -67,7 +67,7 @@ export default function KontaktPage() {
                 Napisz do mnie
               </h1>
               <p style={{ color: '#6e6e73', fontSize: '17px', lineHeight: 1.6, margin: 0 }}>
-                Opisz swoje potrzeby, a dobiorę szkolenie dopasowane do<br />Twojego poziomu i celów.
+                Opisz potrzeby swojego zespołu, a dobiorę szkolenie dopasowane do<br />poziomu i celów Twojej firmy.
               </p>
             </div>
           </ScrollReveal>
@@ -134,7 +134,7 @@ export default function KontaktPage() {
                 <textarea
                   value={formData.message}
                   onChange={e => { setFormData(p => ({ ...p, message: e.target.value })); setErrors(p => ({ ...p, message: '' })); }}
-                  placeholder="Opisz swoje potrzeby, liczbę uczestników, preferowany termin..."
+                  placeholder="Opisz potrzeby zespołu, liczbę pracowników, preferowany termin..."
                   rows={5}
                   style={{ ...inputStyle('message'), resize: 'vertical', lineHeight: 1.6 }}
                   onFocus={e => (e.target.style.borderColor = '#1e9953')}
