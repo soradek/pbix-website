@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import CustomCursor from '@/components/CustomCursor';
 
-const siteUrl = 'https://pbix.pl';
+const siteUrl = 'https://www.pbix.pl';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
       'Praktyczne szkolenia z Power BI, Excel, SQL i VBA dla firm. Przekuj dane w wiedzę! Zamów szkolenie dla Twojego zespołu.',
     images: [
       {
-        url: 'https://pbix.pl/og-image.jpg',
+        url: 'https://www.pbix.pl/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Radosław Sobczak – Certyfikowany Trener Microsoft Power BI, Excel, SQL',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     title: 'Szkolenia Power BI, Excel, SQL | Radosław Sobczak MCT',
     description:
       'Praktyczne szkolenia z Power BI, Excel, SQL i VBA dla firm. Przekuj dane w wiedzę! Zamów szkolenie dla Twojego zespołu.',
-    images: ['https://pbix.pl/og-image.jpg'],
+    images: ['https://www.pbix.pl/og-image.jpg'],
   },
   alternates: {
     canonical: siteUrl,
