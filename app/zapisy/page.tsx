@@ -12,6 +12,7 @@ export default function ZapisyPage() {
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<typeof formData>>({});
   const [loading, setLoading] = useState(false);
+  const [sendError, setSendError] = useState(false);
 
   function validate() {
     const e: Partial<typeof formData> = {};
@@ -26,6 +27,7 @@ export default function ZapisyPage() {
     const errs = validate();
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
     setLoading(true);
+    setSendError(false);
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
@@ -33,6 +35,9 @@ export default function ZapisyPage() {
         body: JSON.stringify({ type: 'zapisy', ...formData }),
       });
       if (res.ok) setSubmitted(true);
+      else setSendError(true);
+    } catch {
+      setSendError(true);
     } finally {
       setLoading(false);
     }
@@ -159,6 +164,11 @@ export default function ZapisyPage() {
               >
                 {loading ? 'Wysyłanie...' : 'Wyślij zgłoszenie'}
               </button>
+              {sendError && (
+                <div style={{ color: '#ef4444', fontSize: '14px', textAlign: 'center', marginTop: '8px' }}>
+                  Wystąpił błąd podczas wysyłania. Spróbuj ponownie lub napisz bezpośrednio na kontakt@pbix.pl
+                </div>
+              )}
             </form>
           </ScrollReveal>
         </div>
