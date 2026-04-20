@@ -1,8 +1,17 @@
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 import { NextRequest, NextResponse } from 'next/server';
 
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST ?? 'k19.unixstorm.org',
+  port: Number(process.env.SMTP_PORT) || 465,
+  secure: true, // SSL na porcie 465
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+});
+
 export async function POST(req: NextRequest) {
-  const resend = new Resend(process.env.RESEND_API_KEY);
   const body = await req.json();
   const { type, name, email, phone, training, form, message } = body;
 
@@ -31,17 +40,16 @@ export async function POST(req: NextRequest) {
     `;
 
   try {
-    const result = await resend.emails.send({
-      from: 'pbix.pl <kontakt@pbix.pl>',
-      to: ['kontakt@pbix.pl'],
+    await transporter.sendMail({
+      from: `"Formularz pbix.pl" <${process.env.SMTP_USER}>`,
+      to: process.env.SMTP_USER,
       replyTo: email,
       subject,
       html,
     });
-    console.log('Resend result:', JSON.stringify(result));
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error('Resend error:', err);
+    console.error('SMTP error:', err);
     return NextResponse.json({ ok: false, error: String(err) }, { status: 500 });
   }
 }
