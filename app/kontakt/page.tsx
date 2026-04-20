@@ -77,8 +77,7 @@ export default function KontaktPage() {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={0.1}>
-            <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div>
                 <label style={{ display: 'block', fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Imię i nazwisko *</label>
                 <input
@@ -169,7 +168,6 @@ export default function KontaktPage() {
                 </div>
               )}
             </form>
-          </ScrollReveal>
         </div>
       </section>
 

@@ -3,8 +3,9 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST ?? 'k19.unixstorm.org',
-  port: Number(process.env.SMTP_PORT) || 465,
-  secure: true, // SSL na porcie 465
+  port: Number(process.env.SMTP_PORT) || 587,
+  secure: false,   // STARTTLS na porcie 587 (Vercel blokuje port 465)
+  requireTLS: true,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
