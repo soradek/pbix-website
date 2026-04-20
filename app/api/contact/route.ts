@@ -50,7 +50,14 @@ export async function POST(req: NextRequest) {
     });
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error('SMTP error:', err);
-    return NextResponse.json({ ok: false, error: String(err) }, { status: 500 });
+    const e = err as Record<string, unknown>;
+    console.error('SMTP error:', {
+      message:      e?.message,
+      code:         e?.code,
+      command:      e?.command,
+      response:     e?.response,
+      responseCode: e?.responseCode,
+    });
+    return NextResponse.json({ ok: false, error: String(e?.message ?? err) }, { status: 500 });
   }
 }
