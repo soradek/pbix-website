@@ -138,6 +138,7 @@ export default function EnHomePage() {
               <div style={{ position: 'relative', zIndex: 1 }}>
                 <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(255,255,255,0.55)', marginBottom: '14px' }}>Featured training</div>
                 <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 40px)', fontWeight: 700, color: '#fff', letterSpacing: '-1px', margin: '0 0 18px', lineHeight: 1.2 }}>{featuredTrainingEn?.title ?? featuredTraining.title}</h2>
+                <p style={{ color: 'rgba(255,255,255,0.72)', fontSize: '15px', lineHeight: 1.75, margin: '0 0 32px', maxWidth: '440px' }}>{(featuredTrainingEn?.description ?? featuredTraining.description).substring(0, 180)}...</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginBottom: '36px', flexWrap: 'nowrap' }}>
                   <div style={{ flexShrink: 0 }}>
                     <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.45)', marginBottom: '3px', textTransform: 'uppercase', letterSpacing: '1px' }}>Duration</div>

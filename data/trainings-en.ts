@@ -349,6 +349,7 @@ export const trainingsEn: TrainingEnContent[] = [
   },
   {
     slug: 'excel-ai',
+    title: 'MS Excel AI – Working with AI Tools',
     description:
       'MS Excel AI is an intensive two-day course for teams that want to genuinely accelerate their Excel work using artificial intelligence tools. Participants learn how to effectively use AI chatbots and assistants for generating formulas, cleaning data and automating repetitive tasks — without needing advanced technical knowledge. The programme combines practical AI applications with Excel automation fundamentals, so the impact is visible from day one.',
     prerequisites: 'Basic knowledge of MS Excel',

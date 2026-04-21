@@ -47,12 +47,12 @@ export default function Navbar() {
 
   const navLinks = isEn
     ? [
-        { href: '/en#about', label: 'About' },
+        { href: '/en', label: 'Home' },
         { href: '/en/trainings', label: 'Trainings' },
         { href: '/en#faq', label: 'FAQ' },
       ]
     : [
-        { href: '/#o-mnie', label: 'O mnie' },
+        { href: '/', label: 'Home' },
         { href: '/szkolenia', label: 'Szkolenia' },
         { href: '/#faq', label: 'FAQ' },
       ];
