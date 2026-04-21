@@ -5,6 +5,7 @@ import ScrollReveal from '@/components/ScrollReveal';
 import Link from 'next/link';
 import { trainings } from '@/data/trainings';
 import { testimonials } from '@/data/testimonials';
+import { faqItems } from '@/data/faq';
 import HeroSection from '@/components/HeroSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import ClientsMarquee from '@/components/ClientsMarquee';
@@ -40,8 +41,22 @@ export default function Home() {
     { icon: <IconUser size={32} color="#1e9953" />, title: 'Indywidualne podejście', desc: 'Dostosowuję tempo i zakres do poziomu grupy. Nikt nie jest pozostawiony samemu sobie.' },
   ];
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map(item => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  };
+
   return (
     <main style={{ background: '#ffffff', minHeight: '100vh' }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <Navbar />
       <HeroSection />
 

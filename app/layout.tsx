@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import CustomCursor from '@/components/CustomCursor';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ['latin', 'latin-ext'], weight: ['400', '500', '600', '700'], display: 'swap' });
 
@@ -130,6 +132,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={inter.className} style={{ margin: 0, background: '#ffffff', color: '#1d1d1f' }}>
         <CustomCursor />
         {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
