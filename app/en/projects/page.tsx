@@ -3,15 +3,20 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/components/ScrollReveal';
 import Link from 'next/link';
+import {
+  IconAlertCircle,
+  IconWrench,
+  IconResult,
+  IconArrowRight,
+} from '@/components/Icons';
 
 export const metadata: Metadata = {
   title: 'Power BI Projects – Dashboards & Reporting | pbix.pl',
   description:
-    'Real-world Power BI implementations for manufacturing, FMCG, retail and logistics companies. Sales dashboards, financial reporting automation, HR analytics and supply chain monitoring — data turned into business decisions.',
+    'Power BI implementations for manufacturing, FMCG, retail and logistics companies. Sales dashboards, financial reporting automation, HR analytics and supply chain monitoring — data turned into business decisions.',
   keywords: [
-    'Power BI projects', 'Power BI dashboard', 'Power BI reporting',
-    'Power BI implementation', 'Power BI for business', 'Power BI case study',
-    'reporting automation', 'data analytics Poland',
+    'Power BI projects', 'Power BI dashboard', 'Power BI implementation',
+    'reporting automation', 'Power BI case study', 'data analytics Poland',
   ],
   openGraph: {
     title: 'Power BI Projects – Dashboards & Reporting | pbix.pl',
@@ -24,71 +29,155 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.pbix.pl/en/projects' },
 };
 
+/* ─── project data ─────────────────────────────────────────── */
+
 const projects = [
   {
-    id: 1,
     industry: 'FMCG / Retail',
     title: 'Real-time Sales Performance Dashboard',
-    challenge:
-      '30+ Excel reports distributed by email every week. No single KPI view for management — every department worked off its own data.',
+    problem:
+      'Management received 30+ Excel reports every week — each department sent its own file with its own KPI definitions. No one knew which numbers were current.',
     solution:
-      'Live Power BI dashboard drawing data directly from the ERP and SQL Server. One report replaced an entire collection of files. Nightly automatic refresh, accessible from any device via Power BI Service.',
-    result:
-      '80% less time spent on reporting. Daily KPI visibility for the entire board. Analysts focus on insights, not data gathering.',
+      'A single Power BI dashboard fed directly from the ERP and SQL Server. A central data model with unified KPI definitions, automatic nightly refresh, accessible from any device via Power BI Service.',
+    result: '80% less time spent on reporting. One view for the entire board — updated every morning.',
     tags: ['Power BI', 'SQL Server', 'DAX', 'Power BI Service'],
     accent: '#1e9953',
-    bars: [45, 62, 55, 78, 65, 88, 72, 84, 68, 94, 80, 100],
+    mockupBars: [40, 58, 48, 72, 62, 85, 70, 80, 66, 92, 78, 100],
+    mockupKpis: [{ label: 'Revenue', val: '+18%' }, { label: 'Margin', val: '22.4%' }],
   },
   {
-    id: 2,
     industry: 'Manufacturing',
-    title: 'Financial Month-End Close Automation',
-    challenge:
-      'Month-end close took two weeks of manual data gathering from SAP, Excel and databases. Human errors, delayed decisions.',
+    title: 'Month-End Close Automation',
+    problem:
+      'Closing the month took two weeks of manually gathering data from SAP, spreadsheets and databases. Copy-paste errors and delayed decisions were the norm.',
     solution:
-      'Power Query + Power BI pipeline connecting SAP, SQL Server and spreadsheets. Automated nightly refresh. A data model replaced manual consolidations.',
-    result:
-      'Monthly report preparation time cut from 14 to 2 days. Zero errors caused by manual copy-paste. Finance team focuses on analysis, not wrangling data.',
-    tags: ['Power BI', 'Power Query', 'SAP connector', 'SQL Server'],
-    accent: '#0066cc',
-    bars: [30, 45, 38, 60, 52, 75, 68, 80, 72, 88, 76, 92],
+      'A Power Query pipeline connecting SAP, SQL Server and Excel files into a single data model. Automatic nightly refresh eliminates manual consolidation — analysts work with ready-made reports.',
+    result: 'Monthly report preparation cut from 14 days to 2. Zero errors from manual copy-pasting.',
+    tags: ['Power BI', 'Power Query', 'SAP Connector', 'SQL Server'],
+    accent: '#2563eb',
+    mockupBars: [55, 42, 68, 50, 75, 60, 82, 70, 88, 76, 94, 85],
+    mockupKpis: [{ label: 'Close time', val: '−86%' }, { label: 'Errors', val: '0' }],
   },
   {
-    id: 3,
     industry: 'Retail — 200+ stores',
     title: 'HR Analytics Platform',
-    challenge:
-      'No single source of truth for headcount, turnover and absence data across a network of stores. Regional managers making workforce decisions without data.',
+    problem:
+      'No single source of truth for headcount, turnover and absence data across a network of 200+ stores. Each regional manager kept their own Excel. Workforce decisions were made without data.',
     solution:
-      'Automated HR data model in Power BI with weekly refresh. Row Level Security — each manager sees only their region. Reports cover absence, turnover and overtime costs.',
-    result:
-      'Workforce decisions backed by data. Identifying turnover patterns reduced annual recruitment costs by double digits.',
-    tags: ['Power BI', 'Power Query', 'RLS', 'DAX'],
-    accent: '#9333ea',
-    bars: [55, 48, 62, 58, 70, 65, 78, 74, 82, 78, 88, 85],
+      'An automated HR data model in Power BI with weekly refresh. Row Level Security limits each manager\'s view to their own region. One report replaced dozens of spreadsheets.',
+    result: 'Workforce decisions backed by data. Identified turnover patterns reduced annual recruitment costs.',
+    tags: ['Power BI', 'Power Query', 'Row Level Security', 'DAX'],
+    accent: '#7c3aed',
+    mockupBars: [62, 55, 70, 65, 78, 72, 84, 80, 88, 85, 92, 90],
+    mockupKpis: [{ label: 'Turnover', val: '−15%' }, { label: 'Regions', val: '12' }],
   },
   {
-    id: 4,
     industry: 'Logistics',
     title: 'Supply Chain KPI Monitoring',
-    challenge:
-      'Delivery data scattered across WMS, TMS and ERP. No real-time SLA visibility — issues discovered only after the fact.',
+    problem:
+      'Delivery data scattered across three systems: WMS, TMS and ERP. No real-time SLA visibility — breaches were discovered only after the fact.',
     solution:
-      'Power BI Gateway connecting 3 systems. Unified delivery dashboard with SLA-at-risk alerts. Interactive route map and on-time delivery analysis by carrier.',
-    result:
-      'On-time delivery improved by 12 percentage points in 6 months. Operational problems detected and escalated before SLA breaches occur.',
+      'Power BI Gateway connecting all three operational systems without migrating data. A unified delivery dashboard with SLA-at-risk alerts and on-time performance analysis by carrier.',
+    result: 'On-time delivery improved by 12 percentage points in 6 months. Issues escalated before SLA breaches occur.',
     tags: ['Power BI', 'Power BI Gateway', 'DAX', 'Power Query'],
     accent: '#ea6c00',
-    bars: [40, 55, 48, 65, 58, 72, 66, 79, 73, 86, 80, 94],
+    mockupBars: [38, 52, 44, 62, 55, 70, 64, 78, 72, 86, 80, 94],
+    mockupKpis: [{ label: 'On-time SLA', val: '+12pp' }, { label: 'Systems', val: '3' }],
   },
 ];
+
+/* ─── dashboard mockup ─────────────────────────────────────── */
+
+function DashboardMockup({
+  accent,
+  bars,
+  kpis,
+}: {
+  accent: string;
+  bars: number[];
+  kpis: { label: string; val: string }[];
+}) {
+  return (
+    <div
+      style={{
+        background: '#f8f9fa',
+        border: '1px solid rgba(0,0,0,0.07)',
+        borderRadius: '16px',
+        padding: '24px',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+      }}
+    >
+      <div style={{ display: 'flex', gap: '6px', marginBottom: '20px' }}>
+        {['#ef4444', '#f59e0b', '#22c55e'].map(c => (
+          <div key={c} style={{ width: '9px', height: '9px', borderRadius: '50%', background: c }} />
+        ))}
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '16px' }}>
+        {kpis.map(({ label, val }) => (
+          <div
+            key={label}
+            style={{
+              background: '#ffffff',
+              border: '1px solid rgba(0,0,0,0.06)',
+              borderRadius: '10px',
+              padding: '14px 16px',
+            }}
+          >
+            <div
+              style={{
+                fontSize: '10px',
+                color: '#6e6e73',
+                textTransform: 'uppercase',
+                letterSpacing: '0.8px',
+                marginBottom: '6px',
+                fontWeight: 600,
+              }}
+            >
+              {label}
+            </div>
+            <div style={{ fontSize: '22px', fontWeight: 700, color: accent, letterSpacing: '-0.5px' }}>
+              {val}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div
+        style={{
+          background: '#ffffff',
+          border: '1px solid rgba(0,0,0,0.06)',
+          borderRadius: '10px',
+          padding: '16px',
+          height: '80px',
+          display: 'flex',
+          alignItems: 'flex-end',
+          gap: '4px',
+        }}
+      >
+        {bars.map((h, i) => (
+          <div
+            key={i}
+            style={{
+              flex: 1,
+              height: `${h}%`,
+              background: i === bars.length - 1 ? accent : `${accent}55`,
+              borderRadius: '3px 3px 0 0',
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── page ─────────────────────────────────────────────────── */
 
 const pageSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
   name: 'Power BI Projects – Dashboards & Reporting',
-  description:
-    'Power BI implementations for FMCG, manufacturing, retail and logistics companies. Sales dashboards, financial reporting, HR analytics, supply chain monitoring.',
+  description: 'Power BI implementations for FMCG, manufacturing, retail and logistics companies.',
   url: 'https://www.pbix.pl/en/projects',
   inLanguage: 'en',
   author: {
@@ -108,162 +197,307 @@ export default function ProjectsEnPage() {
       />
       <Navbar />
 
-      {/* ── HERO ──────────────────────────────────── */}
-      <section style={{ padding: '140px 24px 80px', textAlign: 'center' }}>
-        <div style={{ maxWidth: '760px', margin: '0 auto' }}>
-          <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '2px', color: '#6e6e73', marginBottom: '16px' }}>
+      {/* hero */}
+      <section style={{ padding: '140px 24px 96px', borderBottom: '1px solid rgba(0,0,0,0.07)' }}>
+        <div style={{ maxWidth: '720px', margin: '0 auto' }}>
+          <div
+            style={{
+              fontSize: '11px',
+              textTransform: 'uppercase',
+              letterSpacing: '2px',
+              color: '#6e6e73',
+              marginBottom: '16px',
+            }}
+          >
             Case studies
           </div>
-          <h1 style={{ fontSize: 'clamp(44px, 8vw, 72px)', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-2.5px', lineHeight: 1.05, margin: '0 0 20px' }}>
+          <h1
+            style={{
+              fontSize: 'clamp(40px, 7vw, 68px)',
+              fontWeight: 700,
+              color: '#1d1d1f',
+              letterSpacing: '-2.5px',
+              lineHeight: 1.05,
+              margin: '0 0 20px',
+            }}
+          >
             Power BI Projects
           </h1>
-          <p style={{ fontSize: '18px', color: '#6e6e73', lineHeight: 1.65, margin: '0 0 36px', fontWeight: 400 }}>
-            Data on its own means nothing — value comes from the reports and dashboards that help people make better decisions. Here are a few examples of what Power BI can deliver.
+          <p
+            style={{
+              fontSize: '18px',
+              color: '#6e6e73',
+              lineHeight: 1.7,
+              margin: '0 0 36px',
+              maxWidth: '560px',
+            }}
+          >
+            Data on its own doesn&apos;t create value — reports and dashboards do, by helping people make
+            better decisions. A few examples of what Power BI can deliver.
           </p>
           <Link
             href="/en/contact"
             style={{
-              background: '#1e9953', color: 'white', textDecoration: 'none',
-              padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 600,
-              boxShadow: '0 4px 20px rgba(30,153,83,0.3)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              color: '#1e9953',
+              textDecoration: 'none',
+              fontSize: '15px',
+              fontWeight: 600,
             }}
           >
             Discuss your project
+            <IconArrowRight size={16} color="#1e9953" />
           </Link>
         </div>
       </section>
 
-      {/* ── PROJECTS ──────────────────────────────── */}
-      <section style={{ padding: '0 24px 120px' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '40px' }}>
-          {projects.map((project, i) => (
-            <ScrollReveal key={project.id} delay={i * 0.06}>
-              <div style={{
-                background: '#ffffff',
-                border: '1px solid rgba(0,0,0,0.08)',
-                borderRadius: '24px',
-                overflow: 'hidden',
-                boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
-              }}>
-                <div style={{ height: '4px', background: project.accent }} />
-                <div className="project-card-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 0 }}>
-                  {/* Left: text */}
-                  <div style={{ padding: '44px 48px' }}>
-                    <div style={{
-                      display: 'inline-block',
-                      fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1.5px',
-                      color: project.accent, fontWeight: 600,
-                      background: `${project.accent}12`,
-                      border: `1px solid ${project.accent}28`,
-                      borderRadius: '980px', padding: '4px 12px', marginBottom: '18px',
-                    }}>
-                      {project.industry}
-                    </div>
-                    <h2 style={{ fontSize: 'clamp(20px, 2.5vw, 28px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 32px', letterSpacing: '-0.5px', lineHeight: 1.25 }}>
-                      {project.title}
-                    </h2>
-
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                      {[
-                        { label: 'Challenge', text: project.challenge, icon: '⚡' },
-                        { label: 'Solution', text: project.solution, icon: '🔧' },
-                        { label: 'Result', text: project.result, icon: '📈' },
-                      ].map(({ label, text, icon }) => (
-                        <div key={label} style={{ display: 'flex', gap: '16px' }}>
-                          <div style={{
-                            width: '36px', height: '36px', flexShrink: 0,
-                            background: 'rgba(0,0,0,0.04)', borderRadius: '10px',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            fontSize: '16px',
-                          }}>{icon}</div>
-                          <div>
-                            <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1.2px', color: '#6e6e73', fontWeight: 600, marginBottom: '5px' }}>{label}</div>
-                            <p style={{ color: '#1d1d1f', fontSize: '14px', lineHeight: 1.75, margin: 0 }}>{text}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '28px' }}>
-                      {project.tags.map(tag => (
-                        <span key={tag} style={{
-                          fontSize: '11px', fontWeight: 600, color: '#6e6e73',
-                          background: 'rgba(0,0,0,0.05)', borderRadius: '980px',
-                          padding: '4px 10px', letterSpacing: '0.2px',
-                        }}>{tag}</span>
-                      ))}
-                    </div>
+      {/* projects — alternating */}
+      <section style={{ padding: '0 24px' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          {projects.map((p, i) => {
+            const isEven = i % 2 === 0;
+            const textCol = (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+                <div>
+                  <div
+                    style={{
+                      fontSize: '11px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '1.8px',
+                      color: p.accent,
+                      fontWeight: 700,
+                      marginBottom: '10px',
+                    }}
+                  >
+                    {p.industry}
                   </div>
+                  <h2
+                    style={{
+                      fontSize: 'clamp(22px, 2.8vw, 30px)',
+                      fontWeight: 700,
+                      color: '#1d1d1f',
+                      margin: 0,
+                      letterSpacing: '-0.6px',
+                      lineHeight: 1.25,
+                    }}
+                  >
+                    {p.title}
+                  </h2>
+                </div>
 
-                  {/* Right: abstract dashboard mockup */}
-                  <div style={{
-                    background: `linear-gradient(145deg, ${project.accent}18 0%, ${project.accent}08 100%)`,
-                    borderLeft: '1px solid rgba(0,0,0,0.06)',
-                    padding: '44px 32px',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  }}>
-                    <div style={{
-                      background: 'rgba(255,255,255,0.85)', backdropFilter: 'blur(12px)',
-                      border: '1px solid rgba(255,255,255,0.9)',
-                      borderRadius: '16px', padding: '20px', width: '100%',
-                      boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
-                    }}>
-                      <div style={{ display: 'flex', gap: '6px', marginBottom: '16px' }}>
-                        {['#ef4444', '#f59e0b', '#22c55e'].map(c => (
-                          <div key={c} style={{ width: '8px', height: '8px', borderRadius: '50%', background: c }} />
-                        ))}
-                      </div>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '12px' }}>
-                        {(['KPI 1', '+24%', 'KPI 2', '98.2%'] as const).reduce<[string, string][]>((acc, _, j, arr) => {
-                          if (j % 2 === 0) acc.push([arr[j], arr[j + 1]]);
-                          return acc;
-                        }, []).map(([label, val]) => (
-                          <div key={label} style={{ background: `${project.accent}10`, borderRadius: '8px', padding: '10px' }}>
-                            <div style={{ fontSize: '9px', color: '#6e6e73', marginBottom: '3px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{label}</div>
-                            <div style={{ fontSize: '16px', fontWeight: 700, color: project.accent }}>{val}</div>
-                          </div>
-                        ))}
-                      </div>
-                      <div style={{ background: `${project.accent}08`, borderRadius: '8px', padding: '12px', height: '64px', display: 'flex', alignItems: 'flex-end', gap: '3px' }}>
-                        {project.bars.map((h, idx) => (
-                          <div key={idx} style={{
-                            flex: 1, height: `${h}%`,
-                            background: `${project.accent}${Math.round(40 + h * 0.55).toString(16)}`,
-                            borderRadius: '2px 2px 0 0',
-                          }} />
-                        ))}
-                      </div>
-                    </div>
+                <div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '7px',
+                      marginBottom: '8px',
+                    }}
+                  >
+                    <IconAlertCircle size={15} color="#6e6e73" strokeWidth={2} />
+                    <span
+                      style={{
+                        fontSize: '10px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '1.4px',
+                        color: '#6e6e73',
+                        fontWeight: 700,
+                      }}
+                    >
+                      Problem
+                    </span>
                   </div>
+                  <p style={{ margin: 0, color: '#3d3d3f', fontSize: '15px', lineHeight: 1.8 }}>
+                    {p.problem}
+                  </p>
+                </div>
+
+                <div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '7px',
+                      marginBottom: '8px',
+                    }}
+                  >
+                    <IconWrench size={15} color="#6e6e73" strokeWidth={2} />
+                    <span
+                      style={{
+                        fontSize: '10px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '1.4px',
+                        color: '#6e6e73',
+                        fontWeight: 700,
+                      }}
+                    >
+                      Solution
+                    </span>
+                  </div>
+                  <p style={{ margin: 0, color: '#3d3d3f', fontSize: '15px', lineHeight: 1.8 }}>
+                    {p.solution}
+                  </p>
+                </div>
+
+                <div style={{ borderLeft: `3px solid ${p.accent}`, paddingLeft: '16px' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '7px',
+                      marginBottom: '8px',
+                    }}
+                  >
+                    <IconResult size={15} color={p.accent} strokeWidth={2} />
+                    <span
+                      style={{
+                        fontSize: '10px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '1.4px',
+                        color: p.accent,
+                        fontWeight: 700,
+                      }}
+                    >
+                      Result
+                    </span>
+                  </div>
+                  <p
+                    style={{
+                      margin: 0,
+                      color: '#1d1d1f',
+                      fontSize: '15px',
+                      lineHeight: 1.7,
+                      fontWeight: 500,
+                    }}
+                  >
+                    {p.result}
+                  </p>
+                </div>
+
+                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                  {p.tags.map(tag => (
+                    <span
+                      key={tag}
+                      style={{
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        color: '#6e6e73',
+                        background: 'rgba(0,0,0,0.05)',
+                        borderRadius: '6px',
+                        padding: '4px 10px',
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </div>
-            </ScrollReveal>
-          ))}
+            );
+
+            const visualCol = (
+              <DashboardMockup accent={p.accent} bars={p.mockupBars} kpis={p.mockupKpis} />
+            );
+
+            return (
+              <ScrollReveal key={p.title} delay={0.05}>
+                <div
+                  style={{
+                    padding: '80px 0',
+                    borderBottom:
+                      i < projects.length - 1 ? '1px solid rgba(0,0,0,0.07)' : 'none',
+                  }}
+                >
+                  <div
+                    className="project-row"
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: '1fr 1fr',
+                      gap: '80px',
+                      alignItems: 'center',
+                    }}
+                  >
+                    {isEven ? (
+                      <>
+                        <div>{textCol}</div>
+                        <div>{visualCol}</div>
+                      </>
+                    ) : (
+                      <>
+                        <div>{visualCol}</div>
+                        <div>{textCol}</div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </ScrollReveal>
+            );
+          })}
         </div>
       </section>
 
-      {/* ── CTA ───────────────────────────────────── */}
-      <section style={{ padding: '0 24px 120px' }}>
-        <div style={{ maxWidth: '760px', margin: '0 auto' }}>
+      {/* cta */}
+      <section style={{ padding: '80px 24px 120px', borderTop: '1px solid rgba(0,0,0,0.07)' }}>
+        <div style={{ maxWidth: '680px', margin: '0 auto' }}>
           <ScrollReveal>
-            <div style={{
-              background: 'linear-gradient(135deg, #003d20 0%, #1e9953 55%, #006633 100%)',
-              borderRadius: '28px', padding: '56px 48px', textAlign: 'center',
-            }}>
-              <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(255,255,255,0.55)', marginBottom: '14px' }}>
-                Your own project?
-              </div>
-              <h2 style={{ fontSize: 'clamp(22px, 2.8vw, 32px)', fontWeight: 700, color: '#fff', letterSpacing: '-0.8px', margin: '0 0 14px', lineHeight: 1.2 }}>
+            <div
+              style={{
+                background: 'linear-gradient(135deg, #003d20 0%, #1e9953 55%, #006633 100%)',
+                borderRadius: '28px',
+                padding: '56px 48px',
+                textAlign: 'center',
+              }}
+            >
+              <h2
+                style={{
+                  fontSize: 'clamp(22px, 2.8vw, 30px)',
+                  fontWeight: 700,
+                  color: '#fff',
+                  letterSpacing: '-0.8px',
+                  margin: '0 0 14px',
+                }}
+              >
                 Let&apos;s build something together.
               </h2>
-              <p style={{ color: 'rgba(255,255,255,0.78)', fontSize: '15px', lineHeight: 1.75, margin: '0 0 32px' }}>
-                Tell me about your data and goals — I&apos;ll suggest how Power BI can solve a specific problem in your organisation.
+              <p
+                style={{
+                  color: 'rgba(255,255,255,0.78)',
+                  fontSize: '15px',
+                  lineHeight: 1.75,
+                  margin: '0 0 32px',
+                }}
+              >
+                Tell me about your data and goals — I&apos;ll suggest how Power BI can solve a specific
+                problem in your organisation.
               </p>
               <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <Link href="/en/contact" style={{ background: '#fff', color: '#1e9953', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 700 }}>
+                <Link
+                  href="/en/contact"
+                  style={{
+                    background: '#fff',
+                    color: '#1e9953',
+                    textDecoration: 'none',
+                    padding: '14px 28px',
+                    borderRadius: '980px',
+                    fontSize: '14px',
+                    fontWeight: 700,
+                  }}
+                >
                   Get in touch
                 </Link>
-                <Link href="/en/trainings" style={{ border: '1.5px solid rgba(255,255,255,0.35)', color: '#fff', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 500 }}>
+                <Link
+                  href="/en/trainings"
+                  style={{
+                    border: '1.5px solid rgba(255,255,255,0.35)',
+                    color: '#fff',
+                    textDecoration: 'none',
+                    padding: '14px 28px',
+                    borderRadius: '980px',
+                    fontSize: '14px',
+                    fontWeight: 500,
+                  }}
+                >
                   View trainings
                 </Link>
               </div>
@@ -276,16 +510,9 @@ export default function ProjectsEnPage() {
 
       <style>{`
         @media (max-width: 768px) {
-          .project-card-grid {
+          .project-row {
             grid-template-columns: 1fr !important;
-          }
-          .project-card-grid > div:last-child {
-            border-left: none !important;
-            border-top: 1px solid rgba(0,0,0,0.06);
-            padding: 32px 28px !important;
-          }
-          .project-card-grid > div:first-child {
-            padding: 32px 28px !important;
+            gap: 40px !important;
           }
         }
       `}</style>
