@@ -3,7 +3,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/components/ScrollReveal';
 import Link from 'next/link';
-import { trainings } from '@/data/trainings';
+import { trainings, getTrainingBySlug } from '@/data/trainings';
 import { testimonials } from '@/data/testimonials';
 import { faqItems } from '@/data/faq';
 import HeroSection from '@/components/HeroSection';
@@ -25,7 +25,7 @@ const categoryIcon = (cat: string) => {
 };
 
 export default function Home() {
-  const featuredTraining = trainings[0];
+  const featuredTraining = getTrainingBySlug('excel-ai') ?? trainings[0];
 
   const specializations = [
     { icon: <IconBarChart size={32} color="#1e9953" />, title: 'Power BI', desc: 'Transformuj surowe dane w interaktywne dashboardy. Od modelu danych przez DAX po publikację w chmurze.', category: 'Power BI' },

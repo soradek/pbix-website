@@ -4,7 +4,8 @@ import Footer from '@/components/Footer';
 import ScrollReveal from '@/components/ScrollReveal';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { trainings } from '@/data/trainings';
+import { trainings, getTrainingBySlug } from '@/data/trainings';
+import { getTrainingEnContent } from '@/data/trainings-en';
 import ClientsMarquee from '@/components/ClientsMarquee';
 import HomeFAQ from '@/components/HomeFAQ';
 import {
@@ -28,7 +29,8 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.pbix.pl/en' },
 };
 
-const featuredTraining = trainings[0];
+const featuredTraining = getTrainingBySlug('excel-ai') ?? trainings[0];
+const featuredTrainingEn = getTrainingEnContent(featuredTraining.slug);
 
 const specializations = [
   { icon: <IconBarChart size={32} color="#1e9953" />, title: 'Power BI', desc: 'Turn raw data into interactive dashboards — from data modelling and DAX to publishing in the cloud.', category: 'Power BI' },
@@ -135,7 +137,7 @@ export default function EnHomePage() {
               <div style={{ position: 'absolute', top: '-120px', right: '-80px', width: '480px', height: '480px', background: 'rgba(255,255,255,0.04)', borderRadius: '50%', filter: 'blur(40px)' }} />
               <div style={{ position: 'relative', zIndex: 1 }}>
                 <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(255,255,255,0.55)', marginBottom: '14px' }}>Featured training</div>
-                <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 40px)', fontWeight: 700, color: '#fff', letterSpacing: '-1px', margin: '0 0 18px', lineHeight: 1.2 }}>{featuredTraining.title}</h2>
+                <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 40px)', fontWeight: 700, color: '#fff', letterSpacing: '-1px', margin: '0 0 18px', lineHeight: 1.2 }}>{featuredTrainingEn?.title ?? featuredTraining.title}</h2>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginBottom: '36px', flexWrap: 'nowrap' }}>
                   <div style={{ flexShrink: 0 }}>
                     <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.45)', marginBottom: '3px', textTransform: 'uppercase', letterSpacing: '1px' }}>Duration</div>
