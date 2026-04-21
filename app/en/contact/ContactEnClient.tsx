@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/components/ScrollReveal';
 import { trainings } from '@/data/trainings';
+import { getTrainingEnContent } from '@/data/trainings-en';
 import SuccessModal from '@/components/SuccessModal';
 
 export default function ContactEnClient() {
@@ -105,7 +106,7 @@ export default function ContactEnClient() {
               <select value={formData.training} onChange={e => setFormData(p => ({ ...p, training: e.target.value }))}
                 style={{ ...inputStyle('training'), cursor: 'pointer' }}>
                 <option value="">– Select a training –</option>
-                {trainings.map(t => <option key={t.slug} value={t.slug}>{t.title}</option>)}
+                {trainings.map(t => <option key={t.slug} value={t.slug}>{getTrainingEnContent(t.slug)?.title ?? t.title}</option>)}
               </select>
             </div>
 

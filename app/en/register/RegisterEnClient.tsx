@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/components/ScrollReveal';
 import { trainings } from '@/data/trainings';
+import { getTrainingEnContent } from '@/data/trainings-en';
 import SuccessModal from '@/components/SuccessModal';
 
 export default function RegisterEnClient() {
@@ -114,7 +115,7 @@ export default function RegisterEnClient() {
               >
                 <option value="">– Select a training –</option>
                 {trainings.map(t => (
-                  <option key={t.slug} value={t.slug}>{t.title} – {t.priceLabel}</option>
+                  <option key={t.slug} value={t.slug}>{getTrainingEnContent(t.slug)?.title ?? t.title} – {t.priceLabel.replace('od ', 'from ')}</option>
                 ))}
               </select>
               {errors.training && <div style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px' }}>{errors.training}</div>}
