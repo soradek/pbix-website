@@ -60,7 +60,7 @@ export default function ContactEnClient() {
   return (
     <main style={{ background: '#ffffff', minHeight: '100vh' }}>
       <Navbar />
-      {submitted && <SuccessModal onClose={() => setSubmitted(false)} />}
+      {submitted && <SuccessModal onClose={() => setSubmitted(false)} lang="en" />}
 
       <section style={{ padding: '140px 24px 120px' }}>
         <div style={{ maxWidth: '640px', margin: '0 auto' }}>
