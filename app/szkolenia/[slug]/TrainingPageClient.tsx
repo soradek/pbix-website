@@ -300,7 +300,7 @@ export default function TrainingPageClient({ training }: { training: Training })
             {[
               { icon: <IconFolder size={28} color="#1e9953" />, title: 'Materiały', desc: 'Prezentacje i pliki ćwiczeń do zachowania' },
               { icon: <IconFlask size={28} color="#1e9953" />, title: 'Warsztaty', desc: 'Praktyczne zadania na realnych danych' },
-              { icon: <IconAward size={28} color="#1e9953" />, title: 'Certyfikat', desc: 'W wersji polskiej i angielskiej, w wersji papierowej i cyfrowej' },
+              { icon: <IconAward size={28} color="#1e9953" />, title: 'Certyfikat', desc: 'W wersji polskiej i angielskiej, (papierowy oraz cyfrowy)' },
               { icon: <IconMessageCircle size={28} color="#1e9953" />, title: 'Konsultacje', desc: 'Pytania po szkoleniu na LinkedIn' },
             ].map((item, i) => (
               <ScrollReveal key={item.title} delay={i * 0.08}>
