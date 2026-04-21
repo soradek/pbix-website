@@ -57,10 +57,6 @@ export default function EnHomePage() {
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(0,0,0,0.72) 0%, rgba(0,20,10,0.65) 50%, rgba(0,0,0,0.60) 100%)' }} />
         <div style={{ position: 'absolute', bottom: '10%', right: '15%', width: '500px', height: '500px', background: 'rgba(30,153,83,0.12)', borderRadius: '50%', filter: 'blur(90px)', pointerEvents: 'none' }} />
         <div style={{ position: 'relative', zIndex: 1, maxWidth: '860px', margin: '0 auto', width: '100%' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(30,153,83,0.25)', border: '1px solid rgba(30,153,83,0.5)', borderRadius: '980px', padding: '6px 16px', marginBottom: '28px' }}>
-            <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#1e9953', display: 'inline-block', flexShrink: 0 }} />
-            <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.90)', fontWeight: 500, letterSpacing: '0.2px' }}>7 years of experience as a trainer</span>
-          </div>
           <h1 style={{ fontSize: 'clamp(44px, 7vw, 92px)', fontWeight: 700, color: '#ffffff', letterSpacing: '-3px', lineHeight: 1.02, margin: '0 0 28px' }}>
             Turn data<br /><span style={{ color: '#1e9953' }}>into value.</span>
           </h1>
