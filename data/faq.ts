@@ -3,6 +3,37 @@ export interface FAQItem {
   a: string;
 }
 
+export const faqItemsEn: FAQItem[] = [
+  {
+    q: 'Can the training be delivered at our company premises?',
+    a: 'Yes, I run closed-group trainings across Poland. I bring modern laptops for every participant and multimedia projectors. I can also deliver the training on your own equipment.',
+  },
+  {
+    q: 'Do participants need to bring their own laptops?',
+    a: 'This is not required. If the company does not have the necessary hardware or software, I will provide computers for each participant for the duration of the training.',
+  },
+  {
+    q: 'How do I choose the right level for my team?',
+    a: "I offer a skills assessment test that evaluates the team's competencies and helps select a training at the right level of difficulty.",
+  },
+  {
+    q: 'Why should I trust you?',
+    a: 'Over the past 7 years, more than 4,500 employees from companies including Volkswagen, Lufthansa, Coca-Cola and Boston Scientific have attended my trainings. I am a Microsoft Certified Trainer (MCT) — a title that requires passing a knowledge examination and demonstrating teaching skills directly to Microsoft. I close every training with an anonymous evaluation survey — scores are consistently above 4.8/5.',
+  },
+  {
+    q: 'Are the sessions practical or theoretical?',
+    a: 'Training combines solid theoretical foundations with business examples. The greatest value comes from exercises based on real situations that teams most commonly find challenging.',
+  },
+  {
+    q: 'Will participants receive certificates?',
+    a: 'Yes — every participant receives a completion certificate in both Polish and English. Because I am a Microsoft Certified Trainer (MCT), the certificates carry real weight in the job market and are widely recognised by employers.',
+  },
+  {
+    q: 'What if the company does not have the required software?',
+    a: 'A large proportion of the tools are free. If a specific programme is missing, I will help arrange it before the training.',
+  },
+];
+
 export const faqItems: FAQItem[] = [
   {
     q: 'Czy szkolenie może być przeprowadzone w naszej firmie?',

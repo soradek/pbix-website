@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Training } from '@/data/trainings';
-import { faqItems } from '@/data/faq';
+import { faqItems, faqItemsEn } from '@/data/faq';
+import { getTrainingEnContent } from '@/data/trainings-en';
 import ScrollReveal from '@/components/ScrollReveal';
 import {
   IconFolder, IconFlask, IconAward, IconMessageCircle,
@@ -50,6 +51,30 @@ const t = {
 
 export default function TrainingPageClient({ training, lang = 'pl' }: { training: Training; lang?: 'pl' | 'en' }) {
   const tx = t[lang];
+  const en = lang === 'en' ? getTrainingEnContent(training.slug) : undefined;
+
+  // EN content overrides — fall back to PL if EN not available
+  const titleDisplay = en?.title ?? training.title;
+  const descDisplay = en?.description ?? training.description;
+  const prereqDisplay = en?.prerequisites ?? training.prerequisites;
+  const audienceDisplay = en?.targetAudience ?? training.targetAudience;
+  const benefitsDisplay = en?.benefits ?? training.benefits;
+  const programDisplay = en?.program ?? training.program;
+  const trainingFaqDisplay = en?.faq ?? training.faq;
+  const globalFaqDisplay = lang === 'en' ? faqItemsEn : faqItems;
+
+  // Field mappings for non-content strings
+  const categoryDisplay =
+    lang === 'en' && training.category === 'Wizualizacja danych'
+      ? 'Data Visualisation'
+      : training.category;
+  const durationDisplay =
+    lang === 'en'
+      ? training.duration.replace('2 dni / 16 godzin', '2 days / 16 hours')
+      : training.duration;
+  const languageDisplay =
+    lang === 'en' ? (en?.language ?? training.language) : training.language;
+
   const [openModule, setOpenModule] = useState<number | null>(0);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -145,7 +170,7 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
             marginBottom: '20px',
             textShadow: heroShadow,
           }}>
-            {training.category}
+            {categoryDisplay}
           </div>
 
           <motion.h1
@@ -154,7 +179,7 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
             transition={{ duration: 0.6 }}
             style={{ fontSize: 'clamp(36px, 6vw, 68px)', fontWeight: 700, color: heroTextPrimary, letterSpacing: '-2px', lineHeight: 1.05, margin: '0 0 32px', textShadow: heroShadow }}
           >
-            {training.title}
+            {titleDisplay}
           </motion.h1>
 
           {/* Meta row */}
@@ -168,7 +193,7 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
               <IconClock size={18} color={heroTextSecondary} />
               <div>
                 <div style={{ fontSize: '11px', color: heroTextSecondary, marginBottom: '1px', textTransform: 'uppercase', letterSpacing: '0.8px', textShadow: heroShadow }}>{tx.duration}</div>
-                <div style={{ fontSize: '16px', fontWeight: 600, color: heroTextPrimary, textShadow: heroShadow }}>{training.duration}</div>
+                <div style={{ fontSize: '16px', fontWeight: 600, color: heroTextPrimary, textShadow: heroShadow }}>{durationDisplay}</div>
               </div>
             </div>
             <div style={{ width: '1px', background: heroDivider }} />
@@ -197,7 +222,7 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
                 <div style={{ width: '1px', background: 'rgba(0,0,0,0.08)' }} />
                 <div>
                   <div style={{ fontSize: '11px', color: heroTextSecondary, marginBottom: '1px', textTransform: 'uppercase', letterSpacing: '0.8px', textShadow: heroShadow }}>{tx.language}</div>
-                  <div style={{ fontSize: '15px', fontWeight: 500, color: heroTextPrimary, textShadow: heroShadow }}>{training.language}</div>
+                  <div style={{ fontSize: '15px', fontWeight: 500, color: heroTextPrimary, textShadow: heroShadow }}>{languageDisplay}</div>
                 </div>
               </>
             )}
@@ -225,13 +250,13 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
           <ScrollReveal>
             <div>
               <h2 style={{ fontSize: '24px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 18px', letterSpacing: '-0.5px' }}>{tx.about}</h2>
-              <p style={{ color: '#6e6e73', fontSize: '16px', lineHeight: 1.85, margin: 0 }}>{training.description}</p>
+              <p style={{ color: '#6e6e73', fontSize: '16px', lineHeight: 1.85, margin: 0 }}>{descDisplay}</p>
             </div>
           </ScrollReveal>
           <ScrollReveal delay={0.12}>
             <div style={{ background: 'rgba(0,0,0,0.02)', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '18px', padding: '24px' }}>
               <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#1d1d1f', margin: '0 0 12px', textTransform: 'uppercase', letterSpacing: '1px' }}>{tx.prerequisites}</h3>
-              <p style={{ color: '#6e6e73', fontSize: '14px', lineHeight: 1.7, margin: 0 }}>{training.prerequisites}</p>
+              <p style={{ color: '#6e6e73', fontSize: '14px', lineHeight: 1.7, margin: 0 }}>{prereqDisplay}</p>
             </div>
           </ScrollReveal>
         </div>
@@ -245,7 +270,7 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
               <div style={{ background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '20px', padding: '32px', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
                 <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 20px', letterSpacing: '-0.3px' }}>{tx.forWhom}</h2>
                 <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  {training.targetAudience.map((item, i) => (
+                  {audienceDisplay.map((item, i) => (
                     <li key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
                       <span style={{ color: '#1e9953', flexShrink: 0, marginTop: '1px' }}><IconCheck size={15} color="#1e9953" strokeWidth={2.5} /></span>
                       <span style={{ color: '#6e6e73', fontSize: '13px', lineHeight: 1.65 }}>{item}</span>
@@ -258,7 +283,7 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
               <div style={{ background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '20px', padding: '32px', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
                 <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 20px', letterSpacing: '-0.3px' }}>{tx.benefits}</h2>
                 <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  {training.benefits.map((item, i) => (
+                  {benefitsDisplay.map((item, i) => (
                     <li key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
                       <span style={{ color: '#1e9953', flexShrink: 0, marginTop: '1px' }}><IconCheck size={15} color="#1e9953" strokeWidth={2.5} /></span>
                       <span style={{ color: '#6e6e73', fontSize: '13px', lineHeight: 1.65 }}>{item}</span>
@@ -278,7 +303,7 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
             <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 40px', letterSpacing: '-0.5px' }}>{tx.programme}</h2>
           </ScrollReveal>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {training.program.map((module, i) => (
+            {programDisplay.map((module, i) => (
               <ScrollReveal key={i} delay={i * 0.04}>
                 <div style={{ background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
                   <button
@@ -365,14 +390,14 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
       </section>
 
       {/* FAQ */}
-      {training.faq && training.faq.length > 0 && (
+      {trainingFaqDisplay && trainingFaqDisplay.length > 0 && (
         <section style={{ padding: '0 24px 80px' }}>
           <div style={{ maxWidth: '900px', margin: '0 auto' }}>
             <ScrollReveal>
               <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 40px', letterSpacing: '-0.5px' }}>{tx.trainingFaq}</h2>
             </ScrollReveal>
             <div>
-              {training.faq.map((item, i) => (
+              {trainingFaqDisplay.map((item, i) => (
                 <FAQItem key={i} item={item} />
               ))}
             </div>
@@ -387,7 +412,7 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
             <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 40px', letterSpacing: '-0.5px' }}>{tx.globalFaq}</h2>
           </ScrollReveal>
           <div>
-            {faqItems.map((item, i) => (
+            {globalFaqDisplay.map((item, i) => (
               <FAQItem key={i} item={item} />
             ))}
           </div>

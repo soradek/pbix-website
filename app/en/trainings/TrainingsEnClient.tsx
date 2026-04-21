@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import ScrollReveal from '@/components/ScrollReveal';
 import Link from 'next/link';
 import { trainings, Training } from '@/data/trainings';
+import { getTrainingEnContent } from '@/data/trainings-en';
 import { IconBarChart, IconExcel, IconDatabase, IconPieChart, IconArrowRight } from '@/components/Icons';
 
 const categories = ['All', 'Power BI', 'Excel', 'SQL', 'Data Visualisation'] as const;
@@ -113,6 +114,11 @@ export default function TrainingsEnClient() {
 }
 
 function TrainingCard({ training }: { training: Training }) {
+  const en = getTrainingEnContent(training.slug);
+  const titleDisplay = en?.title ?? training.title;
+  const descDisplay = en?.description ?? training.description;
+  const categoryDisplay = training.category === 'Wizualizacja danych' ? 'Data Visualisation' : training.category;
+
   return (
     <Link href={`/en/trainings/${training.slug}`} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
       <div style={{ background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '20px', padding: '28px', height: '100%', display: 'flex', flexDirection: 'column', gap: '14px', transition: 'all 0.25s', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}
@@ -123,12 +129,12 @@ function TrainingCard({ training }: { training: Training }) {
         </div>
         <div>
           <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#1e9953', marginBottom: '5px', fontWeight: 600 }}>
-            {training.category === 'Wizualizacja danych' ? 'Data Visualisation' : training.category}
+            {categoryDisplay}
           </div>
-          <h3 style={{ fontSize: '16px', fontWeight: 600, color: '#1d1d1f', margin: 0, lineHeight: 1.35 }}>{training.title}</h3>
+          <h3 style={{ fontSize: '16px', fontWeight: 600, color: '#1d1d1f', margin: 0, lineHeight: 1.35 }}>{titleDisplay}</h3>
         </div>
         <p style={{ color: '#6e6e73', fontSize: '13px', lineHeight: 1.65, margin: 0, flex: 1 }}>
-          {training.description.substring(0, 90)}...
+          {descDisplay.substring(0, 90)}...
         </p>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14px', borderTop: '1px solid rgba(0,0,0,0.06)', marginTop: 'auto' }}>
           <div>
