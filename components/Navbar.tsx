@@ -87,6 +87,8 @@ export default function Navbar() {
         {/* Desktop nav */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }} className="desktop-nav">
           {/* Language switcher */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ fontSize: '11px', color: '#6e6e73', fontWeight: 500, letterSpacing: '0.2px' }}>v1.3.7</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: '2px', background: 'rgba(0,0,0,0.04)', borderRadius: '980px', padding: '3px' }}>
             <Link
               href={isEn ? altUrl : pathname}
@@ -110,6 +112,7 @@ export default function Navbar() {
             >
               EN
             </Link>
+          </div>
           </div>
 
           {navLinks.map(link => (
