@@ -13,6 +13,7 @@ import {
   IconBarChart, IconExcel, IconDatabase, IconPieChart,
   IconTarget, IconBriefcase, IconZap, IconUser, IconArrowRight,
 } from '@/components/Icons';
+import { GradientCard } from '@/components/ui/GradientCard';
 
 export const metadata: Metadata = {
   title: 'Power BI, Excel & SQL Corporate Trainings | Radosław Sobczak MCT',
@@ -155,18 +156,13 @@ export default function EnHomePage() {
           <div className="spec-grid">
             {specializations.map((spec, i) => (
               <ScrollReveal key={spec.title} delay={i * 0.08}>
-                <Link href={`/en/trainings?category=${encodeURIComponent(spec.category)}`} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
-                  <div className="spec-card-hover" style={{ background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '20px', padding: '36px 32px', height: '100%', boxShadow: '0 1px 3px rgba(0,0,0,0.04)', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
-                    <div style={{ marginBottom: '20px', width: '52px', height: '52px', background: 'rgba(30,153,83,0.08)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      {spec.icon}
-                    </div>
-                    <h3 style={{ fontSize: '20px', fontWeight: 600, color: '#1d1d1f', margin: '0 0 10px' }}>{spec.title}</h3>
-                    <p style={{ color: '#6e6e73', fontSize: '14px', lineHeight: 1.7, margin: '0 0 24px', flex: 1 }}>{spec.desc}</p>
-                    <div style={{ color: '#1e9953', fontSize: '14px', fontWeight: 500, display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                      Learn more <IconArrowRight size={14} color="#1e9953" />
-                    </div>
-                  </div>
-                </Link>
+                <GradientCard
+                  icon={spec.icon}
+                  title={spec.title}
+                  description={spec.desc}
+                  href={`/en/trainings?category=${encodeURIComponent(spec.category)}`}
+                  linkLabel="Learn more"
+                />
               </ScrollReveal>
             ))}
           </div>
