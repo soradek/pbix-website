@@ -81,7 +81,7 @@ export default function EnHomePage() {
             {[
               { number: '4,000+', label: 'hours in training rooms' },
               { number: '4,500+', label: 'professionals trained' },
-              { number: '7 years', label: 'experience as a trainer' },
+              { number: '7 years', label: 'of experience as a trainer' },
             ].map((stat, i) => (
               <ScrollReveal key={stat.number} delay={i * 0.1}>
                 <div className="stat-divider" style={{ textAlign: 'center', padding: '8px 40px', borderRight: i < 2 ? '1px solid rgba(0,0,0,0.08)' : 'none' }}>
