@@ -2,8 +2,14 @@
 
 import { useEffect } from 'react';
 
-export default function SuccessModal({ onClose }: { onClose: () => void }) {
-  // Scroll to modal on mobile
+interface SuccessModalProps {
+  onClose: () => void;
+  lang?: 'pl' | 'en';
+}
+
+export default function SuccessModal({ onClose, lang = 'pl' }: SuccessModalProps) {
+  const isEn = lang === 'en';
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
@@ -32,7 +38,6 @@ export default function SuccessModal({ onClose }: { onClose: () => void }) {
         }}
         onClick={e => e.stopPropagation()}
       >
-        {/* Close X */}
         <button
           onClick={onClose}
           style={{
@@ -42,12 +47,11 @@ export default function SuccessModal({ onClose }: { onClose: () => void }) {
             padding: '4px 8px', borderRadius: '8px',
             fontFamily: 'inherit',
           }}
-          aria-label="Zamknij"
+          aria-label={isEn ? 'Close' : 'Zamknij'}
         >
           ✕
         </button>
 
-        {/* Animated tick */}
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '24px' }}>
           <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
             <circle cx="36" cy="36" r="34" stroke="#1e9953" strokeWidth="2.5"
@@ -69,10 +73,12 @@ export default function SuccessModal({ onClose }: { onClose: () => void }) {
         </div>
 
         <h2 style={{ fontSize: '22px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 12px', letterSpacing: '-0.3px' }}>
-          Twoja wiadomość została wysłana.
+          {isEn ? 'Your message has been sent.' : 'Twoja wiadomość została wysłana.'}
         </h2>
         <p style={{ color: '#6e6e73', fontSize: '16px', lineHeight: 1.7, margin: '0 0 28px' }}>
-          Odpowiem na nią najszybciej jak tylko będę mógł. Do usłyszenia!
+          {isEn
+            ? "I'll get back to you as soon as I can. Talk soon!"
+            : 'Odpowiem na nią najszybciej jak tylko będę mógł. Do usłyszenia!'}
         </p>
 
         <button

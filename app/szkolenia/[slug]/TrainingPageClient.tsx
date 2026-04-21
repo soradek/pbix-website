@@ -11,7 +11,45 @@ import {
   IconCheck, IconClock, IconTag,
 } from '@/components/Icons';
 
-export default function TrainingPageClient({ training }: { training: Training }) {
+const t = {
+  pl: {
+    duration: 'Czas trwania', price: 'Cena netto za grupę', upTo: 'do', people: 'osób',
+    language: 'Język', askDate: 'Zapytaj o termin', faqLink: 'Najczęściej zadawane pytania',
+    contactHref: '/kontakt',
+    about: 'O szkoleniu', prerequisites: 'Wymagania wstępne',
+    forWhom: 'Dla kogo', benefits: 'Co zyskasz',
+    programme: 'Program szkolenia',
+    whatYouGet: 'Co otrzymujesz',
+    materials: 'Materiały', materialsDesc: 'Prezentacje i pliki ćwiczeń do zachowania',
+    workshops: 'Warsztaty', workshopsDesc: 'Praktyczne zadania na realnych danych',
+    certificate: 'Certyfikat', certificateDesc: 'W wersji polskiej i angielskiej, (papierowy oraz cyfrowy)',
+    consultations: 'Konsultacje', consultationsDesc: 'Pytania po szkoleniu na LinkedIn',
+    trainingFaq: 'Pytania o szkolenie', globalFaq: 'Najczęściej zadawane pytania',
+    ctaTitle: 'Gotowy na szkolenie?', ctaDesc: 'Skontaktuj się ze mną przez formularz lub napisz maila.',
+    ctaBtn: 'Zadaj pytanie', emailBtn: 'Napisz email',
+    emailSubject: 'Pytanie o szkoleniu',
+  },
+  en: {
+    duration: 'Duration', price: 'Net price per group', upTo: 'up to', people: 'people',
+    language: 'Language', askDate: 'Ask about a date', faqLink: 'Frequently asked questions',
+    contactHref: '/en/contact',
+    about: 'About the training', prerequisites: 'Prerequisites',
+    forWhom: 'Who is this for', benefits: 'What you\'ll gain',
+    programme: 'Training programme',
+    whatYouGet: 'What you get',
+    materials: 'Materials', materialsDesc: 'Presentations and exercise files to keep',
+    workshops: 'Workshops', workshopsDesc: 'Hands-on tasks using real business data',
+    certificate: 'Certificate', certificateDesc: 'In Polish and English, (print and digital)',
+    consultations: 'Consultations', consultationsDesc: 'Post-training questions via LinkedIn',
+    trainingFaq: 'Training FAQs', globalFaq: 'Frequently asked questions',
+    ctaTitle: 'Ready to get started?', ctaDesc: 'Contact me via the form or send an email.',
+    ctaBtn: 'Ask a question', emailBtn: 'Send email',
+    emailSubject: 'Training enquiry',
+  },
+};
+
+export default function TrainingPageClient({ training, lang = 'pl' }: { training: Training; lang?: 'pl' | 'en' }) {
+  const tx = t[lang];
   const [openModule, setOpenModule] = useState<number | null>(0);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -129,7 +167,7 @@ export default function TrainingPageClient({ training }: { training: Training })
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <IconClock size={18} color={heroTextSecondary} />
               <div>
-                <div style={{ fontSize: '11px', color: heroTextSecondary, marginBottom: '1px', textTransform: 'uppercase', letterSpacing: '0.8px', textShadow: heroShadow }}>Czas trwania</div>
+                <div style={{ fontSize: '11px', color: heroTextSecondary, marginBottom: '1px', textTransform: 'uppercase', letterSpacing: '0.8px', textShadow: heroShadow }}>{tx.duration}</div>
                 <div style={{ fontSize: '16px', fontWeight: 600, color: heroTextPrimary, textShadow: heroShadow }}>{training.duration}</div>
               </div>
             </div>
@@ -137,7 +175,7 @@ export default function TrainingPageClient({ training }: { training: Training })
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
                 <IconTag size={18} color={heroTextSecondary} />
-                <div style={{ fontSize: '11px', color: heroTextSecondary, textTransform: 'uppercase', letterSpacing: '0.8px', textShadow: heroShadow }}>Cena netto za grupę</div>
+                <div style={{ fontSize: '11px', color: heroTextSecondary, textTransform: 'uppercase', letterSpacing: '0.8px', textShadow: heroShadow }}>{tx.price}</div>
               </div>
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                 {training.pricingTiers.map((tier) => (
@@ -148,7 +186,7 @@ export default function TrainingPageClient({ training }: { training: Training })
                     padding: '10px 16px',
                     textAlign: 'center',
                   }}>
-                    <div style={{ fontSize: '12px', color: heroTextSecondary, marginBottom: '4px', whiteSpace: 'nowrap', textShadow: heroShadow }}>do {tier.maxPeople} osób</div>
+                    <div style={{ fontSize: '12px', color: heroTextSecondary, marginBottom: '4px', whiteSpace: 'nowrap', textShadow: heroShadow }}>{tx.upTo} {tier.maxPeople} {tx.people}</div>
                     <div style={{ fontSize: '18px', fontWeight: 700, color: heroTextPrimary, letterSpacing: '-0.3px', textShadow: heroShadow }}>{tier.priceLabel}</div>
                   </div>
                 ))}
@@ -158,7 +196,7 @@ export default function TrainingPageClient({ training }: { training: Training })
               <>
                 <div style={{ width: '1px', background: 'rgba(0,0,0,0.08)' }} />
                 <div>
-                  <div style={{ fontSize: '11px', color: heroTextSecondary, marginBottom: '1px', textTransform: 'uppercase', letterSpacing: '0.8px', textShadow: heroShadow }}>Język</div>
+                  <div style={{ fontSize: '11px', color: heroTextSecondary, marginBottom: '1px', textTransform: 'uppercase', letterSpacing: '0.8px', textShadow: heroShadow }}>{tx.language}</div>
                   <div style={{ fontSize: '15px', fontWeight: 500, color: heroTextPrimary, textShadow: heroShadow }}>{training.language}</div>
                 </div>
               </>
@@ -171,11 +209,11 @@ export default function TrainingPageClient({ training }: { training: Training })
             transition={{ duration: 0.6, delay: 0.2 }}
             style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}
           >
-            <Link href="/kontakt" style={{ background: '#1e9953', color: 'white', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 600 }}>
-              Zapytaj o termin
+            <Link href={tx.contactHref} style={{ background: '#1e9953', color: 'white', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 600 }}>
+              {tx.askDate}
             </Link>
             <a href="#faq" style={{ border: `1.5px solid ${hasVideo ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.15)'}`, color: hasVideo ? '#ffffff' : '#1d1d1f', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 500 }}>
-              Najczęściej zadawane pytania
+              {tx.faqLink}
             </a>
           </motion.div>
         </div>
@@ -186,13 +224,13 @@ export default function TrainingPageClient({ training }: { training: Training })
         <div className="training-desc-grid" style={{ maxWidth: '900px', margin: '0 auto', display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '56px', alignItems: 'start' }}>
           <ScrollReveal>
             <div>
-              <h2 style={{ fontSize: '24px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 18px', letterSpacing: '-0.5px' }}>O szkoleniu</h2>
+              <h2 style={{ fontSize: '24px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 18px', letterSpacing: '-0.5px' }}>{tx.about}</h2>
               <p style={{ color: '#6e6e73', fontSize: '16px', lineHeight: 1.85, margin: 0 }}>{training.description}</p>
             </div>
           </ScrollReveal>
           <ScrollReveal delay={0.12}>
             <div style={{ background: 'rgba(0,0,0,0.02)', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '18px', padding: '24px' }}>
-              <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#1d1d1f', margin: '0 0 12px', textTransform: 'uppercase', letterSpacing: '1px' }}>Wymagania wstępne</h3>
+              <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#1d1d1f', margin: '0 0 12px', textTransform: 'uppercase', letterSpacing: '1px' }}>{tx.prerequisites}</h3>
               <p style={{ color: '#6e6e73', fontSize: '14px', lineHeight: 1.7, margin: 0 }}>{training.prerequisites}</p>
             </div>
           </ScrollReveal>
@@ -205,7 +243,7 @@ export default function TrainingPageClient({ training }: { training: Training })
           <div className="two-col-grid">
             <ScrollReveal>
               <div style={{ background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '20px', padding: '32px', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
-                <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 20px', letterSpacing: '-0.3px' }}>Dla kogo</h2>
+                <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 20px', letterSpacing: '-0.3px' }}>{tx.forWhom}</h2>
                 <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   {training.targetAudience.map((item, i) => (
                     <li key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
@@ -218,7 +256,7 @@ export default function TrainingPageClient({ training }: { training: Training })
             </ScrollReveal>
             <ScrollReveal delay={0.12}>
               <div style={{ background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '20px', padding: '32px', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
-                <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 20px', letterSpacing: '-0.3px' }}>Co zyskasz</h2>
+                <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 20px', letterSpacing: '-0.3px' }}>{tx.benefits}</h2>
                 <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   {training.benefits.map((item, i) => (
                     <li key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
@@ -237,7 +275,7 @@ export default function TrainingPageClient({ training }: { training: Training })
       <section style={{ padding: '0 24px 80px', background: '#f9f9f9' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto', paddingTop: '80px', paddingBottom: '80px' }}>
           <ScrollReveal>
-            <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 40px', letterSpacing: '-0.5px' }}>Program szkolenia</h2>
+            <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 40px', letterSpacing: '-0.5px' }}>{tx.programme}</h2>
           </ScrollReveal>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {training.program.map((module, i) => (
@@ -294,14 +332,14 @@ export default function TrainingPageClient({ training }: { training: Training })
       <section style={{ padding: '80px 24px' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           <ScrollReveal>
-            <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 40px', letterSpacing: '-0.5px' }}>Co otrzymujesz</h2>
+            <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 40px', letterSpacing: '-0.5px' }}>{tx.whatYouGet}</h2>
           </ScrollReveal>
           <div className="receive-grid">
             {[
-              { icon: <IconFolder size={28} color="#1e9953" />, title: 'Materiały', desc: 'Prezentacje i pliki ćwiczeń do zachowania' },
-              { icon: <IconFlask size={28} color="#1e9953" />, title: 'Warsztaty', desc: 'Praktyczne zadania na realnych danych' },
-              { icon: <IconAward size={28} color="#1e9953" />, title: 'Certyfikat', desc: 'W wersji polskiej i angielskiej, (papierowy oraz cyfrowy)' },
-              { icon: <IconMessageCircle size={28} color="#1e9953" />, title: 'Konsultacje', desc: 'Pytania po szkoleniu na LinkedIn' },
+              { icon: <IconFolder size={28} color="#1e9953" />, title: tx.materials, desc: tx.materialsDesc },
+              { icon: <IconFlask size={28} color="#1e9953" />, title: tx.workshops, desc: tx.workshopsDesc },
+              { icon: <IconAward size={28} color="#1e9953" />, title: tx.certificate, desc: tx.certificateDesc },
+              { icon: <IconMessageCircle size={28} color="#1e9953" />, title: tx.consultations, desc: tx.consultationsDesc },
             ].map((item, i) => (
               <ScrollReveal key={item.title} delay={i * 0.08}>
                 <div style={{
@@ -331,7 +369,7 @@ export default function TrainingPageClient({ training }: { training: Training })
         <section style={{ padding: '0 24px 80px' }}>
           <div style={{ maxWidth: '900px', margin: '0 auto' }}>
             <ScrollReveal>
-              <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 40px', letterSpacing: '-0.5px' }}>Pytania o szkolenie</h2>
+              <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 40px', letterSpacing: '-0.5px' }}>{tx.trainingFaq}</h2>
             </ScrollReveal>
             <div>
               {training.faq.map((item, i) => (
@@ -346,7 +384,7 @@ export default function TrainingPageClient({ training }: { training: Training })
       <section id="faq" style={{ padding: '0 24px 80px' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           <ScrollReveal>
-            <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 40px', letterSpacing: '-0.5px' }}>Najczęściej zadawane pytania</h2>
+            <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 40px', letterSpacing: '-0.5px' }}>{tx.globalFaq}</h2>
           </ScrollReveal>
           <div>
             {faqItems.map((item, i) => (
@@ -370,16 +408,16 @@ export default function TrainingPageClient({ training }: { training: Training })
               }}
             >
               <h2 style={{ fontSize: '28px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 14px', letterSpacing: '-0.5px' }}>
-                Gotowy na szkolenie?
+                {tx.ctaTitle}
               </h2>
               <p style={{ color: '#6e6e73', fontSize: '15px', lineHeight: 1.7, margin: '0 0 32px' }}>
-                Skontaktuj się ze mną przez formularz lub napisz maila.
+                {tx.ctaDesc}
               </p>
               <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <Link href="/kontakt" style={{ background: '#1e9953', color: 'white', textDecoration: 'none', padding: '13px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 600 }}>
-                  Zadaj pytanie
+                <Link href={tx.contactHref} style={{ background: '#1e9953', color: 'white', textDecoration: 'none', padding: '13px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 600 }}>
+                  {tx.ctaBtn}
                 </Link>
-                <EmailButton />
+                <EmailButton label={tx.emailBtn} subject={tx.emailSubject} />
               </div>
             </div>
           </ScrollReveal>
@@ -411,15 +449,15 @@ function FAQItem({ item }: { item: { q: string; a: string } }) {
   );
 }
 
-function EmailButton() {
+function EmailButton({ label, subject }: { label: string; subject: string }) {
   const href = (() => {
     const d = new Date();
     const date = `${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}`;
-    return `mailto:kontakt@pbix.pl?subject=${encodeURIComponent(`${date} Pytanie o szkolenie`)}`;
+    return `mailto:kontakt@pbix.pl?subject=${encodeURIComponent(`${date} ${subject}`)}`;
   })();
   return (
     <a href={href} style={{ border: '1.5px solid rgba(0,0,0,0.15)', color: '#1d1d1f', textDecoration: 'none', padding: '13px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 500 }}>
-      Napisz email
+      {label}
     </a>
   );
 }

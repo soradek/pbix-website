@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { headers } from 'next/headers';
 import './globals.css';
 import CustomCursor from '@/components/CustomCursor';
 import { Analytics } from '@vercel/analytics/next';
@@ -77,9 +78,12 @@ export const metadata: Metadata = {
   category: 'education',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const headersList = await headers();
+  const pathname = headersList.get('x-pathname') ?? '/';
+  const lang = pathname.startsWith('/en') ? 'en' : 'pl';
   return (
-    <html lang="pl">
+    <html lang={lang}>
       <head>
         {/* Structured Data – Person + Organization */}
         <script

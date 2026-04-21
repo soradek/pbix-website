@@ -2,7 +2,7 @@
 
 import { clients } from '@/data/clients';
 
-export default function ClientsMarquee() {
+export default function ClientsMarquee({ lang = 'pl' }: { lang?: 'pl' | 'en' }) {
   const doubled = [...clients, ...clients];
 
   return (
@@ -13,7 +13,7 @@ export default function ClientsMarquee() {
     }}>
       <div style={{ textAlign: 'center', marginBottom: '48px', padding: '0 24px' }}>
         <div style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(255,255,255,0.7)', fontWeight: 700 }}>
-          Zaufali mi
+          {lang === 'en' ? 'Trusted by' : 'Zaufali mi'}
         </div>
       </div>
       <div style={{ overflow: 'hidden' }}>
