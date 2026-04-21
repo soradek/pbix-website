@@ -26,9 +26,11 @@ export default function CustomCursor() {
     const onMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      moving = true;
+      if (!moving) {
+        moving = true;
+        raf = requestAnimationFrame(loop);
+      }
       clearTimeout(idleTimer);
-      // Stop loop after 2s idle to save CPU
       idleTimer = setTimeout(() => { moving = false; }, 2000);
 
       const target = e.target as HTMLElement;
@@ -44,11 +46,10 @@ export default function CustomCursor() {
     };
 
     const loop = () => {
-      if (moving) {
-        posX += (mouseX - posX) * 0.12;
-        posY += (mouseY - posY) * 0.12;
-        cursor.style.transform = `translate(${posX - cursor.offsetWidth / 2}px, ${posY - cursor.offsetHeight / 2}px)`;
-      }
+      if (!moving) return;
+      posX += (mouseX - posX) * 0.12;
+      posY += (mouseY - posY) * 0.12;
+      cursor.style.transform = `translate(${posX - cursor.offsetWidth / 2}px, ${posY - cursor.offsetHeight / 2}px)`;
       raf = requestAnimationFrame(loop);
     };
 
@@ -58,7 +59,6 @@ export default function CustomCursor() {
     document.addEventListener('mousemove', onMouseMove, { passive: true });
     document.addEventListener('mouseleave', onMouseLeave);
     document.addEventListener('mouseenter', onMouseEnter);
-    raf = requestAnimationFrame(loop);
 
     return () => {
       document.removeEventListener('mousemove', onMouseMove);

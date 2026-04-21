@@ -3,7 +3,7 @@
 import { clients } from '@/data/clients';
 
 export default function ClientsMarquee() {
-  const doubled = [...clients, ...clients, ...clients];
+  const doubled = [...clients, ...clients];
 
   return (
     <section style={{
@@ -21,6 +21,7 @@ export default function ClientsMarquee() {
           {doubled.map((client, i) => (
             <div
               key={i}
+              className="marquee-item"
               style={{
                 padding: '0 56px',
                 fontSize: '18px',
@@ -31,8 +32,6 @@ export default function ClientsMarquee() {
                 flexShrink: 0,
                 transition: 'color 0.3s',
               }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#ffffff'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.75)'; }}
             >
               {client}
             </div>

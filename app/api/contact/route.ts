@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
       subject,
       html,
     });
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true }, { headers: { 'Cache-Control': 'no-store' } });
   } catch (err) {
     const e = err as Record<string, unknown>;
     console.error('SMTP error:', {

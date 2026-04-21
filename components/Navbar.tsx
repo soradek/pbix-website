@@ -9,8 +9,14 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
+    let last = 0;
+    const handleScroll = () => {
+      const now = Date.now();
+      if (now - last < 100) return;
+      last = now;
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -20,7 +26,7 @@ export default function Navbar() {
   }, [isOpen]);
 
   const navLinks = [
-    { href: '#', label: 'v1.3.4', style: { opacity: 0.35, fontSize: '11px', cursor: 'default', pointerEvents: 'none' as const } },
+    { href: '#', label: 'v1.3.5', style: { opacity: 0.35, fontSize: '11px', cursor: 'default', pointerEvents: 'none' as const } },
     { href: '/#o-mnie', label: 'O mnie' },
     { href: '/szkolenia', label: 'Szkolenia' },
     { href: '/kontakt', label: 'Kontakt' },
