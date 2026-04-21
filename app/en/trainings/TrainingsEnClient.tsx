@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import ScrollReveal from '@/components/ScrollReveal';
 import Link from 'next/link';
 import { trainings, Training } from '@/data/trainings';
-import { getTrainingEnContent } from '@/data/trainings-en';
+import { getTrainingEnContent, enPriceLabel } from '@/data/trainings-en';
 import { IconBarChart, IconExcel, IconDatabase, IconPieChart, IconArrowRight } from '@/components/Icons';
 
 const categories = ['All', 'Power BI', 'Excel', 'SQL', 'Data Visualisation'] as const;
@@ -118,6 +118,8 @@ function TrainingCard({ training }: { training: Training }) {
   const titleDisplay = en?.title ?? training.title;
   const descDisplay = en?.description ?? training.description;
   const categoryDisplay = training.category === 'Wizualizacja danych' ? 'Data Visualisation' : training.category;
+  const durationDisplay = training.duration.replace('2 dni / 16 godzin', '2 days / 16 hours');
+  const priceLabelDisplay = enPriceLabel(training.price);
 
   return (
     <Link href={`/en/trainings/${training.slug}`} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
@@ -138,8 +140,8 @@ function TrainingCard({ training }: { training: Training }) {
         </p>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14px', borderTop: '1px solid rgba(0,0,0,0.06)', marginTop: 'auto' }}>
           <div>
-            <div style={{ fontSize: '10px', color: '#6e6e73', marginBottom: '2px' }}>{training.duration}</div>
-            <div style={{ fontSize: '16px', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-0.3px' }}>{training.priceLabel}</div>
+            <div style={{ fontSize: '10px', color: '#6e6e73', marginBottom: '2px' }}>{durationDisplay}</div>
+            <div style={{ fontSize: '16px', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-0.3px' }}>{priceLabelDisplay}</div>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#1e9953', fontSize: '13px', fontWeight: 500 }}>
             Details <IconArrowRight size={14} color="#1e9953" />

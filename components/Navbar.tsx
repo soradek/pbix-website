@@ -12,13 +12,15 @@ function getAltUrl(pathname: string): string {
     return stripped
       .replace(/^\/trainings(\/|$)/, '/szkolenia$1')
       .replace(/^\/contact$/, '/kontakt')
-      .replace(/^\/register$/, '/zapisy');
+      .replace(/^\/register$/, '/zapisy')
+      .replace(/^\/projects(\/|$)/, '/projekty$1');
   }
   if (pathname === '/') return '/en';
   return '/en' + pathname
     .replace(/^\/szkolenia(\/|$)/, '/trainings$1')
     .replace(/^\/kontakt$/, '/contact')
-    .replace(/^\/zapisy$/, '/register');
+    .replace(/^\/zapisy$/, '/register')
+    .replace(/^\/projekty(\/|$)/, '/projects$1');
 }
 
 export default function Navbar() {
@@ -49,11 +51,13 @@ export default function Navbar() {
     ? [
         { href: '/en', label: 'Home' },
         { href: '/en/trainings', label: 'Trainings' },
+        { href: '/en/projects', label: 'Projects' },
         { href: '/en#faq', label: 'FAQ' },
       ]
     : [
         { href: '/', label: 'Home' },
         { href: '/szkolenia', label: 'Szkolenia' },
+        { href: '/projekty', label: 'Projekty' },
         { href: '/#faq', label: 'FAQ' },
       ];
 

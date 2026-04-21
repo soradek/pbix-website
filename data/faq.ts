@@ -42,7 +42,7 @@ export const faqItemsEn: FAQItem[] = [
   },
   {
     q: 'How many people can attend a single training session?',
-    a: 'The optimal group size for a corporate Power BI, Excel or SQL training is 5–10 people. Smaller groups allow for a more personalised approach; larger groups are possible by arrangement. Pricing is structured per group, not per person.',
+    a: 'The optimal group size for a corporate Power BI, Excel or SQL training is up to 12 people. Smaller groups allow for a more personalised approach; larger groups are possible by arrangement. Pricing is structured per group, not per person.',
   },
   {
     q: 'Do you offer online Power BI and Excel training?',
@@ -55,6 +55,10 @@ export const faqItemsEn: FAQItem[] = [
   {
     q: 'Is SQL training suitable for non-programmers?',
     a: 'Absolutely. The Microsoft SQL Server training is designed for analysts, finance professionals and business teams with no prior programming experience. The focus is on practical query writing for reporting — not database administration.',
+  },
+  {
+    q: 'Can the training programme be tailored to our specific needs?',
+    a: 'Absolutely. I regularly design fully bespoke training programmes built around your team\'s tools, actual data and real-world challenges. If your company works with specific Power BI reports, Excel dashboards or SQL queries — I can structure the entire training around those. This is the most effective approach for teams with clear, defined goals.',
   },
 ];
 
@@ -97,7 +101,7 @@ export const faqItems: FAQItem[] = [
   },
   {
     q: 'Ile osób może uczestniczyć w jednym szkoleniu?',
-    a: 'Optymalna wielkość grupy na szkoleniu Power BI, Excel lub SQL to 5–10 osób. Mniejsze grupy pozwalają na bardziej spersonalizowane podejście; większe grupy są możliwe po uzgodnieniu. Cena jest ustalana za grupę, nie za osobę.',
+    a: 'Optymalna wielkość grupy na szkoleniu Power BI, Excel lub SQL to do 12 osób. Mniejsze grupy pozwalają na bardziej spersonalizowane podejście; większe grupy są możliwe po uzgodnieniu. Cena jest ustalana za grupę, nie za osobę.',
   },
   {
     q: 'Czy oferujesz szkolenia Power BI i Excel online?',
@@ -110,5 +114,9 @@ export const faqItems: FAQItem[] = [
   {
     q: 'Czy szkolenie SQL jest odpowiednie dla osób bez doświadczenia technicznego?',
     a: 'Tak. Szkolenie Microsoft SQL Server kieruję do analityków, finansistów i zespołów biznesowych bez wcześniejszego doświadczenia w programowaniu. Skupiamy się na pisaniu zapytań na potrzeby raportowania – nie na administracji bazami danych.',
+  },
+  {
+    q: 'Czy można zamówić szkolenie dedykowane, przygotowane pod potrzeby naszej grupy?',
+    a: 'Tak. Regularnie przygotowuję szkolenia w pełni dopasowane do narzędzi, danych i wyzwań konkretnego zespołu. Jeśli firma korzysta z określonych raportów Power BI, dashboardów Excela lub zapytań SQL – mogę zbudować całe szkolenie na ich podstawie. To najskuteczniejsze podejście dla grup z konkretnymi, zdefiniowanymi celami.',
   },
 ];

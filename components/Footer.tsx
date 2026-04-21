@@ -25,14 +25,14 @@ export default function Footer({ lang = 'pl' }: FooterProps) {
     ? [
         { href: '/en', label: 'Home' },
         { href: '/en/trainings', label: 'Trainings' },
+        { href: '/en/projects', label: 'Projects' },
         { href: '/en/contact', label: 'Contact' },
-        { href: '/en/contact', label: 'Ask about a date' },
       ]
     : [
         { href: '/', label: 'Strona główna' },
         { href: '/szkolenia', label: 'Szkolenia' },
+        { href: '/projekty', label: 'Projekty' },
         { href: '/kontakt', label: 'Kontakt' },
-        { href: '/kontakt', label: 'Zapytaj o termin' },
       ];
 
   return (

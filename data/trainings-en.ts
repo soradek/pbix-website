@@ -390,3 +390,15 @@ export const trainingsEn: TrainingEnContent[] = [
 export function getTrainingEnContent(slug: string): TrainingEnContent | undefined {
   return trainingsEn.find(t => t.slug === slug);
 }
+
+/** EN price label with 20 % markup over the base PLN price */
+export function enPriceLabel(price: number): string {
+  const p = Math.round((price * 1.2) / 100) * 100;
+  return `from ${p.toLocaleString('en-US')} PLN`;
+}
+
+/** EN pricing-tier label (no "from" prefix) with 20 % markup */
+export function enTierLabel(price: number): string {
+  const p = Math.round((price * 1.2) / 100) * 100;
+  return `${p.toLocaleString('en-US')} PLN`;
+}

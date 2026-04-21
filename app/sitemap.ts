@@ -22,12 +22,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Polish
     { url: siteUrl,                    lastModified: new Date(), changeFrequency: 'weekly',  priority: 1.0 },
     { url: `${siteUrl}/szkolenia`,     lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.9 },
+    { url: `${siteUrl}/projekty`,      lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${siteUrl}/zapisy`,        lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${siteUrl}/kontakt`,       lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
     ...trainingPages,
     // English
     { url: `${siteUrl}/en`,                lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.9 },
     { url: `${siteUrl}/en/trainings`,      lastModified: new Date(), changeFrequency: 'weekly',  priority: 0.8 },
+    { url: `${siteUrl}/en/projects`,       lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${siteUrl}/en/register`,       lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
     { url: `${siteUrl}/en/contact`,        lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
     ...enTrainingPages,

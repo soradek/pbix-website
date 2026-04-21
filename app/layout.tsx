@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     template: '%s | pbix.pl – Radosław Sobczak',
   },
   description:
-    'Praktyczne szkolenia dla firm. Przekuj dane w wiedzę! Zamów szkolenie dla Twojego zespołu.',
+    'Radosław Sobczak – Certyfikowany Trener Microsoft (MCT). Szkolenia Power BI, Excel, SQL i VBA dla firm. 7 lat doświadczenia, ponad 4 500 przeszkolonych pracowników, ocena 4,8/5. Szkolenia stacjonarne i online w Polsce i po angielsku.',
   keywords: [
     'Power BI szkolenie',
     'szkolenia Excel',
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     siteName: 'pbix.pl – Radosław Sobczak',
     title: 'Szkolenia AI, Power BI, Excel, SQL | Radosław Sobczak MCT',
     description:
-      'Praktyczne szkolenia dla firm. Przekuj dane w wiedzę! Zamów szkolenie dla Twojego zespołu.',
+      'Certyfikowany Trener Microsoft – szkolenia Power BI, Excel, SQL i VBA dla firm w całej Polsce. 7 lat, 4 500+ przeszkolonych, ocena 4,8/5.',
     images: [
       {
         url: 'https://www.pbix.pl/og-image.jpg',
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Szkolenia AI, Power BI, Excel, SQL | Radosław Sobczak MCT',
     description:
-      'Praktyczne szkolenia dla firm. Przekuj dane w wiedzę! Zamów szkolenie dla Twojego zespołu.',
+      'Certyfikowany Trener Microsoft – szkolenia Power BI, Excel, SQL i VBA dla firm w całej Polsce. 7 lat, 4 500+ przeszkolonych, ocena 4,8/5.',
     images: ['https://www.pbix.pl/og-image.jpg'],
   },
   alternates: {

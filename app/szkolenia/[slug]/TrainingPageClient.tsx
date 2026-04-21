@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Training } from '@/data/trainings';
 import { faqItems, faqItemsEn } from '@/data/faq';
-import { getTrainingEnContent } from '@/data/trainings-en';
+import { getTrainingEnContent, enTierLabel } from '@/data/trainings-en';
 import ScrollReveal from '@/components/ScrollReveal';
 import {
   IconFolder, IconFlask, IconAward, IconMessageCircle,
@@ -74,6 +74,10 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
       : training.duration;
   const languageDisplay =
     lang === 'en' ? (en?.language ?? training.language) : training.language;
+
+  const tiersDisplay = lang === 'en'
+    ? training.pricingTiers.map(tier => ({ ...tier, priceLabel: enTierLabel(tier.price) }))
+    : training.pricingTiers;
 
   const [openModule, setOpenModule] = useState<number | null>(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -203,7 +207,7 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
                 <div style={{ fontSize: '11px', color: heroTextSecondary, textTransform: 'uppercase', letterSpacing: '0.8px', textShadow: heroShadow }}>{tx.price}</div>
               </div>
               <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                {training.pricingTiers.map((tier) => (
+                {tiersDisplay.map((tier) => (
                   <div key={tier.maxPeople} style={{
                     background: heroPricingBg,
                     border: `1px solid ${heroPricingBorder}`,

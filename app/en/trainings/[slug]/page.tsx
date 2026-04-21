@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { trainings, getTrainingBySlug } from '@/data/trainings';
+import { getTrainingEnContent } from '@/data/trainings-en';
 import TrainingPageClient from '@/app/szkolenia/[slug]/TrainingPageClient';
 
 export async function generateStaticParams() {
@@ -13,19 +14,23 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const training = getTrainingBySlug(slug);
   if (!training) return {};
-  const desc = training.description.substring(0, 160);
+  const en = getTrainingEnContent(slug);
+  const titleDisplay = en?.title ?? training.title;
+  const descFull = en?.description ?? training.description;
+  const desc = descFull.substring(0, 160);
   return {
-    title: `${training.title} | pbix.pl`,
+    title: `${titleDisplay} | pbix.pl`,
     description: desc,
+    keywords: [training.category, 'training', 'Power BI', 'Excel', 'SQL', 'corporate training Poland', 'Microsoft Certified Trainer', 'Radosław Sobczak'],
     openGraph: {
-      title: training.title,
+      title: titleDisplay,
       description: desc,
       url: `https://www.pbix.pl/en/trainings/${slug}`,
       siteName: 'pbix.pl',
       locale: 'en_US',
       type: 'website',
     },
-    twitter: { card: 'summary_large_image', title: training.title, description: desc },
+    twitter: { card: 'summary_large_image', title: titleDisplay, description: desc },
     alternates: { canonical: `https://www.pbix.pl/en/trainings/${slug}` },
   };
 }
@@ -35,24 +40,32 @@ export default async function TrainingEnPage({ params }: { params: Promise<{ slu
   const training = getTrainingBySlug(slug);
   if (!training) notFound();
 
+  const enContent = getTrainingEnContent(slug);
+  const enTitle = enContent?.title ?? training.title;
+  const enDesc = enContent?.description ?? training.description;
+  const enPrice = Math.round((training.price * 1.2) / 100) * 100;
+
   const courseSchema = {
     '@context': 'https://schema.org',
     '@type': 'Course',
-    name: training.title,
-    description: training.description.substring(0, 500),
+    name: enTitle,
+    description: enDesc.substring(0, 500),
     url: `https://www.pbix.pl/en/trainings/${slug}`,
     inLanguage: 'en',
     courseMode: ['onsite', 'online'],
     timeRequired: 'P2D',
+    educationalLevel: training.category,
+    teaches: enContent?.benefits ?? training.benefits,
     provider: {
       '@type': 'Person',
       name: 'Radosław Sobczak',
       url: 'https://www.pbix.pl',
       jobTitle: 'Microsoft Certified Trainer (MCT)',
+      hasCredential: { '@type': 'EducationalOccupationalCredential', name: 'Microsoft Certified Trainer (MCT)' },
     },
     offers: {
       '@type': 'Offer',
-      price: training.price,
+      price: enPrice,
       priceCurrency: 'PLN',
       availability: 'https://schema.org/InStock',
       url: 'https://www.pbix.pl/en/contact',
