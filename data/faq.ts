@@ -32,6 +32,30 @@ export const faqItemsEn: FAQItem[] = [
     q: 'What if the company does not have the required software?',
     a: 'A large proportion of the tools — including Power BI Desktop — are free to download. If a specific programme is missing, I will help arrange it before the training.',
   },
+  {
+    q: 'How long does a Power BI or Excel training take?',
+    a: 'Each training — whether Power BI, Excel, SQL or DAX — lasts 2 days (16 hours). This is enough time to move from fundamentals to real-world practice without overwhelming participants. For larger groups or broader scope, the programme can be extended by arrangement.',
+  },
+  {
+    q: 'Can the training be conducted in English?',
+    a: 'Yes. I deliver corporate Power BI, Excel and SQL trainings in both Polish and English. English-language sessions are available for international teams and multinational companies operating in Poland.',
+  },
+  {
+    q: 'How many people can attend a single training session?',
+    a: 'The optimal group size for a corporate Power BI, Excel or SQL training is 5–10 people. Smaller groups allow for a more personalised approach; larger groups are possible by arrangement. Pricing is structured per group, not per person.',
+  },
+  {
+    q: 'Do you offer online Power BI and Excel training?',
+    a: 'Yes — all trainings (Power BI, Excel, SQL, VBA, DAX) are available both on-site and online via Microsoft Teams or Zoom. Online sessions follow the same hands-on, workshop format as classroom training.',
+  },
+  {
+    q: 'What is the difference between a Power BI training and an Excel training?',
+    a: 'Power BI is a dedicated business intelligence tool for building interactive dashboards and reports from large datasets — ideal for analysts and BI teams. Excel training focuses on spreadsheet skills, from formulas and pivot tables through to Power Query and Power Pivot. Many teams benefit from both: Excel for daily data work, Power BI for reporting and visualisation.',
+  },
+  {
+    q: 'Is SQL training suitable for non-programmers?',
+    a: 'Absolutely. The Microsoft SQL Server training is designed for analysts, finance professionals and business teams with no prior programming experience. The focus is on practical query writing for reporting — not database administration.',
+  },
 ];
 
 export const faqItems: FAQItem[] = [
@@ -62,5 +86,29 @@ export const faqItems: FAQItem[] = [
   {
     q: 'Co jeśli firma nie ma wymaganego oprogramowania?',
     a: 'Znaczna część narzędzi – w tym Power BI Desktop – jest bezpłatna. Jeśli brakuje konkretnego programu – pomogę go zorganizować przed szkoleniem.',
+  },
+  {
+    q: 'Ile trwa szkolenie Power BI lub Excel?',
+    a: 'Każde szkolenie – Power BI, Excel, SQL czy DAX – trwa 2 dni (16 godzin). To wystarczający czas, by przejść od podstaw do praktycznych zastosowań bez przeciążania uczestników. Dla większych grup lub szerszego zakresu program można rozszerzyć po ustaleniu.',
+  },
+  {
+    q: 'Czy szkolenie może być prowadzone po angielsku?',
+    a: 'Tak. Prowadzę szkolenia korporacyjne z Power BI, Excela i SQL zarówno po polsku, jak i po angielsku. Szkolenia w języku angielskim kieruję do międzynarodowych zespołów i firm zagranicznych działających w Polsce.',
+  },
+  {
+    q: 'Ile osób może uczestniczyć w jednym szkoleniu?',
+    a: 'Optymalna wielkość grupy na szkoleniu Power BI, Excel lub SQL to 5–10 osób. Mniejsze grupy pozwalają na bardziej spersonalizowane podejście; większe grupy są możliwe po uzgodnieniu. Cena jest ustalana za grupę, nie za osobę.',
+  },
+  {
+    q: 'Czy oferujesz szkolenia Power BI i Excel online?',
+    a: 'Tak – wszystkie szkolenia (Power BI, Excel, SQL, VBA, DAX) dostępne są zarówno stacjonarnie, jak i online przez Microsoft Teams lub Zoom. Zajęcia zdalne mają ten sam praktyczny, warsztatowy charakter co szkolenia w sali.',
+  },
+  {
+    q: 'Jaka jest różnica między szkoleniem Power BI a szkoleniem z Excela?',
+    a: 'Power BI to dedykowane narzędzie Business Intelligence do budowania interaktywnych dashboardów z dużych zbiorów danych – idealne dla analityków i działów BI. Szkolenie Excel skupia się na umiejętnościach arkuszowych: od formuł i tabel przestawnych po Power Query i Power Pivot. Wiele firm korzysta z obu: Excel do codziennej pracy z danymi, Power BI do raportowania i wizualizacji.',
+  },
+  {
+    q: 'Czy szkolenie SQL jest odpowiednie dla osób bez doświadczenia technicznego?',
+    a: 'Tak. Szkolenie Microsoft SQL Server kieruję do analityków, finansistów i zespołów biznesowych bez wcześniejszego doświadczenia w programowaniu. Skupiamy się na pisaniu zapytań na potrzeby raportowania – nie na administracji bazami danych.',
   },
 ];
