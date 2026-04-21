@@ -15,7 +15,7 @@ import {
 const t = {
   pl: {
     duration: 'Czas trwania', price: 'Cena netto za grupę', upTo: 'do', people: 'osób',
-    language: 'Język', askDate: 'Zapytaj o termin', faqLink: 'Najczęściej zadawane pytania',
+    language: 'Język', askDate: 'Kontakt', faqLink: 'Najczęściej zadawane pytania',
     contactHref: '/kontakt',
     about: 'O szkoleniu', prerequisites: 'Wymagania wstępne',
     forWhom: 'Dla kogo', benefits: 'Co zyskasz',
@@ -32,7 +32,7 @@ const t = {
   },
   en: {
     duration: 'Duration', price: 'Net price per group', upTo: 'up to', people: 'people',
-    language: 'Language', askDate: 'Ask about a date', faqLink: 'Frequently asked questions',
+    language: 'Language', askDate: 'Contact', faqLink: 'Frequently asked questions',
     contactHref: '/en/contact',
     about: 'About the training', prerequisites: 'Prerequisites',
     forWhom: 'Who is this for', benefits: 'What you\'ll gain',

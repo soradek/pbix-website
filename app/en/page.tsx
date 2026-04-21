@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import { trainings } from '@/data/trainings';
 import ClientsMarquee from '@/components/ClientsMarquee';
+import HomeFAQ from '@/components/HomeFAQ';
 import {
   IconBarChart, IconExcel, IconDatabase, IconPieChart,
   IconTarget, IconBriefcase, IconZap, IconUser, IconArrowRight,
@@ -269,6 +270,9 @@ export default function EnHomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── FAQ ───────────────────────────────────── */}
+      <HomeFAQ lang="en" />
 
       {/* ── CTA ───────────────────────────────────── */}
       <section style={{ padding: '120px 24px', background: '#f9f9f9' }}>

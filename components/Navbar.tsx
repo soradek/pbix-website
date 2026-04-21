@@ -49,16 +49,16 @@ export default function Navbar() {
     ? [
         { href: '/en#about', label: 'About' },
         { href: '/en/trainings', label: 'Trainings' },
-        { href: '/en/contact', label: 'Contact' },
+        { href: '/en#faq', label: 'FAQ' },
       ]
     : [
         { href: '/#o-mnie', label: 'O mnie' },
         { href: '/szkolenia', label: 'Szkolenia' },
-        { href: '/kontakt', label: 'Kontakt' },
+        { href: '/#faq', label: 'FAQ' },
       ];
 
   const ctaHref = isEn ? '/en/contact' : '/kontakt';
-  const ctaLabel = isEn ? 'Ask about a date' : 'Zapytaj o termin';
+  const ctaLabel = isEn ? 'Contact' : 'Kontakt';
 
   return (
     <header
