@@ -347,6 +347,27 @@ html {
   }
 }
 
+/* CTA buttons always on one line on mobile */
+@media (max-width: 768px) {
+  .cta-group {
+    flex-wrap: nowrap !important;
+    gap: 8px !important;
+  }
+  .cta-group a, .cta-group button {
+    padding: 11px 16px !important;
+    font-size: 13px !important;
+    white-space: nowrap;
+  }
+}
+
+/* Receive-grid: equal card heights */
+.receive-grid {
+  align-items: stretch;
+}
+.receive-grid > * {
+  height: 100%;
+}
+
 @media (max-width: 480px) {
   .benefits-grid {
     grid-template-columns: 1fr !important;
@@ -355,17 +376,6 @@ html {
     grid-template-columns: 1fr 1fr !important;
   }
   .hero-section h1 { letter-spacing: -1.5px !important; }
-
-  /* CTA buttons on one line */
-  .cta-group {
-    flex-wrap: nowrap !important;
-    gap: 8px !important;
-  }
-  .cta-group a {
-    padding: 10px 14px !important;
-    font-size: 13px !important;
-    white-space: nowrap;
-  }
 
   /* Spec tiles equal height */
   .gradient-card {

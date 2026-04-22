@@ -1,12 +1,1 @@
-{
-  "version": "0.0.1",
-  "configurations": [
-    {
-      "name": "pbix-website",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "port": 3000,
-      "cwd": "C:\\Users\\rados\\Claude testy\\pbix-website"
-    }
-  ]
-}
+{"version":"0.0.1","configurations":[{"name":"pbix-website","runtimeExecutable":"npm","runtimeArgs":["run","dev"],"port":3000}]}

@@ -236,6 +236,7 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
+            className="cta-group"
             style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}
           >
             <Link href={tx.contactHref} style={{ background: '#1e9953', color: 'white', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 600 }}>
@@ -370,7 +371,7 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
               { icon: <IconAward size={28} color="#1e9953" />, title: tx.certificate, desc: tx.certificateDesc },
               { icon: <IconMessageCircle size={28} color="#1e9953" />, title: tx.consultations, desc: tx.consultationsDesc },
             ].map((item, i) => (
-              <ScrollReveal key={item.title} delay={i * 0.08}>
+              <ScrollReveal key={item.title} delay={i * 0.08} style={{ height: '100%' }}>
                 <div style={{
                   background: '#ffffff',
                   border: '1px solid rgba(0,0,0,0.08)',
@@ -378,6 +379,8 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
                   padding: '28px 20px',
                   textAlign: 'center',
                   boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+                  height: '100%',
+                  boxSizing: 'border-box',
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '14px' }}>
                     <div style={{ width: '52px', height: '52px', background: 'rgba(30,153,83,0.08)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -442,7 +445,7 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
               <p style={{ color: '#6e6e73', fontSize: '15px', lineHeight: 1.7, margin: '0 0 32px' }}>
                 {tx.ctaDesc}
               </p>
-              <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <div className="cta-group" style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
                 <Link href={tx.contactHref} style={{ background: '#1e9953', color: 'white', textDecoration: 'none', padding: '13px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 600 }}>
                   {tx.ctaBtn}
                 </Link>
