@@ -9,6 +9,7 @@ import SuccessModal from '@/components/SuccessModal';
 
 export default function ZapisyClient() {
   const [formData, setFormData] = useState({ name: '', email: '', training: '', form: '', message: '' });
+  const [honeypot, setHoneypot] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<typeof formData>>({});
   const [loading, setLoading] = useState(false);
@@ -17,7 +18,7 @@ export default function ZapisyClient() {
   function validate() {
     const e: Partial<typeof formData> = {};
     if (!formData.name.trim()) e.name = 'Podaj imię i nazwisko';
-    if (!formData.email.trim() || !/^[^@]+@[^@]+\.[^@]+$/.test(formData.email)) e.email = 'Podaj poprawny adres email';
+    if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(formData.email)) e.email = 'Podaj poprawny adres email';
     if (!formData.training) e.training = 'Wybierz szkolenie';
     return e;
   }
@@ -32,7 +33,7 @@ export default function ZapisyClient() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'zapisy', ...formData }),
+        body: JSON.stringify({ type: 'zapisy', ...formData, honeypot }),
       });
       if (res.ok) setSubmitted(true);
       else setSendError(true);
@@ -78,6 +79,21 @@ export default function ZapisyClient() {
           </ScrollReveal>
 
           <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+
+            {/* Honeypot — hidden from real users; bots fill this in */}
+            <div style={{ position: 'absolute', left: '-9999px', top: '-9999px', width: 0, height: 0, overflow: 'hidden', opacity: 0 }} aria-hidden="true">
+              <label htmlFor="hp-website-z">Website</label>
+              <input
+                id="hp-website-z"
+                type="text"
+                name="website"
+                value={honeypot}
+                onChange={e => setHoneypot(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+              />
+            </div>
+
               <div>
                 <label style={{ display: 'block', fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Imię i nazwisko *</label>
                 <input
@@ -85,6 +101,7 @@ export default function ZapisyClient() {
                   value={formData.name}
                   onChange={e => { setFormData(p => ({ ...p, name: e.target.value })); setErrors(p => ({ ...p, name: '' })); }}
                   placeholder="Jan Kowalski"
+                  maxLength={120}
                   style={inputStyle('name')}
                   onFocus={e => (e.target.style.borderColor = '#1e9953')}
                   onBlur={e => (e.target.style.borderColor = errors.name ? '#ef4444' : 'rgba(0,0,0,0.12)')}
@@ -99,6 +116,7 @@ export default function ZapisyClient() {
                   value={formData.email}
                   onChange={e => { setFormData(p => ({ ...p, email: e.target.value })); setErrors(p => ({ ...p, email: '' })); }}
                   placeholder="jan@firma.pl"
+                  maxLength={254}
                   style={inputStyle('email')}
                   onFocus={e => (e.target.style.borderColor = '#1e9953')}
                   onBlur={e => (e.target.style.borderColor = errors.email ? '#ef4444' : 'rgba(0,0,0,0.12)')}
@@ -142,6 +160,7 @@ export default function ZapisyClient() {
                   onChange={e => setFormData(p => ({ ...p, message: e.target.value }))}
                   placeholder="Liczba pracowników, preferowany termin, poziom zaawansowania zespołu..."
                   rows={4}
+                  maxLength={4000}
                   style={{ ...inputStyle('message'), resize: 'vertical', lineHeight: 1.6 }}
                   onFocus={e => (e.target.style.borderColor = '#1e9953')}
                   onBlur={e => (e.target.style.borderColor = 'rgba(0,0,0,0.12)')}

@@ -10,6 +10,7 @@ import SuccessModal from '@/components/SuccessModal';
 
 export default function ContactEnClient() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', training: '', message: '' });
+  const [honeypot, setHoneypot] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<typeof formData>>({});
   const [loading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ export default function ContactEnClient() {
   function validate() {
     const e: Partial<typeof formData> = {};
     if (!formData.name.trim()) e.name = 'Please enter your name';
-    if (!formData.email.trim() || !/^[^@]+@[^@]+\.[^@]+$/.test(formData.email)) e.email = 'Please enter a valid email address';
+    if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(formData.email)) e.email = 'Please enter a valid email address';
     if (!formData.message.trim()) e.message = 'Please write a message';
     return e;
   }
@@ -33,7 +34,7 @@ export default function ContactEnClient() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'kontakt', ...formData }),
+        body: JSON.stringify({ type: 'kontakt', ...formData, honeypot }),
       });
       if (res.ok) setSubmitted(true);
       else setSendError(true);
@@ -78,10 +79,25 @@ export default function ContactEnClient() {
           </ScrollReveal>
 
           <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+
+            {/* Honeypot — hidden from real users; bots fill this in */}
+            <div style={{ position: 'absolute', left: '-9999px', top: '-9999px', width: 0, height: 0, overflow: 'hidden', opacity: 0 }} aria-hidden="true">
+              <label htmlFor="hp-website-en">Website</label>
+              <input
+                id="hp-website-en"
+                type="text"
+                name="website"
+                value={honeypot}
+                onChange={e => setHoneypot(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+              />
+            </div>
+
             <div>
               <label style={{ display: 'block', fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Full name *</label>
               <input type="text" value={formData.name} onChange={e => { setFormData(p => ({ ...p, name: e.target.value })); setErrors(p => ({ ...p, name: '' })); }}
-                placeholder="John Smith" style={inputStyle('name')}
+                placeholder="John Smith" maxLength={120} style={inputStyle('name')}
                 onFocus={e => (e.target.style.borderColor = '#1e9953')} onBlur={e => (e.target.style.borderColor = errors.name ? '#ef4444' : 'rgba(0,0,0,0.12)')} />
               {errors.name && <div style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px' }}>{errors.name}</div>}
             </div>
@@ -89,7 +105,7 @@ export default function ContactEnClient() {
             <div>
               <label style={{ display: 'block', fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Email *</label>
               <input type="email" value={formData.email} onChange={e => { setFormData(p => ({ ...p, email: e.target.value })); setErrors(p => ({ ...p, email: '' })); }}
-                placeholder="john@company.com" style={inputStyle('email')}
+                placeholder="john@company.com" maxLength={254} style={inputStyle('email')}
                 onFocus={e => (e.target.style.borderColor = '#1e9953')} onBlur={e => (e.target.style.borderColor = errors.email ? '#ef4444' : 'rgba(0,0,0,0.12)')} />
               {errors.email && <div style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px' }}>{errors.email}</div>}
             </div>
@@ -97,7 +113,7 @@ export default function ContactEnClient() {
             <div>
               <label style={{ display: 'block', fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Phone (optional)</label>
               <input type="tel" value={formData.phone} onChange={e => setFormData(p => ({ ...p, phone: e.target.value }))}
-                placeholder="+48 600 000 000" style={inputStyle('phone')}
+                placeholder="+48 600 000 000" maxLength={30} style={inputStyle('phone')}
                 onFocus={e => (e.target.style.borderColor = '#1e9953')} onBlur={e => (e.target.style.borderColor = 'rgba(0,0,0,0.12)')} />
             </div>
 
@@ -114,7 +130,7 @@ export default function ContactEnClient() {
               <label style={{ display: 'block', fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Message *</label>
               <textarea value={formData.message} onChange={e => { setFormData(p => ({ ...p, message: e.target.value })); setErrors(p => ({ ...p, message: '' })); }}
                 placeholder="Describe your team's needs, number of participants, preferred date..."
-                rows={5} style={{ ...inputStyle('message'), resize: 'vertical', lineHeight: 1.6 }}
+                rows={5} maxLength={4000} style={{ ...inputStyle('message'), resize: 'vertical', lineHeight: 1.6 }}
                 onFocus={e => (e.target.style.borderColor = '#1e9953')} onBlur={e => (e.target.style.borderColor = errors.message ? '#ef4444' : 'rgba(0,0,0,0.12)')} />
               {errors.message && <div style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px' }}>{errors.message}</div>}
             </div>
