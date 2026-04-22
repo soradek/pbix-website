@@ -111,7 +111,7 @@ export default function EnHomePage() {
           <p style={{ fontSize: 'clamp(16px, 2vw, 19px)', color: '#ffffff', lineHeight: 1.75, margin: '0 0 44px', maxWidth: '540px' }}>
             Corporate trainings in Power BI, Excel, SQL and VBA delivered by a Microsoft Certified Trainer — practical, with no unnecessary theory.
           </p>
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          <div className="cta-group" style={{ flexWrap: 'wrap' }}>
             <Link href="/en/trainings" style={{ background: '#1e9953', color: 'white', textDecoration: 'none', padding: '15px 32px', borderRadius: '980px', fontSize: '15px', fontWeight: 600, boxShadow: '0 4px 24px rgba(30,153,83,0.4)' }}>
               Explore trainings
             </Link>

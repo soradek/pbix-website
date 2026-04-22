@@ -78,7 +78,8 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}
+          className="cta-group"
+          style={{ flexWrap: 'wrap' }}
         >
           <Link
             href="/szkolenia"

@@ -37,6 +37,7 @@ export function GradientCard({ icon, title, description, href, linkLabel }: Grad
   return (
     <motion.div
       ref={cardRef}
+      className="gradient-card"
       style={{
         position: 'relative',
         borderRadius: '20px',

@@ -99,6 +99,13 @@ html {
   color: #ffffff !important;
 }
 
+/* ── CTA button groups ────────────────────────────── */
+.cta-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 /* ── Responsive layout helpers ────────────────────── */
 
 /* Hero */
@@ -348,6 +355,22 @@ html {
     grid-template-columns: 1fr 1fr !important;
   }
   .hero-section h1 { letter-spacing: -1.5px !important; }
+
+  /* CTA buttons on one line */
+  .cta-group {
+    flex-wrap: nowrap !important;
+    gap: 8px !important;
+  }
+  .cta-group a {
+    padding: 10px 14px !important;
+    font-size: 13px !important;
+    white-space: nowrap;
+  }
+
+  /* Spec tiles equal height */
+  .gradient-card {
+    min-height: 300px !important;
+  }
 }
 
 /* ── Reduced motion ──────────────────────────────── */

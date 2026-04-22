@@ -141,15 +141,9 @@ export default function ProjectsEnPage() {
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           {projects.map((p, i) => {
             const textOnLeft = i % 2 === 0;
-            const align = textOnLeft ? 'left' : 'right';
-            const labelDir = textOnLeft ? 'row' : 'row-reverse';
-            const tagsJustify = textOnLeft ? 'flex-start' : 'flex-end';
-            const resultBorder = textOnLeft
-              ? { borderLeft: `3px solid ${p.accent}`, paddingLeft: '16px' }
-              : { borderRight: `3px solid ${p.accent}`, paddingRight: '16px' };
 
             const textBlock = (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '28px', textAlign: align }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
                 <div>
                   <div style={{ fontSize: '11px', textTransform: 'uppercase' as const, letterSpacing: '1.8px', color: p.accent, fontWeight: 700, marginBottom: '10px' }}>
                     {p.industry}
@@ -160,7 +154,7 @@ export default function ProjectsEnPage() {
                 </div>
 
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '8px', flexDirection: labelDir as 'row' | 'row-reverse' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '8px', flexDirection: 'row' }}>
                     <IconAlertCircle size={14} color="#6e6e73" strokeWidth={2} />
                     <span style={{ fontSize: '10px', textTransform: 'uppercase' as const, letterSpacing: '1.4px', color: '#6e6e73', fontWeight: 700 }}>Problem</span>
                   </div>
@@ -168,22 +162,22 @@ export default function ProjectsEnPage() {
                 </div>
 
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '8px', flexDirection: labelDir as 'row' | 'row-reverse' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '8px', flexDirection: 'row' }}>
                     <IconWrench size={14} color="#6e6e73" strokeWidth={2} />
                     <span style={{ fontSize: '10px', textTransform: 'uppercase' as const, letterSpacing: '1.4px', color: '#6e6e73', fontWeight: 700 }}>Solution</span>
                   </div>
                   <p style={{ margin: 0, color: '#3d3d3f', fontSize: '15px', lineHeight: 1.8 }}>{p.solution}</p>
                 </div>
 
-                <div style={resultBorder}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '8px', flexDirection: labelDir as 'row' | 'row-reverse' }}>
+                <div style={{ borderLeft: `3px solid ${p.accent}`, paddingLeft: '16px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px', marginBottom: '8px' }}>
                     <IconResult size={14} color={p.accent} strokeWidth={2} />
                     <span style={{ fontSize: '10px', textTransform: 'uppercase' as const, letterSpacing: '1.4px', color: p.accent, fontWeight: 700 }}>Result</span>
                   </div>
                   <p style={{ margin: 0, color: '#1d1d1f', fontSize: '15px', lineHeight: 1.7, fontWeight: 500 }}>{p.result}</p>
                 </div>
 
-                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' as const, justifyContent: tagsJustify }}>
+                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' as const }}>
                   {p.tags.map(tag => (
                     <span key={tag} style={{ fontSize: '11px', fontWeight: 600, color: '#6e6e73', background: 'rgba(0,0,0,0.05)', borderRadius: '6px', padding: '4px 10px' }}>
                       {tag}
@@ -219,7 +213,7 @@ export default function ProjectsEnPage() {
               <p style={{ color: 'rgba(255,255,255,0.78)', fontSize: '15px', lineHeight: 1.75, margin: '0 0 32px' }}>
                 Tell me about your data and goals — I&apos;ll suggest how Power BI can solve a specific problem in your organisation.
               </p>
-              <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <div className="cta-group" style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
                 <Link href="/en/contact" style={{ background: '#fff', color: '#1e9953', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 700 }}>
                   Get in touch
                 </Link>
