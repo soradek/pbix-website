@@ -106,7 +106,7 @@ export default function EnHomePage() {
         <div style={{ position: 'absolute', bottom: '10%', right: '15%', width: '500px', height: '500px', background: 'rgba(30,153,83,0.12)', borderRadius: '50%', filter: 'blur(90px)', pointerEvents: 'none' }} />
         <div style={{ position: 'relative', zIndex: 1, maxWidth: '860px', margin: '0 auto', width: '100%' }}>
           <h1 style={{ fontSize: 'clamp(44px, 7vw, 92px)', fontWeight: 700, color: '#ffffff', letterSpacing: '-3px', lineHeight: 1.02, margin: '0 0 28px' }}>
-            Turn data<br /><span style={{ color: '#1e9953' }}>into value.</span>
+            Turn your data<br /><span style={{ color: '#1e9953' }}>into value.</span>
           </h1>
           <p style={{ fontSize: 'clamp(16px, 2vw, 19px)', color: '#ffffff', lineHeight: 1.75, margin: '0 0 44px', maxWidth: '540px' }}>
             Corporate trainings in Power BI, Excel, SQL and VBA delivered by a Microsoft Certified Trainer — practical, with no unnecessary theory.
@@ -314,35 +314,8 @@ export default function EnHomePage() {
         </div>
       </section>
 
-      {/* ── FAQ ───────────────────────────────────── */}
+      {/* ── FAQ + CTA ─────────────────────────────── */}
       <HomeFAQ lang="en" />
-
-      {/* ── CTA ───────────────────────────────────── */}
-      <section style={{ padding: '120px 24px', background: '#f9f9f9' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <ScrollReveal>
-            <div style={{ background: 'linear-gradient(135deg, #003d20 0%, #1e9953 55%, #006633 100%)', borderRadius: '28px', padding: '56px 48px', textAlign: 'center' }}>
-              <h2 style={{ fontSize: 'clamp(22px, 2.5vw, 30px)', fontWeight: 700, color: '#ffffff', letterSpacing: '-0.8px', margin: '0 0 14px', lineHeight: 1.2 }}>
-                Let&apos;s talk about your training.
-              </h2>
-              <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px', lineHeight: 1.75, margin: '0 0 36px' }}>
-                Write to me — let&apos;s define the scope and schedule a session tailored to your needs.
-              </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center' }}>
-                <Link href="/en/contact" style={{ background: '#ffffff', color: '#1e9953', textDecoration: 'none', padding: '15px 32px', borderRadius: '980px', fontSize: '15px', fontWeight: 700 }}>
-                  Contact me
-                </Link>
-                <Link href="/en/trainings" style={{ border: '1.5px solid rgba(255,255,255,0.35)', color: '#ffffff', textDecoration: 'none', padding: '15px 32px', borderRadius: '980px', fontSize: '15px', fontWeight: 500 }}>
-                  View trainings
-                </Link>
-              </div>
-              <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.55)', fontSize: '13px' }}>
-                4,500+ trained professionals · Microsoft Certified Trainer (MCT)
-              </div>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
 
       <Footer lang="en" />
     </main>

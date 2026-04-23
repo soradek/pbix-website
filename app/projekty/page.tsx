@@ -31,7 +31,7 @@ const projects = [
     problem:
       'Zarząd otrzymywał ponad 30 raportów Excelowych tygodniowo — każdy dział wysyłał własny plik, bez wspólnej definicji KPI. Nikt nie wiedział, które liczby są aktualne.',
     solution:
-      'Jeden dashboard Power BI zasilany bezpośrednio z systemu ERP i SQL Server. Model danych z centralną definicją KPI, automatyczny refresh każdej nocy, dostępny z każdego urządzenia przez Power BI Service.',
+      'Jeden dashboard zamiast dziesiątek plików — dostępny przez link, aktualizowany automatycznie każdej nocy. Wszystkie wskaźniki zdefiniowane w jednym miejscu, dostępne z komputera, tabletu i telefonu.',
     result:
       '80% mniej czasu na raportowanie. Jeden widok dla całego zarządu — aktualizowany każdego ranka.',
     tags: ['Power BI', 'SQL Server', 'DAX', 'Power BI Service'],
@@ -45,7 +45,7 @@ const projects = [
     problem:
       'Zamknięcie miesiąca zajmowało dwa tygodnie ręcznego zbierania danych z SAP, arkuszy kalkulacyjnych i baz danych. Błędy kopiowania i opóźnione decyzje były normą.',
     solution:
-      'Pipeline Power Query łączący SAP, SQL Server i pliki Excel w jeden model danych. Automatyczny refresh każdej nocy eliminuje ręczną konsolidację — analitycy pracują na gotowych raportach.',
+      'Dane z trzech różnych systemów firmy spływają automatycznie do jednego raportu każdej nocy. Zamiast ręcznie zbierać i sklejać pliki — analitycy rano otwierają gotowe zestawienie.',
     result:
       'Czas przygotowania raportu miesięcznego skrócony z 14 do 2 dni. Zero błędów wynikających z ręcznego kopiowania.',
     tags: ['Power BI', 'Power Query', 'SAP Connector', 'SQL Server'],
@@ -59,7 +59,7 @@ const projects = [
     problem:
       'Brak jednego źródła danych o zatrudnieniu, rotacji i absencji w sieci ponad 200 sklepów. Każdy manager regionalny prowadził własny Excela. Decyzje kadrowe były podejmowane bez danych.',
     solution:
-      'Automatyczny model danych HR w Power BI z cotygodniowym odświeżaniem. Row Level Security ogranicza widok do własnego regionu. Jeden raport zastąpił dziesiątki arkuszy.',
+      'Jeden raport z danymi o całej sieci, odświeżający się automatycznie co tydzień. Każdy manager widzi tylko swój region — bez dostępu do danych innych. Koniec z dziesiątkami osobnych arkuszy przesyłanych mailem.',
     result:
       'Decyzje kadrowe oparte na danych. Wykryte wzorce rotacji pozwoliły obniżyć koszty rekrutacji w skali roku.',
     tags: ['Power BI', 'Power Query', 'Row Level Security', 'DAX'],
@@ -68,18 +68,18 @@ const projects = [
     kpis: [{ label: 'Rotacja', val: '−15%' }, { label: 'Regiony', val: '12' }],
   },
   {
-    industry: 'Logistyka',
-    title: 'Monitoring łańcucha dostaw',
+    industry: 'Finanse / Controlling',
+    title: 'Jeden raport zamiast dziesiątek plików w obiegu',
     problem:
-      'Dane o dostawach rozrzucone w trzech systemach: WMS, TMS i ERP. Brak widoczności na realizację SLA w czasie rzeczywistym — naruszenia wykrywano dopiero po fakcie.',
+      'Każdy cykl raportowy wyglądał tak samo — analityk eksportuje dane z Excela, ręcznie uzupełnia dziesiątki slajdów w PowerPoint, wysyła mailem do kilkunastu osób. Trzy dni później dochodzą nowe dane i cały proces zaczyna się od nowa. W skrzynkach krążą różne wersje tego samego raportu, a nikt nie wie, która jest aktualna.',
     solution:
-      'Power BI Gateway łączący trzy systemy operacyjne bez migracji danych. Zunifikowany dashboard dostaw z alertami o zagrożonych SLA i analizą punktualności według przewoźnika.',
+      'Zamiast pliku w załączniku — jeden raport dostępny przez link. Dane z Excela i systemu firmy odświeżają się automatycznie każdej nocy. Każdy odbiorca klika ten sam link i zawsze widzi bieżące liczby — niezależnie od tego, kiedy otworzy raport.',
     result:
-      'Terminowość dostaw poprawiona o 12 pp w ciągu 6 miesięcy. Problemy eskalowane zanim naruszą umowę.',
-    tags: ['Power BI', 'Power BI Gateway', 'DAX', 'Power Query'],
+      'Zero ręcznego uzupełniania slajdów. Koniec z pytaniem „którą wersją dysponujesz?". Raport miesięczny, kwartalny czy roczny nie wymaga już trzech dni ani tygodni przygotowań — załaduj nowe dane, odśwież, gotowe.',
+    tags: ['Power BI', 'Power Query', 'Excel', 'Power BI Service'],
     accent: '#ea6c00',
-    bars: [38, 52, 44, 62, 55, 70, 64, 78, 72, 86, 80, 94],
-    kpis: [{ label: 'SLA', val: '+12pp' }, { label: 'Systemy', val: '3' }],
+    bars: [35, 38, 40, 36, 42, 90, 86, 92, 88, 94, 90, 96],
+    kpis: [{ label: 'Wersji raportu', val: '1' }, { label: 'Slajdy ręcznie', val: '0' }],
   },
 ];
 

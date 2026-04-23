@@ -31,7 +31,7 @@ const projects = [
     problem:
       'Management received 30+ Excel reports every week — each department sent its own file with its own KPI definitions. No one knew which numbers were current.',
     solution:
-      'A single Power BI dashboard fed directly from the ERP and SQL Server. A central data model with unified KPI definitions, automatic nightly refresh, accessible from any device via Power BI Service.',
+      'One dashboard instead of dozens of files — accessible via a link, updated automatically every night. All metrics defined in one place, available on any computer, tablet or phone.',
     result: '80% less time spent on reporting. One view for the entire board — updated every morning.',
     tags: ['Power BI', 'SQL Server', 'DAX', 'Power BI Service'],
     accent: '#1e9953',
@@ -44,7 +44,7 @@ const projects = [
     problem:
       'Closing the month took two weeks of manually gathering data from SAP, spreadsheets and databases. Copy-paste errors and delayed decisions were the norm.',
     solution:
-      'A Power Query pipeline connecting SAP, SQL Server and Excel files into a single data model. Automatic nightly refresh eliminates manual consolidation — analysts work with ready-made reports.',
+      'Data from three different company systems flows automatically into one report every night. Instead of manually collecting and merging files — analysts open a ready report in the morning.',
     result: 'Monthly report preparation cut from 14 days to 2. Zero errors from manual copy-pasting.',
     tags: ['Power BI', 'Power Query', 'SAP Connector', 'SQL Server'],
     accent: '#2563eb',
@@ -57,7 +57,7 @@ const projects = [
     problem:
       'No single source of truth for headcount, turnover and absence data across a network of 200+ stores. Each regional manager kept their own Excel. Workforce decisions were made without data.',
     solution:
-      'An automated HR data model in Power BI with weekly refresh. Row Level Security limits each manager\'s view to their own region. One report replaced dozens of spreadsheets.',
+      'One report covering the entire network, refreshed automatically every week. Each manager sees only their own region — no access to anyone else\'s data. No more dozens of separate spreadsheets sent by email.',
     result: 'Workforce decisions backed by data. Identified turnover patterns reduced annual recruitment costs.',
     tags: ['Power BI', 'Power Query', 'Row Level Security', 'DAX'],
     accent: '#7c3aed',
@@ -65,17 +65,18 @@ const projects = [
     kpis: [{ label: 'Turnover', val: '−15%' }, { label: 'Regions', val: '12' }],
   },
   {
-    industry: 'Logistics',
-    title: 'Supply Chain KPI Monitoring',
+    industry: 'Finance / Controlling',
+    title: 'One report instead of files circulating in inboxes',
     problem:
-      'Delivery data scattered across three systems: WMS, TMS and ERP. No real-time SLA visibility — breaches were discovered only after the fact.',
+      'Every reporting cycle looked the same — an analyst exports data from Excel, manually fills in dozens of PowerPoint slides, emails them to fifteen people. Three days later new data arrives and the whole process starts again. Different versions of the same report float around in inboxes and no one knows which one is current.',
     solution:
-      'Power BI Gateway connecting all three operational systems without migrating data. A unified delivery dashboard with SLA-at-risk alerts and on-time performance analysis by carrier.',
-    result: 'On-time delivery improved by 12 percentage points in 6 months. Issues escalated before SLA breaches occur.',
-    tags: ['Power BI', 'Power BI Gateway', 'DAX', 'Power Query'],
+      'Instead of a file attachment — one report accessible via a link. Data from Excel and the company system refreshes automatically every night. Every recipient clicks the same link and always sees the latest numbers, no matter when they open it.',
+    result:
+      'Zero manual slide updates. No more "which version do you have?". Monthly, quarterly or annual reports no longer require days or weeks of preparation — load new data, refresh, done.',
+    tags: ['Power BI', 'Power Query', 'Excel', 'Power BI Service'],
     accent: '#ea6c00',
-    bars: [38, 52, 44, 62, 55, 70, 64, 78, 72, 86, 80, 94],
-    kpis: [{ label: 'On-time SLA', val: '+12pp' }, { label: 'Systems', val: '3' }],
+    bars: [35, 38, 40, 36, 42, 90, 86, 92, 88, 94, 90, 96],
+    kpis: [{ label: 'Report versions', val: '1' }, { label: 'Manual slides', val: '0' }],
   },
 ];
 
