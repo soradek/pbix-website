@@ -40,7 +40,7 @@ const nextConfig: NextConfig = {
       },
       // Static images must not have frame-blocking headers — breaks OG scrapers (Facebook, Messenger)
       {
-        source: '/og-image.jpg',
+        source: '/og.jpg',
         headers: [
           { key: 'X-Frame-Options',         value: 'SAMEORIGIN' },
           { key: 'Content-Security-Policy', value: "default-src 'none'" },

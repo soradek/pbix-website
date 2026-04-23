@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     siteName: 'pbix.pl',
     locale: 'en_US',
     type: 'website',
-    images: [{ url: 'https://www.pbix.pl/og-image.jpg', width: 1200, height: 630 }],
+    images: [{ url: 'https://www.pbix.pl/og.jpg', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
