@@ -38,9 +38,9 @@ const nextConfig: NextConfig = {
           { key: 'X-DNS-Prefetch-Control',       value: 'on' },
         ],
       },
-      // Static images must not have frame-blocking headers — breaks OG scrapers (Facebook, Messenger)
+      // OG images must not have frame-blocking headers — breaks OG scrapers (Facebook, Messenger)
       {
-        source: '/og.jpg',
+        source: '/(og\\.jpg|opengraph-image\\.jpg|api/ogimg)',
         headers: [
           { key: 'X-Frame-Options',         value: 'SAMEORIGIN' },
           { key: 'Content-Security-Policy', value: "default-src 'none'" },
