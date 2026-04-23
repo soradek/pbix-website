@@ -38,7 +38,14 @@ export const metadata: Metadata = {
     title: 'Power BI, Excel & SQL Corporate Trainings | pbix.pl',
     description: 'MCT-delivered Power BI, Excel and SQL trainings for corporate teams in Poland and online.',
   },
-  alternates: { canonical: 'https://www.pbix.pl/en' },
+  alternates: {
+    canonical: 'https://www.pbix.pl/en',
+    languages: {
+      pl: 'https://www.pbix.pl',
+      en: 'https://www.pbix.pl/en',
+      'x-default': 'https://www.pbix.pl',
+    },
+  },
 };
 
 const featuredTraining = getTrainingBySlug('excel-ai') ?? trainings[0];

@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollReveal from '@/components/ScrollReveal';
 import Link from 'next/link';
+import { Metadata } from 'next';
 import { trainings, getTrainingBySlug } from '@/data/trainings';
 import { testimonials } from '@/data/testimonials';
 import { faqItems } from '@/data/faq';
@@ -16,6 +17,17 @@ import {
   IconArrowRight,
 } from '@/components/Icons';
 import { GradientCard } from '@/components/ui/GradientCard';
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: 'https://www.pbix.pl',
+    languages: {
+      pl: 'https://www.pbix.pl',
+      en: 'https://www.pbix.pl/en',
+      'x-default': 'https://www.pbix.pl',
+    },
+  },
+};
 
 const categoryIcon = (cat: string) => {
   const s = { size: 28, color: '#1e9953' };
