@@ -220,6 +220,9 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
                   </div>
                 ))}
               </div>
+              <div style={{ marginTop: '10px', fontSize: '12px', color: heroTextSecondary, maxWidth: '420px', lineHeight: 1.6, textShadow: heroShadow }}>
+                Cena obejmuje szkolenie zamknięte. Zawiera materiały szkoleniowe i certyfikaty dla wszystkich uczestników.
+              </div>
             </div>
             {training.language && (
               <>
