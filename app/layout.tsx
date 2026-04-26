@@ -87,13 +87,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={lang}>
       <head>
-        {/* Facebook / Messenger metadata */}
+        {/* Facebook / Messenger app id (Next.js metadata API doesn't expose fb:*) */}
         <meta property="fb:app_id" content="966242223397117" />
-        <meta property="og:image" content="https://www.pbix.pl/og.jpg" />
-        <meta property="og:image:secure_url" content="https://www.pbix.pl/og.jpg" />
-        <meta property="og:image:type" content="image/jpeg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
         {/* Structured Data – Person + Organization */}
         <script
           type="application/ld+json"
