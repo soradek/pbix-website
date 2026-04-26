@@ -59,9 +59,11 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.pbix.pl/og.jpg',
+        secureUrl: 'https://www.pbix.pl/og.jpg',
         width: 1200,
         height: 630,
         alt: 'Radosław Sobczak – Certyfikowany Trener Microsoft Power BI, Excel, SQL',
+        type: 'image/jpeg',
       },
     ],
   },
@@ -85,6 +87,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={lang}>
       <head>
+        {/* Facebook / Messenger metadata */}
+        <meta property="fb:app_id" content="966242223397117" />
+        <meta property="og:image" content="https://www.pbix.pl/og.jpg" />
+        <meta property="og:image:secure_url" content="https://www.pbix.pl/og.jpg" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         {/* Structured Data – Person + Organization */}
         <script
           type="application/ld+json"
