@@ -8,7 +8,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ['latin', 'latin-ext'], weight: ['400', '500', '600', '700'], display: 'swap' });
 
-const siteUrl = 'https://www.pbix.pl';
+const siteUrl = 'https://www.pbix.pl/';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

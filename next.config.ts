@@ -26,8 +26,13 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      // Security headers for everything EXCEPT social-share images.
+      // Negative lookahead excludes /og.jpg so Facebook/Messenger embed iframes
+      // are not blocked by X-Frame-Options/CSP. Next.js cannot "remove" a header
+      // from a catch-all rule — only override the value — so we exclude the path
+      // from the rule entirely via path-to-regexp regex.
       {
-        source: '/(.*)',
+        source: '/:path((?!og\\.jpg).*)',
         headers: [
           { key: 'X-Content-Type-Options',      value: 'nosniff' },
           { key: 'X-Frame-Options',              value: 'DENY' },
@@ -38,12 +43,16 @@ const nextConfig: NextConfig = {
           { key: 'X-DNS-Prefetch-Control',       value: 'on' },
         ],
       },
-      // OG images must not have frame-blocking headers — breaks OG scrapers (Facebook, Messenger)
+      // OG image: long immutable cache + open CORS, NO frame-blocking, NO CSP.
+      // Messenger embeds the thumbnail in a cross-origin iframe; SAMEORIGIN
+      // breaks that. Long cache stabilises Last-Modified so the FB CDN treats
+      // the asset as steady and pre-renders previews in chat threads.
       {
-        source: '/(og\\.jpg|opengraph-image\\.jpg|api/ogimg)',
+        source: '/og.jpg',
         headers: [
-          { key: 'X-Frame-Options',         value: 'SAMEORIGIN' },
-          { key: 'Content-Security-Policy', value: "default-src 'none'" },
+          { key: 'Cache-Control',              value: 'public, max-age=31536000, immutable' },
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+          { key: 'X-Content-Type-Options',     value: 'nosniff' },
         ],
       },
     ];
