@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import ScrollReveal from '@/components/ScrollReveal';
 import Link from 'next/link';
 import { trainings, Training } from '@/data/trainings';
@@ -19,22 +19,31 @@ const getCategoryIcon = (cat: string, size = 20) => {
 
 const VALID_CATEGORIES = ['Power BI', 'Excel', 'SQL', 'Wizualizacja danych'];
 
-function SzkoleniasContent() {
+interface Props {
+  initialCategory?: string;
+  initialTrainings?: Training[];
+}
+
+function SzkoleniasContent({ initialCategory = 'Wszystkie', initialTrainings = trainings }: Props) {
   const searchParams = useSearchParams();
-  const [activeCategory, setActiveCategory] = useState<string>(() => {
-    const kat = searchParams.get('kategoria');
-    return kat && VALID_CATEGORIES.includes(kat) ? kat : 'Wszystkie';
-  });
+  const router = useRouter();
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
+  const [filtered, setFiltered] = useState(initialTrainings);
 
   useEffect(() => {
     const kat = searchParams.get('kategoria');
-    if (kat && VALID_CATEGORIES.includes(kat)) setActiveCategory(kat);
-    else setActiveCategory('Wszystkie');
+    const cat = kat && VALID_CATEGORIES.includes(kat) ? kat : 'Wszystkie';
+    setActiveCategory(cat);
+    setFiltered(cat === 'Wszystkie' ? trainings : trainings.filter((t) => t.category === cat));
   }, [searchParams]);
 
-  const filtered = activeCategory === 'Wszystkie'
-    ? trainings
-    : trainings.filter(t => t.category === activeCategory);
+  function handleCategory(cat: string) {
+    setActiveCategory(cat);
+    setFiltered(cat === 'Wszystkie' ? trainings : trainings.filter((t) => t.category === cat));
+    const params = new URLSearchParams();
+    if (cat !== 'Wszystkie') params.set('kategoria', cat);
+    router.replace(`/szkolenia${params.size ? `?${params}` : ''}`, { scroll: false });
+  }
 
   return (
     <>
@@ -56,12 +65,13 @@ function SzkoleniasContent() {
       <section style={{ padding: '0 24px 56px' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '56px' }}>
-            {categories.map(cat => {
+            {categories.map((cat) => {
               const active = activeCategory === cat;
               return (
                 <button
                   key={cat}
-                  onClick={() => setActiveCategory(cat)}
+                  onClick={() => handleCategory(cat)}
+                  aria-pressed={active}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
@@ -79,7 +89,11 @@ function SzkoleniasContent() {
                     boxShadow: active ? '0 4px 12px rgba(30,153,83,0.25)' : 'none',
                   }}
                 >
-                  {cat !== 'Wszystkie' && <span style={{ display: 'flex', color: active ? 'rgba(255,255,255,0.85)' : '#6e6e73' }}>{getCategoryIcon(cat, 14)}</span>}
+                  {cat !== 'Wszystkie' && (
+                    <span style={{ display: 'flex', color: active ? 'rgba(255,255,255,0.85)' : '#6e6e73' }}>
+                      {getCategoryIcon(cat, 14)}
+                    </span>
+                  )}
                   {cat}
                 </button>
               );
@@ -94,16 +108,18 @@ function SzkoleniasContent() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA – will be replaced by LevelTestCTA in Z4 */}
       <section style={{ padding: '80px 24px 120px', background: '#f9f9f9' }}>
         <div style={{ maxWidth: '680px', margin: '0 auto', textAlign: 'center' }}>
           <ScrollReveal>
-            <div style={{
-              background: 'rgba(30,153,83,0.06)',
-              border: '1px solid rgba(30,153,83,0.16)',
-              borderRadius: '24px',
-              padding: '56px 40px',
-            }}>
+            <div
+              style={{
+                background: 'rgba(30,153,83,0.06)',
+                border: '1px solid rgba(30,153,83,0.16)',
+                borderRadius: '24px',
+                padding: '56px 40px',
+              }}
+            >
               <h2 style={{ fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 14px', letterSpacing: '-0.5px' }}>
                 Nie wiesz, które szkolenie wybrać?
               </h2>
@@ -124,10 +140,10 @@ function SzkoleniasContent() {
   );
 }
 
-export default function SzkoleniasClient() {
+export default function SzkoleniasClient(props: Props) {
   return (
     <Suspense fallback={<div style={{ minHeight: '60vh' }} />}>
-      <SzkoleniasContent />
+      <SzkoleniasContent {...props} />
     </Suspense>
   );
 }
@@ -148,12 +164,12 @@ function TrainingCardLocal({ training }: { training: Training }) {
           transition: 'all 0.25s',
           boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
         }}
-        onMouseEnter={e => {
+        onMouseEnter={(e) => {
           e.currentTarget.style.borderColor = 'rgba(30,153,83,0.3)';
           e.currentTarget.style.boxShadow = '0 8px 28px rgba(30,153,83,0.10)';
           e.currentTarget.style.transform = 'translateY(-3px)';
         }}
-        onMouseLeave={e => {
+        onMouseLeave={(e) => {
           e.currentTarget.style.borderColor = 'rgba(0,0,0,0.08)';
           e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.04)';
           e.currentTarget.style.transform = 'translateY(0)';
