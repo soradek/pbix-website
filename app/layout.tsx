@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     siteName: 'pbix.pl – Radosław Sobczak',
     title: 'Szkolenia AI, Power BI, Excel, SQL | Radosław Sobczak MCT',
     description:
-      'Certyfikowany Trener Microsoft – szkolenia Power BI, Excel, SQL i VBA dla firm w całej Polsce. 7 lat, 4 500+ przeszkolonych, ocena 4,8/5.',
+      'Certyfikowany Trener Microsoft – szkolenia AI, Power BI, Excel, SQL i VBA dla firm w całej Polsce. 7 lat, 4 500+ przeszkolonych, ocena 4,8/5.',
     images: [
       {
         url: 'https://www.pbix.pl/og.jpg',
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Szkolenia AI, Power BI, Excel, SQL | Radosław Sobczak MCT',
     description:
-      'Certyfikowany Trener Microsoft – szkolenia Power BI, Excel, SQL i VBA dla firm w całej Polsce. 7 lat, 4 500+ przeszkolonych, ocena 4,8/5.',
+      'Certyfikowany Trener Microsoft – szkolenia AI, Power BI, Excel, SQL i VBA dla firm w całej Polsce. 7 lat, 4 500+ przeszkolonych, ocena 4,8/5.',
     images: ['https://www.pbix.pl/og.jpg'],
   },
   alternates: {
