@@ -105,6 +105,17 @@ html {
   color: #ffffff !important;
 }
 
+/* ── Lead magnet section ──────────────────────────── */
+@media (max-width: 720px) {
+  .lead-magnet-grid {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+    padding: 40px 28px !important;
+    gap: 20px !important;
+    justify-items: center;
+  }
+}
+
 /* ── Phone label in Navbar – hidden on mobile ─────── */
 .phone-label {
   display: inline;

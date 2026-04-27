@@ -11,6 +11,7 @@ import HeroSection from '@/components/HeroSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import ClientsMarquee from '@/components/ClientsMarquee';
 import HomeFAQ from '@/components/HomeFAQ';
+import LeadMagnetSection from '@/components/LeadMagnetSection';
 import {
   IconBarChart, IconExcel, IconDatabase, IconPieChart,
   IconTarget, IconBriefcase, IconZap, IconUser,
@@ -216,6 +217,16 @@ export default function Home() {
 
       {/* ── OPINIE ────────────────────────────────── */}
       <TestimonialsSection testimonials={testimonials} />
+
+      {/* ── LEAD MAGNET ───────────────────────────── */}
+      <LeadMagnetSection
+        title="Pobierz darmowy poradnik: 10 kroków do skutecznego dashboardu w Power BI"
+        description="Praktyczny przewodnik PDF z konkretnymi wskazówkami i przykładami. Bezpłatnie, w zamian za adres email."
+        fileName="lead-magnet.pdf"
+        source="home-lead-magnet"
+        modalTitle="Pobierz poradnik Power BI"
+        modalDescription="Wpisz swój email, a wyślę Ci poradnik PDF i okazjonalnie informacje o nowych szkoleniach."
+      />
 
       {/* ── DLACZEGO WARTO ────────────────────────── */}
       <section className="section-xl" style={{ padding: '120px 24px', background: '#f9f9f9' }}>
