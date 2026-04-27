@@ -12,6 +12,7 @@ import TestimonialsSection from '@/components/TestimonialsSection';
 import ClientsMarquee from '@/components/ClientsMarquee';
 import HomeFAQ from '@/components/HomeFAQ';
 import LeadMagnetSection from '@/components/LeadMagnetSection';
+import LevelTestCTA from '@/components/LevelTestCTA';
 import {
   IconBarChart, IconExcel, IconDatabase, IconPieChart,
   IconTarget, IconBriefcase, IconZap, IconUser,
@@ -294,6 +295,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ── LEVEL TEST CTA ────────────────────────── */}
+      <LevelTestCTA />
 
       {/* ── FAQ + CTA ─────────────────────────────── */}
       <HomeFAQ />

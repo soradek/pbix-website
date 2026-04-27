@@ -6,6 +6,7 @@ import ScrollReveal from '@/components/ScrollReveal';
 import Link from 'next/link';
 import { trainings, Training } from '@/data/trainings';
 import { IconBarChart, IconExcel, IconDatabase, IconPieChart, IconArrowRight } from '@/components/Icons';
+import LevelTestCTA from '@/components/LevelTestCTA';
 
 const categories = ['Wszystkie', 'Power BI', 'Excel', 'SQL', 'Wizualizacja danych'] as const;
 
@@ -108,34 +109,8 @@ function SzkoleniasContent({ initialCategory = 'Wszystkie', initialTrainings = t
         </div>
       </section>
 
-      {/* CTA – will be replaced by LevelTestCTA in Z4 */}
-      <section style={{ padding: '80px 24px 120px', background: '#f9f9f9' }}>
-        <div style={{ maxWidth: '680px', margin: '0 auto', textAlign: 'center' }}>
-          <ScrollReveal>
-            <div
-              style={{
-                background: 'rgba(30,153,83,0.06)',
-                border: '1px solid rgba(30,153,83,0.16)',
-                borderRadius: '24px',
-                padding: '56px 40px',
-              }}
-            >
-              <h2 style={{ fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 14px', letterSpacing: '-0.5px' }}>
-                Nie wiesz, które szkolenie wybrać?
-              </h2>
-              <p style={{ color: '#6e6e73', fontSize: '15px', lineHeight: 1.7, margin: '0 0 28px' }}>
-                Dysponuję testem poziomującym – wypełnij go, a dopasuję szkolenie do Twojego poziomu.
-              </p>
-              <Link
-                href="/kontakt"
-                style={{ background: '#1e9953', color: 'white', textDecoration: 'none', padding: '13px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 600 }}
-              >
-                Skontaktuj się
-              </Link>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
+      {/* Level test CTA – replaces previous "Skontaktuj się" box */}
+      <LevelTestCTA />
     </>
   );
 }
