@@ -255,7 +255,7 @@ export default function LeadCaptureModal({
                       style={{ marginTop: '2px', accentColor: '#1e9953', flexShrink: 0 }}
                     />
                     <span>
-                      Wyrażam zgodę na przetwarzanie moich danych osobowych przez Radosława Sobczaka (pbix.pl) w celu przesłania materiału edukacyjnego oraz informacji o szkoleniach. Mogę wycofać zgodę w dowolnym momencie.
+                      Wyrażam zgodę na przetwarzanie moich danych osobowych (imię, e-mail, opcjonalnie firma) przez Radosława Sobczaka (pbix.pl) w celu przesłania materiału oraz kontaktu w sprawie szkoleń. Zgodę mogę wycofać w dowolnym momencie pisząc na <a href="mailto:kontakt@pbix.pl" style={{ color: '#1e9953' }} onClick={(e) => e.stopPropagation()}>kontakt@pbix.pl</a>. Szczegóły w <a href="/polityka-prywatnosci" target="_blank" rel="noopener noreferrer" style={{ color: '#1e9953' }} onClick={(e) => e.stopPropagation()}>polityce prywatności</a>.
                     </span>
                   </label>
                   {errors.consent && <div style={{ color: '#ef4444', fontSize: '12px', marginTop: '-6px' }}>{errors.consent}</div>}

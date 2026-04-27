@@ -1,11 +1,14 @@
 import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
 
+const isDev = process.env.NODE_ENV !== 'production';
+
 const csp = [
   "default-src 'self'",
   // Next.js App Router needs unsafe-inline for hydration scripts and JSON-LD;
-  // Vercel Analytics loads from va.vercel-scripts.com
-  "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com",
+  // 'unsafe-eval' is required ONLY in dev (React DevTools / HMR / Fast Refresh).
+  // Vercel Analytics loads from va.vercel-scripts.com.
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://va.vercel-scripts.com`,
   // Inline styles are used extensively via style={} props throughout the app
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",

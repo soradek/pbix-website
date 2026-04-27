@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CookieSettingsLink from '@/components/CookieSettingsLink';
 
 interface FooterProps {
   lang?: 'pl' | 'en';
@@ -82,10 +83,14 @@ export default function Footer({ lang = 'pl' }: FooterProps) {
         </div>
         <div style={{ borderTop: '1px solid rgba(0,0,0,0.08)', paddingTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
           <div style={{ color: '#6e6e73', fontSize: '13px' }}>© 2025 Radosław Sobczak | pbix.pl</div>
-          <div style={{ color: '#6e6e73', fontSize: '13px' }}>
-            {isEn
-              ? 'Power BI, Excel, SQL trainings across Poland'
-              : 'Szkolenia z Power BI, Excel, SQL w całej Polsce'}
+          <div style={{ display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap' }}>
+            <Link
+              href={isEn ? '/polityka-prywatnosci' : '/polityka-prywatnosci'}
+              style={{ color: '#1d1d1f', textDecoration: 'none', fontSize: '14px', opacity: 0.7 }}
+            >
+              {isEn ? 'Privacy policy' : 'Polityka prywatności'}
+            </Link>
+            <CookieSettingsLink />
           </div>
         </div>
       </div>
