@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { IconPhone } from '@/components/Icons';
 
 function getAltUrl(pathname: string): string {
   if (pathname.startsWith('/en')) {
@@ -118,6 +119,18 @@ export default function Navbar() {
             </Link>
           </div>
           </div>
+
+          {/* Phone – desktop only */}
+          <a
+            href="tel:+48123456789"
+            aria-label="Zadzwoń"
+            style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#1d1d1f', textDecoration: 'none', opacity: 0.7, transition: 'opacity 0.2s', fontSize: '13px' }}
+            onMouseEnter={e => { e.currentTarget.style.opacity = '1'; }}
+            onMouseLeave={e => { e.currentTarget.style.opacity = '0.7'; }}
+          >
+            <IconPhone size={15} color="currentColor" />
+            <span className="phone-label">+48 123 456 789</span>
+          </a>
 
           {navLinks.map(link => (
             <Link

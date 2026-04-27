@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import ScrollReveal from '@/components/ScrollReveal';
 import { trainings } from '@/data/trainings';
 import SuccessModal from '@/components/SuccessModal';
+import { IconPhone, IconMail } from '@/components/Icons';
 
 export default function KontaktClient() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', training: '', message: '' });
@@ -72,9 +73,30 @@ export default function KontaktClient() {
               <h1 style={{ fontSize: 'clamp(40px, 6vw, 64px)', fontWeight: 600, color: '#1d1d1f', letterSpacing: '-2px', margin: '0 0 20px', lineHeight: 1.05 }}>
                 Napisz do mnie
               </h1>
-              <p style={{ color: '#6e6e73', fontSize: '17px', lineHeight: 1.6, margin: 0 }}>
+              <p style={{ color: '#6e6e73', fontSize: '17px', lineHeight: 1.6, margin: '0 0 32px' }}>
                 Opisz potrzeby swojego zespołu, a dobiorę szkolenie dopasowane do<br />poziomu i celów Twojej firmy.
               </p>
+              {/* Direct contact options */}
+              <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                <a
+                  href="tel:+48123456789"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 20px', borderRadius: '980px', border: '1px solid rgba(0,0,0,0.12)', color: '#1d1d1f', textDecoration: 'none', fontSize: '14px', fontWeight: 500, transition: 'border-color 0.2s' }}
+                  onMouseEnter={e => (e.currentTarget.style.borderColor = '#1e9953')}
+                  onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(0,0,0,0.12)')}
+                >
+                  <IconPhone size={16} color="#1e9953" />
+                  +48 123 456 789
+                </a>
+                <a
+                  href="mailto:kontakt@pbix.pl"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 20px', borderRadius: '980px', border: '1px solid rgba(0,0,0,0.12)', color: '#1d1d1f', textDecoration: 'none', fontSize: '14px', fontWeight: 500, transition: 'border-color 0.2s' }}
+                  onMouseEnter={e => (e.currentTarget.style.borderColor = '#1e9953')}
+                  onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(0,0,0,0.12)')}
+                >
+                  <IconMail size={16} color="#1e9953" />
+                  kontakt@pbix.pl
+                </a>
+              </div>
             </div>
           </ScrollReveal>
 
