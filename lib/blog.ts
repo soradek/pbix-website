@@ -21,6 +21,7 @@ export interface BlogPostMeta {
   readingTime: string;
   coverImage?: string;
   relatedTrainingSlug?: string;
+  keywords?: string[];
 }
 
 export interface BlogPost extends BlogPostMeta {

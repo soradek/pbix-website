@@ -10,6 +10,7 @@ declare module '*.mdx' {
     readingTime: string;
     coverImage?: string;
     relatedTrainingSlug?: string;
+    keywords?: string[];
   };
 
   const MDXComponent: ComponentType;

@@ -22,9 +22,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPostBySlug(slug);
   if (!post) return {};
   const url = `https://www.pbix.pl/blog/${post.slug}`;
+  // SVG is supported by Twitter and Slack but unreliable on Facebook/LinkedIn —
+  // we list it AFTER the default raster og.jpg so platforms that do not handle SVG
+  // fall back to the site default.
+  const ogImages = [
+    { url: 'https://www.pbix.pl/og.jpg', width: 1200, height: 630, alt: post.title },
+    ...(post.coverImage ? [{ url: `https://www.pbix.pl${post.coverImage}`, width: 1200, height: 630, alt: post.title }] : []),
+  ];
   return {
     title: `${post.title} | pbix.pl`,
     description: post.excerpt,
+    keywords: post.keywords,
     alternates: { canonical: url },
     openGraph: {
       title: post.title,
@@ -32,11 +40,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       type: 'article',
       publishedTime: post.date,
+      modifiedTime: post.date,
+      authors: ['Radosław Sobczak'],
+      section: post.category,
+      tags: post.keywords,
+      images: ogImages,
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.excerpt,
+      images: ogImages.map((i) => i.url),
     },
   };
 }
@@ -61,24 +75,33 @@ export default async function BlogPostPage({ params }: Props) {
     return false;
   }).slice(0, 3);
 
+  const postUrl = `https://www.pbix.pl/blog/${post.slug}`;
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.excerpt,
+    image: post.coverImage
+      ? [`https://www.pbix.pl${post.coverImage}`, 'https://www.pbix.pl/og.jpg']
+      : ['https://www.pbix.pl/og.jpg'],
     datePublished: post.date,
     dateModified: post.date,
-    author: { '@type': 'Person', name: 'Radosław Sobczak' },
+    author: {
+      '@type': 'Person',
+      name: 'Radosław Sobczak',
+      url: 'https://www.pbix.pl/',
+      jobTitle: 'Microsoft Certified Trainer (MCT)',
+    },
     publisher: {
       '@type': 'Organization',
       name: 'pbix.pl',
       logo: { '@type': 'ImageObject', url: 'https://www.pbix.pl/og.jpg' },
     },
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `https://www.pbix.pl/blog/${post.slug}`,
-    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
+    url: postUrl,
     articleSection: post.category,
+    keywords: post.keywords?.join(', '),
+    inLanguage: 'pl-PL',
   };
 
   return (
@@ -107,11 +130,22 @@ export default async function BlogPostPage({ params }: Props) {
             {post.title}
           </h1>
 
-          <div style={{ fontSize: '14px', color: '#6e6e73', marginBottom: '40px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ fontSize: '14px', color: '#6e6e73', marginBottom: '32px', display: 'flex', alignItems: 'center', gap: '12px' }}>
             <span>{formatDate(post.date)}</span>
             <span>·</span>
             <span>{post.readingTime} czytania</span>
           </div>
+
+          {post.coverImage && (
+            <div style={{ borderRadius: '20px', overflow: 'hidden', marginBottom: '40px', background: '#0f3a22', aspectRatio: '1200 / 630' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={post.coverImage}
+                alt={`Ilustracja artykułu: ${post.title}`}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
+            </div>
+          )}
 
           <div style={{ borderTop: '1px solid rgba(0,0,0,0.08)', paddingTop: '32px' }}>
             <Post />

@@ -73,15 +73,26 @@ export default function BlogPage() {
                       background: '#ffffff',
                       border: '1px solid rgba(0,0,0,0.08)',
                       borderRadius: '20px',
-                      padding: '28px',
+                      overflow: 'hidden',
                       height: '100%',
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: '14px',
                       transition: 'all 0.25s',
                       boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
                     }}
                   >
+                    {post.coverImage && (
+                      <div style={{ width: '100%', aspectRatio: '1200 / 630', background: '#0f3a22', display: 'block' }}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={post.coverImage}
+                          alt={`Ilustracja artykułu: ${post.title}`}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                          loading="lazy"
+                        />
+                      </div>
+                    )}
+                    <div style={{ padding: '24px 26px 26px', display: 'flex', flexDirection: 'column', gap: '14px', flex: 1 }}>
                     <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#1e9953', fontWeight: 600 }}>
                       {post.category}
                     </div>
@@ -98,6 +109,7 @@ export default function BlogPage() {
                       <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#1e9953', fontSize: '13px', fontWeight: 500 }}>
                         Czytaj <IconArrowRight size={14} color="#1e9953" />
                       </div>
+                    </div>
                     </div>
                   </article>
                 </Link>
