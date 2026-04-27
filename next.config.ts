@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
 
 const csp = [
   "default-src 'self'",
@@ -19,6 +20,7 @@ const csp = [
 ].join("; ");
 
 const nextConfig: NextConfig = {
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
@@ -26,11 +28,6 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
-      // Security headers for everything EXCEPT social-share images.
-      // Negative lookahead excludes /og.jpg so Facebook/Messenger embed iframes
-      // are not blocked by X-Frame-Options/CSP. Next.js cannot "remove" a header
-      // from a catch-all rule — only override the value — so we exclude the path
-      // from the rule entirely via path-to-regexp regex.
       {
         source: '/:path((?!og\\.jpg).*)',
         headers: [
@@ -43,10 +40,6 @@ const nextConfig: NextConfig = {
           { key: 'X-DNS-Prefetch-Control',       value: 'on' },
         ],
       },
-      // OG image: long immutable cache + open CORS, NO frame-blocking, NO CSP.
-      // Messenger embeds the thumbnail in a cross-origin iframe; SAMEORIGIN
-      // breaks that. Long cache stabilises Last-Modified so the FB CDN treats
-      // the asset as steady and pre-renders previews in chat threads.
       {
         source: '/og.jpg',
         headers: [
@@ -59,4 +52,6 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+const withMDX = createMDX({});
+
+export default withMDX(nextConfig);

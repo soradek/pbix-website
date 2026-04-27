@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { trainings } from '@/data/trainings';
+import { getAllPosts } from '@/lib/blog';
 
 const siteUrl = 'https://www.pbix.pl';
 
@@ -58,6 +59,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: hreflang(`${siteUrl}/kontakt`, `${siteUrl}/en/contact`),
     },
     ...trainingPages,
+    {
+      url: `${siteUrl}/blog`,
+      lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7,
+    },
+    ...getAllPosts().map(p => ({
+      url: `${siteUrl}/blog/${p.slug}`,
+      lastModified: new Date(p.date),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    })),
     // English
     {
       url: `${siteUrl}/en`,

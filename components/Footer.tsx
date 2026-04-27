@@ -32,6 +32,7 @@ export default function Footer({ lang = 'pl' }: FooterProps) {
         { href: '/', label: 'Strona główna' },
         { href: '/szkolenia', label: 'Szkolenia' },
         { href: '/projekty', label: 'Projekty' },
+        { href: '/blog', label: 'Blog' },
         { href: '/kontakt', label: 'Kontakt' },
       ];
 

@@ -1,0 +1,100 @@
+export const metadata = {
+  title: '5 błędów w DAX, które kosztują firmy godziny',
+  slug: '5-bledow-w-dax',
+  date: '2026-04-10',
+  excerpt: 'Złe relacje, nadużywanie CALCULATE, ignorowanie kontekstu filtra — najczęstsze pułapki w DAX, które potrafią zamienić raport Power BI w cmentarzysko wydajności.',
+  category: 'Power BI',
+  readingTime: '7 min',
+  relatedTrainingSlug: 'microsoft-dax',
+};
+
+DAX wygląda na język podobny do formuł Excela, ale to złudzenie kosztuje firmy realne pieniądze.
+Spotykam się z tym co tydzień: zespół buduje raport, który po dwóch miesiącach pracy zaczyna ładować
+się minutami, a proste KPI zwracają liczby, których nikt nie potrafi wytłumaczyć. Prawie zawsze
+przyczyną jest jeden z pięciu poniższych błędów.
+
+## 1. Mylenie kontekstu wiersza z kontekstem filtra
+
+Najczęstsza pułapka, w którą wpadają osoby przechodzące z Excela. W kolumnie kalkulowanej działa
+kontekst wiersza — DAX widzi pojedynczy rekord. W mierze działa kontekst filtra — DAX widzi
+zagregowany zbiór danych zdefiniowany przez wizualizację.
+
+Skutek? Mierze typu `SUM(Sprzedaz[Marza])` w kolumnie kalkulowanej zwróci sumę globalną dla każdego
+wiersza, a nie marżę w danym wierszu. Zespoły rozwiązują to dodając kolejne kolumny pomocnicze,
+zamiast zrozumieć, dlaczego model się tak zachowuje. Rezultat: model rośnie, wydajność spada,
+a dług techniczny pączkuje.
+
+**Jak to naprawić:** zanim napiszesz formułę, zapytaj się — czy potrzebuję wartości na poziomie
+pojedynczego wiersza (kolumna), czy zagregowanej dla kontekstu wizualizacji (miara)? 90% przypadków
+to powinna być miara.
+
+## 2. Nadużywanie CALCULATE bez zrozumienia, co robi
+
+`CALCULATE` to najpotężniejsza funkcja w DAX i jednocześnie najczęściej źle używana. Modyfikuje
+kontekst filtra — to znaczy, że nadpisuje istniejące filtry, dodaje nowe, lub usuwa wybrane.
+
+Widzę formuły w stylu `CALCULATE(SUM(Sprzedaz[Wartosc]), Sprzedaz[Rok] = 2026)` powtarzane
+dwadzieścia razy w jednym raporcie. Każde takie wywołanie tworzy nowy kontekst, każde wymusza
+pełny scan tabeli faktów, a żadne nie korzysta z wstępnego filtrowania na poziomie modelu.
+
+**Jak to naprawić:** zamiast hardkodować wartości w mierach, użyj wymiaru daty z hierarchią.
+Funkcje time intelligence (`TOTALYTD`, `SAMEPERIODLASTYEAR`) korzystają z indeksów wymiaru i są
+wielokrotnie szybsze niż ręczne `CALCULATE`. Jeśli już musisz użyć `CALCULATE`, rozumiej, czy
+modyfikujesz kontekst, czy go zastępujesz — różnica między `FILTER` a bezpośrednim warunkiem to
+często różnica między 200 ms a 20 sekundami.
+
+## 3. Relacje wielu-do-wielu jako pierwszy odruch
+
+Power BI od kilku lat pozwala na relacje many-to-many. To nie znaczy, że powinieneś ich używać.
+Każda taka relacja oznacza, że silnik VertiPaq musi w runtime budować wirtualną tabelę pośredniczącą
+— a ta operacja nie jest cachowana.
+
+Widziałem firmę, której raport zarządczy ładował się 45 sekund. Po przebudowie modelu z dwiema
+relacjami many-to-many na klasyczny schemat gwiazdy z wymiarami pomostowymi — 1,8 sekundy.
+Ten sam zestaw danych, te same miary.
+
+**Jak to naprawić:** schemat gwiazdy to nie archaizm — to fundament wydajności w Power BI. Jeden
+wymiar = jedna ścieżka do faktów. Jeśli musisz połączyć dwa wymiary, zrób tabelę pomostową w
+Power Query, nie w modelu.
+
+## 4. Filtrowanie tabel zamiast kolumn w CALCULATE
+
+Drobna różnica składniowa, ogromna różnica wydajnościowa.
+
+```
+// Wolno
+CALCULATE([Sprzedaz], FILTER(Produkty, Produkty[Kategoria] = "Elektronika"))
+
+// Szybko
+CALCULATE([Sprzedaz], Produkty[Kategoria] = "Elektronika")
+```
+
+Pierwsza wersja każe DAX-owi zmaterializować całą tabelę `Produkty` w pamięci, przefiltrować ją
+wiersz po wierszu, a potem dopiero przeliczyć miarę. Druga wersja korzysta ze storage engine
+i działa na poziomie kolumnowym — czyli tak, jak VertiPaq lubi.
+
+**Jak to naprawić:** używaj `FILTER` tylko wtedy, gdy naprawdę potrzebujesz logiki wieloliniowej
+(porównania z innymi miarami, warunki na zagregowanych wartościach). W 80% przypadków wystarczy
+filtr kolumnowy w `CALCULATE`.
+
+## 5. Brak zmiennych w długich miarach
+
+Zmienne (`VAR`) w DAX to nie kosmetyka. Każde wywołanie miary bez zmiennej oznacza, że ten sam
+fragment logiki jest przeliczany od zera tyle razy, ile razy występuje w formule.
+
+Miara typu „udział w sprzedaży roku poprzedniego" potrafi zawierać `CALCULATE(SUM(...), SAMEPERIODLASTYEAR(...))`
+trzy razy — w liczniku, mianowniku i w warunku obronnym przed dzieleniem przez zero. Bez `VAR` to
+trzy pełne przebiegi engine'a. Z `VAR` — jeden.
+
+**Jak to naprawić:** wszystkie miary dłuższe niż 3 linijki rozbijaj na zmienne. Bonus: kod staje
+się czytelny dla osoby, która zobaczy go po pół roku — łącznie z Tobą.
+
+## Co dalej
+
+Te pięć błędów odpowiada za większość problemów wydajnościowych, jakie widzę w projektach Power BI
+w polskich firmach. Naprawienie ich nie wymaga przepisania raportu od zera — wymaga zrozumienia,
+co dzieje się pod spodem.
+
+Jeśli chcesz przejść tę drogę pod okiem kogoś, kto przepuścił przez to setki zespołów, zapraszam
+na dwudniowy warsztat z DAX. Pracujemy na realnych danych, realnych modelach i realnych miarach
+— takich, które potem trafiają do produkcji.
