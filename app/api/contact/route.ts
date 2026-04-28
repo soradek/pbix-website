@@ -111,7 +111,7 @@ export async function POST(req: NextRequest) {
 
   try {
     await transporter.sendMail({
-      from: `"Formularz pbix.pl" <${process.env.SMTP_USER}>`,
+      from: `"Radosław Sobczak" <${process.env.SMTP_USER}>`,
       to: process.env.SMTP_USER,
       replyTo: `"${nameStr.replace(/"/g, "'")}" <${emailStr}>`,
       subject,
