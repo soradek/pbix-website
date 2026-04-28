@@ -108,6 +108,11 @@ export const trainings: Training[] = [
       { title: 'Logika warunkowa i dobre praktyki', items: ['Funkcje IF i SWITCH w miarach', 'Zmienne i parametry w DAX', 'Komentowanie i strukturyzowanie kodu', 'Optymalizacja wydajności wyrażeń'] },
       { title: 'Bezpieczeństwo danych (RLS)', items: ['Implementacja Row Level Security', 'Funkcje USERNAME i USERPRINCIPALNAME'] },
     ],
+    faq: [
+      { q: 'Czy muszę mieć doświadczenie z Power BI przed szkoleniem DAX?', a: 'Tak – zalecana jest podstawowa znajomość Power BI Desktop: umiejętność importu danych i tworzenia prostych wizualizacji. Jeśli zespół dopiero zaczyna z Power BI, polecam najpierw szkolenie „Microsoft Power BI".' },
+      { q: 'Czym różni się szkolenie DAX od szkolenia Microsoft Power BI?', a: 'Szkolenie Power BI obejmuje cały cykl pracy: od importu danych po publikację raportów, z wprowadzeniem do DAX. Szkolenie DAX skupia się wyłącznie na języku formuł – zaawansowane miary, Time Intelligence, RLS i optymalizacja kodu. To kurs dla osób, które już pracują w Power BI i chcą pisać precyzyjne obliczenia.' },
+      { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz pliki warsztatowe. Po szkoleniu udostępniam listę sprawdzonych źródeł do samodzielnej nauki.' },
+    ],
     prerequisites: 'Podstawowa znajomość MS Excel i Power BI',
   },
   {
@@ -143,6 +148,11 @@ export const trainings: Training[] = [
       { title: 'Zarządzanie zapytaniami', items: ['Ładowanie, odświeżanie, wyłączanie zapytań', 'Zapytania referencyjne i duplikaty', 'Grupowanie i organizacja środowiska pracy'] },
       { title: 'Funkcje i parametryzacja', items: ['Tworzenie własnych funkcji ze zmiennymi', 'Parametry w zapytaniach', 'Powtarzalne transformacje w pętli'] },
       { title: 'Język M – poziom zaawansowany', items: ['Struktura składni języka M', 'Ręczna edycja w edytorze zaawansowanym', 'Kluczowe funkcje i nieszablonowe rozwiązania'] },
+    ],
+    faq: [
+      { q: 'Czym różni się Power Query w Power BI od Power Query w Excelu?', a: 'Silnik zapytań jest identyczny – ten sam język M, te same transformacje i kroki. Różnice dotyczą integracji z narzędziem: w Power BI dane trafiają bezpośrednio do modelu, a w Excelu możesz ładować je do arkusza lub modelu Power Pivot. Umiejętności z tego szkolenia są w pełni przenośne między oboma aplikacjami.' },
+      { q: 'Czy muszę znać język M przed szkoleniem?', a: 'Nie. Szkolenie omawia język M od podstaw – zaczynamy od graficznego edytora zapytań, a dopiero potem przechodzimy do ręcznej edycji kodu. Większość uczestników nie pisze ani jednej linii M przed szkoleniem.' },
+      { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz pliki warsztatowe. Po szkoleniu udostępniam listę sprawdzonych źródeł do samodzielnej nauki.' },
     ],
     prerequisites: 'Podstawowa znajomość MS Excel i Power BI',
   },
@@ -180,6 +190,11 @@ export const trainings: Training[] = [
       { title: 'Tabele przestawne – wprowadzenie', items: ['Tworzenie prostej tabeli przestawnej', 'Grupowanie i filtrowanie w tabeli przestawnej', 'Podstawowe wykresy przestawne'] },
       { title: 'Drukowanie i eksport', items: ['Ustawienia strony i obszar wydruku', 'Nagłówki i stopki', 'Eksport do PDF'] },
     ],
+    faq: [
+      { q: 'Czy szkolenie jest odpowiednie dla kogoś, kto nigdy nie używał Excela?', a: 'Tak, szkolenie zaplanowane jest od zera. Zaczynamy od interfejsu, poruszania się po arkuszu i podstawowych skrótów. Nie są wymagane żadne wcześniejsze umiejętności – wystarczy obsługa komputera.' },
+      { q: 'Jak szybko po szkoleniu można zastosować zdobyte umiejętności w pracy?', a: 'Natychmiast. Cały program oparty jest na praktycznych przykładach z życia zawodowego. Już w trakcie szkolenia uczestnicy tworzą własne arkusze, tabele i wykresy, które mogą zabrać ze sobą.' },
+      { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz pliki warsztatowe. Po szkoleniu udostępniam listę sprawdzonych źródeł do samodzielnej nauki.' },
+    ],
     prerequisites: 'Brak – szkolenie od zera',
   },
   {
@@ -216,6 +231,11 @@ export const trainings: Training[] = [
       { title: 'Formatowanie warunkowe z formułami', items: ['Reguły oparte na formułach – dynamiczne podświetlanie wierszy', 'Skale kolorów, paski danych i zestawy ikon', 'Formatowanie na podstawie wartości z innej komórki', 'Zarządzanie i edycja wielu reguł jednocześnie'] },
       { title: 'Sprawdzanie poprawności i ochrona danych', items: ['Listy rozwijane i ograniczenia wprowadzania danych', 'Komunikaty błędów i podpowiedzi dla użytkownika', 'Ochrona wybranych komórek, arkuszy i skoroszytów', 'Udostępnianie pliku z ograniczonym dostępem do edycji'] },
     ],
+    faq: [
+      { q: 'Skąd wiem, czy mój poziom Excela odpowiada poziomowi średniozaawansowanemu?', a: 'Jeśli swobodnie tworzysz formuły SUMA i JEŻELI, stosujesz filtrowanie i sortowanie, a tabele przestawne nie są Ci obce – jesteś gotowy. W razie wątpliwości chętnie przeprowadzę krótką rozmowę kwalifikacyjną przed szkoleniem.' },
+      { q: 'Czy szkolenie dotyczy Excela 365, czy też starszych wersji?', a: 'Program jest dostosowany do Microsoft 365, ale wszystkie omawiane funkcje (poza XWYSZUKAJ) działają również w Excelu 2019 i 2016. Na początku szkolenia ustalamy, z jakiej wersji korzysta zespół.' },
+      { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz pliki warsztatowe. Po szkoleniu udostępniam listę sprawdzonych źródeł do samodzielnej nauki.' },
+    ],
     prerequisites: 'Podstawowa znajomość MS Excel (poziom podstawowy lub równoważny)',
   },
   {
@@ -251,6 +271,11 @@ export const trainings: Training[] = [
       { title: 'Zaawansowane wykresy i dashboardy', items: ['Wykresy combo i wykresy z dwiema osiami', 'Dynamiczne wykresy z kontrolkami i segmentatorami', 'Dashboardy na jednym arkuszu – układ, estetyka, interakcja', 'Minicharts (wykresy przebiegu w czasie)', 'Eksport i prezentacja dashboardów'] },
       { title: 'Analiza wariantowa i optymalizacja', items: ['Szukaj wyniku – cel odwrotny w formułach', 'Tabele danych – analiza wrażliwości jednej i dwóch zmiennych', 'Menedżer scenariuszy – porównanie wariantów decyzyjnych', 'Solver – optymalizacja z ograniczeniami'] },
       { title: 'Makra nagrane – automatyzacja', items: ['Rejestrowanie makra i analiza wygenerowanego kodu VBA', 'Uruchamianie makr przyciskami i skrótami klawiszowymi', 'Edycja nagranego makra – proste modyfikacje', 'Bezpieczeństwo makr i zarządzanie zaufanymi plikami'] },
+    ],
+    faq: [
+      { q: 'Czy szkolenie z poziomu zaawansowanego obejmuje Power BI?', a: 'Nie – Power BI to osobne narzędzie z osobnym szkoleniem. Kurs zaawansowany skupia się na Excelu 365: funkcje dynamiczne, Power Query, Power Pivot i dashboardy w arkuszu. Jeśli interesuje Cię Power BI, polecam szkolenie „Microsoft Power BI".' },
+      { q: 'Czy Power Pivot jest częścią programu?', a: 'Tak – Power Pivot to jeden z kluczowych modułów. Uczestnicy uczą się budować modele relacyjne, tworzyć miary DAX i łączyć je z tabelami przestawnymi. To solidne wprowadzenie do modelowania danych bez opuszczania Excela.' },
+      { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz pliki warsztatowe. Po szkoleniu udostępniam listę sprawdzonych źródeł do samodzielnej nauki.' },
     ],
     prerequisites: 'Dobra znajomość MS Excel na poziomie średniozaawansowanym',
   },
@@ -289,6 +314,11 @@ export const trainings: Training[] = [
       { title: 'Funkcje użytkownika i obsługa błędów', items: ['Tworzenie własnych funkcji (Function) dostępnych w arkuszu', 'Procedury Sub vs. Function – kiedy co stosować', 'On Error Resume Next, On Error GoTo – obsługa wyjątków', 'Przekazywanie parametrów do procedur i funkcji'] },
       { title: 'Formularze użytkownika i zdarzenia', items: ['Tworzenie UserForm – pola tekstowe, listy, przyciski', 'Powiązanie formularza z danymi arkusza', 'Zdarzenia arkusza: Worksheet_Change, Worksheet_Activate', 'Zdarzenia skoroszytu: Workbook_Open, Workbook_BeforeSave'] },
     ],
+    faq: [
+      { q: 'Czy muszę znać programowanie przed szkoleniem VBA?', a: 'Nie. Szkolenie zaczyna się od zera – od edytora Visual Basic, przez zmienne i pętle, aż po formularze użytkownika. Wcześniejsze doświadczenie w kodowaniu jest pomocne, ale nie wymagane. Ważna jest dobra znajomość Excela na poziomie zaawansowanym.' },
+      { q: 'Czy makra VBA działają we wszystkich wersjach Excela?', a: 'Tak – VBA jest obecne w Excelu od wielu lat i działa w wersjach 2016, 2019, 2021 oraz Microsoft 365. Pliki z makrami należy zapisywać w formacie XLSM lub XLAM.' },
+      { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz pliki warsztatowe z gotowymi procedurami i funkcjami. Po szkoleniu udostępniam listę sprawdzonych źródeł do samodzielnej nauki.' },
+    ],
     prerequisites: 'Dobra znajomość MS Excel na poziomie zaawansowanym',
   },
   {
@@ -324,6 +354,11 @@ export const trainings: Training[] = [
       { title: 'Scalanie i dołączanie zapytań', items: ['Merge (złączenie) – odpowiednik JOIN z baz danych', 'Append (dołączanie) – scalanie tabel o tej samej strukturze', 'Typy złączeń: lewe, prawe, wewnętrzne, pełne', 'Obsługa niezgodności schematów przy łączeniu plików'] },
       { title: 'Parametry i automatyzacja', items: ['Parametry w zapytaniach – dynamiczne ścieżki i wartości', 'Odświeżanie danych – ręczne i automatyczne przy otwarciu', 'Zapytania referencyjne i duplikaty – organizacja pracy', 'Eksport modelu zapytań do innego pliku'] },
       { title: 'Język M – edytor zaawansowany', items: ['Struktura wyrażeń w języku M', 'Ręczna edycja kroków w edytorze zaawansowanym', 'Tworzenie funkcji niestandardowych (Custom Functions)', 'Kluczowe funkcje M: Text.*, Date.*, List.*, Table.*'] },
+    ],
+    faq: [
+      { q: 'Czym różni się to szkolenie od szkolenia Power Query dla Power BI?', a: 'Silnik i język M są identyczne. Różnica leży w środowisku: to szkolenie skupia się na Power Query wbudowanym w Excel, z załadowaniem danych do tabel i modelu Power Pivot. Jeśli pracujesz głównie w Excelu – to właściwy wybór.' },
+      { q: 'Czy Power Query zastąpi moją wiedzę o formułach Excela?', a: 'Nie – to uzupełniające, nie wykluczające się umiejętności. Power Query doskonale radzi sobie z importem, czyszczeniem i transformacją danych przed analizą. Formuły Excela nadal są potrzebne do obliczeń i raportowania.' },
+      { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz pliki warsztatowe. Po szkoleniu udostępniam listę sprawdzonych źródeł do samodzielnej nauki.' },
     ],
     prerequisites: 'Dobra znajomość MS Excel (poziom średniozaawansowany lub wyższy)',
   },
@@ -362,6 +397,11 @@ export const trainings: Training[] = [
       { title: 'Funkcje wbudowane i DML', items: ['Funkcje tekstowe: LEN, UPPER, LOWER, TRIM, CONCAT, SUBSTRING', 'Funkcje daty: GETDATE, YEAR, MONTH, DAY, DATEDIFF, DATEADD', 'Konwersja typów: CAST, CONVERT, TRY_CONVERT', 'INSERT INTO – wstawianie pojedynczych i wielu wierszy', 'UPDATE ... SET ... WHERE – bezpieczna aktualizacja danych', 'DELETE ... WHERE – usuwanie z warunkiem'] },
       { title: 'Widoki, indeksy i wydajność (wprowadzenie)', items: ['Widoki (Views) – hermetyzacja złożonych zapytań', 'Tworzenie i modyfikacja widoków', 'Czym są indeksy i jak wpływają na szybkość zapytań', 'Odczytywanie planu wykonania zapytania (Execution Plan) – podstawy'] },
     ],
+    faq: [
+      { q: 'Czy muszę mieć doświadczenie programistyczne przed szkoleniem SQL?', a: 'Nie. SQL to język zapytań, nie programowanie obiektowe. Zaczynamy od podstaw składni SELECT i stopniowo przechodzimy do JOIN-ów, agregacji i CTE. Wystarczy znajomość komputera i chęć pracy z danymi.' },
+      { q: 'Czy SQL jest trudny do nauki dla osoby bez technicznego wykształcenia?', a: 'SQL jest jednym z najłatwiejszych języków do opanowania – ma intuicyjną składnię zbliżoną do angielskiego. Większość uczestników zaczyna samodzielnie pisać użyteczne zapytania już pierwszego dnia szkolenia.' },
+      { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz pliki warsztatowe z przykładowymi bazami danych. Po szkoleniu udostępniam listę sprawdzonych źródeł do samodzielnej nauki.' },
+    ],
     prerequisites: 'Brak wymagań technicznych – szkolenie dostępne dla zespołów bez doświadczenia z SQL',
   },
   {
@@ -397,6 +437,11 @@ export const trainings: Training[] = [
       { title: 'Zaawansowane tabele i wykresy przestawne', items: ['Tabele przestawne oparte na modelu danych (nie arkuszu)', 'Pola i elementy obliczeniowe vs. miary DAX', 'Wykresy przestawne: combo, linia, słupkowy – dobór do danych', 'Minicharts (wykresy przebiegu w czasie) jako uzupełnienie tabeli'] },
       { title: 'Dashboardy – projektowanie i interakcja', items: ['Układ dashboardu: hierarchia informacji, zasady estetyki', 'Fragmentatory połączone z wieloma tabelami i wykresami', 'Osie czasu – filtrowanie danych według okresu', 'Dynamiczne tytuły i etykiety reagujące na filtry', 'Zabezpieczenie dashboardu przed przypadkową edycją'] },
       { title: 'Automatyzacja i utrzymanie', items: ['Odświeżanie wszystkich zapytań jednym kliknięciem', 'Zarządzanie połączeniami i aktualizacja źródeł danych', 'Dokumentowanie modelu dla innych użytkowników', 'Dobre praktyki nazewnictwa i organizacji modelu Excel BI'] },
+    ],
+    faq: [
+      { q: 'Czym różni się Excel BI od Power BI – kiedy wybrać jedno, a kiedy drugie?', a: 'Excel BI to rozwiązanie dla firm, które dobrze znają Excela i nie chcą wdrażać osobnego narzędzia. Power BI oferuje więcej opcji publikacji, współpracy online i obsługi bardzo dużych zbiorów danych. Jeśli raporty trafiają głównie do pliku XLSX lub PDF – Excel BI w zupełności wystarczy.' },
+      { q: 'Czy muszę wcześniej przejść szkolenie z Power Query lub Power Pivot?', a: 'Nie jest to wymagane, ale znacznie przyspiesza naukę. Szkolenie Excel BI omawia oba narzędzia w kontekście całego ekosystemu BI. Osobne kursy Power Query i Power Pivot pozwalają zgłębić każde z nich bardziej szczegółowo.' },
+      { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz pliki warsztatowe. Po szkoleniu udostępniam listę sprawdzonych źródeł do samodzielnej nauki.' },
     ],
     prerequisites: 'Dobra znajomość MS Excel (poziom zaawansowany lub ukończone szkolenie Power Query)',
   },
@@ -434,6 +479,11 @@ export const trainings: Training[] = [
       { title: 'Prezentacja narracyjna i storytelling', items: ['Struktura narracyjna: problem – analiza – rozwiązanie', 'Slajd tytułowy, przejściowy i podsumowujący jako elementy rytmu', 'Techniki angażowania odbiorcy podczas prezentacji', 'Tryb prezentera: notatki, podgląd, timer', 'Prezentacja zdalna – Teams, Zoom, udostępnianie ekranu'] },
       { title: 'Eksport, wideo i skróty', items: ['Eksport do PDF z zachowaniem jakości grafik', 'Zapis prezentacji jako wideo z narracją', 'Pakowanie prezentacji z czcionkami i multimediami', 'Najważniejsze skróty klawiaturowe PowerPoint', 'Format PPTX vs. PPSX – różnice i zastosowania'] },
     ],
+    faq: [
+      { q: 'Czy szkolenie dotyczy tylko obsługi PowerPointa, czy też zasad projektowania?', a: 'Obydwu. Pierwsza część skupia się na zasadach komunikacji wizualnej – hierarchia informacji, dobór kolorów, typografia. Drugą część stanowi warsztat techniczny w PowerPoint. Uczestnicy uczą się nie tylko „jak", ale też „dlaczego" dane rozwiązania działają.' },
+      { q: 'Czy potrzebuję umiejętności graficznych, żeby skorzystać ze szkolenia?', a: 'Absolutnie nie. Szkolenie pokazuje, że profesjonalna prezentacja to wynik znajomości zasad i narzędzi, a nie talentu artystycznego. Pracujemy na wzorcach, szablonach i systemach – nie na ręcznym „upiększaniu" każdego slajdu.' },
+      { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz gotowy szablon do dalszego wykorzystania. Po szkoleniu udostępniam listę sprawdzonych zasobów.' },
+    ],
     prerequisites: 'Podstawowa znajomość pakietu Microsoft Office',
   },
   {
@@ -469,6 +519,11 @@ export const trainings: Training[] = [
       { title: 'Spójna oprawa wizualna raportu', items: ['Definicja palety kolorów spójnej w Excelu i PowerPoint', 'Wzorzec slajdów jako fundament spójności', 'Eksport motywu Excela do PowerPoint', 'Style wykresów i tabele formatowane zgodnie z identyfikacją wizualną', 'Fonty, marginesy i siatka jako elementy profesjonalizmu'] },
       { title: 'Raport zarządczy – projekt od A do Z', items: ['Struktura raportu: okładka, KPI, analizy szczegółowe, podsumowanie', 'Slajd KPI – duże liczby, trendy, odchylenia', 'Slajd narracyjny – łączenie wykresu z komentarzem', 'Tabela porównawcza z formatowaniem warunkowym', 'Eksport raportu do PDF i przygotowanie do dystrybucji'] },
       { title: 'Automatyzacja i utrzymanie cyklu raportowego', items: ['Szablony Excela z gotową strukturą danych', 'Szablony PowerPoint z zarezerwowanymi miejscami na wykresy', 'Skróty i techniki przyspieszające aktualizację raportu', 'Dokumentowanie procesu raportowego dla innych członków zespołu'] },
+    ],
+    faq: [
+      { q: 'Czy to szkolenie zastępuje osobne kursy z Excela i PowerPointa?', a: 'Nie – skupia się na punkcie przecięcia obu narzędzi: zasadach wizualizacji i tworzeniu spójnych raportów. Nie omawiamy zaawansowanych formuł Excela ani wszystkich funkcji PowerPointa. To kurs dla osób z dobrą znajomością obu narzędzi, które chcą połączyć je w jeden efektywny pipeline raportowy.' },
+      { q: 'Czy szkolenie obejmuje zasady komunikacji wizualnej, czy tylko technikę?', a: 'Obydwa aspekty. Pierwsza część to teoria: dobór wykresu do danych, hierarchia informacji, kolorystyka. Druga to warsztat techniczny: zaawansowane wykresy Excel, dynamiczne łączenie z PowerPoint i tworzenie raportu zarządczego od A do Z.' },
+      { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń, gotowy szablon raportu oraz pliki ćwiczeniowe. Po szkoleniu udostępniam listę sprawdzonych zasobów o wizualizacji danych.' },
     ],
     prerequisites: 'Dobra znajomość MS Excel i podstawowa znajomość MS PowerPoint',
   },

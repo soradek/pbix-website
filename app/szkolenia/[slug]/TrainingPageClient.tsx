@@ -485,14 +485,36 @@ function FAQItem({ item }: { item: { q: string; a: string } }) {
 }
 
 function EmailButton({ label, subject }: { label: string; subject: string }) {
+  const [copied, setCopied] = useState(false);
+  const email = 'kontakt@pbix.pl';
   const href = (() => {
     const d = new Date();
     const date = `${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}`;
-    return `mailto:kontakt@pbix.pl?subject=${encodeURIComponent(`${date} ${subject}`)}`;
+    return `mailto:${email}?subject=${encodeURIComponent(`${date} ${subject}`)}`;
   })();
+  const handleClick = () => {
+    navigator.clipboard?.writeText(email).catch(() => {});
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
   return (
-    <a href={href} style={{ border: '1.5px solid rgba(0,0,0,0.15)', color: '#1d1d1f', textDecoration: 'none', padding: '13px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 500 }}>
-      {label}
+    <a
+      href={href}
+      onClick={handleClick}
+      style={{
+        border: '1.5px solid rgba(0,0,0,0.15)',
+        color: '#1d1d1f',
+        textDecoration: 'none',
+        padding: '13px 28px',
+        borderRadius: '980px',
+        fontSize: '14px',
+        fontWeight: 500,
+        minWidth: '160px',
+        textAlign: 'center',
+        transition: 'all 0.2s',
+      }}
+    >
+      {copied ? `✓ ${email}` : label}
     </a>
   );
 }
