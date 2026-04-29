@@ -85,7 +85,7 @@ export default function Footer({ lang = 'pl' }: FooterProps) {
           <div style={{ color: '#6e6e73', fontSize: '13px' }}>© 2025 Radosław Sobczak | pbix.pl</div>
           <div style={{ display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap' }}>
             <Link
-              href={isEn ? '/polityka-prywatnosci' : '/polityka-prywatnosci'}
+              href={isEn ? '/en/privacy-policy' : '/polityka-prywatnosci'}
               style={{ color: '#1d1d1f', textDecoration: 'none', fontSize: '14px', opacity: 0.7 }}
             >
               {isEn ? 'Privacy policy' : 'Polityka prywatności'}

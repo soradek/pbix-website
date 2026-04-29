@@ -8,13 +8,13 @@ const csp = [
   // Next.js App Router needs unsafe-inline for hydration scripts and JSON-LD;
   // 'unsafe-eval' is required ONLY in dev (React DevTools / HMR / Fast Refresh).
   // Vercel Analytics loads from va.vercel-scripts.com.
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://va.vercel-scripts.com`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://va.vercel-scripts.com https://www.googletagmanager.com`,
   // Inline styles are used extensively via style={} props throughout the app
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data: https:",
   "media-src 'self'",
-  "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com",
+  "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://*.google-analytics.com https://www.googletagmanager.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -27,6 +27,7 @@ const nextConfig: NextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    qualities: [75, 80, 82],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
   },
   async headers() {
