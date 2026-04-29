@@ -299,9 +299,7 @@ export default function Home() {
       </section>
 
       {/* ── LEVEL TEST CTA ────────────────────────── */}
-      {/* TODO: wyłączone tymczasowo
       <LevelTestCTA />
-      */}
 
       {/* ── FAQ + CTA ─────────────────────────────── */}
       <HomeFAQ />

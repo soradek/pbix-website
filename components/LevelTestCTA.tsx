@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import ScrollReveal from '@/components/ScrollReveal';
 import LeadCaptureModal from '@/components/LeadCaptureModal';
+import LevelQuiz from '@/components/LevelQuiz';
 import { IconClipboardCheck } from '@/components/Icons';
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 
 export default function LevelTestCTA({ variant = 'card' }: Props) {
   const [open, setOpen] = useState(false);
+  const [quizOpen, setQuizOpen] = useState(false);
 
   const inner = (
     <div
@@ -41,11 +43,11 @@ export default function LevelTestCTA({ variant = 'card' }: Props) {
           Nie wiesz, które szkolenie wybrać?
         </h2>
         <p style={{ color: '#6e6e73', fontSize: '15px', lineHeight: 1.65, margin: 0 }}>
-          Pobierz test poziomujący i sprawdź swój poziom wiedzy z Excela lub Power BI.
+          Uzupełnij quiz i sprawdź swój poziom wiedzy z Excela!
         </p>
       </div>
       <button
-        onClick={() => setOpen(true)}
+        onClick={() => setQuizOpen(true)}
         style={{
           background: '#1e9953',
           color: 'white',
@@ -62,7 +64,7 @@ export default function LevelTestCTA({ variant = 'card' }: Props) {
         onMouseEnter={(e) => (e.currentTarget.style.background = '#17803f')}
         onMouseLeave={(e) => (e.currentTarget.style.background = '#1e9953')}
       >
-        Pobierz test
+        Rozwiąż quiz
       </button>
     </div>
   );
@@ -92,6 +94,8 @@ export default function LevelTestCTA({ variant = 'card' }: Props) {
         title="Pobierz test poziomujący"
         description="Wpisz swój email, a wyślę Ci test poziomujący w formacie Excel. Po wypełnieniu odeślij go do mnie, a dobiorę szkolenie do Twojego poziomu."
       />
+
+      <LevelQuiz open={quizOpen} onClose={() => setQuizOpen(false)} />
     </section>
   );
 }
