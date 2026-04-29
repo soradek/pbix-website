@@ -1,0 +1,155 @@
+export const metadata = {
+  title: 'Copilot w Power BI — co realnie potrafi, a czego od niego nie oczekuj',
+  slug: 'copilot-w-power-bi',
+  date: '2026-03-23',
+  excerpt: 'Microsoft sprzedaje Copilota jako „BI dla każdego". W praktyce to dobry asystent dla kogoś, kto już rozumie model. Oto co działa, co nie i jak nie zostawić zarządowi raportu zmyślonego przez AI.',
+  category: 'Power BI',
+  readingTime: '7 min',
+  coverImage: '/AI_cover.png',
+  relatedTrainingSlug: 'microsoft-power-bi',
+  keywords: ['Copilot Power BI', 'AI Power BI', 'Microsoft Fabric Copilot', 'AI w analizie danych', 'natural language query Power BI', 'Q&A Power BI', 'AI dashboards', 'generatywna analiza danych'],
+};
+
+> *Copilot w Power BI nie zbuduje genialnego raportu podczas kiedy Ty będziesz szlifował swoją*
+> *formę na najbliższy maraton. Pomaga w trzech konkretnych zadaniach: wstępne wizualizacje,*
+> *generowanie miar DAX i streszczanie raportu w języku*
+> *naturalnym. Wszystkie trzy wymagają, żeby model danych był poprawnie zaprojektowany — bo Copilot*
+> *nie naprawia złego modelu, tylko go pokazuje. Dodatkowo wymaga pojemności Fabric F64+ albo*
+> *Power BI Premium per User — to nie jest funkcja dostępna w darmowym Power BI Desktop.*
+
+„Czy Copilot albo inne narzędzie AI zastąpi mnie jako analityka?" — to pytanie pada na warsztatach
+z Power BI częściej niż jakiekolwiek inne. Krótka odpowiedź: nie zastąpi, ale zmieni sposób,
+w jaki pracujesz. Trzeba sobie rozróżnić trzy rzeczy, które Microsoft wrzuca pod jedną etykietę
+„Copilot in Power BI":
+natural language Q&A, generowanie miar DAX i streszczenia raportów. Każda działa inaczej, każda
+ma inne ograniczenia i — co istotne — każda wymaga licencji.
+
+**Licencjonowanie w pigułce:** Copilot in Power BI / Fabric jest dostępny w pojemnościach Fabric
+od F64 wzwyż albo z licencją Power BI Premium per User (PPU). Bez nich masz tylko zwykłe Q&A
+(starsze, sprzed brandingu Copilot) — i to jeszcze pod warunkiem, że dataset jest w workspace
+z Premium capacity. To jest duży koszt wstępu, którego Microsoft nie podkreśla na webinarach.
+
+## 1. Q&A w języku naturalnym — działa, jeśli model jest schludny
+
+To najstarsza funkcja AI w Power BI, jeszcze sprzed brandingu Copilot. Wpisujesz „pokaż sprzedaż
+po regionie za zeszły kwartał" i dostajesz wykres.
+
+Mit: „działa na surowym Excelu". Rzeczywistość: działa **tylko** wtedy, gdy:
+- masz **schemat gwiazdy** z czystymi nazwami tabel i kolumn (`Sprzedaz`, nie `Tabela1`)
+- masz **wymiar daty** z hierarchią Rok/Kwartał/Miesiąc
+- używasz [synonimów Q&A](https://learn.microsoft.com/pl-pl/power-bi/natural-language/q-and-a-best-practices)
+  — Q&A nie zgadnie, że „klient" = `Kontrahent_ID`, dopóki mu wprost nie powiesz
+
+Zespoły, które dostają z Q&A śmieci, prawie zawsze mają model w stylu „jeden wielki arkusz".
+Q&A wtedy zwraca losowe agregacje, bo nie wie którą kolumną filtrować. Pisałem o tym w
+[5 błędach w DAX](/blog/5-bledow-w-dax) — pierwszy z nich (zły model) jest jednocześnie pierwszym
+zabójcą Copilota.
+
+**Kiedy używać:** jako narzędzia eksploracyjnego dla biznesu z certyfikowanym datasetem.
+**Kiedy nie:** zamiast normalnego raportu dla zarządu — Q&A nie ma kontroli wersji, nie ma
+walidacji, nie ma wzajemnych zależności filtrów.
+
+## 2. Generowanie miar DAX — dobry start, zły finisz
+
+Wpisujesz w Copilocie „policz średnią sprzedaż per klient za ostatnie 30 dni" i dostajesz miarę
+DAX. Brzmi spektakularnie. W demo wygląda spektakularnie. W produkcji — wymaga ręcznego sprawdzenia
+**zawsze**.
+
+Co Copilot robi dobrze:
+- generuje **szkielet miary** z poprawną składnią
+- przy prostych przypadkach time intelligence sięga po `SAMEPERIODLASTYEAR`, `DATESYTD`,
+  `DATESBETWEEN` zamiast hardkodować daty
+- proponuje `VAR` w dłuższych miarach (czego juniorzy często nie robią)
+
+Co Copilot robi źle:
+- **nie rozumie kontekstu filtra** w zniuansowanych przypadkach. Miara „udział w sprzedaży roku"
+  potrafi wyjść jako globalna suma podzielona przez globalną sumę = 100% w każdym wierszu. Często
+  kwestia rozbija się również o rodzaj użytej wizualizacji.
+- **myli `FILTER` z bezpośrednim warunkiem** — zwraca miarę poprawną logicznie, ale potrafi być
+  zauważalnie wolniejsza, bo wymusza materializację tabeli przed agregacją
+- **halucynuje nazwy kolumn**, jeśli model jest niespójnie nazwany — tworzy `Sprzedaz[Wartosc_PLN]`,
+  gdy w modelu jest `Sprzedaz[Wartosc]`
+- **time intelligence przy bardziej złożonych okresach** (rolling 12M, fiscal year, hierarchie
+  niestandardowe) — tu często zwraca miary, które działają na próbce, ale myli granicę okresu
+
+**Praktyka, która działa:** Copilot pisze szkic, Ty robisz code review jak dla juniora.
+Najczęściej wystarczą 2-3 poprawki. Code review jest jednak niezbędny — może się szybko okazać,
+że miary wyglądają dobrze tylko w okienku czatu, ale po odpaleniu w wizualizacji wysypują się po
+użyciu pierwszego filtra.
+
+## 3. Streszczenia raportu — Smart Narrative i Copilot summary
+
+Microsoft ma dwa narzędzia do automatycznego komentowania raportu, które łatwo pomylić:
+
+- **Smart Narrative** (starsze, dostępne dla wszystkich od 2020 r.) — dodaje wizualizację
+  tekstową, która opisuje statystyki schematem szablonowym: „Total Sales is 4.2M, up 12% from
+  last year. Highest value in Pomorze region (1.1M)". Nie potrafi narracji, jest dosłowne i
+  oparte o template'y.
+- **Copilot summary** (nowe, wymaga licencji Fabric/PPU) — generuje pełnozdaniowy komentarz
+  w stylu copywritera: „Sprzedaż urosła w Q4, głównie dzięki silnemu kwartałowi w Pomorze;
+  segment B2C wykazał wyraźny spadek warty zbadania". Bardziej przypomina draft komentarza
+  zarządczego niż tabelaryczne podsumowanie.
+
+W projektach zarządczych Copilot summary skraca przygotowanie komentarza do prezentacji
+z kilkudziesięciu minut do kilku — pod warunkiem walidacji.
+
+Pułapki obu funkcji:
+- **Interpretują to, co widzi wizualizacja**, nie pełen dataset. Jeśli wykres pokazuje
+  10 największych klientów, podsumowanie odnosi się do tych 10, nie do wszystkich.
+- **Nie rozróżniają szumu od trendu.** Jednorazowy spike sprzedaży pokażą jako „wzrost",
+  bez kontekstu, że to był jeden duży kontrakt.
+- **Nie znają Twojego biznesu.** Nie wiedzą, że spadek w grudniu to standardowa sezonowość
+  branży, a nie problem do alarmowania.
+
+**Kiedy używać:** jako pierwszego draftu komentarza, który Ty potem edytujesz. Nie jako
+końcowego tekstu wysyłanego do zarządu.
+
+## 4. Czego Copilot nie zrobi — i prawdopodobnie długo nie zrobi
+
+To jest część, której Microsoft nie pokazuje na webinarach:
+
+- **Nie zaprojektuje modelu danych.** Czyli nie zrobi 70% pracy analityka BI. Schemat gwiazdy,
+  hierarchia daty, relacje — to wciąż Twoja robota.
+- **Nie naprawi błędów w danych źródłowych.** Jeśli ERP zwraca duplikaty, Copilot je policzy
+  jako poprawne wartości.
+- **Nie zoptymalizuje raportu.** Wolny raport pozostaje wolny. Copilot nie wie, co to query plan.
+- **Nie zaprojektuje governance.** Kto może publikować, kto widzi co, jak wersjonujemy zmiany —
+  decyzje organizacyjne. Pisałem o tym w
+  [tekście o przygotowaniu zespołu do Power BI](/blog/jak-przygotowac-zespol-do-power-bi).
+
+## 5. Praktyczna strategia — jak włączyć Copilota świadomie
+
+1. **Najpierw porządny model.** Bez tego Copilot generuje mało wartościowy szum narracyjny.
+   Najpierw schemat gwiazdy, czyste nazwy, wymiar daty, a potem AI do interpretacji.
+2. **Włącz Copilota dla zespołu BI, nie dla wszystkich.** Niech analitycy go testują przez
+   miesiąc — zorientujecie się, gdzie pomaga, gdzie myli.
+3. **Code review wszystkich miar generowanych przez AI.** Bez wyjątku. Inaczej za 6 miesięcy
+   masz 200 miar, których nikt nie umie wytłumaczyć.
+4. **Streszczenia tylko jako draft.** Zawsze edytuj — Copilot nie zna kontekstu sezonowości,
+   strategii, jednorazowych zdarzeń.
+5. **Mierz.** Ile czasu zaoszczędził Copilot, ile generuje błędów, ile osób z biznesu używa
+   Q&A. Bez metryk to jest tylko nowa zabawka.
+
+## Czy Copilot zastąpi analityka?
+
+Nie zastąpi. Zmieni profil pracy — analityk spędza mniej czasu na pisaniu DAX-a od zera, więcej
+na projektowaniu modelu, walidacji wyników i komunikacji z biznesem. Czyli na rzeczach, których
+AI naprawdę nie umie zrobić sam.
+
+Firmy, które wdrożą Copilota z porządnym modelem, code review miar i metrykami użycia, zyskują
+mierzalny zysk w postaci zaoszczędzonego czasu przez zespół BI — w projektach, które prowadziłem,
+było to 15–25% (przy zespole 4–6 analityków, mierzone w miesiącach po wdrożeniu). Firmy, które
+wcisną Copilota zamiast normalnej edukacji zespołu, dostają szybciej te same błędy, które
+popełniają dzisiaj.
+
+Jeśli chcesz nauczyć zespół [Power BI](/szkolenia/microsoft-power-bi) tak, żeby Copilot był
+narzędziem a nie ratunkiem przed brakiem wiedzy — zapraszam na dwudniowy warsztat. Pracujemy
+na realistycznych danych, budujemy miary zgodnie ze sztuką, omawiamy i wdrażamy zasady pracy
+z modelem danych. AI w tym wszystkim jest trochę jak autopilot w Tesli — tylko Teslę też trzeba
+umieć uruchomić.
+
+## Czytaj też:
+
+- [5 błędów w DAX, które spowalniają Twój raport](/blog/5-bledow-w-dax)
+- [Power BI vs Excel — zwycięzca może być tylko jeden?](/blog/power-bi-vs-excel)
+- [Jak przygotować zespół do wdrożenia Power BI](/blog/jak-przygotowac-zespol-do-power-bi)

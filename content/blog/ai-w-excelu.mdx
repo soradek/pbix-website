@@ -1,0 +1,159 @@
+export const metadata = {
+  title: 'AI w Excelu — od Copilota po GPT w formułach',
+  slug: 'ai-w-excelu',
+  date: '2026-04-02',
+  excerpt: 'Excel + AI to nie tylko Copilot z paska. To cały zestaw narzędzi: od pisania formuł przez ChatGPT, przez automatyzację Power Query, po dynamiczne tablice z GPT. Co naprawdę przyspiesza pracę, a co tylko wygląda dobrze w demo.',
+  category: 'Excel',
+  readingTime: '8 min',
+  coverImage: '/AI_cover.png',
+  relatedTrainingSlug: 'excel-ai',
+  keywords: ['AI Excel', 'Copilot Excel', 'ChatGPT formuły Excel', 'GPT w Excelu', 'AI automatyzacja Excel', 'Power Query AI', 'inteligentny Excel', 'sztuczna inteligencja w arkuszach'],
+};
+
+> *AI w Excelu pomaga w trzech miejscach, gdzie codziennie traci się czas: pisanie*
+> *skomplikowanych formuł, refaktoring kroków Power Query i kategoryzacja danych. Nie pomaga tam,*
+> *gdzie zespoły zwykle wdrażają AI „na pierwszy ogień": automatycznym budowaniu raportów,*
+> *sprzątaniu błędnych źródeł i podejmowaniu decyzji biznesowych.*
+
+Excel ma teraz kilka warstw AI naraz, i łatwo się w tym pogubić. Copilot w Microsoft 365.
+ChatGPT w przeglądarce. Wbudowane funkcje typu **Analizuj dane**. Custom GPT w komórce.
+Każda z tych warstw nadaje się do czegoś innego. Każda też ma inny zestaw pułapek.
+
+## 1. ChatGPT do pisania formuł — najszybszy zysk
+
+To jest ten use case, w którym AI realnie zmienia codzienną pracę. Wpisujesz w ChatGPT:
+
+> *Mam tabelę z kolumnami `Data`, `Klient`, `Wartosc`. Chcę formułę, która zwróci sumę
+> sprzedaży za ostatnie 30 dni dla klienta z komórki A2.*
+
+I dostajesz:
+
+```
+=SUMIFS(Tabela1[Wartosc], Tabela1[Klient], A2, Tabela1[Data], ">="&TODAY()-30)
+```
+
+5 sekund zamiast kilku minut prób „odpalenia" funkcji, której już przecież tak dawno nie używałeś.
+
+**Co działa świetnie:**
+- formuły z wieloma warunkami (`SUMIFS`, `COUNTIFS`, `XLOOKUP` z dynamicznym tablicowaniem)
+- formuły regex w **Microsoft 365** (`REGEXEXTRACT`, `REGEXREPLACE`, `REGEXTEST` —
+  dostępne tylko w aktualnych buildach M365 / Excel for the web; w Excelu 2021/2019/LTSC ich nie ma)
+- zagnieżdżone `IF` zamieniane na `IFS` lub `SWITCH` — ChatGPT potrafi to zrefaktorować
+
+**Pułapki:**
+- ChatGPT czasami używa funkcji niedostępnych w Twojej wersji Excela. Dla LibreOffice / starszych
+  wersji M365 — upewnij się, że funkcja zadziała w Twojej wersji programu.
+- przy pracy z dużymi tabelami warto pisać „użyj nazw kolumn jako odwołań strukturalnych", inaczej
+  generuje formuły z `B2:B1000`, które działają tylko w tym konkretnym zakresie.
+- nie waliduje formuły — jeśli Twoja kolumna `Data` jest zapisana jako tekst, formuła będzie
+  poprawna składniowo, ale zwróci 0
+
+**Praktyka, która działa:** podaj próbkę 3-5 wierszy danych razem z opisem celu. ChatGPT generuje
+wtedy formułę dopasowaną do Twojego konkretnego układu, nie do generycznego modelu.
+
+## 2. Copilot w Excelu — dobry asystent, nieidealny analityk
+
+Copilot wbudowany w Excel (M365) ma trzy poziomy zaawansowania:
+
+**Poziom 1 — sugestie wzorca.** Wpisujesz pierwsze trzy wiersze, Copilot proponuje uzupełnienie
+reszty. Działa świetnie dla danych typu „rozdziel imię od nazwiska", „wyciągnij domenę z maila".
+
+**Poziom 2 — analiza arkusza.** Funkcja **Analyze Data / Analizuj dane** (ewolucja starszej funkcji
+Ideas, niezależna technicznie od Copilota) proponuje wykresy, identyfikuje trendy i sugeruje
+tabele przestawne. Tu zaczynają się pułapki — analiza jest ogólna, często bezużyteczna
+(„wartość maksymalna to 1247"), czasem myląca (proponuje wykres na podstawie nieoczyszczonych
+danych).
+
+**Poziom 3 — generowanie kroków transformacji.** Najmniej oczywisty, ale praktyczny use case:
+opisujesz po polsku, czego chcesz („połącz tę tabelę z plikiem CSV, usuń duplikaty po `ID`,
+dodaj kolumnę `Pelna_nazwa` jako konkatenację `Imie` + `Nazwisko`"). W Excelu Copilot generuje
+sekwencję kroków w UI Power Query (transformacje klikalne). Surowy kod języka M generuje
+częściej Copilot wbudowany w Power BI Desktop / Dataflows Gen2 niż klasyczny Excel.
+
+Dla Power Query wciąż polecam regularne szkolenie — pisałem dlaczego w
+[Power Query vs VBA](/blog/power-query-vs-vba). Copilot pomaga, ale nie zastępuje zrozumienia
+języka M.
+
+## 3. GPT w komórce — eksperymentalne, ale potężne
+
+Funkcje typu `LABS.GENERATIVEAI()` (z dodatku **Excel Labs**) pozwalają wywołać model językowy
+bezpośrednio z komórki. To funkcjonalność **eksperymentalna** — bywa okresowo wycofywana, ma
+limity i wymaga konfiguracji własnego klucza API. Nie traktuj jej jako stabilnej platformy
+produkcyjnej.
+
+Przykład:
+
+```
+=LABS.GENERATIVEAI("Streść w jednym zdaniu: " & A2)
+```
+
+Gdzie `A2` to długi opis produktu. Wynik: skondensowany 10-słowny tekst, który możesz wkleić
+do raportu.
+
+Realne zastosowania, które widziałem:
+- **kategoryzacja opinii klientów** — z 2000 komentarzy AI tagi „pozytywny / neutralny / negatywny"
+  + krótkie streszczenie problemu
+- **standaryzacja danych** — adresy w różnym formacie sprowadzane do jednego layoutu
+- **tłumaczenia** — proste tłumaczenia opisów produktów na 5 języków bez wychodzenia z arkusza
+- **ekstrakcja informacji z tekstu** — z opisu transakcji wyciągnięcie kontrahenta, kwoty, daty
+
+**Pułapki:**
+- każde wywołanie = osobny call do API = osobny koszt. Dla 10 000 wierszy koszt waha się od
+  kilkudziesięciu groszy (gpt-4o-mini, krótki output) do kilkudziesięciu dolarów (gpt-4 turbo,
+  długi output) — sprawdzaj cennik modelu przed uruchomieniem
+- niedeterministyczne wyniki — ten sam input dwa razy może dać różne odpowiedzi
+- brak walidacji — jeśli AI zwróci „NIP: 1234567890", a powinien być 10-cyfrowy, formuła
+  tego nie wychwyci
+- to narzędzie, które świetnie sprawdza się na webinarach albo prostych przykładach z cyklu
+  „podaj 3 najludniejsze kraje świata", ale skonfrontowane z realnymi, brudnymi danymi często
+  nie ma pojęcia co zrobić i podaje bezwartościowe insighty.
+
+**Praktyka:** używać do zadań jednorazowych (kategoryzacja przy wprowadzeniu danych),
+nie do operacji ciągłych (przeliczania w czasie rzeczywistym).
+
+## 4. Czego od AI w Excelu lepiej nie oczekiwać
+
+To gdzie zespoły się parzą:
+
+- **Nie zastąpi czyszczenia danych.** Jeśli źródłowy CSV ma puste komórki, mieszane typy,
+  zduplikowane nagłówki — AI może Ci podpowiedzieć jak sobie z tym poradzić, ale nie zrobi tego
+  za Ciebie (bezpieczeństwo danych!)
+- **Nie zaprojektuje modelu danych.** AI generuje formuły, nie strukturę. Pisałem o tym w
+  [Power BI vs Excel](/blog/power-bi-vs-excel) — modelowanie to wciąż praca człowieka
+- **Nie zinterpretuje liczb biznesowo.** Spadek sprzedaży o 12% to dla AI „spadek o 12%". Czy
+  to katastrofa, czy normalna sezonowość — nie wie
+- **Nie zrobi VBA na produkcji bez Twojego review** — ale przy odpowiedniej kontroli generowany
+  kod VBA daje naprawdę dobre rezultaty (poświęcamy temu osobny moduł na szkoleniu Excel + AI).
+  Bez weryfikacji łatwo jednak o subtelne błędy w obsłudze wyjątków.
+
+## 5. Praktyczny stack, który ma sens dla zespołu
+
+Setup, który polecam zespołom analitycznym:
+
+1. **ChatGPT (Plus/Team) jako pierwsza linia.** Do formuł, refaktoringu, tłumaczeń.
+2. **Copilot M365**, jeśli już jest licencjonowany w firmie. Sugestie wzorców i Power Query.
+3. **Stałe szkolenie z fundamentów Excela.** Bo AI generuje formuły, ale to człowiek decyduje,
+   czy są poprawne.
+
+Bez ostatniego punktu cała reszta jest niebezpieczna. Zespoły, które używają AI bez zrozumienia,
+co robi formuła, popełniają te same błędy co wcześniej, tylko szybciej.
+
+## Co dalej?
+
+AI w Excelu to nie hype — to narzędzie, które wymiernie skraca powtarzalne zadania (pisanie
+formuł, refaktoring, kategoryzację tekstu). W projektach, w których prowadziłem wdrożenia,
+oszczędności mieściły się w przedziale 20–40% czasu na zadaniach analitycznych — silnie
+zależnie od dojrzałości zespołu. Pod dwoma warunkami: zespół rozumie fundamenty Excela na tyle,
+żeby walidować wynik, i firma ma zasady, kiedy używać AI a kiedy nie.
+
+Jeśli chcesz, żeby Twój zespół robił to świadomie, zapraszam na dedykowane szkolenie
+[Excel + AI](/szkolenia/excel-ai). Pracujemy na realistycznych danych, generujemy formuły i kod
+VBA. Pokazuję też, gdzie AI się myli i jak zrobić, żeby się jednak nie mylił, albo przynajmniej
+mylił jak najrzadziej 😉
+
+## Czytaj też:
+
+- [Power Query vs VBA — kiedy co wybrać?](/blog/power-query-vs-vba)
+- [Power BI vs Excel — zwycięzca może być tylko jeden?](/blog/power-bi-vs-excel)
+- [Copilot w Power BI — co realnie potrafi](/blog/copilot-w-power-bi)
+- [ChatGPT do pisania SQL — jak nie zrobić sobie krzywdy?](/blog/chatgpt-do-pisania-sql)

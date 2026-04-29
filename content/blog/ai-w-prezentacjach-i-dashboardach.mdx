@@ -1,0 +1,175 @@
+export const metadata = {
+  title: 'AI w prezentacjach i dashboardach — kiedy pomaga, kiedy psuje',
+  slug: 'ai-w-prezentacjach-i-dashboardach',
+  date: '2026-04-21',
+  excerpt: 'Copilot w PowerPoincie obiecuje slajdy w 5 sekund. AI w Power BI proponuje wykresy. Wszystko działa — w demo. W realnej prezentacji dla zarządu jakość wciąż wymaga oka człowieka. Oto gdzie AI faktycznie skraca pracę, a gdzie psuje narrację.',
+  category: 'Wizualizacja',
+  readingTime: '7 min',
+  coverImage: '/AI_cover.png',
+  relatedTrainingSlug: 'excel-powerpoint-wizualizacja',
+  keywords: ['AI prezentacje', 'Copilot PowerPoint', 'AI wizualizacja danych', 'AI dashboard', 'design AI prezentacji', 'sztuczna inteligencja PowerPoint', 'storytelling z AI', 'wykresy AI'],
+};
+
+> *AI dziś dobrze robi trzy rzeczy w wizualizacji: generuje **pierwszy szkic** prezentacji,*
+> *proponuje **rodzaje wykresów** do danych, i **opisuje slajdy** głosem prowadzącego. Słabo robi*
+> *jedną rzecz: rozumie, czemu robisz prezentację. A bez tego najpiękniejszy slajd jest tylko*
+> *ozdobą.*
+
+W ostatnim roku każde narzędzie do prezentacji dostało warstwę AI: Copilot w PowerPoincie,
+**Magic Design** w Canvie, **Designer** wbudowany w PowerPoint, Beautiful.ai,
+Gamma, Tome. Power BI dostał Smart Narrative i Copilot summary. Oczekiwanie: „prezentacja
+dla zarządu w 10 minut zamiast całego popołudnia". Rzeczywistość: czas do końcowego dokumentu
+spada zauważalnie, ale pierwsze szlify AI to dopiero punkt startu — większość czasu wciąż
+pochłaniają walidacja danych i edycja narracji.
+
+To nie jest zła wiadomość. To zmiana, w którą warto wejść świadomie — bo w tych kilkunastu minutach
+dzieją się rzeczy, które kiedyś kosztowały godziny.
+
+## 1. Generowanie pierwszego szkicu — najszybszy zysk
+
+Najmocniejsza strona AI. Wpisujesz w Copilocie:
+
+> *Stwórz 8-slajdową prezentację o wynikach sprzedaży za Q4 2025. Mamy wzrost o 12% rdr,
+> najmocniejszy region to Pomorze, problem to spadek B2C o 8%. Format zarządczy, biznesowy ton.*
+
+W minutę dostajesz strukturę: tytuł, agenda, główne wskaźniki, breakdown po regionach, problem,
+plan działania, podsumowanie, Q&A.
+
+To nie jest finalna prezentacja. Ale to **lepszy outline niż większość pierwszych draftów
+pisanych ręcznie pod presją czasu**, bo:
+- nie zapomina o agendzie
+- układa narrację w sensownej kolejności
+- proponuje konkretne typy wizualizacji (wykres słupkowy do regionów, line chart do trendu)
+
+**Praktyka:** pierwszy draft generuje AI w 2-3 minuty, Ty edytujesz przez 30-60 minut. Łączny czas
+pracy i tak zwykle jest krótszy niż pisanie od zera — najwięcej zyskujesz, gdy zaczynasz od pustego
+slajdu i nie wiesz, jak ułożyć narrację dla tego konkretnego odbiorcy. AI zdejmuje z Ciebie ten
+najbardziej kosztowny moment „chłodnego startu".
+
+**Pułapki:**
+- AI generuje **generyczne placeholdery** typu „Wzrost sprzedaży: 12%" zamiast danych z Twojego
+  pliku. Zawsze podstawiaj prawdziwe liczby ręcznie.
+- proponuje **standardowe szablony**, które wszyscy znają. Jeśli Twoja firma ma brand book —
+  AI go nie zna, dopóki nie wgrasz przykładowych slajdów.
+
+## 2. Dobór wykresu do danych — co naprawdę robi Copilot
+
+Power BI ma od dawna funkcję **Q&A** i **Get Insights**, które proponują wizualizację na
+podstawie danych. Z Copilotem dochodzi konwersacyjny interfejs: „pokaż udział regionów
+w sprzedaży na czytelnym wykresie" — i dostajesz wykres słupkowy lub pierścieniowy z legendą.
+
+Co działa dobrze:
+- **rozpoznawanie zmiennych kategorycznych vs ciągłych** — AI nie zaproponuje wykresu liniowego
+  dla nazw miast
+- **identyfikowanie hierarchii** — sugeruje treemap albo wykres słupkowy zgrupowany dla danych
+  zagnieżdżonych
+- **wybór sensownego typu** dla pytania: słupek dla porównania, linia dla trendu w czasie,
+  scatter dla relacji między zmiennymi
+
+Co działa źle:
+- **wykres kołowy zamiast słupkowego** — AI wciąż czasami sugeruje pie chart dla 8 kategorii,
+  gdzie nikt nie odróżni 11% od 13%
+- **wykresy 3D** — w demo wyglądają „nowocześnie", w realnej prezentacji są nieczytelne
+- **brak hierarchii informacji** — AI nie wie, że na slajdzie zarządczym najważniejsza jest
+  jedna liczba, nie pięć
+- **automatyczna skala** — Copilot rzadko sam zaproponuje skalę logarytmiczną przy danych
+  z dużym rozrzutem; trzeba mu o tym wprost powiedzieć
+
+**Praktyka:** używać sugestii AI jako punktu startu, ale stosować zasadę „mniej znaczy więcej".
+W większości scenariuszy zarządczych czytelny słupek bije ozdobny pierścień. To są fundamenty
+wizualizacji danych, których uczę na warsztatach
+[wizualizacji w Excelu i PowerPoincie](/szkolenia/excel-powerpoint-wizualizacja) — AI tych zasad
+nie zastępuje, tylko je przyspiesza.
+
+## 3. Smart Narrative i Copilot summary — automatyczne komentarze do raportu
+
+W Power BI mamy obecnie dwa narzędzia, które łatwo pomylić:
+
+- **Smart Narrative** (dostępne dla wszystkich od 2020) — generuje opis statystyczno‑szablonowy:
+  „Total Sales is 4.2M, up 12% from last year. Highest value: Pomorze (1.1M)". Niezawodne, ale
+  dosłowne i mało narracyjne.
+- **Copilot summary** (wymaga licencji Fabric F64+ / Power BI PPU) — pisze komentarz w stylu
+  copywritera, który rozpoznaje trendy i porównuje segmenty: „Q4 wykazał wzrost vs ubiegły rok,
+  ze szczególnie silnym kwartałem w segmencie premium; warto zbadać spadek w segmencie B2C".
+
+To skraca przygotowanie komentarza do raportu zarządczego z kilkudziesięciu minut do kilku.
+**Ale** oba narzędzia mają trzy ograniczenia:
+
+1. **Nie zna kontekstu sezonowości.** „Spadek o 30% w grudniu" pisze jako problem, nawet jeśli
+   to standardowa sezonowość branży
+2. **Interpretuje to, co widzi w wizualizacji** — nie pełen dataset
+3. **Generuje tekst neutralny.** Nie wie, że Twoja firma używa zwrotów typu „ARR", „ARPU",
+   „churn", „ratio LTV/CAC"
+
+**Praktyka:** używać jako pierwszego draftu komentarza. Edycja zajmuje 5 minut zamiast pisania
+od zera 30. Pisałem o tym podobnie w [Copilocie w Power BI](/blog/copilot-w-power-bi).
+
+## 4. Generowanie obrazków i ilustracji — pułapka jakościowa
+
+DALL-E, Midjourney, GPT Image, Designer w PowerPoint — wszystkie obiecują „ilustracje na slajd
+w sekundę". W praktyce:
+
+**Co działa:**
+- abstrakcyjne tła (gradienty, geometryczne wzory, tekstury)
+- proste piktogramy / ikony
+- ilustracje koncepcyjne („dwie postacie podają sobie ręce w korporacyjnym tle")
+
+**Co nie działa:**
+- ludzie z konkretnymi cechami (Twój CEO, klient, pracownicy) — AI nie ma referencji
+- precyzyjne ilustracje techniczne (architektura systemu, schemat procesu)
+- spójność stylu między slajdami — AI generuje 5 obrazków w 5 różnych stylach
+- tekst na obrazkach — AI nadal myli litery, generuje pseudo-tekst
+
+**Praktyka:** używać AI tylko do tła, abstrakcji i prostych ilustracji. Wszystkie obrazki
+zawierające konkretną informację (schematy, mapy, wykresy) — robić ręcznie albo z bibliotek.
+
+## 5. Czego AI nie zrobi w wizualizacji — i co to oznacza
+
+Trzy rzeczy, których AI nie potrafi i raczej długo nie będzie:
+
+1. **Nie zaprojektuje narracji.** Dlaczego ta prezentacja? Co odbiorca ma zrobić po niej? Jaka
+   jest główna teza? AI generuje strukturę i wypełnienie, ale tezę musi mieć człowiek.
+2. **Nie sprawdzi danych.** AI wstawia liczby z pliku, ale nie waliduje, czy plik ma sens.
+   Klasyczne: prezentacja zarządcza pokazuje wzrost o 1200% — bo źródło miało literówkę i dwie
+   cyfry zostały pomylone.
+3. **Nie zrozumie odbiorcy.** Prezentacja dla zarządu różni się od prezentacji dla zespołu, a
+   ta od prezentacji dla klienta. AI nie wie, kim jest Twój odbiorca, dopóki mu szczegółowo nie
+   opiszesz — i nawet wtedy nie zna kontekstu z poprzednich spotkań.
+
+## 6. Stack, który działa dla zespołu
+
+1. **Copilot M365 / ChatGPT** do pierwszego draftu prezentacji i opisów slajdów.
+2. **Power BI Smart Narrative** dla automatycznych komentarzy do dashboardów.
+3. **Canva / Designer** do szybkich ilustracji i layoutu.
+4. **[Napkin.ai](https://www.napkin.ai/)** jako bonus — generuje wizualizacje danych prosto z tekstu
+   (przyklejasz akapit, dostajesz schemat / diagram / grafikę). Świetne, kiedy masz gotową narrację
+   i chcesz ją zobrazować w kilka sekund.
+5. **[NotebookLM](https://www.notebooklm.google.com)** od Google do generowania prezentacji,
+   briefów i infografik z załadowanych danych źródłowych — działa szczególnie dobrze, gdy masz
+   dużo materiału (raporty, transkrypcje, PDF) i chcesz, żeby AI samo wyciągnęło z nich strukturę.
+6. **Brand book firmy** wgrany do każdego z narzędzi (przykładowe slajdy, kolory, czcionki).
+7. **Człowiek na końcu** — odpowiedzialny za walidację liczb i edycję narracji przed wysłaniem.
+
+Ostatni punkt jest niemodny, ale kluczowy. Prezentacja zarządcza to nie produkt AI — to dokument
+biznesowy z odpowiedzialnością personalną. Jeśli AI wpisze nieprawidłową liczbę, a Ty kliknąłeś
+„Wyślij" — to Ty zostajesz z konsekwencjami.
+
+## Co dalej?
+
+AI w prezentacjach i dashboardach to dziś najmocniej zmienione narzędzia w pracy analityka.
+Generuje pierwsze drafty 2-3x szybciej, proponuje wizualizacje, automatyzuje komentarze. Ale
+**fundamenty data storytelling** wciąż wymagają człowieka — wiedza, jak budować narrację,
+dobierać dane do odbiorcy, projektować slajd, który komunikuje a nie ozdabia.
+
+Jeśli chcesz, żeby Twój zespół potrafił to robić — z AI jako wzmacniaczem, nie zamiennikiem
+fundamentów — zapraszam na intensywne szkolenie z
+[wizualizacji w Excelu i PowerPoincie](/szkolenia/excel-powerpoint-wizualizacja). Pracujemy
+na realnych prezentacjach zarządczych: od projektowania slajdu, przez wybór wykresu, po
+kolorystykę i typografię. AI omawiam jako narzędzie codziennego skracania pracy — z konkretnymi
+zasadami, kiedy ufać, a kiedy edytować.
+
+## Czytaj też:
+
+- [Copilot w Power BI — co realnie potrafi](/blog/copilot-w-power-bi)
+- [AI w Excelu — od Copilota po GPT w formułach](/blog/ai-w-excelu)
+- [ChatGPT do pisania SQL — jak nie zrobić sobie krzywdy?](/blog/chatgpt-do-pisania-sql)

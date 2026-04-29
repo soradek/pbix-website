@@ -1,14 +1,21 @@
 export const metadata = {
   title: 'Power Query vs VBA — kiedy co wybrać?',
   slug: 'power-query-vs-vba',
-  date: '2026-04-03',
+  date: '2026-03-04',
   excerpt: 'Dwa narzędzia, dwa światy. Power Query to przyszłość transformacji danych, VBA — sprawdzony klasyk. Kiedy które ma sens i jak nie utknąć w niewłaściwym wyborze.',
   category: 'Excel',
   readingTime: '8 min',
-  coverImage: '/blog/cover-pq-vba.svg',
+  coverImage: '/Excel_cover.png',
   relatedTrainingSlug: 'excel-power-query',
   keywords: ['Power Query', 'VBA', 'Excel', 'ETL Excel', 'język M', 'automatyzacja Excel', 'makra Excel', 'Power Query vs VBA'],
 };
+
+> *Power Query i VBA to w gruncie rzeczy oba narzędzia automatyzacji — ale zaprojektowane do*
+> *różnych zadań. Power Query odpowiada za **transformację danych** (ETL, łączenie źródeł,*
+> *czyszczenie). VBA odpowiada za **automatyzację aplikacji Office** (formularze, mailing,*
+> *drukowanie, sterowanie skoroszytem). Oba są dosyć stare, ale nawet w dobie AI obronną ręką*
+> *wychodzą z określonych zadań — pytanie nie brzmi „które z nich jest lepsze", tylko „w jakim*
+> *zadaniu chcesz po nie sięgnąć".*
 
 Pytanie pada na każdym szkoleniu, które prowadzę: „Mam już skrypt VBA, który robi mi raport co
 poniedziałek. Czy warto przepisywać to na Power Query?". Krótka odpowiedź brzmi: czasami tak,
@@ -30,21 +37,25 @@ przekształcenia, ale kiepsko nadaje się do logiki niestandardowej.
 ## Kiedy Power Query wygrywa zdecydowanie
 
 **1. Pobieranie danych z wielu źródeł.** Excel + CSV + SQL + API + folder z plikami? Power Query
-łyka to bez kodu. W VBA każde źródło to inna biblioteka, inny obiekt, inny zestaw błędów do
-złapania.
+robi to bez najmniejszej zadyszki. W VBA każde źródło to inna biblioteka, inny obiekt, inny
+zestaw błędów do złapania.
 
 **2. Przekształcenia powtarzalne co tydzień.** Filtruj kolumny, usuwaj duplikaty, zmieniaj typy,
 łącz tabele po kluczu. To jest dokładnie to, do czego Power Query został zbudowany. Skrypt VBA
-robiący to samo będzie 3-4 razy dłuższy i znacznie bardziej kruchy.
+robiący to samo będzie 3-4 razy dłuższy i znacznie bardziej wrażliwy na zmiany.
 
 **3. Wieloosobowy zespół.** Pipeline w Power Query rozumie każdy analityk, który widział kiedyś
-Excela. Skrypt VBA rozumie tylko jego autor. Po jego odejściu — koszt re-engineeringu.
+Excela. Kod VBA (zwłaszcza pisany odręcznie) jest w pewnym sensie przeniesieniem sposobu rozumowania
+danego pracownika. Jeśli nie został opatrzony komentarzami — często może być trudno wyłapać logikę,
+która za nim stoi. W razie gdyby twórca makra zdecydował się „kontynuować karierę poza strukturami
+firmy", może być ciężko naprawić jego dzieło, które jak wiadomo, zepsuje się w najmniej odpowiednim
+momencie.
 
 **4. Logowanie i audyt.** Każdy krok w Power Query jest widoczny, nazwany i edytowalny. W VBA
-żeby zrozumieć co robi pętla, musisz przeczytać linijka po linijce.
+żeby zrozumieć co robi pętla, musisz ją przeczytać linijka po linijce.
 
-**5. Refresh w Power BI.** Jeśli docelowo dane mają trafić do Power BI — używaj Power Query od
-samego początku. Pipeline przeniesiesz jeden do jednego.
+**5. Łatwa przesiadka do Power BI.** Jeśli zrozumiesz działanie Power Query w Excelu, będziesz
+mógł bez żadnego problemu wykorzystać te same procesy podczas ładowania danych do Power BI.
 
 ## Kiedy VBA wciąż ma sens
 
@@ -61,7 +72,8 @@ brzmi „dla każdego klienta sprawdź historię transakcji z ostatnich 12 miesi
 i zaproponuj korektę" — to brzmi jak skrypt, nie jak pipeline.
 
 **4. Dziedziczone systemy.** Jeśli firma ma 200 makr, na których stoi miesięczne zamknięcie,
-nie przepisujesz wszystkiego od jutra. Migracja musi być kontrolowana, kawałek po kawałku.
+nie przepisujesz wszystkiego od jutra na Power Query. Jedna rzecz na raz — jeśli już jest to
+konieczne, najpierw testuj rozwiązanie poza najgorętszym okresem.
 
 ## Pułapki, w które zespoły wpadają
 
@@ -72,23 +84,27 @@ liniowo. Wyjątek: bardzo małe zbiory danych (poniżej 1000 wierszy) na bardzo 
 **Pułapka 2: „Power Query nie obsługuje warunków".** Obsługuje. `if then else` w M wygląda inaczej
 niż w VBA, ale działa. Custom Column z formułą warunkową załatwia 80% przypadków.
 
-**Pułapka 3: „Mam już VBA, więc dorobię kolejne makro".** To droga do potwora. Po piątym makrze
-nikt już nie wie, co wywołuje co. Power Query wymusza myślenie pipeline'owe — każdy krok jest
-nazwany i widoczny.
+**Pułapka 3: „Mam już VBA, więc dorobię kolejne makro".** Jeśli zjadłeś zęby na VBA — luz.
+Jeśli nie — jesteś na najlepszej drodze do makra-monstrum. Po którymś zależnym makrze nikt już
+nie wie, co wywołuje co, a poprawka jednej procedury może wywalić cały projekt. Power Query
+wymusza myślenie pipeline'owe — każdy krok jest nazwany i widoczny.
 
-**Pułapka 4: „Power Query wystarczy do wszystkiego".** Też nie. Widziałem zespoły, które próbowały
-zbudować w Power Query system zatwierdzania faktur. Po trzech miesiącach poddali się i napisali
-to w VBA w dwa tygodnie. Każde narzędzie do swojego zadania.
+**Pułapka 4: „Power Query wystarczy do wszystkiego".** A czy widelcem da się zjeść każdą potrawę?
+Widziałem zespoły, które próbowały zbudować w Power Query system zatwierdzania faktur. Po kilku
+miesiącach poddali się i napisali to w VBA w dwa tygodnie. Jaki z tego wniosek? Że dostarczanie
+danych (nawet zdegenerowanych) wykonujemy za pomocą Power Query, a łączenie wielu czynności,
+procesów i budowę UX wykonujemy z pomocą VBA. No i zupę jemy łyżką a nie widelcem 😉
 
 ## Strategia migracji — pragmatyczna
 
 Jeśli masz dziedziczone makra i myślisz o porządkach:
 
-1. **Zidentyfikuj co naprawdę robi każde makro.** Większość z nich okaże się czystym ETL.
+1. **Zidentyfikuj co naprawdę robi każde makro.** Być może większość z nich okaże się czystym ETL.
 2. **Zacznij od najczęściej używanego raportu.** Przepisz pipeline na Power Query, VBA zostaw
    tylko do operacji końcowych (formatowanie, drukowanie, wysyłka).
-3. **Mierz czas.** Jeśli refresh w Power Query zajmuje mniej niż VBA — masz dowód dla zarządu.
-   Jeśli więcej — sprawdź, czy używasz query folding poprawnie.
+3. **Mierz czas.** Jeśli refresh w Power Query zajmuje mniej niż VBA — super. Jeśli kod VBA
+   działa szybciej — ekstra. Używaj właściwych narzędzi, jednak zwróć uwagę na skalowalność —
+   Power Query z reguły radzi sobie z tym lepiej.
 4. **Nie przepisuj wszystkiego.** Niektóre makra przeżyją swoich autorów. Akceptuj to i nie marnuj
    tygodni na refaktor czegoś, co działa od dekady.
 
@@ -98,11 +114,14 @@ Power Query do transformacji danych, VBA do automatyzacji aplikacji. Granica jes
 istnieje. Zespoły, które ją widzą, oszczędzają tygodnie pracy.
 
 Jeśli chcesz przejść przez [Power Query w Excelu](/szkolenia/excel-power-query) w praktyce — od
-pierwszego pipeline'u po zaawansowany język M — zapraszam na warsztat. A jeśli czujesz, że VBA
+pierwszego pipeline'u po zaawansowany język M — zapraszam na szkolenie. A jeśli czujesz, że VBA
 wciąż jest częścią Twojego ekosystemu i chcesz to robić solidnie — mam też
-[szkolenie z VBA](/szkolenia/excel-vba). Wybór nie musi być binarny.
+[szkolenie z VBA](/szkolenia/excel-vba). Albo przyjdź na oba — chętnie przegadam z Tobą scenariusze
+wykorzystania tych narzędzi.
 
-## Czytaj też
+## Czytaj też:
 
-- [5 błędów w DAX, które kosztują firmy godziny](/blog/5-bledow-w-dax)
+- [5 błędów w DAX, które spowalniają Twój raport](/blog/5-bledow-w-dax)
 - [Jak przygotować zespół do wdrożenia Power BI](/blog/jak-przygotowac-zespol-do-power-bi)
+- [AI w Excelu — od Copilota po GPT w formułach](/blog/ai-w-excelu)
+- [Power BI vs Excel — zwycięzca może być tylko jeden?](/blog/power-bi-vs-excel)

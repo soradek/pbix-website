@@ -22,13 +22,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPostBySlug(slug);
   if (!post) return {};
   const url = `https://www.pbix.pl/blog/${post.slug}`;
-  // SVG is supported by Twitter and Slack but unreliable on Facebook/LinkedIn —
-  // we list it AFTER the default raster og.jpg so platforms that do not handle SVG
-  // fall back to the site default.
-  const ogImages = [
-    { url: 'https://www.pbix.pl/og.jpg', width: 1200, height: 630, alt: post.title },
-    ...(post.coverImage ? [{ url: `https://www.pbix.pl${post.coverImage}`, width: 1200, height: 630, alt: post.title }] : []),
-  ];
+  // OG / Twitter images are produced dynamically by the colocated
+  // `opengraph-image.tsx` and `twitter-image.tsx` route conventions —
+  // do NOT set `images` here or the convention output will be overridden.
   return {
     title: `${post.title} | pbix.pl`,
     description: post.excerpt,
@@ -44,13 +40,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       authors: ['Radosław Sobczak'],
       section: post.category,
       tags: post.keywords,
-      images: ogImages,
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.excerpt,
-      images: ogImages.map((i) => i.url),
     },
   };
 }
@@ -81,9 +75,11 @@ export default async function BlogPostPage({ params }: Props) {
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.excerpt,
-    image: post.coverImage
-      ? [`https://www.pbix.pl${post.coverImage}`, 'https://www.pbix.pl/og.jpg']
-      : ['https://www.pbix.pl/og.jpg'],
+    image: [
+      `https://www.pbix.pl/blog/${post.slug}/opengraph-image`,
+      ...(post.coverImage ? [`https://www.pbix.pl${post.coverImage}`] : []),
+      'https://www.pbix.pl/og.jpg',
+    ],
     datePublished: post.date,
     dateModified: post.date,
     author: {

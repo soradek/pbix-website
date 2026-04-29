@@ -1,0 +1,179 @@
+export const metadata = {
+  title: 'Power BI vs Excel — zwycięzca może być tylko jeden?',
+  slug: 'power-bi-vs-excel',
+  date: '2026-03-15',
+  excerpt: 'Excel nie umrze. Ale są zadania, w których trzymanie się go kosztuje firmę więcej, niż licencja Power BI. Oto co zmienia się naprawdę — bez marketingowego folderu.',
+  category: 'Power BI',
+  readingTime: '9 min',
+  coverImage: '/PowerBI_cover.png',
+  relatedTrainingSlug: 'microsoft-power-bi',
+  keywords: ['Power BI', 'Excel', 'Power BI vs Excel', 'migracja z Excela', 'modelowanie danych', 'raportowanie BI', 'self-service BI', 'automatyzacja raportów'],
+};
+
+> *Power BI nie zastępuje Excela — zastępuje jeden konkretny rodzaj pracy w Excelu:*
+> *powtarzalne raportowanie z wielu źródeł, na rosnących danych, dla wielu odbiorców. Jeśli*
+> *poznajesz w tym opisie swoją codzienność — przesiadka zacznie się zwracać w tygodniach, a nie*
+> *miesiącach. Jeśli używasz Excela jako kalkulatora z opcją obsługi kolorowych tabelek — zostań*
+> *w Excelu.*
+
+Pytanie pada w prawie każdej firmie, w której zaczyna się rozmowa o BI: „mamy Excela od 20 lat,
+po co nam Power BI?". To uczciwe pytanie. Excel jest niesamowicie elastyczny, każdy go zna,
+licencje już są kupione. Power BI to nowy koszt, nowa krzywa uczenia, nowy zestaw problemów.
+
+Odpowiedź zależy od tego, *co konkretnie* robisz w Excelu. Bo Excel jest jednocześnie
+edytorem danych, kalkulatorem, narzędziem do raportów, bazą danych, środowiskiem do prototypowania
+i platformą do automatyzacji. Power BI nie zastępuje wszystkich tych ról — zastępuje **dwie**:
+narzędzie raportowe i lekką bazę danych.
+
+## 1. Skala danych — kiedy Excel zaczyna się dusić
+
+Excel oficjalnie obsługuje 1 048 576 wierszy w arkuszu. W praktyce ten limit boli zanim się go
+osiągnie: tabela przestawna na 800 tys. wierszy i kilkunastu kolumnach potrafi przeliczać się
+minutami, a refresh skoroszytu z `Power Query` blokuje pracę na całe godziny.
+
+Power BI używa silnika [VertiPaq](https://learn.microsoft.com/pl-pl/power-bi/guidance/import-modeling-data-reduction) —
+kolumnowego silnika in-memory z agresywną kompresją kolumnową. Modele z dziesiątkami milionów
+wierszy to scenariusz produkcyjny, nie laboratoryjny. Rozmiar pliku `.pbix` mocno zależy od
+kardynalności kolumn (data, ID transakcji, opisy tekstowe), więc identyczna liczba wierszy może
+ważyć od kilkudziesięciu MB do kilkuset.
+
+**Praktyczna granica:**
+- **do ~100 tys. wierszy z prostą logiką** → Excel jest w porządku
+- **100 tys. – 1 mln wierszy z tabelami przestawnymi i wieloma źródłami** → strefa szara, jeszcze
+  da się Excelem, ale każdy refresh boli
+- **powyżej 1 mln wierszy lub kilka źródeł danych w jednym raporcie** → Power BI zdecydowanie
+  zyskuje przewagę w czasie pracy, nie wspominając o tym, że teoretycznie nie ma on limitu danych,
+  które może przetworzyć.
+
+## 2. Jeden refresh, wiele odbiorców
+
+To jest cicha różnica, która zmienia więcej niż wszystkie inne razem. W Excelu raport żyje w pliku.
+Kopiujesz plik mailem, zostawiasz na sieci, ktoś go otwiera — i nie wiadomo, czy patrzy na dane
+z dziś, czy z zeszłego tygodnia. Każdy odbiorca może zacząć liczyć po swojemu, dodawać własne
+zakładki, zmieniać formuły.
+
+W Power BI dataset jest jeden. Refresh wykonuje się raz, na serwerze, w najwygodniejszym momencie
+(np. w nocy). Rano cała firma patrzy na te same liczby. Konflikty „a u mnie wychodzi 17 milionów,
+nie 16,2" znikają — bo nie ma już kilku wersji tego samego raportu.
+
+To nie jest funkcjonalność, którą widać w demo. Ale to jest funkcjonalność, która ratuje
+controllingowi mnóstwo czasu. Bywa, że są to nie godziny, ale dni spędzone na ręcznej kontroli,
+która niejednokrotnie wykazuje po prostu błąd ludzki.
+
+## 3. Modelowanie danych zamiast jednego wielkiego arkusza
+
+W Excelu dominuje wzorzec „flat table" — jedna duża tabela ze wszystkimi danymi, czasami z
+VLOOKUP-ami pobierającymi atrybuty z innych arkuszy. To działa, póki danych jest relatywnie niewiele.
+
+Power BI wymusza inną konwencję: **schemat gwiazdy**. Tabele faktów (transakcje, zdarzenia)
+i tabele wymiarów (klient, produkt, czas, region). Relacje między nimi zarządzane są na poziomie
+modelu, nie formuł.
+
+Dlaczego to ma znaczenie? Bo kiedy dział sprzedaży doda nową kategorię produktu, w Excelu trzeba
+przejść przez kilka–kilkanaście plików i poprawić `VLOOKUP`-y. W Power BI — dodajesz wiersz do
+tabeli wymiarowej `Produkty` i wszystkie raporty oparte o ten model widzą zmianę natychmiast.
+
+Wymaga to zmiany wyobrażania sobie pracy z danymi. Nie jest to przesiadka na 1:1 jak z jednego
+auta do drugiego — to trochę jak przesiadka z dwupłatowego aeroplanu do F-16. W innym artykule
+pisałem już o [5 najczęstszych błędach w DAX](/blog/5-bledow-w-dax) — pierwszy z nich (mylenie
+kontekstu) to niestety najbardziej zabójcza pułapka dla osób przechodzących z Excela.
+
+## 4. Interaktywność, której Excel nie da
+
+Tabela przestawna w Excelu jest interaktywna — w obrębie jednego arkusza. Wykres jest interaktywny —
+w obrębie jednej tabeli. Power BI oferuje **cross-filtering**: kliknij w słupek na jednym wykresie
+i wszystkie pozostałe wizualizacje na stronie filtrują się automatycznie.
+
+To nie jest tylko efekciarstwo. To zmienia sposób, w jaki ludzie czytają raporty. Zamiast
+„pokaż mi sprzedaż w marcu" potem „pokaż mi sprzedaż w marcu w regionie Pomorze" potem
+„pokaż mi sprzedaż w marcu w regionie Pomorze dla produktu X" — klikasz trzy razy i widzisz
+odpowiedź w sekundę.
+
+Co prawda Excel dysponuje takim narzędziem jak fragmentator (względnie oś czasu), które jest
+całkiem ok — natomiast Power BI pozwala na bardziej intuicyjną obsługę, zwłaszcza że, jak to
+powiedział kiedyś jeden z moich kursantów: „tutaj wszystko jest filtrem".
+
+## 5. Row-Level Security — coś, czego Excel nie ma w ogóle
+
+W Excelu jeśli chcesz, żeby Janek widział tylko region Pomorze, a Krystyna tylko Mazowsze —
+albo robisz dwa pliki, albo komplikujesz arkusz makrami i hasłami (które przy odrobinie wysiłku
+da się obejść).
+
+W Power BI [Row-Level Security](https://learn.microsoft.com/pl-pl/power-bi/enterprise/service-admin-rls)
+to natywna funkcja. Definiujesz role, przypisujesz osoby — silnik filtruje dane na poziomie
+zapytania. Janek dostaje swoje liczby, Krystyna swoje, raport jest jeden.
+
+Dla firm pracujących z danymi osobowymi (HR, sprzedaż, finanse) to nie jest „nice to have" —
+to jest wymóg RODO. Excel po prostu tej kontroli nie zapewni w sposób pewny i bezpieczny.
+
+## 6. Czas budowy raportu — uczciwe porównanie
+
+Mit: „Power BI jest szybszy". Pół-prawda. Pierwszy raport w Power BI na pewno zajmie Ci dłużej niż
+w Excelu, bo musisz nauczyć się modelu, DAX-u, Power Query, governance.
+
+Drugi raport zajmie tyle samo. Trzeci — już mniej. Setny — kilkanaście minut, jeśli model jest
+poprawnie zbudowany.
+
+W Excelu odwrotnie. Pierwszy raport — godzina. Setny — wciąż godzina, bo każdy plik to nowy
+projekt. Power BI nagradza inwestycję w model. Excel każe płacić tę samą cenę za każde
+powtórzenie.
+
+## Kiedy Excel wciąż wygrywa?
+
+Tylko żeby nie było, że moim marzeniem jest skazanie Excela na cyfrową banicję — nic z tych
+rzeczy! Są scenariusze, w których wciąż jest najlepszym narzędziem:
+
+- **Analiza ad-hoc na własne potrzeby.** Szybko sprawdzić coś w danych, zrobić wykres, podzielić
+  się jednorazowo. Power BI to overkill.
+- **Modele finansowe i prognozy.** Budowanie modeli typu „co jeśli zmienimy stopę X". Excel ma
+  tu przewagę interaktywności edycji formuł.
+- **Edycja danych przez użytkownika.** Power BI domyślnie nie służy do wprowadzania danych —
+  raporty są do czytania, nie do edycji. Write-back istnieje (Power Apps visual, Fabric notebooks,
+  paginated reports z parametrami), ale to dodatkowa warstwa narzędziowa, nie out-of-the-box.
+  Do prostego „wpisywania budżetu w komórki" Excel pozostaje szybszy.
+- **Małe zespoły z prostymi potrzebami.** 5 osób, jeden raport, refresh raz w miesiącu — Excel
+  jest tańszy w utrzymaniu.
+- **Prototypowanie logiki.** Zanim zbudujesz miarę DAX, warto sprawdzić ją w Excelu na próbce.
+  Sam wciąż tak robię — szybciej zauważyć błąd w 30‑wierszowym arkuszu niż w 5‑milionowej tabeli faktów.
+
+## Strategia przejścia — pragmatyczna
+
+Nie migruj wszystkiego od razu. To się może naprawdę kiepsko skończyć.
+
+1. **Wybierz jeden raport, który już Cię wkurza.** Najlepiej taki, który robisz co tydzień,
+   z wielu źródeł, dla kilku odbiorców. To jest Twój pierwszy use case.
+2. **Zbuduj model danych w Power Query.** Najpierw ETL, potem dopiero wizualizacje. To 70%
+   sukcesu.
+3. **Postaw model gwiazdy.** Nie kopiuj struktury Excela — zaprojektuj model od nowa, oddzielając
+   fakty od wymiarów. Pisałem o tym więcej w
+   [tekście o wdrożeniach Power BI](/blog/jak-przygotowac-zespol-do-power-bi).
+4. **Buduj raport dopiero kiedy dane są przygotowane.** Wizualizacje są ostatnim krokiem, nie
+   pierwszym. Większość problemów wydajnościowych wynika z odwrotnej kolejności.
+5. **Zachowaj Excel jako sandboxa.** Nie wyrzucaj go. To wciąż najlepsze narzędzie do szybkiej
+   walidacji liczb i prototypowania. Na etapie przesiadki, kiedy możesz jeszcze nie być na 100%
+   pewien swoich umiejętności, warto podeprzeć się starym plikiem żeby sprawdzić wyniki.
+
+## Podsumowanie
+
+Power BI to nie zamiennik Excela. To **dodatkowe narzędzie do innej klasy zadań**: powtarzalne
+raportowanie z danych wykorzystywanych przez całą organizację dla wielu odbiorców, na danych,
+które Excelowi już ciążą.
+
+Firmy, które to widzą, używają obu narzędzi świadomie — Excel do analizy ad-hoc i edycji danych,
+Power BI do raportowania produkcyjnego. Firmy, które próbują wcisnąć wszystko w Excel, kończą
+z plikami `raport_ostateczny_v17_FINAL_naprawde.xlsx`. Firmy, które wszystko forsują w Power BI,
+walczą z miarami DAX, gdy potrzebowały tylko sprawdzić sumę.
+
+Granica jest cienka, ale istnieje.
+
+Jeśli czujesz, że Twoja firma stoi w tej szarej strefie — zapraszam na moje
+[szkolenie z Power BI](/szkolenia/microsoft-power-bi). W dwa dni przechodzimy od plików Excela
+po pierwszy zbudowany model w Power BI, na realnych danych. Bez rozwadniania tematu, bez zbędnej
+teorii, bez głupich przykładów. Ty z przyszłości podziękujesz Obecnemu Tobie, że się na nie
+zdecydowałeś 😉
+
+## Czytaj też:
+
+- [5 błędów w DAX, które spowalniają Twój raport](/blog/5-bledow-w-dax)
+- [Power Query vs VBA — kiedy co wybrać?](/blog/power-query-vs-vba)
+- [Jak przygotować zespół do wdrożenia Power BI](/blog/jak-przygotowac-zespol-do-power-bi)

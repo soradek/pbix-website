@@ -1,17 +1,23 @@
 export const metadata = {
-  title: '5 błędów w DAX, które kosztują firmy godziny',
+  title: '5 błędów w DAX, które spowalniają Twój raport',
   slug: '5-bledow-w-dax',
-  date: '2026-04-10',
+  date: '2026-02-08',
   excerpt: 'Złe relacje, nadużywanie CALCULATE, ignorowanie kontekstu filtra — najczęstsze pułapki w DAX, które potrafią zamienić raport Power BI w cmentarzysko wydajności.',
   category: 'Power BI',
   readingTime: '7 min',
-  coverImage: '/blog/cover-dax.svg',
+  coverImage: '/PowerBI_cover.png',
   relatedTrainingSlug: 'microsoft-dax',
   keywords: ['DAX', 'Power BI', 'CALCULATE', 'kontekst filtra', 'wydajność DAX', 'optymalizacja Power BI', 'schema gwiazdy', 'VertiPaq'],
 };
 
-[DAX](/szkolenia/microsoft-dax) wygląda na język podobny do formuł Excela, ale to złudzenie kosztuje firmy realne pieniądze.
-Spotykam się z tym co tydzień: zespół buduje raport, który po dwóch miesiącach pracy zaczyna ładować
+> *Pięć powtarzających się błędów odpowiada za większość sytuacji, w których Power BI*
+> *wyraźnie zwalnia tempo ładowania danych:*
+> *mylenie kontekstu wiersza z filtra, nadużywanie `CALCULATE`, relacje many-to-many, filtrowanie*
+> *tabel zamiast kolumn, brak `VAR`. Każdy z nich jest do naprawienia bez przepisywania raportu —*
+> *wystarczy zrozumieć, co dzieje się pod spodem.*
+
+[DAX](/szkolenia/microsoft-dax) wygląda na język podobny do formuł Excela, ale to złudzenie generuje realne koszty.
+Spotkałem się z tym już wielokrotnie: zespół buduje raport, który po dwóch miesiącach pracy zaczyna ładować
 się minutami, a proste KPI zwracają liczby, których nikt nie potrafi wytłumaczyć. Prawie zawsze
 przyczyną jest jeden z pięciu poniższych błędów.
 
@@ -91,17 +97,19 @@ trzy pełne przebiegi engine'a. Z `VAR` — jeden.
 **Jak to naprawić:** wszystkie miary dłuższe niż 3 linijki rozbijaj na zmienne. Bonus: kod staje
 się czytelny dla osoby, która zobaczy go po pół roku — łącznie z Tobą.
 
-## Co dalej
+## Co dalej?
 
 Te pięć błędów odpowiada za większość problemów wydajnościowych, jakie widzę w projektach
 [Power BI](/szkolenia/microsoft-power-bi) w polskich firmach. Naprawienie ich nie wymaga
 przepisania raportu od zera — wymaga zrozumienia, co dzieje się pod spodem.
 
-Jeśli chcesz przejść tę drogę pod okiem kogoś, kto przepuścił przez to setki zespołów, zapraszam
+Jeśli chcesz przejść tę drogę pod okiem kogoś, kto pomoże Ci zrozumieć sposób „myślenia" Power BI, zapraszam
 na dwudniowy [warsztat z DAX](/szkolenia/microsoft-dax). Pracujemy na realnych danych, realnych
-modelach i realnych miarach — takich, które potem trafiają do produkcji.
+modelach i realnych miarach — takich, które pracują dla Ciebie, a nie przeciwko Tobie :).
 
-## Czytaj też
+## Czytaj też:
 
 - [Jak przygotować zespół do wdrożenia Power BI](/blog/jak-przygotowac-zespol-do-power-bi)
 - [Power Query vs VBA — kiedy co wybrać?](/blog/power-query-vs-vba)
+- [Power BI vs Excel — zwycięzca może być tylko jeden?](/blog/power-bi-vs-excel)
+- [Copilot w Power BI — co realnie potrafi](/blog/copilot-w-power-bi)

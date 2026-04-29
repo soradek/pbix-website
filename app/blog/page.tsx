@@ -39,7 +39,7 @@ export default function BlogPage() {
             Blog
           </div>
           <h1 style={{ fontSize: 'clamp(44px, 8vw, 76px)', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-2.5px', lineHeight: 1.05, margin: '0 0 20px' }}>
-            Wiedza, która działa
+            Co warto wiedzieć, a nie ma kogo spytać
           </h1>
           <p style={{ fontSize: '18px', color: '#6e6e73', lineHeight: 1.65, margin: 0, fontWeight: 400 }}>
             Praktyczne artykuły o Power BI, Excel, SQL i wizualizacji danych.<br />

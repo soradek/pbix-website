@@ -1,0 +1,173 @@
+export const metadata = {
+  title: 'ChatGPT do pisania SQL — jak nie zrobić sobie krzywdy?',
+  slug: 'chatgpt-do-pisania-sql',
+  date: '2026-04-11',
+  excerpt: 'AI pisze SQL szybciej niż większość juniorów. Ale generuje też zapytania, które działają na próbce, a wywalają produkcję. Oto co realnie warto delegować, a czego za nic w świecie.',
+  category: 'SQL',
+  readingTime: '7 min',
+  coverImage: '/AI_cover.png',
+  relatedTrainingSlug: 'microsoft-sql-server',
+  keywords: ['SQL ChatGPT', 'AI w SQL', 'GPT SQL queries', 'optymalizacja SQL AI', 'generowanie zapytań SQL', 'AI database queries', 'SQL Server ChatGPT', 'pisanie SQL z AI'],
+};
+
+> *ChatGPT pisze sensowny SQL znacznie szybciej niż człowiek od zera, a na publicznych*
+> *benchmarkach (np. Spider, BIRD) sięga 60–80% poprawności zależnie od złożoności zapytania.*
+> *Świetnie nadaje się do generowania `SELECT`-ów, `JOIN`-ów, agregacji i refaktoringu. Bądź*
+> *jednak szczególnie ostrożny w trzech sytuacjach: zapytania na produkcji bez planu wykonania, operacje*
+> *`DELETE`/`UPDATE` bez transakcji i zadania, które wymagają znajomości Twojego rzeczywistego*
+> *schematu, statystyk i wzorca obciążenia.*
+
+SQL to język, w którym AI radzi sobie wyjątkowo dobrze. Powód jest prozaiczny: w internecie są
+miliony przykładów `SELECT * FROM ...` — modele językowe miały bardzo bogaty materiał treningowy.
+W praktyce oznacza to, że ChatGPT pisze sensowny SQL znacznie częściej niż sensowny DAX czy VBA.
+
+To nie znaczy, że można mu ufać bezkrytycznie. Oznacza to, że można delegować dużo, jeśli wiesz
+co i jak walidować.
+
+## 1. Generowanie zapytań — najmocniejsza strona AI
+
+Klasyczny scenariusz: dostajesz zadanie „pokaż top 10 klientów po obrocie w tym roku, z liczbą
+zamówień, średnią wartością i datą ostatniej transakcji".
+
+W SQL to 15-20 linii z `JOIN`-ami, `GROUP BY`, `ORDER BY` i podzapytaniem. Pisanie ręcznie:
+3-5 minut, jeśli pamiętasz składnię. Z ChatGPT:
+
+```sql
+SELECT TOP 10
+  k.Nazwa,
+  COUNT(z.Id) AS LiczbaZamowien,
+  SUM(z.Wartosc) AS Obrot,
+  AVG(z.Wartosc) AS SredniaWartosc,
+  MAX(z.DataZamowienia) AS OstatniaTransakcja
+FROM Klienci k
+INNER JOIN Zamowienia z ON z.KlientId = k.Id
+WHERE z.DataZamowienia >= DATEFROMPARTS(YEAR(GETDATE()), 1, 1)
+GROUP BY k.Nazwa
+ORDER BY Obrot DESC;
+```
+
+5 sekund zamiast kilku minut wyklikiwania `JOIN`-ów. Co więcej, ChatGPT zwykle używa
+czytelnych aliasów (`k`, `z`) zamiast generycznych `a`, `b`.
+
+**Pułapki, na które trzeba uważać:**
+- **`LIMIT` vs `TOP` vs `OFFSET ... FETCH NEXT`.** ChatGPT bywa nieprzewidywalny w doborze
+  dialektu. W SQL Serverze `LIMIT` nie działa — musi być `TOP n` lub `OFFSET … FETCH NEXT n ROWS ONLY`
+  (to drugie wymagane przy paginacji). PostgreSQL/MySQL akceptują `LIMIT`. Zawsze podawaj
+  modelowi konkretny dialekt w prompcie.
+- **Funkcje na kolumnach w `WHERE`** — `YEAR(z.DataZamowienia) = YEAR(GETDATE())` jest poprawne
+  semantycznie, ale **uniemożliwia użycie indeksu** na `DataZamowienia`. Optymalizator nie potrafi
+  zindeksować wyniku funkcji. Forma w przykładzie wyżej (`DataZamowienia >= DATEFROMPARTS(...)`)
+  jest sargable i korzysta z indeksu.
+- **Hint `WITH (NOLOCK)`** — ChatGPT czasem dorzuca go „dla wydajności". To **brudne odczyty**
+  (dirty reads): możesz dostać dane w połowie transakcji, zduplikowane wiersze albo pominięte rekordy.
+  Jeśli Twoja firma nie używa świadomie izolacji `READ UNCOMMITTED` ani `RCSI` — usuwaj.
+
+**Praktyka, która działa:** zawsze podaj ChatGPT **schemat tabel** z typami kolumn i dialekt SQL
+(SQL Server / PostgreSQL / MySQL). Generowane zapytanie wtedy będzie celowane, nie generyczne.
+
+## 2. Refaktoring zapytań — drugi co do wartości use case
+
+Dostajesz po koleżance zapytanie z 200 linii z trzema poziomami zagnieżdżonych podzapytań.
+Powinno wziąć tabelę faktów, połączyć z trzema wymiarami, policzyć trzy agregaty.
+
+ChatGPT z promptem „przepisz to zapytanie używając CTE i okiennych funkcji, zachowując semantykę"
+dostarcza w 30 sekund coś, co czyta się jak proza zamiast sznurka spaghetti.
+
+Co AI robi dobrze:
+- zamienia podzapytania na CTE (`WITH ... AS`)
+- wyciąga powtarzające się logiki do common table expressions
+- używa `ROW_NUMBER()`, `RANK()`, `LAG()` zamiast self-joinów
+- proponuje nazwy aliasów, które coś znaczą
+
+Czego nie robi:
+- **nie testuje, czy semantyka się zgadza**. Refaktor może zmienić liczbę zwracanych wierszy w
+  edge case'ach (`NULL`-e, duplikaty)
+- **nie zna planów wykonania**. Nowsza wersja zapytania może być wolniejsza, mimo że czytelniejsza
+- **nie wie, jakie indeksy masz w bazie**
+
+**Praktyka:** po refaktorze **zawsze** porównaj wynik na próbce. Najlepiej `EXCEPT` — jeśli zwraca
+0 wierszy w obie strony, refaktor jest semantycznie zgodny.
+
+## 3. Wyjaśnianie zapytań — niedoceniany use case
+
+Dostajesz query, którego nie rozumiesz. Pewnie po koleżance, która już nie pracuje. Zapytanie ma
+500 linii, używa pivotów, kursorów, trzech poziomów stored procedure.
+
+ChatGPT z promptem „wyjaśnij krok po kroku, co robi to zapytanie, w stylu tutorialu" dostarcza
+streszczenie, które oszczędza godzinę debugowania. Szczególnie przy dziedziczonych skryptach
+ETL — gdzie nikt już nie pamięta, dlaczego coś jest tak, a nie inaczej.
+
+To samo działa dla **wyjaśniania błędów**. Wklejasz:
+
+> *Msg 8120, Level 16, State 1, Line 5. Column 'Klienci.Email' is invalid in the select list
+> because it is not contained in either an aggregate function or the GROUP BY clause.*
+
+I dostajesz tłumaczenie, dlaczego SQL Server protestuje, plus poprawioną wersję zapytania.
+
+## 4. Optymalizacja zapytań — tu już ostrożnie
+
+Wklejasz zapytanie + plan wykonania (`SET STATISTICS IO ON; SET STATISTICS TIME ON;`) i pytasz
+„co można zoptymalizować".
+
+ChatGPT proponuje sensowne rzeczy:
+- dodanie indeksu pokrywającego (covering index) na konkretnych kolumnach
+- przepisanie `OR` na `UNION ALL` (czasami szybsze)
+- rozbicie dużego zapytania na temp tables
+
+**Ale:**
+- nie wie, jak duża jest Twoja tabela ani jak rozproszone są dane
+- nie wie, czy indeks już istnieje pod inną nazwą
+- nie uwzględnia, że każdy nowy indeks zwalnia operacje `INSERT` / `UPDATE` / `DELETE` i zajmuje
+  dodatkowe miejsce na dysku
+
+**Praktyka:** traktować propozycje jako hipotezy do przetestowania, nie jako gotową rekomendację.
+Każdy proponowany indeks należy zważyć: przyspiesza odczyt, ale wydłuża zapisy i zajmuje miejsce.
+Wszystkie AI do baz danych mają tę samą wadę — brak kontekstu Twojej rzeczywistej infrastruktury,
+statystyk i wzorca obciążenia.
+
+## 5. Czerwona linia — czego nigdy nie deleguj
+
+Trzy operacje, których nie dawaj AI bez pełnej kontroli:
+
+1. **`DELETE` / `UPDATE` na produkcji bez transakcji.** ChatGPT generuje `DELETE FROM Klienci
+   WHERE ...`, Ty kopiujesz, klikasz Execute, WHERE okazuje się za szeroki — i kasujesz wiersze,
+   które miały zostać. Standard: `BEGIN TRAN; DELETE ...; SELECT @@ROWCOUNT; ROLLBACK;` — jeśli
+   liczba zwróconych wierszy się zgadza, robisz `COMMIT`. Inaczej rollback i żadnej szkody.
+2. **DDL bez review.** `ALTER TABLE` na dużej tabeli (setki milionów wierszy) potrafi zablokować
+   bazę na godziny — AI nie widzi statystyk ani zależności. Zmiany schematu zawsze przez ścieżkę
+   review + okno serwisowe.
+3. **Dane wrażliwe w prompcie.** Wklejanie produkcyjnych danych klientów (PESEL, e-maile, dane
+   finansowe) do publicznego ChatGPT to ryzyko naruszenia NDA i RODO — niezależnie od tego, że
+   OpenAI deklaruje brak treningu na danych z API. Standard: schemat tak, próbka tak (po
+   anonimizacji), realne dane produkcyjne — nie.
+
+## 6. Stack, który ma sens dla zespołu
+
+1. **ChatGPT Plus / Claude / GitHub Copilot** dla developerów piszących SQL na co dzień.
+2. **Sandboxowa baza testowa.** Wszystkie generowane zapytania uruchamiamy najpierw tam.
+3. **Obowiązkowy review kodu.** Każde zapytanie produkcyjne z AI przechodzi przez code review,
+   tak samo jak ręcznie pisane.
+4. **Anonimizacja danych w promptach.** Schemat tak, dane prawdziwe nie. Generujemy „dummy
+   schema" do dzielenia z modelami zewnętrznymi.
+
+## Co dalej?
+
+ChatGPT zmienił krzywą uczenia SQL bardziej niż jakiekolwiek narzędzie ostatniej dekady. Junior
+może dziś pisać zapytania na poziomie mid-developera, jeśli umie zadawać pytania. Mid-developer
+robi w godzinę to, co kiedyś trwało cały dzień.
+
+Ale fundament wiedzy o SQL — jak działają indeksy, czym jest plan wykonania, jak silnik
+optymalizuje zapytania — wciąż jest niezbędny. Inaczej AI generuje Ci kod, który działa na próbce
+i ginie na produkcji.
+
+Jeśli chcesz, żeby Twój zespół miał ten fundament i mógł świadomie używać AI jako wzmacniacza,
+a nie magiczno-ezoteryczno-wróżbiarskiej szklanej kuli, zapraszam na warsztat
+[Microsoft SQL Server](/szkolenia/microsoft-sql-server). Pracujemy na realnych zapytaniach,
+planach wykonania i przypadkach optymalizacji. AI omawiam jako narzędzie codzienne — z konkretną
+listą co warto, a czego nie warto delegować.
+
+## Czytaj też:
+
+- [AI w Excelu — od Copilota po GPT w formułach](/blog/ai-w-excelu)
+- [Copilot w Power BI — co realnie potrafi](/blog/copilot-w-power-bi)
+- [Power Query vs VBA — kiedy co wybrać?](/blog/power-query-vs-vba)

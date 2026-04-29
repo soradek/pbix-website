@@ -14,14 +14,16 @@ function getAltUrl(pathname: string): string {
       .replace(/^\/trainings(\/|$)/, '/szkolenia$1')
       .replace(/^\/contact$/, '/kontakt')
       .replace(/^\/register$/, '/zapisy')
-      .replace(/^\/projects(\/|$)/, '/projekty$1');
+      .replace(/^\/projects(\/|$)/, '/projekty$1')
+      .replace(/^\/privacy-policy$/, '/polityka-prywatnosci');
   }
   if (pathname === '/') return '/en';
   return '/en' + pathname
     .replace(/^\/szkolenia(\/|$)/, '/trainings$1')
     .replace(/^\/kontakt$/, '/contact')
     .replace(/^\/zapisy$/, '/register')
-    .replace(/^\/projekty(\/|$)/, '/projects$1');
+    .replace(/^\/projekty(\/|$)/, '/projects$1')
+    .replace(/^\/polityka-prywatnosci$/, '/privacy-policy');
 }
 
 export default function Navbar() {
@@ -94,7 +96,7 @@ export default function Navbar() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }} className="desktop-nav">
           {/* Language switcher */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontSize: '11px', color: '#6e6e73', fontWeight: 500, letterSpacing: '0.2px' }}>v1.7.4</span>
+          <span style={{ fontSize: '11px', color: '#6e6e73', fontWeight: 500, letterSpacing: '0.2px' }}>v1.7.5</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: '2px', background: 'rgba(0,0,0,0.04)', borderRadius: '980px', padding: '3px' }}>
             <Link
               href={isEn ? altUrl : pathname}

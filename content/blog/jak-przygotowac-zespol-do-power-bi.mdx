@@ -1,35 +1,41 @@
 export const metadata = {
   title: 'Jak przygotować zespół do wdrożenia Power BI',
   slug: 'jak-przygotowac-zespol-do-power-bi',
-  date: '2026-03-25',
+  date: '2026-02-19',
   excerpt: 'Wdrożenie Power BI to nie zakup licencji. To zmiana w sposobie pracy z danymi w całej firmie. Oto co musi się wydarzyć, zanim klikniesz „Publikuj".',
   category: 'Power BI',
   readingTime: '9 min',
-  coverImage: '/blog/cover-power-bi.svg',
+  coverImage: '/PowerBI_cover.png',
   relatedTrainingSlug: 'microsoft-power-bi',
   keywords: ['Power BI', 'wdrożenie Power BI', 'governance Power BI', 'self-service BI', 'zarządzanie danymi', 'BI w firmie', 'szkolenie Power BI', 'data governance'],
 };
+
+> *Wdrożenie Power BI udaje się w firmach, które przed zakupem licencji odpowiadają na*
+> *6 pytań: kto tworzy raporty, gdzie są dane, jaki jest pierwszy use case, kogo szkolimy w jakiej*
+> *kolejności, jakie mamy zasady governance i kto utrzymuje raporty po starcie. Pominięcie*
+> *któregokolwiek punktu kosztuje pół roku i dziesiątki strasznie lichych raportów,*
+> *które może i działają — ale jakim kosztem ;)*
 
 Power BI sprzedaje się sam. Demo wygląda spektakularnie, prezes widzi dashboardy i pyta „dlaczego
 my tak nie mamy". Tydzień później dział IT kupuje licencje, miesiąc później ktoś z controllingu
 buduje pierwszy raport, a po pół roku okazuje się, że firma ma 40 raportów, z których nikt nie
 korzysta, a Excel wciąż jest królem.
 
-Widziałem ten scenariusz kilkanaście razy. Wdrożenie Power BI udaje się w firmach, które rozumieją,
+Taki scenariusz to nie jest nic niespotykanego. Wdrożenie Power BI udaje się w firmach, które rozumieją,
 że to nie jest projekt IT. To projekt zmiany sposobu, w jaki organizacja pracuje z danymi.
 
-## Krok 1: Ustal, kto będzie autorem raportów
+## Krok 1: Ustal, kto będzie autorem raportów.
 
 Pierwsze pytanie, na które trzeba odpowiedzieć szczerze: czy raporty będą tworzyć analitycy
-biznesowi, czy zespół centralny BI?
+biznesowi, czy zespół centralny BI? A może jeszcze ktoś?
 
 Oba modele działają, ale wymagają zupełnie innego przygotowania.
 
-**Model centralny.** Mały, kompetentny zespół (2-5 osób) buduje wszystkie raporty. Reszta
+**Model centralny:** Mały, kompetentny zespół (2-5 osób) buduje wszystkie raporty. Reszta
 organizacji konsumuje. Plus: spójność, jakość, governance. Minus: kolejka requestów, frustracja
 biznesu, zespół jako wąskie gardło.
 
-**Model self-service.** Każdy dział ma swoich analityków, którzy budują raporty na własne
+**Model self-service:** Każdy dział ma swoich analityków, którzy budują raporty na własne
 potrzeby. Plus: szybkość, autonomia, reakcja na zmiany w biznesie. Minus: chaos, duplikacja,
 sprzeczne wersje prawdy.
 
@@ -37,11 +43,12 @@ W praktyce dobrze działa model hybrydowy — zespół centralny utrzymuje certy
 działy budują na nich raporty self-service. Ale to oznacza, że masz dwa zestawy ludzi do
 wyszkolenia, nie jeden.
 
-## Krok 2: Zrób inwentaryzację danych — zanim kupisz licencje
+## Krok 2: Zrób inwentaryzację danych — zanim kupisz licencje.
 
 Power BI nie tworzy danych, tylko je pokazuje. Jeśli dane są rozproszone w 15 plikach Excel,
-3 systemach ERP i jednym arkuszu, który prowadzi pani Krysia z księgowości — Power BI tego nie
-naprawi. Pokaże tylko, jak bardzo to jest połamane.
+3 systemach ERP i jednym arkuszu, który prowadzi pani Krysia z księgowości (często w towarzystwie
+zeszytu pana Zenka z magazynu) — Power BI tego nie naprawi. Dane prawie na pewno trzeba będzie
+uporządkować, część przekształcić, część przenieść, a część skonsolidować.
 
 Zanim wdrożysz cokolwiek, zrób mapę:
 
@@ -51,11 +58,12 @@ Zanim wdrożysz cokolwiek, zrób mapę:
 - Czy mamy jedno miejsce, w którym definiujemy KPI?
 
 Najczęstszy błąd: firma kupuje Power BI Premium, a potem przez pół roku negocjuje z działem IT,
-kto ma uprawnienia do bazy ERP. Te negocjacje powinny się odbyć przed zakupem.
+kto ma uprawnienia do bazy ERP. Takie negocjacje powinny się odbyć przed zakupem.
 
-## Krok 3: Wybierz pierwszy use case — nie ten najbardziej strategiczny
+## Krok 3: Wybierz pierwszy use case — nie ten najbardziej strategiczny.
 
-Pokusa jest oczywista: „zbudujmy dashboard zarządczy dla prezesa". Złe podejście. Dashboardy
+Pokusa jest oczywista: „zbudujmy dashboard zarządczy dla prezesa". No cóż, można próbować :)
+Często może to się jednak okazać zbyt ambitny projekt. Dashboardy
 zarządcze to esencja firmy — wymagają stabilnych źródeł, uzgodnionych KPI, walidacji z
 controllingiem. Pierwszy projekt powinien być mały i pokazowy.
 
@@ -70,9 +78,9 @@ Klasyczne dobre wybory: raport sprzedażowy dla jednego regionu, raport jakości
 produkcyjnej, raport HR dla działu rekrutacji. Coś, co dowiozisz w 4 tygodnie i co od razu zacznie
 być używane.
 
-## Krok 4: Wyszkol właściwe osoby, w właściwej kolejności
+## Krok 4: Wyszkol właściwe osoby, w właściwej kolejności.
 
-Tu jest błąd numer jeden polskich wdrożeń: firma wysyła na szkolenie z Power BI „pierwszych
+Tu często pojawia się problem: firma wysyła na szkolenie z Power BI „pierwszych
 chętnych", bez sprawdzenia, czy to są osoby, które rzeczywiście będą tworzyć raporty.
 
 Kolejność, która działa:
@@ -84,10 +92,10 @@ Kolejność, która działa:
 3. **Konsumenci raportów.** Krótkie sesje (2-3 godziny), pokazujące jak filtrować, eksportować,
    zadawać pytania. Bez tego raporty są ignorowane.
 
-Częsty antypattern: szkolenie 20 osób na raz, „bo to było taniej". Po dwóch tygodniach 18 z nich
-nigdy nie otworzy Power BI Desktop.
+Nieszczęsna wersja wydarzeń jest następująca: szkolenie 20 osób na raz, „bo to było taniej".
+Po dwóch tygodniach 18 z nich nigdy nie otworzy Power BI Desktop.
 
-## Krok 5: Ustal zasady governance — zanim chaos się zacznie
+## Krok 5: Ustal zasady governance — zanim chaos się zacznie.
 
 To brzmi nudnie, ale to ratuje wdrożenia. Decyzje, które trzeba podjąć przed pierwszym raportem
 w produkcji:
@@ -100,45 +108,49 @@ w produkcji:
 - **Cykl życia raportu.** Co robimy, gdy raport przestaje być używany? Kto to monitoruje?
 - **Wersjonowanie zmian.** Jak cofamy się o tydzień, gdy ktoś zepsuje miarę?
 
-Firmy bez governance po roku mają Wild West i muszą robić dwukrotnie droższe porządki.
+Firmy bez porządnego governance po roku mają zamiast bazy raportów jesień średniowiecza,
+a zapanowanie nad tym powoli zaczyna wymagać iście nadludzkich mocy ;)
 
-## Krok 6: Zarezerwuj czas na utrzymanie — to nie jest projekt jednorazowy
+## Krok 6: Zarezerwuj czas na utrzymanie — to nie jest projekt jednorazowy.
 
 Po wdrożeniu wielu firm przechodzi w tryb „okay, gotowe, zwalniamy zespół". Po trzech miesiącach
 raporty zaczynają się sypać — zmienia się struktura źródeł, wymagania biznesu rosną, ktoś dodał
-nowy wymiar do bazy.
+kilka nowych miar do raportu.
 
-Power BI wymaga ciągłego utrzymania. Nie tak intensywnego jak budowa, ale ciągłego. Zarezerwuj
-0,5 etatu na każde 50 raportów w produkcji. Jeśli tego nie zrobisz, po roku będziesz stać przed
-wyborem: albo refaktor, albo migracja na nowe wdrożenie.
+Power BI wymaga ciągłego utrzymania. Nie tak intensywnego jak budowa, ale ciągłego. Ratowanie
+systemu raportowania jest znacznie droższe, niż jego utrzymanie — lepiej zapobiegać, niż leczyć.
 
-## Co najczęściej idzie nie tak
+## Co najczęściej idzie nie tak?
 
 Z mojego doświadczenia, wdrożenia padają z trzech powodów:
 
-1. **Brak własności danych.** „To nie nasz dashboard, my tylko dostarczamy dane" — śmierć
-   projektu.
+1. **Brak wyznaczonego właściciela raportu** — „My tylko dostarczamy dane, ale w sumie nie wiem
+   kto tym rządzi".
 2. **Brak edukacji konsumentów.** Raporty istnieją, ale nikt ich nie używa, bo nie wie jak.
-3. **Pierwszy use case zbyt ambitny.** Trzy miesiące pracy nad raportem zarządczym, który nigdy
-   nie zostanie zaakceptowany, bo controlling kwestionuje liczby.
+3. **Pierwszy use case zbyt ambitny.** Trzy miesiące pracy nad raportem zarządczym, który umrze
+   w momencie, kiedy wyobrażenia o supermocach Power BI zderzą się z techniczną rzeczywistością
+   albo kiepską jakością danych w organizacji. No bo po co komu raport, który nie pokazuje tego
+   co chcemy? A że chcemy za dużo... To już inna historia.
 
 Każdy z tych problemów ma rozwiązanie, ale wszystkie wymagają decyzji *przed* startem, nie
 w trakcie.
 
-## Co dalej
+## Co dalej?
 
 Wdrożenie [Power BI](/szkolenia/microsoft-power-bi) w firmie to projekt strategiczny, nie
 zakupowy. Wymaga zmiany w sposobie myślenia o danych, nie tylko nowego narzędzia. Firmy, które
-to rozumieją, dostają realną przewagę. Te, które tego nie rozumieją, dostają 50 niespójnych
-raportów i frustrację.
+to rozumieją, dostają realną przewagę. Te, które tego nie rozumieją, dostają stertę raportów
+z których korzystają 2 osoby w firmie. Excelki dalej żyją sobie własnym życiem, dane krążą
+w kilku wersjach... I po co komu były te wszystkie szkolenia ;)
 
-Jeśli planujesz wdrożenie i chcesz zrobić to porządnie — od fundamentów modelu danych po
-governance — zapraszam na intensywny dwudniowy [warsztat z Power BI](/szkolenia/microsoft-power-bi).
-Pracuję z zespołami, które dopiero zaczynają, i z tymi, które chcą posprzątać po niedopracowanym
-wdrożeniu sprzed dwóch lat. Oba przypadki dają się rozwiązać — pod warunkiem, że zacznie się
-od właściwych pytań.
+Realizuję projekty wdrożeniowe Power BI — od fundamentów modelu danych po governance.
+Odzywaj się przez [formularz kontaktowy](/kontakt), opowiesz, w którym miejscu jest Twoja firma,
+a ja podpowiem od czego zacząć. Pracuję z zespołami, które dopiero startują, i z tymi, które
+chcą posprzątać po niedopracowanym wdrożeniu sprzed dwóch lat.
 
-## Czytaj też
+## Czytaj też:
 
-- [5 błędów w DAX, które kosztują firmy godziny](/blog/5-bledow-w-dax)
+- [5 błędów w DAX, które spowalniają Twój raport](/blog/5-bledow-w-dax)
 - [Power Query vs VBA — kiedy co wybrać?](/blog/power-query-vs-vba)
+- [Power BI vs Excel — zwycięzca może być tylko jeden?](/blog/power-bi-vs-excel)
+- [Copilot w Power BI — co realnie potrafi](/blog/copilot-w-power-bi)
