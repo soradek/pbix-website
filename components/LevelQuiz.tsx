@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollReveal from '@/components/ScrollReveal';
 import { IconCheck } from '@/components/Icons';
@@ -143,6 +144,7 @@ interface LevelQuizProps {
 }
 
 export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
+  const router = useRouter();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [showResult, setShowResult] = useState(false);
@@ -173,6 +175,12 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
   const handleClose = () => {
     handleRestart();
     onClose();
+  };
+
+  const handleViewTrainings = () => {
+    handleRestart();
+    onClose();
+    router.push('/szkolenia');
   };
 
   if (!open) return null;
@@ -446,7 +454,7 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
               {/* Action buttons */}
               <div style={{ display: 'flex', gap: '12px', flexDirection: 'column' }}>
                 <button
-                  onClick={handleClose}
+                  onClick={handleViewTrainings}
                   style={{
                     background: '#1e9953',
                     color: 'white',
