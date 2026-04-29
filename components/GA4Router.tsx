@@ -13,18 +13,19 @@ export default function GA4Router() {
   const didMount = useRef(false);
 
   useEffect(() => {
-    if (!GA_ID || typeof window === 'undefined' || typeof window.gtag !== 'function') return;
+    const gtag = (window as Window & { gtag?: (...args: unknown[]) => void }).gtag;
+    if (!GA_ID || typeof gtag !== 'function') return;
     if (consent?.analytics !== true) return;
 
     const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '');
 
     if (!didMount.current) {
       didMount.current = true;
-      window.gtag('event', 'page_view', { page_path: url });
+      gtag('event', 'page_view', { page_path: url });
       return;
     }
 
-    window.gtag('event', 'page_view', { page_path: url });
+    gtag('event', 'page_view', { page_path: url });
   }, [pathname, searchParams, consent]);
 
   return null;
