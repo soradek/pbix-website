@@ -109,8 +109,9 @@ function SzkoleniasContent({ initialCategory = 'Wszystkie', initialTrainings = t
         </div>
       </section>
 
-      {/* Level test CTA – replaces previous "Skontaktuj się" box */}
+      {/* Level test CTA – TODO: wyłączone tymczasowo
       <LevelTestCTA />
+      */}
     </>
   );
 }

@@ -220,6 +220,7 @@ export default function Home() {
       <TestimonialsSection testimonials={testimonials} />
 
       {/* ── LEAD MAGNET ───────────────────────────── */}
+      {/* TODO: wyłączone tymczasowo
       <LeadMagnetSection
         title="Pobierz darmowy poradnik: 10 kroków do skutecznego dashboardu w Power BI"
         description="Praktyczny przewodnik PDF z konkretnymi wskazówkami i przykładami. Bezpłatnie, w zamian za adres email."
@@ -228,6 +229,7 @@ export default function Home() {
         modalTitle="Pobierz poradnik Power BI"
         modalDescription="Wpisz swój email, a wyślę Ci poradnik PDF i okazjonalnie informacje o nowych szkoleniach."
       />
+      */}
 
       {/* ── DLACZEGO WARTO ────────────────────────── */}
       <section className="section-xl" style={{ padding: '120px 24px', background: '#f9f9f9' }}>
@@ -297,7 +299,9 @@ export default function Home() {
       </section>
 
       {/* ── LEVEL TEST CTA ────────────────────────── */}
+      {/* TODO: wyłączone tymczasowo
       <LevelTestCTA />
+      */}
 
       {/* ── FAQ + CTA ─────────────────────────────── */}
       <HomeFAQ />
