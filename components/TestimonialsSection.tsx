@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Testimonial } from '@/data/testimonials';
 import ScrollReveal from './ScrollReveal';
@@ -64,11 +65,28 @@ function TestimonialCard({ t, small = false }: { t: Testimonial; small?: boolean
           height: small ? '36px' : '44px',
           borderRadius: '50%',
           background: 'rgba(255,255,255,0.2)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: small ? '14px' : '17px', fontWeight: 700, color: 'white', flexShrink: 0,
+          overflow: 'hidden',
+          flexShrink: 0,
           border: '1.5px solid rgba(255,255,255,0.3)',
+          position: 'relative',
         }}>
-          {t.name.charAt(0)}
+          {t.avatar ? (
+            <Image
+              src={t.avatar}
+              alt={t.name}
+              fill
+              sizes={small ? '36px' : '44px'}
+              style={{ objectFit: 'cover' }}
+            />
+          ) : (
+            <div style={{
+              width: '100%', height: '100%',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: small ? '14px' : '17px', fontWeight: 700, color: 'white',
+            }}>
+              {t.name.charAt(0)}
+            </div>
+          )}
         </div>
         <div>
           <div style={{ fontSize: small ? '13px' : '14px', fontWeight: 700, color: '#ffffff' }}>{t.name}</div>

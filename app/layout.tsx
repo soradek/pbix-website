@@ -4,6 +4,7 @@ import { headers } from 'next/headers';
 import './globals.css';
 import CustomCursor from '@/components/CustomCursor';
 import TrackingScripts from '@/components/TrackingScripts';
+import GA4Router from '@/components/GA4Router';
 import FloatingCTA from '@/components/FloatingCTA';
 import CookieBanner from '@/components/CookieBanner';
 import { Analytics } from '@vercel/analytics/next';
@@ -103,15 +104,23 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                   '@type': 'Person',
                   name: 'Radosław Sobczak',
                   url: siteUrl,
+                  email: 'kontakt@pbix.pl',
                   jobTitle: 'Microsoft Certified Trainer (MCT)',
                   description: 'Certyfikowany Trener Microsoft specjalizujący się w szkoleniach z Power BI, Excel, SQL i VBA.',
                   sameAs: ['https://www.linkedin.com/in/radoslawsobczak'],
                   knowsAbout: ['Power BI', 'Microsoft Excel', 'SQL', 'VBA', 'Power Query', 'DAX'],
+                  contactPoint: {
+                    '@type': 'ContactPoint',
+                    email: 'kontakt@pbix.pl',
+                    contactType: 'customer service',
+                    availableLanguage: ['Polish', 'English'],
+                  },
                 },
                 {
                   '@type': 'EducationalOrganization',
                   name: 'pbix.pl',
                   url: siteUrl,
+                  email: 'kontakt@pbix.pl',
                   description: 'Specjalistyczne szkolenia z Power BI, Excel, SQL i VBA.',
                   founder: {
                     '@type': 'Person',
@@ -119,6 +128,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                   },
                   areaServed: 'PL',
                   knowsLanguage: ['pl', 'en'],
+                  contactPoint: {
+                    '@type': 'ContactPoint',
+                    email: 'kontakt@pbix.pl',
+                    contactType: 'customer service',
+                    availableLanguage: ['Polish', 'English'],
+                  },
                 },
                 {
                   '@type': 'WebSite',
@@ -143,6 +158,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className={inter.className} style={{ margin: 0, background: '#ffffff', color: '#1d1d1f' }}>
         <CustomCursor />
         <TrackingScripts />
+        <GA4Router />
         <FloatingCTA />
         <CookieBanner />
         {children}
