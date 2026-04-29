@@ -5,7 +5,6 @@ import './globals.css';
 import CustomCursor from '@/components/CustomCursor';
 import TrackingScripts from '@/components/TrackingScripts';
 import GA4Router from '@/components/GA4Router';
-import FloatingCTA from '@/components/FloatingCTA';
 import CookieBanner from '@/components/CookieBanner';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -159,7 +158,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <CustomCursor />
         <TrackingScripts />
         <GA4Router />
-        <FloatingCTA />
         <CookieBanner />
         {children}
         <Analytics />
