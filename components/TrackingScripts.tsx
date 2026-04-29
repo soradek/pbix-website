@@ -2,6 +2,7 @@
 
 import Script from 'next/script';
 import { useConsent } from '@/lib/consent';
+import { useEffect } from 'react';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
@@ -13,16 +14,27 @@ export default function TrackingScripts() {
   const allowAnalytics = consent?.analytics === true;
   const allowMarketing = consent?.marketing === true;
 
+  // Update consent mode when consent changes
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof window.gtag !== 'function') return;
+
+    window.gtag('consent', 'update', {
+      analytics_storage: allowAnalytics ? 'granted' : 'denied',
+      ad_storage: allowMarketing ? 'granted' : 'denied',
+      wait_for_update: 500,
+    });
+  }, [allowAnalytics, allowMarketing]);
+
   return (
     <>
-      {GA_ID && allowAnalytics && (
+      {GA_ID && (
         <>
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
             strategy="afterInteractive"
           />
           <Script id="ga4-init" strategy="afterInteractive">
-            {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}',{send_page_view:false});`}
+            {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',wait_for_update:500});gtag('js',new Date());gtag('config','${GA_ID}',{send_page_view:false});`}
           </Script>
         </>
       )}
