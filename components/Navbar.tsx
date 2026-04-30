@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IconPhone } from '@/components/Icons';
 
-const APP_VERSION = '0.2.3';
+const APP_VERSION = '0.2.4';
 
 function getAltUrl(pathname: string): string {
   if (pathname.startsWith('/en')) {
