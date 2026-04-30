@@ -11,10 +11,10 @@ export default function ClientsMarquee({ lang = 'pl' }: { lang?: 'pl' | 'en' }) 
       overflow: 'hidden',
       background: 'linear-gradient(135deg, #003d20 0%, #1e9953 55%, #006633 100%)',
     }}>
-      <div style={{ textAlign: 'center', marginBottom: '48px', padding: '0 24px' }}>
-        <div style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', color: 'rgba(255,255,255,0.7)', fontWeight: 700 }}>
+      <div style={{ textAlign: 'center', marginBottom: '64px', padding: '0 24px' }}>
+        <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 700, color: '#ffffff', letterSpacing: '-1px', margin: 0 }}>
           {lang === 'en' ? 'Trusted by' : 'Zaufali mi'}
-        </div>
+        </h2>
       </div>
       <div style={{ overflow: 'hidden' }}>
         <div className="marquee-track">
