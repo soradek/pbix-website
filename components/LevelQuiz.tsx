@@ -178,8 +178,6 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
   };
 
   const handleViewTrainings = () => {
-    handleRestart();
-    onClose();
     router.push('/szkolenia');
   };
 
