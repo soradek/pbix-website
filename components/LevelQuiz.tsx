@@ -206,13 +206,15 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
         style={{
           background: 'white',
           borderRadius: '32px',
-          padding: 'clamp(32px, 5vw, 48px)',
-          maxWidth: '680px',
+          padding: 'clamp(28px, 4vw, 44px)',
+          maxWidth: '640px',
           width: '100%',
-          maxHeight: '90vh',
-          overflowY: 'auto',
+          maxHeight: '85vh',
+          overflow: 'hidden',
           boxShadow: '0 32px 80px rgba(0,0,0,0.16)',
           position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         {/* Close button (X) - visible for both questions and results */}
@@ -249,9 +251,10 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
+              style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
             >
               {/* Header */}
-              <div style={{ marginBottom: '32px' }}>
+              <div style={{ marginBottom: '20px' }}>
                 <motion.div
                   initial={{ opacity: 1 }}
                   animate={{ opacity: 1 }}
@@ -294,18 +297,20 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
               {/* Question */}
               <h2
                 style={{
-                  fontSize: 'clamp(20px, 2.4vw, 28px)',
+                  fontSize: 'clamp(18px, 2.2vw, 24px)',
                   fontWeight: 700,
                   color: '#1d1d1f',
-                  margin: '0 0 32px',
+                  margin: '0 0 18px',
                   letterSpacing: '-0.5px',
+                  lineHeight: 1.4,
+                  flex: '0 0 auto',
                 }}
               >
                 {questions[currentQuestion].text}
               </h2>
 
               {/* Options */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', flex: '1 1 auto', overflow: 'hidden' }}>
                 {questions[currentQuestion].options.map((option, idx) => (
                   <motion.button
                     key={idx}
@@ -315,16 +320,18 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
                     style={{
                       background: 'white',
                       border: '2px solid rgba(30,153,83,0.2)',
-                      borderRadius: '16px',
-                      padding: '16px 20px',
-                      fontSize: '12px',
+                      borderRadius: '14px',
+                      padding: '12px 16px',
+                      fontSize: '13px',
                       color: '#1d1d1f',
                       cursor: 'pointer',
                       textAlign: 'left',
                       fontFamily: 'inherit',
                       fontWeight: 500,
                       transition: 'all 0.2s',
-                      lineHeight: '1.5',
+                      lineHeight: '1.4',
+                      flex: '0 1 auto',
+                      minHeight: 'auto',
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.borderColor = '#1e9953';
@@ -346,43 +353,44 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
-              style={{ textAlign: 'center' }}
+              style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}
             >
               {/* Result icon */}
               <div
                 style={{
-                  width: '80px',
-                  height: '80px',
+                  width: '64px',
+                  height: '64px',
                   background: 'rgba(30,153,83,0.12)',
-                  borderRadius: '24px',
+                  borderRadius: '18px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  margin: '0 auto 28px',
+                  margin: '0 auto 16px',
+                  flex: '0 0 auto',
                 }}
               >
-                <IconCheck size={40} color="#1e9953" strokeWidth={2.5} />
+                <IconCheck size={32} color="#1e9953" strokeWidth={2.5} />
               </div>
 
               {/* Score */}
-              <div style={{ marginBottom: '24px' }}>
+              <div style={{ marginBottom: '14px', flex: '0 0 auto' }}>
                 <div
                   style={{
-                    fontSize: '11px',
+                    fontSize: '10px',
                     color: '#6e6e73',
                     textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                    marginBottom: '8px',
+                    letterSpacing: '0.8px',
+                    marginBottom: '6px',
                   }}
                 >
                   Twój wynik
                 </div>
                 <div
                   style={{
-                    fontSize: 'clamp(32px, 5vw, 48px)',
+                    fontSize: 'clamp(28px, 4vw, 40px)',
                     fontWeight: 800,
                     color: '#1e9953',
-                    letterSpacing: '-1.5px',
+                    letterSpacing: '-1.2px',
                     lineHeight: 1,
                   }}
                 >
@@ -393,11 +401,12 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
               {/* Level */}
               <h2
                 style={{
-                  fontSize: 'clamp(24px, 3vw, 32px)',
+                  fontSize: 'clamp(20px, 2.5vw, 26px)',
                   fontWeight: 700,
                   color: '#1d1d1f',
-                  margin: '0 0 10px',
+                  margin: '0 0 6px',
                   letterSpacing: '-0.5px',
+                  flex: '0 0 auto',
                 }}
               >
                 {currentLevel.title}
@@ -406,9 +415,10 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
               <p
                 style={{
                   color: '#6e6e73',
-                  fontSize: '15px',
-                  margin: '0 0 32px',
-                  lineHeight: 1.6,
+                  fontSize: '13px',
+                  margin: '0 0 16px',
+                  lineHeight: 1.5,
+                  flex: '0 0 auto',
                 }}
               >
                 {currentLevel.description}
@@ -419,19 +429,24 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
                 style={{
                   background: 'rgba(30,153,83,0.08)',
                   border: '1px solid rgba(30,153,83,0.2)',
-                  borderRadius: '16px',
-                  padding: '20px',
-                  marginBottom: '32px',
+                  borderRadius: '14px',
+                  padding: '14px 16px',
+                  marginBottom: '16px',
                   textAlign: 'left',
+                  flex: '1 1 auto',
+                  overflow: 'hidden',
+                  display: 'flex',
+                  flexDirection: 'column',
                 }}
               >
                 <div
                   style={{
-                    fontSize: '12px',
+                    fontSize: '10px',
                     color: '#6e6e73',
                     textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                    marginBottom: '8px',
+                    letterSpacing: '0.8px',
+                    marginBottom: '6px',
+                    flex: '0 0 auto',
                   }}
                 >
                   Rekomendacja
@@ -439,10 +454,12 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
                 <p
                   style={{
                     color: '#1d1d1f',
-                    fontSize: '15px',
-                    lineHeight: 1.6,
+                    fontSize: '13px',
+                    lineHeight: 1.5,
                     margin: 0,
                     fontWeight: 500,
+                    flex: '1 1 auto',
+                    overflow: 'hidden',
                   }}
                 >
                   {currentLevel.recommendation}
@@ -450,20 +467,21 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
               </div>
 
               {/* Action buttons */}
-              <div style={{ display: 'flex', gap: '12px', flexDirection: 'column' }}>
+              <div style={{ display: 'flex', gap: '10px', flexDirection: 'column', flex: '0 0 auto' }}>
                 <button
                   onClick={handleViewTrainings}
                   style={{
                     background: '#1e9953',
                     color: 'white',
                     border: 'none',
-                    padding: '14px 28px',
+                    padding: '12px 24px',
                     borderRadius: '980px',
-                    fontSize: '14px',
+                    fontSize: '13px',
                     fontWeight: 600,
                     cursor: 'pointer',
                     fontFamily: 'inherit',
                     transition: 'background 0.2s',
+                    flex: '0 0 auto',
                   }}
                   onMouseEnter={(e) => (e.currentTarget.style.background = '#17803f')}
                   onMouseLeave={(e) => (e.currentTarget.style.background = '#1e9953')}
@@ -476,13 +494,14 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
                     background: 'transparent',
                     color: '#1e9953',
                     border: '2px solid rgba(30,153,83,0.2)',
-                    padding: '12px 28px',
+                    padding: '10px 24px',
                     borderRadius: '980px',
-                    fontSize: '14px',
+                    fontSize: '13px',
                     fontWeight: 600,
                     cursor: 'pointer',
                     fontFamily: 'inherit',
                     transition: 'all 0.2s',
+                    flex: '0 0 auto',
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.borderColor = '#1e9953';
