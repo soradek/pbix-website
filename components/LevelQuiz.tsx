@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollReveal from '@/components/ScrollReveal';
@@ -26,112 +26,112 @@ const questions: Question[] = [
     id: 1,
     text: 'Która z poniższych formuł poprawnie obliczy średnią tylko z wartości liczbowych w zakresie A1:A10, ignorując tekst i puste komórki?',
     options: ['ŚREDNIA(A1:A10)', 'SUMA(A1:A10)/ILE.NIEPUSTYCH(A1:A10)', 'ŚREDNIA.JEŻELI(A1:A10;">0")', 'LICZ(A1:A10)/SUMA(A1:A10)'],
-    points: [3, 0, 0, 0],
+    points: [1, 0, 0, 0],
   },
   {
     id: 2,
     text: 'Które stwierdzenie najlepiej opisuje różnicę między tabelą (Ctrl+T) a zwykłym zakresem danych w Excelu?',
     options: ['W tabeli odwołania w formułach automatycznie zmieniają się na strukturalne (np. [Sprzedaż]), co wpływa na sposób kopiowania i rozszerzania formuł', 'Tabela działa szybciej niż zwykły zakres, ponieważ Excel przechowuje ją w innej pamięci', 'W tabeli nie można używać adresów komórek (np. A1) w formułach', 'Tabela automatycznie blokuje możliwość sortowania i filtrowania danych'],
-    points: [3, 0, 0, 0],
+    points: [1, 0, 0, 0],
   },
   {
     id: 3,
     text: 'Co zrobi funkcja SUMA()?',
     options: ['Policzy liczbę komórek', 'Doda wskazane wartości', 'Znajdzie największą wartość', 'Zamieni tekst na liczbę'],
-    points: [0, 3, 0, 0],
+    points: [0, 1, 0, 0],
   },
   {
     id: 4,
     text: 'Do czego służy filtrowanie danych?',
     options: ['Do ukrywania całego arkusza', 'Do wyświetlania tylko wybranych rekordów', 'Do usuwania pustych komórek', 'Do zmiany formatu komórek'],
-    points: [0, 3, 0, 0],
+    points: [0, 1, 0, 0],
   },
   {
     id: 5,
     text: 'Które odwołanie w formule nie zmienia się po skopiowaniu?',
     options: ['A1', '$A$1', 'A$1', '$A1'],
-    points: [0, 3, 0, 0],
+    points: [0, 1, 0, 0],
   },
   {
     id: 6,
     text: 'Do czego służy formatowanie warunkowe?',
     options: ['Do automatycznego kolorowania komórek według reguł', 'Do tworzenia wykresów', 'Do sumowania danych', 'Do zabezpieczania arkusza hasłem'],
-    points: [3, 0, 0, 0],
+    points: [1, 0, 0, 0],
   },
   {
     id: 7,
     text: 'Która funkcja sprawdza warunek i zwraca jedną z dwóch wartości?',
     options: ['SUMA()', 'JEŻELI()', 'LICZ.JEŻELI()', 'ŚREDNIA()'],
-    points: [0, 3, 0, 0],
+    points: [0, 1, 0, 0],
   },
   {
     id: 8,
     text: 'Do czego służy tabela przestawna?',
     options: ['Do drukowania danych w formie tabeli', 'Do szybkiego podsumowania i analizy danych', 'Do ochrony komórek', 'Do usuwania duplikatów'],
-    points: [0, 3, 0, 0],
+    points: [0, 1, 0, 0],
   },
   {
     id: 9,
     text: 'Która funkcja wyszuka wartość w tabeli i poprawnie zadziała, gdy kolumna zwracana znajduje się po lewej stronie kolumny wyszukiwania?',
     options: ['WYSZUKAJ.PIONOWO()', 'INDEKS() + PODAJ.POZYCJĘ()', 'ZNAJDŹ()', 'LEWY()'],
-    points: [0, 3, 0, 0],
+    points: [0, 1, 0, 0],
   },
   {
     id: 10,
     text: 'Które z poniższych najlepiej opisuje różnicę między tabelą a zwykłym zakresem danych?',
     options: ['Tabela automatycznie rozszerza się o nowe dane i utrzymuje formuły', 'Tabela pozwala tylko na sortowanie danych', 'Zakres danych zawsze działa szybciej niż tabela', 'Tabela nie może zawierać formuł'],
-    points: [3, 0, 0, 0],
+    points: [1, 0, 0, 0],
   },
   {
     id: 11,
     text: 'Która formuła poprawnie policzy liczbę niepustych komórek zawierających liczby w zakresie A1:A10?',
     options: ['LICZ(A1:A10)', 'ILE.NIEPUSTYCH(A1:A10)', 'LICZ.JEŻELI(A1:A10;">0")', 'SUMA(A1:A10)'],
-    points: [3, 0, 0, 0],
+    points: [1, 0, 0, 0],
   },
   {
     id: 12,
     text: 'Do czego najczęściej używa się Power Query?',
     options: ['Do tworzenia animacji w arkuszu', 'Do pobierania, czyszczenia i przekształcania danych', 'Do drukowania raportów', 'Do tworzenia wykresów kołowych'],
-    points: [0, 3, 0, 0],
+    points: [0, 1, 0, 0],
   },
   {
     id: 13,
     text: 'Które narzędzie pozwala automatycznie połączyć dane z kilku tabel po wspólnym kluczu?',
     options: ['Formatowanie warunkowe', 'Model danych', 'Filtr zaawansowany', 'Konsolidacja danych'],
-    points: [0, 3, 0, 0],
+    points: [0, 1, 0, 0],
   },
   {
     id: 14,
     text: 'Która funkcja pozwala jednocześnie filtrować dane i zwracać dynamiczną tablicę wyników (Excel 365)?',
     options: ['SUMA.WARUNKÓW()', 'FILTRUJ()', 'JEŻELI()', 'WYSZUKAJ.PIONOWO()'],
-    points: [0, 3, 0, 0],
+    points: [0, 1, 0, 0],
   },
   {
     id: 15,
     text: 'Do czego służy funkcja LET() w Excelu?',
     options: ['Do formatowania komórek', 'Do nadawania nazw częściom formuły i upraszczania obliczeń', 'Do tworzenia tabel przestawnych', 'Do importu plików CSV'],
-    points: [0, 3, 0, 0],
+    points: [0, 1, 0, 0],
   },
 ];
 
 const levelBands: LevelBand[] = [
   {
     name: 'Podstawowy',
-    range: [0, 9],
+    range: [0, 3],
     title: 'Podstawowy',
     description: 'Całkiem nieźle, ale chyba jeszcze trochę Ci brakuje do pełnej biegłości',
     recommendation: 'Zapoznaj się z ofertą Excel - poziom podstawowy.',
   },
   {
     name: 'Średnio zaawansowany',
-    range: [10, 22],
+    range: [4, 7],
     title: 'Średnio zaawansowany',
     description: 'Gratulacje! Wiesz już całkiem sporo na temat Excela',
     recommendation: 'Drzwi do rozwoju stoją przed Tobą otworem. Spróbuj ugruntować swoją wiedzę i poznać nowe narzędzia na szkoleniu Excel - poziom średniozaawansowany.',
   },
   {
     name: 'Zaawansowany',
-    range: [23, 45],
+    range: [8, 15],
     title: 'Zaawansowany',
     description: 'Bez dwóch zdań Excel jest Twoim sprzymierzeńcem',
     recommendation: 'Zapoznaj się z ofertą szkoleń zaawansowanych, w tym Excel - poziom zaawansowany lub Power Query. A może to już czas na Power BI...?',
@@ -148,6 +148,18 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<number[]>([]);
   const [showResult, setShowResult] = useState(false);
+
+  // Disable body scroll when quiz is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
 
   const totalScore = answers.reduce((sum, points) => sum + points, 0);
   const currentLevel = levelBands.find(
@@ -394,7 +406,7 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
                     lineHeight: 1,
                   }}
                 >
-                  {totalScore} / 45
+                  {totalScore} / 15
                 </div>
               </div>
 
