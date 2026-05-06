@@ -24,16 +24,22 @@ export default function ClientsMarquee({ lang = 'pl' }: { lang?: 'pl' | 'en' }) 
               className="marquee-item"
               style={{
                 padding: '0 56px',
-                fontSize: '18px',
-                fontWeight: 700,
-                color: 'rgba(255,255,255,0.75)',
-                whiteSpace: 'nowrap',
-                letterSpacing: '-0.3px',
                 flexShrink: 0,
-                transition: 'color 0.3s',
+                display: 'flex',
+                alignItems: 'center',
               }}
             >
-              {client}
+              <img
+                src={`/logos/${client.slug}.png`}
+                alt={client.name}
+                style={{
+                  height: `${client.cssHeight}px`,
+                  width: 'auto',
+                  opacity: 0.75,
+                  transition: 'opacity 0.3s',
+                  display: 'block',
+                }}
+              />
             </div>
           ))}
         </div>
