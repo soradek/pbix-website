@@ -63,7 +63,7 @@ export default function PrivacyPolicyPage() {
             <p>
               The Controller of your personal data is <strong>Radosław Sobczak</strong>, conducting sole-proprietor
               business under the name <strong>Radosław Sobczak Data Analysis</strong>, registered in Inowrocław, Poland,
-              Tax ID (NIP): 5562743281, Statistical ID (REGON): 522321088.
+              Tax ID (NIP): 5562743281, Statistical ID (REGON): 522321088, Company No.: 573195404.
             </p>
             <p>
               Contact for data protection matters:{' '}

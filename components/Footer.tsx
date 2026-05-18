@@ -82,7 +82,7 @@ export default function Footer({ lang = 'pl' }: FooterProps) {
           </div>
         </div>
         <div style={{ borderTop: '1px solid rgba(0,0,0,0.08)', paddingTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-          <div style={{ color: '#6e6e73', fontSize: '13px' }}>© 2025 Radosław Sobczak | pbix.pl</div>
+          <div style={{ color: '#6e6e73', fontSize: '13px' }}>© 2025 Radosław Sobczak | pbix.pl | nr firmowy: 573195404</div>
           <div style={{ display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap' }}>
             <Link
               href={isEn ? '/en/privacy-policy' : '/polityka-prywatnosci'}
