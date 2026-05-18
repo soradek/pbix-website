@@ -144,19 +144,19 @@ export async function POST(req: NextRequest) {
   try {
     const { messages } = await req.json()
 
+    const stream = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      max_tokens: 600,
+      stream: true,
+      messages: [
+        { role: 'system', content: SYSTEM_PROMPT },
+        ...messages,
+      ],
+    })
+
     const encoder = new TextEncoder()
     const readable = new ReadableStream({
       async start(controller) {
-        const stream = await openai.chat.completions.create({
-          model: 'gpt-4o-mini',
-          max_tokens: 600,
-          stream: true,
-          messages: [
-            { role: 'system', content: SYSTEM_PROMPT },
-            ...messages,
-          ],
-        })
-
         for await (const chunk of stream) {
           const text = chunk.choices[0]?.delta?.content ?? ''
           if (text) controller.enqueue(encoder.encode(text))
