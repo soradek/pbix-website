@@ -1,7 +1,7 @@
-import OpenAI from 'openai'
+import { GoogleGenerativeAI } from '@google/generative-ai'
 import { NextRequest } from 'next/server'
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
 
 const SYSTEM_PROMPT = `Jesteś Doradcą szkoleniowym pbix.pl – asystentem Radosława Sobczaka (Microsoft Certified Trainer, MCT). Pomagasz klientom firmowym wybrać odpowiednie szkolenie z oferty pbix.pl.
 
@@ -144,21 +144,25 @@ export async function POST(req: NextRequest) {
   try {
     const { messages } = await req.json()
 
-    const stream = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      max_tokens: 600,
-      stream: true,
-      messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        ...messages,
-      ],
+    const geminiModel = genAI.getGenerativeModel({
+      model: 'gemini-2.0-flash',
+      systemInstruction: SYSTEM_PROMPT,
     })
+
+    const history = messages.slice(0, -1).map((m: { role: string; content: string }) => ({
+      role: m.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: m.content }],
+    }))
+    const lastMessage = messages[messages.length - 1]
+
+    const chat = geminiModel.startChat({ history })
+    const result = await chat.sendMessageStream(lastMessage.content)
 
     const encoder = new TextEncoder()
     const readable = new ReadableStream({
       async start(controller) {
-        for await (const chunk of stream) {
-          const text = chunk.choices[0]?.delta?.content ?? ''
+        for await (const chunk of result.stream) {
+          const text = chunk.text()
           if (text) controller.enqueue(encoder.encode(text))
         }
         controller.close()
