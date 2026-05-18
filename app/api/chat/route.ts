@@ -149,10 +149,13 @@ export async function POST(req: NextRequest) {
       systemInstruction: SYSTEM_PROMPT,
     })
 
-    const history = messages.slice(0, -1).map((m: { role: string; content: string }) => ({
+    const allHistory = messages.slice(0, -1).map((m: { role: string; content: string }) => ({
       role: m.role === 'assistant' ? 'model' : 'user',
       parts: [{ text: m.content }],
     }))
+    let startIdx = 0
+    while (startIdx < allHistory.length && allHistory[startIdx].role === 'model') startIdx++
+    const history = allHistory.slice(startIdx)
     const lastMessage = messages[messages.length - 1]
 
     const chat = geminiModel.startChat({ history })
