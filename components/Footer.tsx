@@ -74,6 +74,7 @@ export default function Footer({ lang = 'pl' }: FooterProps) {
               {isEn ? 'Contact' : 'Kontakt'}
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <a href="tel:+48573195404" style={{ color: '#1e9953', textDecoration: 'none', fontSize: '14px' }}>+48 573 195 404</a>
               <a href="mailto:kontakt@pbix.pl" style={{ color: '#1e9953', textDecoration: 'none', fontSize: '14px' }}>kontakt@pbix.pl</a>
               <div style={{ color: '#6e6e73', fontSize: '13px' }}>
                 {isEn ? 'Microsoft Certified Trainer (MCT)' : 'Certyfikowany Trener Microsoft (MCT)'}

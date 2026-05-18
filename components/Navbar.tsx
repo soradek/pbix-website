@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IconPhone } from '@/components/Icons';
 
-const APP_VERSION = '1.9.1';
+const APP_VERSION = '1.9.2';
 
 function getAltUrl(pathname: string): string {
   if (pathname.startsWith('/en')) {
@@ -127,7 +127,7 @@ export default function Navbar() {
 
           {/* Phone – desktop only */}
           <a
-            href="tel:+48123456789"
+            href="tel:+48573195404"
             aria-label="Zadzwoń"
             style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#1d1d1f', textDecoration: 'none', opacity: 0.7, transition: 'opacity 0.2s', fontSize: '13px' }}
             onMouseEnter={e => { e.currentTarget.style.opacity = '1'; }}

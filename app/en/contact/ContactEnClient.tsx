@@ -113,7 +113,7 @@ export default function ContactEnClient() {
             <div>
               <label style={{ display: 'block', fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Phone (optional)</label>
               <input type="tel" value={formData.phone} onChange={e => setFormData(p => ({ ...p, phone: e.target.value }))}
-                placeholder="+48 600 000 000" maxLength={30} style={inputStyle('phone')}
+                placeholder="+48 573 195 404" maxLength={30} style={inputStyle('phone')}
                 onFocus={e => (e.target.style.borderColor = '#1e9953')} onBlur={e => (e.target.style.borderColor = 'rgba(0,0,0,0.12)')} />
             </div>
 

@@ -79,13 +79,13 @@ export default function KontaktClient() {
               {/* Direct contact options */}
               <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
                 <a
-                  href="tel:+48123456789"
+                  href="tel:+48573195404"
                   style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 20px', borderRadius: '980px', border: '1px solid rgba(0,0,0,0.12)', color: '#1d1d1f', textDecoration: 'none', fontSize: '14px', fontWeight: 500, transition: 'border-color 0.2s' }}
                   onMouseEnter={e => (e.currentTarget.style.borderColor = '#1e9953')}
                   onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(0,0,0,0.12)')}
                 >
                   <IconPhone size={16} color="#1e9953" />
-                  +48 123 456 789
+                  +48 573 195 404
                 </a>
                 <a
                   href="mailto:kontakt@pbix.pl"
@@ -152,7 +152,7 @@ export default function KontaktClient() {
                   type="tel"
                   value={formData.phone}
                   onChange={e => setFormData(p => ({ ...p, phone: e.target.value }))}
-                  placeholder="+48 600 000 000"
+                  placeholder="+48 573 195 404"
                   maxLength={30}
                   style={inputStyle('phone')}
                   onFocus={e => (e.target.style.borderColor = '#1e9953')}
