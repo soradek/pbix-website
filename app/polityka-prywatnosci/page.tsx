@@ -63,7 +63,7 @@ export default function PolitykaPrywatnosciPage() {
             <p>
               Administratorem Twoich danych osobowych jest <strong>Radosław Sobczak</strong>, prowadzący działalność
               gospodarczą pod firmą <strong>Radosław Sobczak Data Analysis</strong>, z siedzibą w Inowrocławiu,
-              NIP: 5562743281, REGON: 522321088, nr firmowy: 573195404.
+              NIP: 5562743281, REGON: 522321088, .
             </p>
             <p>
               Kontakt w sprawach związanych z przetwarzaniem danych osobowych:{' '}
