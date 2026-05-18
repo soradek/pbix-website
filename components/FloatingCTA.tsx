@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IconPhone, IconMail } from '@/components/Icons';
 
-const PHONE = '+48 123 456 789';
+const PHONE = '+48 573 195 404';
 const EMAIL = 'kontakt@pbix.pl';
 
 export default function FloatingCTA() {

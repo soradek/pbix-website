@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IconPhone } from '@/components/Icons';
 
-const APP_VERSION = '1.9.2';
+const APP_VERSION = '1.9.3';
 
 function getAltUrl(pathname: string): string {
   if (pathname.startsWith('/en')) {
@@ -134,7 +134,7 @@ export default function Navbar() {
             onMouseLeave={e => { e.currentTarget.style.opacity = '0.7'; }}
           >
             <IconPhone size={15} color="currentColor" />
-            <span className="phone-label">+48 123 456 789</span>
+            <span className="phone-label">+48 573 195 404</span>
           </a>
 
           {navLinks.map(link => (
