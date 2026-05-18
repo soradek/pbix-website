@@ -6,7 +6,8 @@ import CustomCursor from '@/components/CustomCursor';
 import TrackingScripts from '@/components/TrackingScripts';
 import GA4Router from '@/components/GA4Router';
 import CookieBanner from '@/components/CookieBanner';
-import { Analytics } from '@vercel/analytics/next';
+import FloatingChat from '@/components/FloatingChat';
+import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ['latin', 'latin-ext'], weight: ['400', '500', '600', '700'], display: 'swap' });
@@ -159,6 +160,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <TrackingScripts />
         <GA4Router />
         <CookieBanner />
+        <FloatingChat />
         {children}
         <Analytics />
         <SpeedInsights />
