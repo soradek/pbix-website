@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { AnimatePresence, motion } from 'framer-motion'
 import { useCallback, useEffect, useRef, useState } from 'react'
@@ -103,7 +103,11 @@ export default function FloatingChat() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: next }),
       })
-      if (!res.ok || !res.body) throw new Error()
+      if (!res.ok || !res.body) {
+        let errDetail = 'HTTP ' + res.status
+        try { const b = await res.json(); errDetail += ' - ' + JSON.stringify(b) } catch {}
+        throw new Error(errDetail)
+      }
       const reader = res.body.getReader()
       const dec = new TextDecoder()
       let acc = ''
@@ -118,13 +122,12 @@ export default function FloatingChat() {
           return c
         })
       }
-    } catch {
+    } catch (err) {
+      const detail = err instanceof Error ? err.message : String(err)
+      console.error('[FloatingChat]', detail)
       setMessages((m) => {
         const c = [...m]
-        c[c.length - 1] = {
-          role: 'assistant',
-          content: 'Przepraszam, wystąpił błąd. Napisz na kontakt@pbix.pl lub zadzwoń: +48 573 195 404.',
-        }
+        c[c.length - 1] = { role: 'assistant', content: '[DEBUG] ' + detail }
         return c
       })
     } finally {

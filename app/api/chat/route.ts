@@ -171,8 +171,13 @@ export async function POST(req: NextRequest) {
         'Cache-Control': 'no-cache',
       },
     })
-  } catch (err) {
-    console.error('[chat]', err)
-    return new Response('Błąd serwera', { status: 500 })
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err)
+    const status = (err as { status?: number })?.status ?? 500
+    console.error('[chat] status=%d msg=%s', status, msg)
+    return new Response(JSON.stringify({ error: msg, status }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    })
   }
 }
