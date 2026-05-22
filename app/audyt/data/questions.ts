@@ -43,22 +43,22 @@ export const questions: Question[] = [
   },
   {
     id: 5,
-    area: 'Analiza OEE',
-    question: 'Jak analizujecie OEE (Overall Equipment Effectiveness)?',
+    area: 'Wydajność produkcji',
+    question: 'Jak szybko dowiadujesz się o problemach z wydajnością na produkcji?',
     answers: [
-      { label: 'Nie liczymy OEE lub robimy to sporadycznie na papierze', points: 1 },
-      { label: 'Liczymy w Excelu, raz w tygodniu lub rzadziej', points: 2 },
-      { label: 'Dashboard OEE aktualizowany automatycznie, minimum codziennie', points: 3 },
+      { label: 'Po fakcie — na koniec zmiany lub przy tygodniowym rozliczeniu', points: 1 },
+      { label: 'W ciągu kilku godzin — ktoś zgłasza telefonicznie lub przez Excela', points: 2 },
+      { label: 'W czasie rzeczywistym — alert pojawia się automatycznie, gdy spada poniżej normy', points: 3 },
     ],
   },
   {
     id: 6,
-    area: 'Analiza przestojów',
-    question: 'Jak wygląda analiza przyczyn przestojów?',
+    area: 'Kompetencje zespołu',
+    question: 'Czy wiedza Twojego zespołu z zakresu Excela lub Power BI jest wystarczająca do samodzielnego raportowania?',
     answers: [
-      { label: 'Brak systematycznej analizy lub notatki papierowe', points: 1 },
-      { label: 'Excel z listą przestojów, analiza post factum', points: 2 },
-      { label: 'Dashboard z Pareto przyczyn, porównanie zmian, trendy', points: 3 },
+      { label: 'Nie — zespół korzysta z podstaw Excela, zaawansowane funkcje i Power BI są obce', points: 1 },
+      { label: 'Częściowo — kilka osób daje radę, ale większość potrzebuje wsparcia', points: 2 },
+      { label: 'Tak — zespół samodzielnie buduje raporty i dashboardy w Power BI', points: 3 },
     ],
   },
   {

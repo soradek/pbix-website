@@ -4,12 +4,11 @@ import { useState, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import QuizIntro from './QuizIntro';
 import QuizQuestion from './QuizQuestion';
-import QuizForm from './QuizForm';
 import QuizResult from './QuizResult';
 import { questions } from '../data/questions';
-import type { Lead, AnswerRecord } from '../types';
+import type { AnswerRecord } from '../types';
 
-type Step = 'intro' | 'question' | 'form' | 'result';
+type Step = 'intro' | 'question' | 'result';
 
 const VARIANTS = {
   enter: (dir: number) => ({ x: dir > 0 ? 52 : -52, opacity: 0 }),
@@ -24,7 +23,6 @@ export default function QuizClient() {
   const [qIndex, setQIndex] = useState(0);
   const [answers, setAnswers] = useState<(1 | 2 | 3)[]>([]);
   const [dir, setDir] = useState(1);
-  const [lead, setLead] = useState<Lead | null>(null);
 
   const totalScore = answers.reduce((s, a) => s + a, 0);
 
@@ -48,7 +46,7 @@ export default function QuizClient() {
       if (qIndex < questions.length - 1) {
         setQIndex(qIndex + 1);
       } else {
-        setStep('form');
+        setStep('result');
       }
     },
     [answers, qIndex]
@@ -63,45 +61,11 @@ export default function QuizClient() {
     }
   }, [qIndex]);
 
-  const handleFormSubmit = useCallback((formLead: Lead) => {
-    setLead(formLead);
-    setDir(1);
-    setStep('result');
-  }, []);
-
-  const handleSkip = useCallback(() => {
-    setDir(1);
-    setStep('result');
-  }, []);
-
-  const handleFormBack = useCallback(() => {
-    setDir(-1);
-    setQIndex(questions.length - 1);
-    setStep('question');
-  }, []);
-
   return (
-    <div
-      style={{
-        minHeight: '100dvh',
-        background: '#f5f5f7',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
+    <div style={{ minHeight: '100dvh', background: '#f5f5f7', display: 'flex', flexDirection: 'column' }}>
       {/* Minimal header */}
-      <header
-        style={{
-          padding: '16px 20px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <a
-          href="https://pbix.pl"
-          style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}
-        >
+      <header style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <a href="https://pbix.pl" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div
             style={{
               width: '30px',
@@ -138,29 +102,13 @@ export default function QuizClient() {
         <div style={{ width: '100%', maxWidth: '640px' }}>
           <AnimatePresence mode="wait" custom={dir}>
             {step === 'intro' && (
-              <motion.div
-                key="intro"
-                custom={dir}
-                variants={VARIANTS}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={TRANSITION}
-              >
+              <motion.div key="intro" custom={dir} variants={VARIANTS} initial="enter" animate="center" exit="exit" transition={TRANSITION}>
                 <QuizIntro onStart={handleStart} />
               </motion.div>
             )}
 
             {step === 'question' && (
-              <motion.div
-                key={`q-${qIndex}`}
-                custom={dir}
-                variants={VARIANTS}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={TRANSITION}
-              >
+              <motion.div key={`q-${qIndex}`} custom={dir} variants={VARIANTS} initial="enter" animate="center" exit="exit" transition={TRANSITION}>
                 <QuizQuestion
                   question={questions[qIndex]}
                   questionIndex={qIndex}
@@ -172,37 +120,9 @@ export default function QuizClient() {
               </motion.div>
             )}
 
-            {step === 'form' && (
-              <motion.div
-                key="form"
-                custom={dir}
-                variants={VARIANTS}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={TRANSITION}
-              >
-                <QuizForm
-                  score={totalScore}
-                  answers={answerRecords}
-                  onSubmit={handleFormSubmit}
-                  onSkip={handleSkip}
-                  onBack={handleFormBack}
-                />
-              </motion.div>
-            )}
-
             {step === 'result' && (
-              <motion.div
-                key="result"
-                custom={dir}
-                variants={VARIANTS}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={TRANSITION}
-              >
-                <QuizResult score={totalScore} answers={answerRecords} lead={lead} />
+              <motion.div key="result" custom={dir} variants={VARIANTS} initial="enter" animate="center" exit="exit" transition={TRANSITION}>
+                <QuizResult score={totalScore} answers={answerRecords} />
               </motion.div>
             )}
           </AnimatePresence>

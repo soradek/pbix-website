@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import ScoreGauge from './ScoreGauge';
-import type { AnswerRecord, Lead } from '../types';
+import type { AnswerRecord } from '../types';
 
 interface LevelConfig {
   label: string;
@@ -67,11 +67,15 @@ function pointsLabel(p: 1 | 2 | 3) {
 interface Props {
   score: number;
   answers: AnswerRecord[];
-  lead: Lead | null;
 }
 
-export default function QuizResult({ score, answers, lead }: Props) {
+type ContactState = 'idle' | 'open' | 'sending' | 'sent' | 'error';
+
+export default function QuizResult({ score, answers }: Props) {
   const [copied, setCopied] = useState(false);
+  const [contactState, setContactState] = useState<ContactState>('idle');
+  const [email, setEmail] = useState('');
+  const [emailFocused, setEmailFocused] = useState(false);
   const level = getLevel(score);
 
   const handleShare = async () => {
@@ -81,6 +85,28 @@ export default function QuizResult({ score, answers, lead }: Props) {
       setTimeout(() => setCopied(false), 2000);
     } catch {
       setCopied(false);
+    }
+  };
+
+  const handleSendContact = async () => {
+    const trimmed = email.trim();
+    if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(trimmed)) return;
+
+    setContactState('sending');
+    try {
+      await fetch('/api/audyt', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: trimmed,
+          score,
+          level: level.label,
+          completedAt: new Date().toISOString(),
+        }),
+      });
+      setContactState('sent');
+    } catch {
+      setContactState('error');
     }
   };
 
@@ -183,31 +209,135 @@ export default function QuizResult({ score, answers, lead }: Props) {
           </p>
         </div>
 
-        {/* CTA */}
-        <a
-          href={`mailto:kontakt@pbix.pl?subject=Audyt%20raportowania%20%E2%80%94%20wynik%20quizu%20(${score}%2F30)`}
-          style={{
-            display: 'block',
-            width: '100%',
-            background: '#1e9953',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '980px',
-            padding: '15px 32px',
-            fontSize: '15px',
-            fontWeight: 700,
-            cursor: 'pointer',
-            fontFamily: 'inherit',
-            transition: 'background 0.2s',
-            textAlign: 'center',
-            textDecoration: 'none',
-            boxSizing: 'border-box',
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.background = '#17803f')}
-          onMouseLeave={(e) => (e.currentTarget.style.background = '#1e9953')}
-        >
-          Umów bezpłatną konsultację 30 min
-        </a>
+        {/* Contact capture */}
+        <AnimatePresence mode="wait">
+          {contactState === 'sent' ? (
+            <motion.div
+              key="sent"
+              initial={{ opacity: 0, scale: 0.97 }}
+              animate={{ opacity: 1, scale: 1 }}
+              style={{
+                background: 'rgba(30,153,83,0.08)',
+                border: '1px solid rgba(30,153,83,0.2)',
+                borderRadius: '16px',
+                padding: '16px 20px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0 }}>
+                <circle cx="10" cy="10" r="10" fill="#1e9953" />
+                <path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span style={{ fontSize: '14px', fontWeight: 600, color: '#1d1d1f' }}>
+                Wysłano — odezwę się wkrótce.
+              </span>
+            </motion.div>
+          ) : contactState === 'open' || contactState === 'sending' || contactState === 'error' ? (
+            <motion.div
+              key="open"
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}
+            >
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <input
+                  type="email"
+                  placeholder="twoj@email.pl"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onFocus={() => setEmailFocused(true)}
+                  onBlur={() => setEmailFocused(false)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSendContact()}
+                  autoFocus
+                  style={{
+                    flex: 1,
+                    border: `1.5px solid ${emailFocused ? '#1e9953' : 'rgba(0,0,0,0.12)'}`,
+                    borderRadius: '980px',
+                    padding: '13px 18px',
+                    fontSize: '15px',
+                    color: '#1d1d1f',
+                    fontFamily: 'inherit',
+                    background: '#fff',
+                    outline: 'none',
+                    transition: 'border-color 0.18s',
+                  }}
+                />
+                <button
+                  onClick={handleSendContact}
+                  disabled={contactState === 'sending'}
+                  style={{
+                    background: contactState === 'sending' ? '#6e6e73' : '#1e9953',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '980px',
+                    padding: '13px 20px',
+                    fontSize: '14px',
+                    fontWeight: 700,
+                    cursor: contactState === 'sending' ? 'not-allowed' : 'pointer',
+                    fontFamily: 'inherit',
+                    transition: 'background 0.18s',
+                    whiteSpace: 'nowrap',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                  }}
+                  onMouseEnter={(e) => { if (contactState !== 'sending') e.currentTarget.style.background = '#17803f'; }}
+                  onMouseLeave={(e) => { if (contactState !== 'sending') e.currentTarget.style.background = '#1e9953'; }}
+                >
+                  {contactState === 'sending' ? (
+                    'Wysyłam…'
+                  ) : (
+                    <>
+                      Wyślij
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M1 7H13M13 7L8 2M13 7L8 12" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </>
+                  )}
+                </button>
+              </div>
+              {contactState === 'error' && (
+                <span style={{ fontSize: '12px', color: '#DC2626', paddingLeft: '4px' }}>
+                  Coś poszło nie tak — spróbuj ponownie.
+                </span>
+              )}
+            </motion.div>
+          ) : (
+            <motion.button
+              key="idle"
+              onClick={() => setContactState('open')}
+              whileHover={{ scale: 1.008 }}
+              whileTap={{ scale: 0.995 }}
+              style={{
+                width: '100%',
+                background: '#1e9953',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '980px',
+                padding: '15px 32px',
+                fontSize: '15px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+                transition: 'background 0.2s',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = '#17803f')}
+              onMouseLeave={(e) => (e.currentTarget.style.background = '#1e9953')}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M1.5 4L8 9L14.5 4" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                <rect x="1.5" y="3" width="13" height="10" rx="2" stroke="white" strokeWidth="1.6" />
+              </svg>
+              Zostaw do siebie kontakt
+            </motion.button>
+          )}
+        </AnimatePresence>
 
         {/* Share button */}
         <button
@@ -225,6 +355,10 @@ export default function QuizResult({ score, answers, lead }: Props) {
             cursor: 'pointer',
             fontFamily: 'inherit',
             transition: 'all 0.18s',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '7px',
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.borderColor = '#1e9953';
@@ -235,7 +369,13 @@ export default function QuizResult({ score, answers, lead }: Props) {
             e.currentTarget.style.color = '#6e6e73';
           }}
         >
-          {copied ? '✓ Link skopiowany!' : '🔗 Udostępnij quiz'}
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <circle cx="11" cy="2.5" r="1.5" stroke="currentColor" strokeWidth="1.5" />
+            <circle cx="11" cy="11.5" r="1.5" stroke="currentColor" strokeWidth="1.5" />
+            <circle cx="3" cy="7" r="1.5" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M4.4 6.2L9.6 3.3M4.4 7.8L9.6 10.7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+          {copied ? 'Link skopiowany!' : 'Udostępnij quiz'}
         </button>
       </motion.div>
 
@@ -304,10 +444,7 @@ export default function QuizResult({ score, answers, lead }: Props) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
-        style={{
-          textAlign: 'center',
-          padding: '16px 0 8px',
-        }}
+        style={{ textAlign: 'center', padding: '16px 0 8px' }}
       >
         <p style={{ fontSize: '12px', color: '#6e6e73', margin: 0 }}>
           Powered by{' '}
