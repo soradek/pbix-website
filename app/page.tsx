@@ -184,7 +184,7 @@ export default function Home() {
           <div className="about-grid">
             <ScrollReveal>
               <div className="about-photo-sticky" style={{ position: 'sticky', top: '88px' }}>
-                <div style={{ width: '100%', aspectRatio: '3/4', maxWidth: '320px', borderRadius: '28px', overflow: 'hidden', boxShadow: '0 24px 64px rgba(0,0,0,0.12)' }}>
+                <div className="about-photo" style={{ width: '100%', aspectRatio: '3/4', maxWidth: '320px', borderRadius: '28px', overflow: 'hidden', boxShadow: '0 24px 64px rgba(0,0,0,0.12)' }}>
                   <Image
                     src="/radek.jpg"
                     alt="Radosław Sobczak – Certyfikowany Trener Microsoft"

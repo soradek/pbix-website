@@ -257,6 +257,74 @@ html {
   .mobile-menu-btn { display: flex !important; }
 }
 
+/* ── TABLET/iPad (768px - 1024px) ─────────────────── */
+@media (max-width: 1024px) and (min-width: 769px) {
+  /* Hero Section */
+  .hero-section {
+    min-height: 120vh !important;
+    padding: 120px 24px 100px !important;
+  }
+  .hero-section h1 {
+    font-size: clamp(32px, 6vw, 64px) !important;
+  }
+  .hero-section p {
+    font-size: clamp(14px, 1.8vw, 17px) !important;
+  }
+
+  /* Background: shift to right */
+  .hero-bg {
+    background-position: right center !important;
+  }
+
+  /* Navbar: hide "Radosław Sobczak" subtitle */
+  .navbar-subtitle {
+    display: none !important;
+  }
+
+  /* About Section: stack image and text */
+  .about-grid {
+    grid-template-columns: 1fr !important;
+    gap: 48px !important;
+  }
+  .about-photo {
+    height: 100% !important;
+    aspect-ratio: auto !important;
+  }
+
+  /* Testimonials: reduce height, 1 column grid */
+  .testimonials-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .testimonial-card {
+    min-height: auto !important;
+    height: auto !important;
+  }
+
+  /* Steps/How it works: stack vertically */
+  .steps-two-col {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 48px !important;
+  }
+  .steps-photo-wrapper {
+    display: flex !important;
+    order: -1 !important;
+  }
+  .steps-photo-wrapper > div {
+    height: 400px !important;
+  }
+
+  /* Marquee: adjust for iPad */
+  .marquee-track {
+    animation-duration: 60s !important;
+  }
+  .marquee-item {
+    padding: 0 40px !important;
+    flex-shrink: 0 !important;
+    min-width: auto !important;
+  }
+}
+
 /* ── Mobile ────────────────────────────────────────── */
 @media (max-width: 768px) {
 

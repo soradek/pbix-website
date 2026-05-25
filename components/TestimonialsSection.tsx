@@ -20,7 +20,7 @@ function StarRow({ small = false }: { small?: boolean }) {
 
 function TestimonialCard({ t, small = false }: { t: Testimonial; small?: boolean }) {
   return (
-    <div style={{
+    <div className="testimonial-card" style={{
       background: 'linear-gradient(135deg, #1a8a49 0%, #1e9953 60%, #178040 100%)',
       borderRadius: small ? '16px' : '20px',
       padding: small ? '24px 20px' : '36px 32px',

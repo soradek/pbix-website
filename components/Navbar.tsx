@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IconPhone } from '@/components/Icons';
 
-const APP_VERSION = '1.9.8';
+const APP_VERSION = '1.10.0';
 
 function getAltUrl(pathname: string): string {
   if (pathname.startsWith('/en')) {
@@ -90,7 +90,7 @@ export default function Navbar() {
         <Link href={isEn ? '/en' : '/'} onClick={() => setIsOpen(false)} style={{ textDecoration: 'none' }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span style={{ fontSize: '20px', fontWeight: 600, color: '#1d1d1f', letterSpacing: '-0.5px' }}>pbix.pl</span>
-            <span style={{ fontSize: '10px', color: '#6e6e73', textTransform: 'uppercase', letterSpacing: '1px', lineHeight: 1 }}>Radosław Sobczak</span>
+            <span className="navbar-subtitle" style={{ fontSize: '10px', color: '#6e6e73', textTransform: 'uppercase', letterSpacing: '1px', lineHeight: 1 }}>Radosław Sobczak</span>
           </div>
         </Link>
 

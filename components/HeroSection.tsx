@@ -14,7 +14,7 @@ export default function HeroSection() {
       padding: '100px 24px 80px',
     }}>
       {/* Background photo */}
-      <div style={{
+      <div className="hero-bg" style={{
         position: 'absolute', inset: 0,
         backgroundImage: 'url(/tlo.jpg)',
         backgroundSize: 'cover',
