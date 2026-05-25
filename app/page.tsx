@@ -99,7 +99,7 @@ export default function Home() {
       <section className="section-xl" style={{ padding: '120px 24px' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <ScrollReveal>
-            <div style={{ textAlign: 'center', marginBottom: '72px' }}>
+            <div style={{ textAlign: 'center', marginBottom: '36px' }}>
               <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '2px', color: '#6e6e73', marginBottom: '16px' }}>Specjalizacje</div>
               <h2 style={{ fontSize: 'clamp(32px, 4.5vw, 52px)', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-1.5px', margin: 0 }}>
                 Narzędzia, które zmienią<br />sposób Twojej pracy
