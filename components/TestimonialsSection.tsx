@@ -47,7 +47,7 @@ function TestimonialCard({ t, small = false }: { t: Testimonial; small?: boolean
         color: '#ffffff',
         fontSize: small ? '13px' : '15px',
         lineHeight: 1.65,
-        margin: small ? '0 0 16px' : '0 0 28px',
+        margin: small ? '0 0 16px' : '0 0 20px',
         flex: 1,
         fontStyle: 'italic',
       }}>
@@ -57,8 +57,9 @@ function TestimonialCard({ t, small = false }: { t: Testimonial; small?: boolean
         display: 'flex',
         alignItems: 'center',
         gap: '10px',
-        paddingTop: small ? '14px' : '20px',
+        paddingTop: small ? '12px' : '16px',
         borderTop: '1px solid rgba(255,255,255,0.18)',
+        marginTop: 'auto',
       }}>
         <div style={{
           width: small ? '36px' : '44px',

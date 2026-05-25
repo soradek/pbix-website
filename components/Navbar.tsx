@@ -8,6 +8,12 @@ import { IconPhone } from '@/components/Icons';
 
 const APP_VERSION = '1.10.0';
 
+interface NavLink {
+  href: string;
+  label: string;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+}
+
 function getAltUrl(pathname: string): string {
   if (pathname.startsWith('/en')) {
     const stripped = pathname.replace(/^\/en/, '');
@@ -52,19 +58,37 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
 
-  const navLinks = isEn
+  const homeHref = isEn ? '/en' : '/';
+  const faqHref = isEn ? '/en#faq' : '/#faq';
+
+  const handleHomeClick = (e: React.MouseEvent) => {
+    if (pathname === '/' || pathname === '/en') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleFaqClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === '/' || pathname === '/en') {
+      e.preventDefault();
+      const faqEl = document.getElementById('faq');
+      faqEl?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const navLinks: NavLink[] = isEn
     ? [
-        { href: '/en', label: 'Home' },
+        { href: '/en', label: 'Home', onClick: handleHomeClick },
         { href: '/en/trainings', label: 'Trainings' },
         { href: '/en/projects', label: 'Projects' },
-        { href: '/en#faq', label: 'FAQ' },
+        { href: '/en#faq', label: 'FAQ', onClick: handleFaqClick },
       ]
     : [
-        { href: '/', label: 'Home' },
+        { href: '/', label: 'Home', onClick: handleHomeClick },
         { href: '/szkolenia', label: 'Szkolenia' },
         { href: '/projekty', label: 'Projekty' },
         { href: '/blog', label: 'Blog' },
-        { href: '/#faq', label: 'FAQ' },
+        { href: '/#faq', label: 'FAQ', onClick: handleFaqClick },
       ];
 
   const ctaHref = isEn ? '/en/contact' : '/kontakt';
@@ -141,6 +165,7 @@ export default function Navbar() {
             <Link
               key={link.label}
               href={link.href}
+              onClick={link.onClick}
               style={{ color: '#1d1d1f', textDecoration: 'none', fontSize: '14px', opacity: 0.7, transition: 'opacity 0.2s' }}
               onMouseEnter={e => { e.currentTarget.style.opacity = '1'; }}
               onMouseLeave={e => { e.currentTarget.style.opacity = '0.7'; }}
