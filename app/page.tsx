@@ -183,7 +183,7 @@ export default function Home() {
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div className="about-grid">
             <ScrollReveal>
-              <div className="about-photo-sticky" style={{ position: 'sticky', top: '88px' }}>
+              <div className="about-photo-sticky" style={{ position: 'sticky', top: '80px' }}>
                 <div className="about-photo" style={{ width: '100%', aspectRatio: '3/4', maxWidth: '320px', borderRadius: '28px', overflow: 'hidden', boxShadow: '0 24px 64px rgba(0,0,0,0.12)' }}>
                   <Image
                     src="/radek.jpg"
