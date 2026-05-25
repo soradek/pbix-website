@@ -259,16 +259,16 @@ html {
 
 /* ── TABLET/iPad (768px - 1024px) ─────────────────── */
 @media (max-width: 1024px) and (min-width: 769px) {
-  /* Hero Section */
+  /* Hero Section — prop to background width */
   .hero-section {
-    min-height: 120vh !important;
-    padding: 120px 24px 100px !important;
+    min-height: 60vh !important;
+    padding: 80px 24px 60px !important;
   }
   .hero-section h1 {
-    font-size: clamp(32px, 6vw, 64px) !important;
+    font-size: clamp(32px, 5vw, 56px) !important;
   }
   .hero-section p {
-    font-size: clamp(14px, 1.8vw, 17px) !important;
+    font-size: clamp(14px, 1.6vw, 16px) !important;
   }
 
   /* Background: shift to right */
@@ -281,37 +281,38 @@ html {
     display: none !important;
   }
 
-  /* About Section: stack image and text */
+  /* About Section: keep 2-col, equal heights */
   .about-grid {
-    grid-template-columns: 1fr !important;
-    gap: 48px !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 40px !important;
+    align-items: stretch !important;
   }
   .about-photo {
     height: 100% !important;
-    aspect-ratio: auto !important;
+    aspect-ratio: 3/4 !important;
   }
 
-  /* Testimonials: reduce height, 1 column grid */
+  /* Testimonials: 3-col grid, equal heights */
   .testimonials-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 16px !important;
   }
   .testimonial-card {
-    min-height: auto !important;
-    height: auto !important;
+    min-height: 280px !important;
+    height: 100% !important;
+    padding: 20px 16px !important;
+  }
+  .testimonial-card p {
+    font-size: 13px !important;
   }
 
-  /* Steps/How it works: stack vertically */
+  /* Steps: hide photo on tablet */
   .steps-two-col {
-    display: flex !important;
-    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
     gap: 48px !important;
   }
   .steps-photo-wrapper {
-    display: flex !important;
-    order: -1 !important;
-  }
-  .steps-photo-wrapper > div {
-    height: 400px !important;
+    display: none !important;
   }
 
   /* Marquee: adjust for iPad */
