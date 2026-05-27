@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IconPhone } from '@/components/Icons';
 
-const APP_VERSION = '1.10.0';
+const APP_VERSION = '1.11.0';
 
 interface NavLink {
   href: string;

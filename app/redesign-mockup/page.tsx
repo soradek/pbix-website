@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, cubicBezier } from 'framer-motion';
 
 /* ──────────────────────────────────────────────────────────────
    HIGH-END AGENCY REDESIGN MOCKUP – pbix.pl
    ────────────────────────────────────────────────────────────── */
 
 const springConfig = { type: 'spring', stiffness: 100, damping: 20 };
-const easeOutCurve = [0.32, 0.72, 0, 1];
+const easeOutCurve = cubicBezier(0.32, 0.72, 0, 1);
 
 export default function RedesignMockup() {
   return (
