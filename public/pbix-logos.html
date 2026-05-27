@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>PBIX Logo Concepts</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, 'Inter', sans-serif; background: #f5f5f7; padding: 60px 40px; }
+  h1 { color: #1d1d1f; font-size: 28px; margin-bottom: 8px; }
+  .subtitle { color: #6e6e73; font-size: 15px; margin-bottom: 60px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 48px 32px 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.07);
+  }
+  .card-logo { width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; }
+  .card h2 { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #6e6e73; }
+  .card p { font-size: 14px; color: #1d1d1f; text-align: center; line-height: 1.6; }
+  .badge { font-size: 11px; font-weight: 600; background: #1e9953; color: #fff; padding: 4px 12px; border-radius: 20px; letter-spacing: 0.04em; }
+  .colors { display: flex; gap: 8px; align-items: center; margin-top: 4px; }
+  .swatch { width: 16px; height: 16px; border-radius: 50%; }
+  .color-label { font-size: 12px; color: #6e6e73; }
+  hr { width: 100%; border: none; border-top: 1px solid #f0f0f0; }
+</style>
+</head>
+<body>
+<h1>PBIX — Koncepty Logo</h1>
+<p class="subtitle">Kolorystyka: #1e9953 (Emerald Green) · #1d1d1f (Dark Gray) · #ffffff (White)</p>
+
+<div class="grid">
+
+  <!-- OPTION 1: DATA GROWTH -->
+  <div class="card">
+    <h2>Opcja 1 — Data Growth</h2>
+    <div class="card-logo">
+      <svg viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Bar 1 -->
+        <rect x="20" y="140" width="32" height="44" rx="4" fill="#1e9953" opacity="0.35"/>
+        <!-- Bar 2 -->
+        <rect x="62" y="110" width="32" height="74" rx="4" fill="#1e9953" opacity="0.6"/>
+        <!-- Bar 3 -->
+        <rect x="104" y="76" width="32" height="108" rx="4" fill="#1e9953" opacity="0.85"/>
+        <!-- Bar 4 + arrow -->
+        <rect x="146" y="44" width="32" height="140" rx="4" fill="#1e9953"/>
+        <!-- Arrow head on top of bar 4 -->
+        <polygon points="162,16 148,44 176,44" fill="#1d1d1f"/>
+      </svg>
+    </div>
+    <div class="colors">
+      <div class="swatch" style="background:#1e9953"></div>
+      <span class="color-label">#1e9953</span>
+      <div class="swatch" style="background:#1d1d1f"></div>
+      <span class="color-label">#1d1d1f</span>
+    </div>
+    <hr>
+    <p>Rosnący wykres kolumnowy transformujący się w strzałkę. Czytelny symbol wzrostu i postępu.</p>
+    <span class="badge">REKOMENDOWANE</span>
+  </div>
+
+  <!-- OPTION 2: PB MONOGRAM -->
+  <div class="card">
+    <h2>Opcja 2 — PB Monogram</h2>
+    <div class="card-logo">
+      <svg viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Circle background -->
+        <circle cx="100" cy="100" r="88" fill="#1e9953"/>
+        <!-- Letter P -->
+        <text x="28" y="138" font-family="'Arial Black', sans-serif" font-weight="900" font-size="110" fill="#fff" letter-spacing="-4">P</text>
+        <!-- Letter B offset -->
+        <text x="90" y="138" font-family="'Arial Black', sans-serif" font-weight="900" font-size="110" fill="rgba(255,255,255,0.25)" letter-spacing="-4">B</text>
+        <!-- Trend line overlay -->
+        <polyline points="42,120 70,90 100,105 138,62" fill="none" stroke="#1d1d1f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+        <circle cx="138" cy="62" r="6" fill="#1d1d1f" opacity="0.7"/>
+      </svg>
+    </div>
+    <div class="colors">
+      <div class="swatch" style="background:#1e9953"></div>
+      <span class="color-label">#1e9953</span>
+      <div class="swatch" style="background:#ffffff; border: 1px solid #eee"></div>
+      <span class="color-label">#ffffff</span>
+    </div>
+    <hr>
+    <p>Inicjały P+B w zielonym kole z linią trendu. Kompaktowe, skalowalne jako favicon i ikona.</p>
+  </div>
+
+  <!-- OPTION 3: PIXEL SPARK -->
+  <div class="card">
+    <h2>Opcja 3 — Pixel Spark</h2>
+    <div class="card-logo">
+      <svg viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Grid of data points forming upward trend -->
+        <!-- Row 4 (bottom) -->
+        <rect x="22" y="154" width="22" height="22" rx="3" fill="#1e9953" opacity="0.20"/>
+        <rect x="50" y="154" width="22" height="22" rx="3" fill="#1e9953" opacity="0.20"/>
+        <rect x="78" y="154" width="22" height="22" rx="3" fill="#1e9953" opacity="0.20"/>
+        <rect x="106" y="154" width="22" height="22" rx="3" fill="#1e9953" opacity="0.20"/>
+        <rect x="134" y="154" width="22" height="22" rx="3" fill="#1e9953" opacity="0.20"/>
+        <!-- Row 3 -->
+        <rect x="22" y="124" width="22" height="22" rx="3" fill="#1e9953" opacity="0.20"/>
+        <rect x="50" y="124" width="22" height="22" rx="3" fill="#1e9953" opacity="0.35"/>
+        <rect x="78" y="124" width="22" height="22" rx="3" fill="#1e9953" opacity="0.35"/>
+        <rect x="106" y="124" width="22" height="22" rx="3" fill="#1e9953" opacity="0.35"/>
+        <rect x="134" y="124" width="22" height="22" rx="3" fill="#1e9953" opacity="0.60"/>
+        <!-- Row 2 -->
+        <rect x="22" y="94" width="22" height="22" rx="3" fill="#1e9953" opacity="0.20"/>
+        <rect x="50" y="94" width="22" height="22" rx="3" fill="#1e9953" opacity="0.20"/>
+        <rect x="78" y="94" width="22" height="22" rx="3" fill="#1e9953" opacity="0.60"/>
+        <rect x="106" y="94" width="22" height="22" rx="3" fill="#1e9953" opacity="0.85"/>
+        <rect x="134" y="94" width="22" height="22" rx="3" fill="#1e9953"/>
+        <!-- Row 1 (top) -->
+        <rect x="22" y="64" width="22" height="22" rx="3" fill="#1e9953" opacity="0.20"/>
+        <rect x="50" y="64" width="22" height="22" rx="3" fill="#1e9953" opacity="0.20"/>
+        <rect x="78" y="64" width="22" height="22" rx="3" fill="#1e9953" opacity="0.20"/>
+        <rect x="106" y="64" width="22" height="22" rx="3" fill="#1e9953" opacity="0.20"/>
+        <rect x="134" y="64" width="22" height="22" rx="3" fill="#1e9953"/>
+        <!-- Arrow up-right -->
+        <line x1="50" y1="148" x2="148" y2="50" stroke="#1d1d1f" stroke-width="6" stroke-linecap="round" opacity="0.85"/>
+        <polygon points="148,50 130,52 146,68" fill="#1d1d1f" opacity="0.85"/>
+      </svg>
+    </div>
+    <div class="colors">
+      <div class="swatch" style="background:#1e9953"></div>
+      <span class="color-label">#1e9953</span>
+      <div class="swatch" style="background:#1d1d1f"></div>
+      <span class="color-label">#1d1d1f</span>
+    </div>
+    <hr>
+    <p>Siatka pikseli-danych z ukośną strzałką wzrostu. Nowoczesny, tech look nawiązujący do Power BI.</p>
+  </div>
+
+</div>
+
+<div style="margin-top:48px; padding:32px; background:#fff; border-radius:20px; box-shadow:0 2px 20px rgba(0,0,0,0.07);">
+  <p style="font-size:14px;color:#1d1d1f;font-weight:600;margin-bottom:16px;">Wytyczne typografii</p>
+  <div style="display:flex;gap:40px;align-items:center;">
+    <div>
+      <p style="font-family:'Arial Black',sans-serif;font-size:40px;font-weight:900;color:#1e9953;letter-spacing:-1px;">PBIX</p>
+      <p style="font-size:11px;color:#6e6e73;margin-top:4px;">Arial Black / 900 weight</p>
+    </div>
+    <div>
+      <p style="font-family:'Inter',sans-serif;font-size:40px;font-weight:700;color:#1e9953;letter-spacing:-1px;">PBIX</p>
+      <p style="font-size:11px;color:#6e6e73;margin-top:4px;">Inter Bold / 700 weight</p>
+    </div>
+    <div>
+      <p style="font-family:'Inter',sans-serif;font-size:40px;font-weight:700;color:#1d1d1f;letter-spacing:-1px;">PBIX</p>
+      <p style="font-size:11px;color:#6e6e73;margin-top:4px;">Inter Bold / Dark Gray</p>
+    </div>
+    <div style="background:#1e9953;padding:12px 24px;border-radius:10px;">
+      <p style="font-family:'Inter',sans-serif;font-size:40px;font-weight:700;color:#fff;letter-spacing:-1px;">PBIX</p>
+      <p style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:4px;">Na ciemnym tle</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

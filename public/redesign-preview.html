@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pbix.pl – High-End Redesign Mockup</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    * {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    /* Custom spring animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes float-reverse {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(4px); }
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .animate-float-delay-1 {
+      animation: float 3.5s ease-in-out infinite;
+      animation-delay: 0.3s;
+    }
+
+    .animate-float-reverse {
+      animation: float-reverse 4.2s ease-in-out infinite;
+      animation-delay: 0.6s;
+    }
+
+    .animate-float-delay-2 {
+      animation: float 3.8s ease-in-out infinite;
+      animation-delay: 0.2s;
+    }
+
+    .marquee {
+      animation: marquee 40s linear infinite;
+    }
+
+    /* Smooth transitions */
+    .transition-smooth {
+      transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    /* Glow shadows */
+    .shadow-glow {
+      box-shadow: 0 20px 40px -15px rgba(30, 153, 83, 0.25);
+    }
+
+    .shadow-light {
+      box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Premium typography */
+    .font-display {
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    /* Hero background shapes */
+    .blob-1 {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      background: linear-gradient(135deg, rgba(209, 250, 229, 0.2) 0%, transparent 100%);
+      border-radius: 50%;
+      filter: blur(90px);
+      top: -160px;
+      right: -160px;
+      pointer-events: none;
+    }
+
+    .blob-2 {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      background: linear-gradient(135deg, rgba(167, 243, 208, 0.3) 0%, transparent 100%);
+      border-radius: 50%;
+      filter: blur(90px);
+      bottom: -80px;
+      left: -160px;
+      pointer-events: none;
+    }
+
+    /* Interactive hover effects */
+    .card-hover {
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    .card-hover:hover {
+      border-color: rgba(16, 185, 129, 0.7);
+      box-shadow: 0 20px 40px -15px rgba(30, 153, 83, 0.12);
+      transform: translateY(-4px);
+    }
+
+    .btn-hover:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-hover:active {
+      transform: scale(0.98);
+    }
+
+    /* Underline animation */
+    .link-hover {
+      position: relative;
+    }
+
+    .link-hover::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #1e9953;
+      transition: width 0.5s ease;
+    }
+
+    .link-hover:hover::after {
+      width: 100%;
+    }
+  </style>
+</head>
+<body class="bg-white text-zinc-950">
+
+  <!-- ═══════════════════════════════════════════════════════
+       NAVBAR (Premium Glass Floating)
+       ═══════════════════════════════════════════════════════ -->
+  <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-max rounded-full px-8 py-3 backdrop-blur-xl bg-white/80 border border-zinc-200/50 shadow-light">
+    <div class="flex items-center gap-12">
+      <div class="font-bold text-lg tracking-tight">pbix.pl</div>
+      <div class="hidden md:flex gap-8 text-sm text-zinc-600">
+        <a href="#" class="link-hover transition-smooth">Szkolenia</a>
+        <a href="#" class="link-hover transition-smooth">Projekty</a>
+        <a href="#" class="link-hover transition-smooth">FAQ</a>
+      </div>
+      <button class="ml-4 px-6 py-2.5 rounded-full bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 btn-hover transition-smooth">
+        Kontakt
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO SECTION (Asymmetric, Premium Typography)
+       ═══════════════════════════════════════════════════════ -->
+  <section class="min-h-screen pt-32 pb-24 px-6 md:px-12 flex items-center relative overflow-hidden">
+    <div class="blob-1"></div>
+    <div class="blob-2"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center w-full">
+      <!-- Left: Content -->
+      <div class="opacity-100 translate-y-0 transition-smooth">
+        <div class="inline-block mb-8">
+          <span class="text-xs uppercase tracking-widest font-medium text-zinc-500 px-3 py-1 rounded-full bg-zinc-100">
+            Szkolenia dla profesjonalistów
+          </span>
+        </div>
+
+        <h1 class="text-5xl md:text-7xl font-bold leading-none mb-8 tracking-tight font-display">
+          Zamień dane
+          <span class="block mt-3 text-emerald-600">w wartość</span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-zinc-600 leading-relaxed mb-10 max-w-xl">
+          Power BI, Excel, SQL i VBA. Szkolenia prowadzone przez certyfikowanego trenera Microsoft z ponad 7 latami doświadczenia.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 mb-16">
+          <button class="px-8 py-4 rounded-full bg-emerald-600 text-white font-semibold hover:bg-emerald-700 transition-smooth btn-hover flex items-center justify-center gap-2">
+            Poznaj szkolenia
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+          <button class="px-8 py-4 rounded-full border-2 border-zinc-300 text-zinc-950 font-semibold hover:border-emerald-600 hover:text-emerald-600 transition-smooth">
+            Napisz do mnie
+          </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-2 gap-8 pt-8 border-t border-zinc-200/50">
+          <div class="opacity-100">
+            <div class="text-3xl font-bold text-emerald-600 mb-1">4,000+</div>
+            <div class="text-sm text-zinc-500">godzin szkoleniowych</div>
+          </div>
+          <div class="opacity-100">
+            <div class="text-3xl font-bold text-emerald-600 mb-1">4,500+</div>
+            <div class="text-sm text-zinc-500">przeszkolonych pracowników</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Floating Cards Grid -->
+      <div class="relative h-96 md:h-full hidden md:block">
+        <div class="absolute inset-0 grid grid-cols-2 gap-4">
+          <!-- Large card -->
+          <div class="col-span-1 row-span-2 rounded-3xl bg-gradient-to-br from-emerald-50 to-white p-8 border border-zinc-200/50 shadow-light animate-float group cursor-pointer card-hover">
+            <div class="flex flex-col h-full justify-between">
+              <div>
+                <div class="w-12 h-12 rounded-lg bg-emerald-100 mb-4 flex items-center justify-center group-hover:bg-emerald-200 transition-colors">
+                  <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                </div>
+                <h3 class="font-bold text-zinc-950 mb-2">Power BI</h3>
+                <p class="text-sm text-zinc-600">Dashboardy od A do Z</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Top right -->
+          <div class="rounded-3xl bg-white p-6 border border-zinc-200/50 shadow-light animate-float-delay-1 card-hover">
+            <div class="w-10 h-10 rounded-lg bg-zinc-100 mb-3 flex items-center justify-center">
+              <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4" />
+              </svg>
+            </div>
+            <p class="text-xs font-medium text-zinc-500 uppercase tracking-wider">SQL</p>
+          </div>
+
+          <!-- Bottom cards -->
+          <div class="rounded-3xl bg-gradient-to-br from-emerald-600 to-emerald-700 p-6 text-white shadow-glow animate-float-reverse card-hover">
+            <div class="font-bold mb-1 text-sm">7+ lat</div>
+            <p class="text-xs text-emerald-100">doświadczenia MCT</p>
+          </div>
+
+          <div class="rounded-3xl bg-white p-6 border border-zinc-200/50 shadow-light animate-float-delay-2 card-hover">
+            <div class="text-2xl font-bold text-emerald-600 mb-1">Excel</div>
+            <p class="text-xs text-zinc-500">VBA & formulas</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SPECIALIZATIONS (Bento Grid – Asymmetric)
+       ═══════════════════════════════════════════════════════ -->
+  <section class="py-32 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-20">
+        <span class="text-xs uppercase tracking-widest text-zinc-500 font-medium">Specjalizacje</span>
+        <h2 class="text-5xl md:text-6xl font-bold mt-4 leading-none tracking-tight font-display">
+          Czego nauczę
+        </h2>
+      </div>
+
+      <!-- Bento Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
+        <!-- Large card -->
+        <div class="md:col-span-2 md:row-span-2 rounded-3xl bg-gradient-to-br from-emerald-600 to-emerald-700 p-10 text-white shadow-glow card-hover group cursor-pointer">
+          <div class="flex flex-col h-full justify-between">
+            <div>
+              <div class="w-14 h-14 rounded-xl bg-white/15 mb-6 flex items-center justify-center group-hover:bg-white/25 transition-colors">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <h3 class="text-3xl font-bold mb-3">Power BI</h3>
+              <p class="text-emerald-100 leading-relaxed">Od surowych danych do interaktywnych dashboardów. Model danych, DAX, publikacja w chmurze.</p>
+            </div>
+            <div class="flex items-center gap-2 text-white text-sm font-semibold group-hover:translate-x-1 transition-smooth">
+              Odkryj więcej
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Small cards -->
+        <div class="rounded-3xl bg-white p-8 border border-zinc-200/50 shadow-light card-hover group">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 mb-4 flex items-center justify-center group-hover:bg-emerald-200 transition-colors">
+            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-lg mb-2 text-zinc-950">Excel</h3>
+          <p class="text-zinc-600 text-sm leading-relaxed">VBA, Power Query, analiza danych</p>
+        </div>
+
+        <div class="rounded-3xl bg-white p-8 border border-zinc-200/50 shadow-light card-hover group">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 mb-4 flex items-center justify-center group-hover:bg-emerald-200 transition-colors">
+            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7v10a2 2 0 002 2h12a2 2 0 002-2V9a2 2 0 00-2-2h-6.343M5 17H3m18 0h-18M9 3h6M9 3a2 2 0 012-2h0a2 2 0 012 2m0 0h6a2 2 0 012 2v1H3V5a2 2 0 012-2z" />
+              </svg>
+          </div>
+          <h3 class="font-bold text-lg mb-2 text-zinc-950">SQL</h3>
+          <p class="text-zinc-600 text-sm leading-relaxed">Zapytania, bazy relacyjne</p>
+        </div>
+
+        <div class="rounded-3xl bg-white p-8 border border-zinc-200/50 shadow-light card-hover group">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 mb-4 flex items-center justify-center group-hover:bg-emerald-200 transition-colors">
+            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-lg mb-2 text-zinc-950">Wizualizacja</h3>
+          <p class="text-zinc-600 text-sm leading-relaxed">Wykresy, prezentacje, storytelling</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CLIENTS MARQUEE (Enhanced)
+       ═══════════════════════════════════════════════════════ -->
+  <section class="py-24 px-6 md:px-12 border-t border-zinc-200/50">
+    <div class="max-w-7xl mx-auto mb-16">
+      <h2 class="text-5xl font-bold text-center tracking-tight font-display">
+        Zaufali mi
+      </h2>
+    </div>
+
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-white via-emerald-50/30 to-white p-12 border border-zinc-200/30">
+      <div class="flex gap-16 marquee whitespace-nowrap">
+        <span class="flex-shrink-0 text-zinc-400 font-semibold opacity-60 hover:opacity-100 transition-opacity">Volkswagen</span>
+        <span class="flex-shrink-0 text-zinc-400 font-semibold opacity-60 hover:opacity-100 transition-opacity">OLX</span>
+        <span class="flex-shrink-0 text-zinc-400 font-semibold opacity-60 hover:opacity-100 transition-opacity">Lufthansa</span>
+        <span class="flex-shrink-0 text-zinc-400 font-semibold opacity-60 hover:opacity-100 transition-opacity">Żabka</span>
+        <span class="flex-shrink-0 text-zinc-400 font-semibold opacity-60 hover:opacity-100 transition-opacity">Unilever</span>
+        <span class="flex-shrink-0 text-zinc-400 font-semibold opacity-60 hover:opacity-100 transition-opacity">PepsiCo</span>
+        <span class="flex-shrink-0 text-zinc-400 font-semibold opacity-60 hover:opacity-100 transition-opacity">Zoetis</span>
+
+        <!-- Duplicate for seamless loop -->
+        <span class="flex-shrink-0 text-zinc-400 font-semibold opacity-60">Volkswagen</span>
+        <span class="flex-shrink-0 text-zinc-400 font-semibold opacity-60">OLX</span>
+        <span class="flex-shrink-0 text-zinc-400 font-semibold opacity-60">Lufthansa</span>
+        <span class="flex-shrink-0 text-zinc-400 font-semibold opacity-60">Żabka</span>
+        <span class="flex-shrink-0 text-zinc-400 font-semibold opacity-60">Unilever</span>
+        <span class="flex-shrink-0 text-zinc-400 font-semibold opacity-60">PepsiCo</span>
+        <span class="flex-shrink-0 text-zinc-400 font-semibold opacity-60">Zoetis</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       WHY CHOOSE (Card Grid)
+       ═══════════════════════════════════════════════════════ -->
+  <section class="py-32 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-20">
+        <span class="text-xs uppercase tracking-widest text-zinc-500 font-medium">Dlaczego ja</span>
+        <h2 class="text-5xl md:text-6xl font-bold mt-4 leading-none tracking-tight font-display">
+          Nie zwyczajne szkolenie
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="rounded-3xl bg-white p-10 border border-zinc-200/50 shadow-light card-hover group">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 mb-6 flex items-center justify-center group-hover:bg-emerald-200 transition-colors">
+            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-xl mb-3 text-zinc-950">Zero presji</h3>
+          <p class="text-zinc-600 leading-relaxed text-base">Pytaj o wszystko, tyle razy ile potrzebujesz. Szkolenie, nie egzamin.</p>
+        </div>
+
+        <div class="rounded-3xl bg-white p-10 border border-zinc-200/50 shadow-light card-hover group">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 mb-6 flex items-center justify-center group-hover:bg-emerald-200 transition-colors">
+            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-xl mb-3 text-zinc-950">Przykłady biznesowe</h3>
+          <p class="text-zinc-600 leading-relaxed text-base">Żadnych sztucznych zadań. Każde ćwiczenie bazuje na realnych przypadkach.</p>
+        </div>
+
+        <div class="rounded-3xl bg-white p-10 border border-zinc-200/50 shadow-light card-hover group">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 mb-6 flex items-center justify-center group-hover:bg-emerald-200 transition-colors">
+            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-xl mb-3 text-zinc-950">Natychmiastowe zastosowanie</h3>
+          <p class="text-zinc-600 leading-relaxed text-base">Metody, które wdrożysz już następnego dnia. Wiedza gotowa do użycia.</p>
+        </div>
+
+        <div class="rounded-3xl bg-white p-10 border border-zinc-200/50 shadow-light card-hover group">
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 mb-6 flex items-center justify-center group-hover:bg-emerald-200 transition-colors">
+            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 class="font-bold text-xl mb-3 text-zinc-950">Indywidualne podejście</h3>
+          <p class="text-zinc-600 leading-relaxed text-base">Dostosowuję tempo i zakres do Twojego poziomu. Nikt nie zostanie sam.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       TESTIMONIALS
+       ═══════════════════════════════════════════════════════ -->
+  <section class="py-32 px-6 md:px-12 bg-gradient-to-br from-white via-emerald-50/20 to-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-20">
+        <span class="text-xs uppercase tracking-widest text-zinc-500 font-medium">Opinie</span>
+        <h2 class="text-5xl md:text-6xl font-bold mt-4 leading-none tracking-tight font-display">
+          Co mówią uczestnicy
+        </h2>
+      </div>
+
+      <div class="rounded-3xl bg-white p-12 md:p-14 border border-zinc-200/50 shadow-light">
+        <!-- Stars -->
+        <div class="flex gap-1 mb-8">
+          <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+        </div>
+
+        <!-- Quote -->
+        <blockquote class="text-2xl md:text-3xl font-bold text-zinc-950 mb-8 leading-tight italic">
+          "Szkolenie zupełnie zmieniło mój sposób pracy z danymi. Praktyczne przykłady, zero teorii bez sensu."
+        </blockquote>
+
+        <!-- Author -->
+        <div class="flex items-center gap-4 mb-12">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600"></div>
+          <div>
+            <div class="font-semibold text-zinc-950">Anna Kowalski</div>
+            <div class="text-sm text-zinc-600">Data Analyst • E-commerce Tech</div>
+          </div>
+        </div>
+
+        <!-- Navigation dots -->
+        <div class="flex gap-3 justify-center">
+          <button class="h-2 w-8 rounded-full bg-emerald-600 transition-all"></button>
+          <button class="h-2 w-2 rounded-full bg-zinc-300 hover:bg-zinc-400 transition-all"></button>
+          <button class="h-2 w-2 rounded-full bg-zinc-300 hover:bg-zinc-400 transition-all"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CTA SECTION (Premium)
+       ═══════════════════════════════════════════════════════ -->
+  <section class="py-32 px-6 md:px-12">
+    <div class="max-w-4xl mx-auto">
+      <div class="rounded-3xl bg-gradient-to-br from-emerald-600 to-emerald-700 p-16 md:p-24 text-center text-white shadow-glow">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 tracking-tight leading-tight font-display">
+          Porozmawiajmy o Twoim szkoleniu
+        </h2>
+        <p class="text-emerald-100 text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
+          Ustalmy zakres, termin i dostosujemy zajęcia dokładnie do Twoich potrzeb.
+        </p>
+        <button class="px-8 py-4 rounded-full bg-white text-emerald-600 font-bold shadow-lg hover:shadow-xl transition-shadow btn-hover">
+          Skontaktuj się teraz
+        </button>
+
+        <div class="mt-12 pt-8 border-t border-white/20 text-emerald-100 text-sm">
+          4,500+ przeszkolonych pracowników • Certyfikat MCT
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════ -->
+  <footer class="border-t border-zinc-200/50 py-16 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm text-zinc-600">
+      <div>© 2025 Radosław Sobczak • pbix.pl • kontakt@pbix.pl</div>
+      <div class="mt-4 md:mt-0 flex gap-6">
+        <a href="tel:+48573195404" class="hover:text-emerald-600 transition-smooth">+48 573 195 404</a>
+        <a href="#" class="hover:text-emerald-600 transition-smooth">Polityka prywatności</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

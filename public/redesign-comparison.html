@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pbix.pl – Redesign Comparison</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    * { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+<div class="max-w-7xl mx-auto px-4 py-12">
+  <h1 class="text-5xl font-bold text-center mb-4 text-zinc-950">pbix.pl Redesign</h1>
+  <p class="text-center text-zinc-600 mb-12 text-lg">BEFORE → AFTER</p>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION: Training Cards
+       ═══════════════════════════════════════════════════════ -->
+  <div class="mb-20">
+    <h2 class="text-3xl font-bold mb-8 text-zinc-950">1. Training Cards – BIGGEST CHANGE</h2>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- BEFORE -->
+      <div class="bg-white rounded-xl p-8 border-2 border-red-300">
+        <div class="text-sm font-bold text-red-600 mb-4">❌ BEFORE (Current)</div>
+
+        <div class="bg-zinc-900 rounded-2xl p-6 border border-zinc-700 cursor-pointer hover:border-zinc-600 transition">
+          <div class="text-3xl mb-4">📊</div>
+          <div>
+            <div class="text-xs uppercase tracking-wider text-blue-400 mb-2 font-medium">Power BI</div>
+            <h3 class="text-xl font-semibold text-zinc-100 mb-4">Excel with Power BI & Dashboards</h3>
+          </div>
+          <p class="text-zinc-400 text-sm mb-4 flex-1 line-clamp-3">Learn to transform raw data into interactive dashboards using Power BI. Understand data modeling, DAX formulas...</p>
+          <div class="flex justify-between items-center">
+            <div>
+              <div class="text-xs text-zinc-500">Duration</div>
+              <div class="text-sm font-semibold text-zinc-100">16 hours</div>
+            </div>
+            <a href="#" class="text-blue-400 text-sm font-medium flex items-center gap-1 hover:text-blue-300">
+              Details →
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-6 bg-red-50 border border-red-200 rounded-lg p-4">
+          <p class="text-sm text-red-800"><strong>Problems:</strong></p>
+          <ul class="text-sm text-red-700 mt-2 space-y-1">
+            <li>• Emoji 📊 unprofessional</li>
+            <li>• Blue color #0071e3 conflicts</li>
+            <li>• Dark background wrong</li>
+            <li>• Low contrast text</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- AFTER -->
+      <div class="bg-white rounded-xl p-8 border-2 border-green-300">
+        <div class="text-sm font-bold text-green-600 mb-4">✅ AFTER (Redesigned)</div>
+
+        <div class="bg-white rounded-2xl p-6 border border-zinc-200 hover:border-emerald-300 hover:shadow-lg transition cursor-pointer">
+          <!-- Icon Box -->
+          <div class="w-12 h-12 rounded-lg bg-emerald-100 mb-4 flex items-center justify-center">
+            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+
+          <div>
+            <div class="text-xs uppercase tracking-wider text-emerald-600 mb-2 font-medium">Power BI</div>
+            <h3 class="text-xl font-semibold text-zinc-950 mb-4">Excel with Power BI & Dashboards</h3>
+          </div>
+          <p class="text-zinc-600 text-sm mb-4 flex-1 line-clamp-3">Learn to transform raw data into interactive dashboards using Power BI. Understand data modeling, DAX formulas...</p>
+          <div class="flex justify-between items-center">
+            <div>
+              <div class="text-xs text-zinc-500">Duration</div>
+              <div class="text-sm font-semibold text-zinc-950">16 hours</div>
+            </div>
+            <a href="#" class="text-emerald-600 text-sm font-medium flex items-center gap-1 hover:text-emerald-700">
+              Details →
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-6 bg-green-50 border border-green-200 rounded-lg p-4">
+          <p class="text-sm text-green-800"><strong>Improvements:</strong></p>
+          <ul class="text-sm text-green-700 mt-2 space-y-1">
+            <li>✓ Professional SVG icon</li>
+            <li>✓ Green color #1e9953 consistent</li>
+            <li>✓ White background clean</li>
+            <li>✓ Perfect contrast & readability</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION: Color Palette
+       ═══════════════════════════════════════════════════════ -->
+  <div class="mb-20">
+    <h2 class="text-3xl font-bold mb-8 text-zinc-950">2. Color System – UNIFIED</h2>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- BEFORE -->
+      <div class="bg-white rounded-xl p-8 border-2 border-red-300">
+        <div class="text-sm font-bold text-red-600 mb-4">❌ BEFORE (Mixed Colors)</div>
+
+        <div class="space-y-4">
+          <div>
+            <p class="text-xs font-semibold text-zinc-600 mb-2">ACCENT 1 (Blue)</p>
+            <div class="h-16 bg-blue-500 rounded-lg border-2 border-red-300 flex items-center justify-center text-white font-bold">
+              #0071e3
+            </div>
+            <p class="text-xs text-red-600 mt-2">❌ Used in: Links, category badges, buttons</p>
+          </div>
+
+          <div>
+            <p class="text-xs font-semibold text-zinc-600 mb-2">ACCENT 2 (Green)</p>
+            <div class="h-16 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold">
+              #1e9953
+            </div>
+            <p class="text-xs text-red-600 mt-2">❌ Used in: Hero, buttons, icons</p>
+          </div>
+
+          <div class="bg-red-50 border border-red-200 rounded-lg p-3 mt-4">
+            <p class="text-xs text-red-800"><strong>Problem:</strong> Two competing accent colors = confusion & poor branding</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- AFTER -->
+      <div class="bg-white rounded-xl p-8 border-2 border-green-300">
+        <div class="text-sm font-bold text-green-600 mb-4">✅ AFTER (Unified Palette)</div>
+
+        <div class="space-y-4">
+          <div>
+            <p class="text-xs font-semibold text-zinc-600 mb-2">PRIMARY</p>
+            <div class="h-16 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold">
+              #1e9953
+            </div>
+            <p class="text-xs text-green-600 mt-2">✓ All links, buttons, badges, icons</p>
+          </div>
+
+          <div>
+            <p class="text-xs font-semibold text-zinc-600 mb-2">VARIATIONS</p>
+            <div class="flex gap-2">
+              <div class="h-12 flex-1 bg-emerald-700 rounded-lg flex items-center justify-center text-white text-xs font-bold">
+                Dark
+              </div>
+              <div class="h-12 flex-1 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-900 text-xs font-bold">
+                Light
+              </div>
+            </div>
+            <p class="text-xs text-green-600 mt-2">✓ For hover states & backgrounds</p>
+          </div>
+
+          <div class="bg-green-50 border border-green-200 rounded-lg p-3 mt-4">
+            <p class="text-xs text-green-800"><strong>Result:</strong> Consistent, premium, memorable branding</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION: Icons Comparison
+       ═══════════════════════════════════════════════════════ -->
+  <div class="mb-20">
+    <h2 class="text-3xl font-bold mb-8 text-zinc-950">3. Icons – EMOJI vs SVG</h2>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- BEFORE -->
+      <div class="bg-white rounded-xl p-8 border-2 border-red-300">
+        <div class="text-sm font-bold text-red-600 mb-4">❌ BEFORE (Emoji)</div>
+
+        <div class="space-y-3">
+          <div class="flex items-center gap-4 p-3 bg-gray-100 rounded">
+            <span class="text-4xl">📊</span>
+            <span class="text-sm">Power BI</span>
+          </div>
+          <div class="flex items-center gap-4 p-3 bg-gray-100 rounded">
+            <span class="text-4xl">📗</span>
+            <span class="text-sm">Excel</span>
+          </div>
+          <div class="flex items-center gap-4 p-3 bg-gray-100 rounded">
+            <span class="text-4xl">🗄️</span>
+            <span class="text-sm">SQL</span>
+          </div>
+          <div class="flex items-center gap-4 p-3 bg-gray-100 rounded">
+            <span class="text-4xl">📈</span>
+            <span class="text-sm">Visualization</span>
+          </div>
+
+          <div class="bg-red-50 border border-red-200 rounded-lg p-3 mt-4">
+            <p class="text-xs text-red-800"><strong>Problems:</strong> Unprofessional, inconsistent, low resolution</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- AFTER -->
+      <div class="bg-white rounded-xl p-8 border-2 border-green-300">
+        <div class="text-sm font-bold text-green-600 mb-4">✅ AFTER (SVG Icons)</div>
+
+        <div class="space-y-3">
+          <div class="flex items-center gap-4 p-3 bg-green-50 rounded border border-green-200">
+            <div class="w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center">
+              <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+            <span class="text-sm font-medium">Power BI</span>
+          </div>
+
+          <div class="flex items-center gap-4 p-3 bg-green-50 rounded border border-green-200">
+            <div class="w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center">
+              <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+              </svg>
+            </div>
+            <span class="text-sm font-medium">Excel</span>
+          </div>
+
+          <div class="flex items-center gap-4 p-3 bg-green-50 rounded border border-green-200">
+            <div class="w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center">
+              <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10a2 2 0 002 2h12a2 2 0 002-2V9a2 2 0 00-2-2h-6.343M5 17H3m18 0h-18M9 3h6M9 3a2 2 0 012-2h0a2 2 0 012 2m0 0h6a2 2 0 012 2v1H3V5a2 2 0 012-2z" />
+              </svg>
+            </div>
+            <span class="text-sm font-medium">SQL</span>
+          </div>
+
+          <div class="flex items-center gap-4 p-3 bg-green-50 rounded border border-green-200">
+            <div class="w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center">
+              <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+              </svg>
+            </div>
+            <span class="text-sm font-medium">Visualization</span>
+          </div>
+
+          <div class="bg-green-50 border border-green-200 rounded-lg p-3 mt-4">
+            <p class="text-xs text-green-800"><strong>Result:</strong> Professional, scalable, consistent brand</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION: Full Card Comparison
+       ═══════════════════════════════════════════════════════ -->
+  <div class="mb-20">
+    <h2 class="text-3xl font-bold mb-8 text-zinc-950">4. Complete Training Card</h2>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- BEFORE -->
+      <div>
+        <div class="text-sm font-bold text-red-600 mb-4">❌ BEFORE</div>
+        <div class="space-y-4">
+          <div class="bg-zinc-900 rounded-2xl p-6 border border-zinc-700">
+            <div class="text-3xl mb-4">📊</div>
+            <div>
+              <div class="text-xs uppercase tracking-wider text-blue-400 mb-2">Power BI</div>
+              <h3 class="text-xl font-semibold text-zinc-100 mb-3">Excel with Power BI</h3>
+            </div>
+            <p class="text-zinc-400 text-sm mb-4">Learn to transform raw data into interactive dashboards...</p>
+            <div class="flex justify-between items-center">
+              <div>
+                <div class="text-xs text-zinc-500">DURATION</div>
+                <div class="text-sm font-semibold text-zinc-100">16 hours</div>
+              </div>
+              <a href="#" class="text-blue-400 hover:text-blue-300">Details →</a>
+            </div>
+          </div>
+          <div class="bg-zinc-900 rounded-2xl p-6 border border-zinc-700">
+            <div class="text-3xl mb-4">📗</div>
+            <div>
+              <div class="text-xs uppercase tracking-wider text-blue-400 mb-2">Excel</div>
+              <h3 class="text-xl font-semibold text-zinc-100 mb-3">Master Excel</h3>
+            </div>
+            <p class="text-zinc-400 text-sm mb-4">From formulas to VBA automation...</p>
+            <div class="flex justify-between items-center">
+              <div>
+                <div class="text-xs text-zinc-500">DURATION</div>
+                <div class="text-sm font-semibold text-zinc-100">12 hours</div>
+              </div>
+              <a href="#" class="text-blue-400 hover:text-blue-300">Details →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AFTER -->
+      <div>
+        <div class="text-sm font-bold text-green-600 mb-4">✅ AFTER</div>
+        <div class="space-y-4">
+          <div class="bg-white rounded-2xl p-6 border border-zinc-200 hover:border-emerald-300 hover:shadow-lg transition">
+            <div class="w-12 h-12 rounded-lg bg-emerald-100 mb-4 flex items-center justify-center">
+              <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+            <div>
+              <div class="text-xs uppercase tracking-wider text-emerald-600 mb-2 font-medium">Power BI</div>
+              <h3 class="text-xl font-semibold text-zinc-950 mb-3">Excel with Power BI</h3>
+            </div>
+            <p class="text-zinc-600 text-sm mb-4">Learn to transform raw data into interactive dashboards...</p>
+            <div class="flex justify-between items-center">
+              <div>
+                <div class="text-xs text-zinc-500">DURATION</div>
+                <div class="text-sm font-semibold text-zinc-950">16 hours</div>
+              </div>
+              <a href="#" class="text-emerald-600 hover:text-emerald-700">Details →</a>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl p-6 border border-zinc-200 hover:border-emerald-300 hover:shadow-lg transition">
+            <div class="w-12 h-12 rounded-lg bg-emerald-100 mb-4 flex items-center justify-center">
+              <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+              </svg>
+            </div>
+            <div>
+              <div class="text-xs uppercase tracking-wider text-emerald-600 mb-2 font-medium">Excel</div>
+              <h3 class="text-xl font-semibold text-zinc-950 mb-3">Master Excel</h3>
+            </div>
+            <p class="text-zinc-600 text-sm mb-4">From formulas to VBA automation...</p>
+            <div class="flex justify-between items-center">
+              <div>
+                <div class="text-xs text-zinc-500">DURATION</div>
+                <div class="text-sm font-semibold text-zinc-950">12 hours</div>
+              </div>
+              <a href="#" class="text-emerald-600 hover:text-emerald-700">Details →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="bg-gradient-to-r from-emerald-50 to-green-50 border-2 border-emerald-300 rounded-2xl p-12">
+    <h3 class="text-2xl font-bold text-zinc-950 mb-4">Summary of Changes</h3>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div>
+        <div class="text-3xl font-bold text-emerald-600 mb-2">4</div>
+        <p class="text-zinc-700 font-semibold">Files Modified</p>
+        <p class="text-sm text-zinc-600 mt-1">TrainingCard.tsx, page.tsx, globals.css, Navbar.tsx</p>
+      </div>
+      <div>
+        <div class="text-3xl font-bold text-emerald-600 mb-2">∞</div>
+        <p class="text-zinc-700 font-semibold">Visual Impact</p>
+        <p class="text-sm text-zinc-600 mt-1">High-end agency quality, professional appearance</p>
+      </div>
+      <div>
+        <div class="text-3xl font-bold text-emerald-600 mb-2">0</div>
+        <p class="text-zinc-700 font-semibold">Architecture Changes</p>
+        <p class="text-sm text-zinc-600 mt-1">Pure styling improvements, no data/logic changes</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

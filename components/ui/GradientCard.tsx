@@ -42,26 +42,28 @@ export function GradientCard({ icon, title, description, href, linkLabel }: Grad
         position: 'relative',
         borderRadius: '20px',
         overflow: 'hidden',
-        backgroundColor: '#011509',
+        backgroundColor: '#ffffff',
         transformStyle: 'preserve-3d',
         height: '100%',
         minHeight: '260px',
         cursor: 'pointer',
+        border: '1px solid rgba(0,0,0,0.08)',
       }}
       animate={{
-        y: isHovered ? -6 : 0,
+        y: isHovered ? -4 : 0,
         rotateX: rotation.x,
         rotateY: rotation.y,
         boxShadow: isHovered
-          ? '0 24px 64px rgba(30,153,83,0.28), 0 0 0 1px rgba(30,153,83,0.35)'
-          : '0 4px 24px rgba(0,0,0,0.18), 0 0 0 1px rgba(255,255,255,0.07)',
+          ? '0 20px 40px -15px rgba(30,153,83,0.15), 0 0 0 1px rgba(30,153,83,0.2)'
+          : '0 10px 25px -10px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.08)',
+        borderColor: isHovered ? 'rgba(30,153,83,0.3)' : 'rgba(0,0,0,0.08)',
       }}
       transition={{ type: 'spring', stiffness: 280, damping: 22 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
     >
-      {/* Glass reflection */}
+      {/* Subtle top highlight */}
       <div
         style={{
           position: 'absolute',
@@ -69,45 +71,45 @@ export function GradientCard({ icon, title, description, href, linkLabel }: Grad
           zIndex: 3,
           pointerEvents: 'none',
           background:
-            'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 80%, rgba(255,255,255,0.04) 100%)',
+            'linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.2) 40%, transparent 80%)',
         }}
       />
 
-      {/* Green glow — bottom */}
+      {/* Emerald accent glow — bottom on hover */}
       <motion.div
         style={{
           position: 'absolute',
           bottom: 0,
           left: 0,
           right: 0,
-          height: '65%',
+          height: '50%',
           background:
-            'radial-gradient(ellipse at bottom center, rgba(30,153,83,0.55) -10%, rgba(0,102,51,0.3) 40%, transparent 70%)',
+            'radial-gradient(ellipse at bottom center, rgba(212,241,228,0.4) -10%, rgba(30,153,83,0.1) 40%, transparent 70%)',
           filter: 'blur(32px)',
           zIndex: 1,
           pointerEvents: 'none',
         }}
-        animate={{ opacity: isHovered ? 1 : 0.7 }}
+        animate={{ opacity: isHovered ? 0.6 : 0 }}
         transition={{ duration: 0.35 }}
       />
 
-      {/* Bottom border glow */}
+      {/* Bottom border accent */}
       <motion.div
         style={{
           position: 'absolute',
           bottom: 0,
           left: 0,
           right: 0,
-          height: '2px',
+          height: '1px',
           background:
-            'linear-gradient(90deg, transparent 0%, rgba(30,153,83,0.9) 50%, transparent 100%)',
+            'linear-gradient(90deg, transparent 0%, rgba(30,153,83,0.3) 50%, transparent 100%)',
           zIndex: 4,
           pointerEvents: 'none',
         }}
         animate={{
           boxShadow: isHovered
-            ? '0 0 18px 5px rgba(30,153,83,0.55)'
-            : '0 0 10px 2px rgba(30,153,83,0.35)',
+            ? '0 0 16px 4px rgba(30,153,83,0.12)'
+            : '0 0 0px 0px rgba(30,153,83,0)',
         }}
         transition={{ duration: 0.35 }}
       />
@@ -118,22 +120,21 @@ export function GradientCard({ icon, title, description, href, linkLabel }: Grad
           style={{
             position: 'relative',
             zIndex: 5,
-            padding: '32px',
+            padding: '28px',
             display: 'flex',
             flexDirection: 'column',
             height: '100%',
             boxSizing: 'border-box',
-            gap: '18px',
+            gap: '16px',
           }}
         >
           {/* Icon */}
           <div
             style={{
-              width: '48px',
-              height: '48px',
+              width: '44px',
+              height: '44px',
               borderRadius: '12px',
-              background: 'rgba(30,153,83,0.14)',
-              border: '1px solid rgba(30,153,83,0.28)',
+              background: '#d4f1e4',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -144,12 +145,12 @@ export function GradientCard({ icon, title, description, href, linkLabel }: Grad
           </div>
 
           {/* Text */}
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <h3
               style={{
-                fontSize: '20px',
+                fontSize: '18px',
                 fontWeight: 600,
-                color: '#ffffff',
+                color: '#1d1d1f',
                 margin: 0,
                 letterSpacing: '-0.3px',
                 lineHeight: 1.25,
@@ -160,8 +161,8 @@ export function GradientCard({ icon, title, description, href, linkLabel }: Grad
             <p
               style={{
                 fontSize: '14px',
-                color: 'rgba(255,255,255,0.6)',
-                lineHeight: 1.7,
+                color: '#6e6e73',
+                lineHeight: 1.6,
                 margin: 0,
               }}
             >
@@ -170,19 +171,24 @@ export function GradientCard({ icon, title, description, href, linkLabel }: Grad
           </div>
 
           {/* Link */}
-          <div
+          <motion.div
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
               color: '#1e9953',
-              fontSize: '14px',
+              fontSize: '13px',
               fontWeight: 600,
+              marginTop: 'auto',
             }}
+            animate={{
+              x: isHovered ? 4 : 0,
+            }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             {linkLabel}
             <IconArrowRight size={14} color="#1e9953" />
-          </div>
+          </motion.div>
         </div>
       </Link>
     </motion.div>
