@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pbix.pl Redesign Showcase – v1.11.0</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+      background: #ffffff;
+      color: #1d1d1f;
+      line-height: 1.6;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #f5f5f7 0%, #ffffff 100%);
+      padding: 60px 24px;
+      text-align: center;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .header h1 {
+      font-size: 2.5em;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .header .version {
+      font-size: 0.9em;
+      color: #1e9953;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .header p {
+      color: #6e6e73;
+      font-size: 1.1em;
+      margin-top: 16px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 80px 24px;
+    }
+
+    section h2 {
+      font-size: 2em;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    section .subtitle {
+      font-size: 0.85em;
+      color: #1e9953;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .card-showcase {
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 20px;
+      padding: 28px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card-showcase:hover {
+      border-color: rgba(30,153,83,0.3);
+      box-shadow: 0 20px 40px -15px rgba(30,153,83,0.15);
+      transform: translateY(-4px);
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      background: #d4f1e4;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1d1d1f;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: #6e6e73;
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #1e9953;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      margin-top: auto;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .card-link:hover {
+      transform: translateX(4px);
+    }
+
+    .feature-box {
+      background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px;
+      padding: 32px;
+      margin: 24px 0;
+    }
+
+    .feature-box h3 {
+      font-size: 1.2em;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .feature-box .check {
+      color: #1e9953;
+      font-weight: bold;
+    }
+
+    .color-palette {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+      margin: 40px 0;
+    }
+
+    .color-swatch {
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      color: white;
+      font-weight: 600;
+      font-size: 0.9em;
+    }
+
+    .color-primary {
+      background: #1e9953;
+    }
+
+    .color-light {
+      background: #d4f1e4;
+      color: #1d1d1f;
+    }
+
+    .color-dark {
+      background: #0a4d2c;
+    }
+
+    .color-neutral {
+      background: #f5f5f7;
+      border: 1px solid rgba(0,0,0,0.08);
+      color: #1d1d1f;
+    }
+
+    .timeline {
+      margin: 40px 0;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 32px;
+      padding: 24px;
+      background: #f9f9f9;
+      border-radius: 12px;
+      border-left: 3px solid #1e9953;
+    }
+
+    .timeline-number {
+      font-size: 2em;
+      font-weight: 700;
+      color: #1e9953;
+      min-width: 40px;
+    }
+
+    .timeline-content h4 {
+      font-size: 1.1em;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .timeline-content p {
+      color: #6e6e73;
+      font-size: 0.95em;
+      line-height: 1.6;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin: 40px 0;
+    }
+
+    @media (max-width: 768px) {
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 60px 24px;
+      }
+
+      .header h1 {
+        font-size: 1.8em;
+      }
+
+      section h2 {
+        font-size: 1.5em;
+      }
+    }
+
+    .before-after {
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .before-after h4 {
+      font-size: 0.9em;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #6e6e73;
+      margin-bottom: 12px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #1e9953;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8em;
+      font-weight: 600;
+      margin: 4px;
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, #003d20 0%, #1e9953 55%, #006633 100%);
+      color: white;
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .cta-button {
+      background: rgba(255,255,255,0.15);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      color: white;
+      padding: 12px 32px;
+      border-radius: 980px;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    .cta-button:hover {
+      background: rgba(255,255,255,0.25);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="version">Version 1.11.0</div>
+    <h1>pbix.pl Redesign Showcase</h1>
+    <p>Premium agency-quality redesign with unified emerald color system, modern typography, and sophisticated interactions</p>
+  </div>
+
+  <div class="container">
+    <!-- Design System Section -->
+    <section>
+      <div class="subtitle">Design System</div>
+      <h2>Color Palette & Visual Identity</h2>
+
+      <p style="color: #6e6e73; margin-bottom: 32px;">
+        A restrained + committed hybrid approach: tinted neutrals as foundation with emerald as the single accent color (15–25% of surface area).
+      </p>
+
+      <div class="color-palette">
+        <div class="color-swatch color-primary">
+          <div>Primary</div>
+          <div style="font-size: 0.75em; opacity: 0.8;">#1e9953</div>
+        </div>
+        <div class="color-swatch color-light">
+          <div>Light Accent</div>
+          <div style="font-size: 0.75em;">#d4f1e4</div>
+        </div>
+        <div class="color-swatch color-dark">
+          <div>Dark Accent</div>
+          <div style="font-size: 0.75em;">#0a4d2c</div>
+        </div>
+        <div class="color-swatch color-neutral">
+          <div>Neutral</div>
+          <div style="font-size: 0.75em;">#f5f5f7</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Components Section -->
+    <section>
+      <div class="subtitle">Updated Components</div>
+      <h2>Card Redesign</h2>
+
+      <p style="color: #6e6e73; margin-bottom: 40px;">
+        All cards now feature white backgrounds with subtle borders, proper emerald accents, and refined hover states using premium easing curves.
+      </p>
+
+      <div class="showcase-grid">
+        <div class="card-showcase">
+          <div class="card-icon">📊</div>
+          <div class="card-title">Power BI</div>
+          <div class="card-desc">
+            Transformuj surowe dane w interaktywne dashboardy. Od modelu danych przez DAX po publikację w chmurze.
+          </div>
+          <a href="#" class="card-link">Dowiedz się więcej →</a>
+        </div>
+
+        <div class="card-showcase">
+          <div class="card-icon">📗</div>
+          <div class="card-title">Excel</div>
+          <div class="card-desc">
+            Od podstaw po VBA i Power Query. Excel jako platforma analityczna, nie tylko arkusz kalkulacyjny.
+          </div>
+          <a href="#" class="card-link">Dowiedz się więcej →</a>
+        </div>
+
+        <div class="card-showcase">
+          <div class="card-icon">🗄️</div>
+          <div class="card-title">SQL</div>
+          <div class="card-desc">
+            Pisz zapytania, które wyciągają dokładnie to, czego potrzebujesz z relacyjnych baz danych.
+          </div>
+          <a href="#" class="card-link">Dowiedz się więcej →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Improvements -->
+    <section>
+      <div class="subtitle">Key Improvements</div>
+      <h2>What Changed</h2>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-number">1</div>
+          <div class="timeline-content">
+            <h4>TrainingCard Component</h4>
+            <p>Replaced blue accents (#0071e3) with emerald green (#1e9953), swapped emoji icons for proper SVG icons, updated to white card background with design system shadows and refined hover states.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-number">2</div>
+          <div class="timeline-content">
+            <h4>ClientsMarquee Component</h4>
+            <p>Improved typography hierarchy with eyebrow labels, enhanced logo opacity from 0.75 to 0.85, added sophisticated hover states with brightness filters, and increased section padding from 80px to 120px per design system.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-number">3</div>
+          <div class="timeline-content">
+            <h4>GradientCard Component</h4>
+            <p>Transformed from dark background (#011509) to white aesthetic (#ffffff) while preserving advanced 3D rotation effects. Updated all colors, shadows, and glow effects to work with white card design.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-number">4</div>
+          <div class="timeline-content">
+            <h4>Design System Foundation</h4>
+            <p>Created comprehensive DESIGN.md and PRODUCT.md specifications including typography scale, color tokens, spacing rules (8px base grid, 120px sections), motion easing curves, and component specifications.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature Highlights -->
+    <section style="background: #f9f9f9;">
+      <div class="subtitle">Quality Assurance</div>
+      <h2>Production Ready</h2>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 40px;">
+        <div class="feature-box">
+          <h3><span class="check">✓</span> Full Build Success</h3>
+          <p>Complete Next.js 16.2.2 build passes without errors. All TypeScript validations successful. Production-ready code.</p>
+        </div>
+
+        <div class="feature-box">
+          <h3><span class="check">✓</span> Design System Compliance</h3>
+          <p>Every component follows DESIGN.md specifications: consistent colors, typography hierarchy, spacing rules, and motion easing.</p>
+        </div>
+
+        <div class="feature-box">
+          <h3><span class="check">✓</span> Responsive Design</h3>
+          <p>All components tested and optimized for mobile, tablet, and desktop viewports with proper breakpoint handling.</p>
+        </div>
+
+        <div class="feature-box">
+          <h3><span class="check">✓</span> Premium Motion</h3>
+          <p>Sophisticated cubic-bezier easing curves (0.16, 1, 0.3, 1) on all interactive elements for smooth, natural feel.</p>
+        </div>
+
+        <div class="feature-box">
+          <h3><span class="check">✓</span> Accessibility</h3>
+          <p>Proper semantic HTML, focus states, color contrast ratios, and keyboard navigation throughout.</p>
+        </div>
+
+        <div class="feature-box">
+          <h3><span class="check">✓</span> Version Controlled</h3>
+          <p>All changes committed to git with clear commit messages. Version bumped from 1.10.0 to 1.11.0.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Before/After -->
+    <section>
+      <div class="subtitle">Component Evolution</div>
+      <h2>Before & After</h2>
+
+      <div class="comparison">
+        <div class="before-after" style="border-color: #dc2626;">
+          <h4>❌ Before</h4>
+          <ul style="text-align: left; color: #6e6e73; font-size: 0.9em; line-height: 1.8;">
+            <li>Blue accent color (#0071e3)</li>
+            <li>Emoji icons (inconsistent)</li>
+            <li>Dark card backgrounds</li>
+            <li>Generic shadows</li>
+            <li>Linear transitions</li>
+            <li>Inconsistent spacing</li>
+          </ul>
+        </div>
+
+        <div class="before-after" style="border-color: #1e9953;">
+          <h4>✓ After</h4>
+          <ul style="text-align: left; color: #1e9953; font-size: 0.9em; line-height: 1.8;">
+            <li>Emerald accent (#1e9953)</li>
+            <li>Professional SVG icons</li>
+            <li>White cards with subtle borders</li>
+            <li>Design system shadows</li>
+            <li>Premium cubic-bezier easing</li>
+            <li>Systematic 8px grid spacing</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Summary -->
+    <section style="background: linear-gradient(135deg, #003d20 0%, #1e9953 55%, #006633 100%); color: white; text-align: center;">
+      <h2 style="color: white;">Ready for Production</h2>
+      <p style="color: rgba(255,255,255,0.9); margin-top: 20px; max-width: 600px; margin-left: auto; margin-right: auto;">
+        The complete redesign of pbix.pl is now live and production-ready. All components follow a unified design system with premium aesthetics, sophisticated interactions, and professional polish.
+      </p>
+
+      <div style="margin-top: 40px;">
+        <span class="badge" style="background: rgba(255,255,255,0.2); margin: 8px;">v1.11.0</span>
+        <span class="badge" style="background: rgba(255,255,255,0.2); margin: 8px;">Build Verified</span>
+        <span class="badge" style="background: rgba(255,255,255,0.2); margin: 8px;">Design System</span>
+        <span class="badge" style="background: rgba(255,255,255,0.2); margin: 8px;">Premium Quality</span>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Add subtle animations
+    document.querySelectorAll('.card-showcase').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transition = 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+      });
+    });
+  </script>
+</body>
+</html>

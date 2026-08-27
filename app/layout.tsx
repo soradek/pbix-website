@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { headers } from 'next/headers';
 import './globals.css';
-import CustomCursor from '@/components/CustomCursor';
 import TrackingScripts from '@/components/TrackingScripts';
 import GA4Router from '@/components/GA4Router';
 import CookieBanner from '@/components/CookieBanner';
@@ -155,7 +154,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body className={inter.className} style={{ margin: 0, background: '#ffffff', color: '#1d1d1f' }}>
-        <CustomCursor />
         <TrackingScripts />
         <GA4Router />
         <CookieBanner />
