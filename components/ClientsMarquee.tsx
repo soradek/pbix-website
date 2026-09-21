@@ -37,7 +37,7 @@ export default function ClientsMarquee({ lang = 'pl' }: { lang?: 'pl' | 'en' }) 
             lineHeight: 1.2,
           }}
         >
-          {lang === 'en' ? 'Trusted by Leading Organizations' : 'Zaufali mi liderzy branży'}
+          {lang === 'en' ? 'These Companies I\'ve Already Trained' : 'Te firmy już szkoliłem'}
         </h2>
       </div>
       <div
