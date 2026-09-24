@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { trainings, getTrainingBySlug } from '@/data/trainings';
 import TrainingPageClient from './TrainingPageClient';
+import { OG_IMAGES, TWITTER_IMAGES } from '@/lib/og';
 
 export async function generateStaticParams() {
   return trainings.map(t => ({ slug: t.slug }));
@@ -25,11 +26,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: 'pbix.pl',
       locale: 'pl_PL',
       type: 'website',
+      images: OG_IMAGES,
     },
     twitter: {
       card: 'summary_large_image',
       title: training.title,
       description: desc,
+      images: TWITTER_IMAGES,
     },
     alternates: {
       canonical: `https://www.pbix.pl/szkolenia/${slug}`,

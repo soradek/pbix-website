@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import ProjectsView from '@/components/home/ProjectsView';
+import { OG_IMAGES } from '@/lib/og';
 
 export const metadata: Metadata = {
   title: 'Projekty Power BI – realizacje i wdrożenia | pbix.pl',
@@ -16,6 +17,7 @@ export const metadata: Metadata = {
     siteName: 'pbix.pl',
     locale: 'pl_PL',
     type: 'website',
+    images: OG_IMAGES,
   },
   alternates: { canonical: 'https://www.pbix.pl/projekty' },
 };

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import QuizClient from './components/QuizClient';
+import { OG_IMAGES } from '@/lib/og';
 
 export const metadata: Metadata = {
   title: 'Audyt dojrzałości raportowej | PBIX.pl',
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
     title: 'Audyt dojrzałości raportowej | PBIX.pl',
     description: 'Sprawdź poziom automatyzacji raportowania w Twojej firmie. 10 pytań, 2 minuty.',
     type: 'website',
+    images: OG_IMAGES,
   },
 };
 

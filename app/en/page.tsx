@@ -15,6 +15,7 @@ import HomeReviews from '@/components/home/HomeReviews';
 import HomeFormats from '@/components/home/HomeFormats';
 import HomeFaq from '@/components/home/HomeFaq';
 import HomeFinalCta from '@/components/home/HomeFinalCta';
+import { TWITTER_IMAGES } from '@/lib/og';
 
 export const metadata: Metadata = {
   title: 'Power BI, Excel & SQL Corporate Trainings | Radosław Sobczak MCT',
@@ -38,6 +39,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Power BI, Excel & SQL Corporate Trainings | pbix.pl',
     description: 'MCT-delivered Power BI, Excel and SQL trainings for corporate teams in Poland and online.',
+    images: TWITTER_IMAGES,
   },
   alternates: {
     canonical: 'https://www.pbix.pl/en',

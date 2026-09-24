@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import KontaktClient from './KontaktClient';
+import { OG_IMAGES, TWITTER_IMAGES } from '@/lib/og';
 
 export const metadata: Metadata = {
   title: 'Kontakt | pbix.pl',
@@ -11,11 +12,13 @@ export const metadata: Metadata = {
     siteName: 'pbix.pl',
     locale: 'pl_PL',
     type: 'website',
+    images: OG_IMAGES,
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Kontakt | pbix.pl',
     description: 'Zamów szkolenie z Power BI, Excel lub SQL.',
+    images: TWITTER_IMAGES,
   },
   alternates: { canonical: 'https://www.pbix.pl/kontakt' },
 };

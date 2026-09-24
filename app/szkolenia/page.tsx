@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SzkoleniasClient from './SzkoleniasClient';
+import { OG_IMAGES, TWITTER_IMAGES } from '@/lib/og';
 
 export const metadata: Metadata = {
   title: 'Szkolenia Power BI, Excel, SQL | pbix.pl',
@@ -13,11 +14,13 @@ export const metadata: Metadata = {
     siteName: 'pbix.pl',
     locale: 'pl_PL',
     type: 'website',
+    images: OG_IMAGES,
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Szkolenia Power BI, Excel, SQL | pbix.pl',
     description: 'Specjalistyczne szkolenia z Power BI, Excel, SQL i wizualizacji danych.',
+    images: TWITTER_IMAGES,
   },
   alternates: { canonical: 'https://www.pbix.pl/szkolenia' },
 };

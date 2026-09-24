@@ -10,6 +10,7 @@ import { FadeIn } from '@/components/home/motion';
 import s from '@/components/home/home.module.css';
 import { getAllPosts } from '@/lib/blog';
 import { toneFor } from '@/data/categoryColors';
+import { OG_IMAGES } from '@/lib/og';
 
 export const metadata: Metadata = {
   title: 'Blog – Power BI, Excel, SQL | pbix.pl',
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
     description: 'Praktyczne artykuły o Power BI, Excel, SQL i wizualizacji danych.',
     url: 'https://www.pbix.pl/blog',
     type: 'website',
+    images: OG_IMAGES,
   },
 };
 
