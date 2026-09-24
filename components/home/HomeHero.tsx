@@ -1,12 +1,11 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useReducedMotion, useScroll, useTransform, type MotionProps } from 'framer-motion';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import s from './home.module.css';
 import { RollingLink } from './RollingButton';
-import { EASE_EXPO } from './motion';
 import { ROUTES, type Lang } from './lang';
 
 const COPY = {
@@ -93,14 +92,9 @@ function useTypewriter(words: string[]) {
   return text;
 }
 
-const INTRO_DELAY = 0.55;
-
-function enter(delay: number, y = 24): MotionProps {
-  return {
-    initial: { opacity: 0, y },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1, ease: EASE_EXPO, delay: INTRO_DELAY + delay },
-  };
+// Entrance runs in CSS (.enter / .splitWordIn) so the hero paints without waiting for hydration
+function enter(delay: number, y = 24): { className: string; style: CSSProperties } {
+  return { className: s.enter, style: { '--d': `${delay}s`, '--enter-y': `${y}px` } as CSSProperties };
 }
 
 export default function HomeHero({ lang = 'pl' }: { lang?: Lang }) {
@@ -115,20 +109,15 @@ export default function HomeHero({ lang = 'pl' }: { lang?: Lang }) {
   const copyY = useTransform(scrollYProgress, [0, 1], [0, -60]);
   const copyOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.2]);
 
-  const m = (props: MotionProps): MotionProps => (reduced ? {} : props);
 
   return (
     <section ref={ref} className={s.hero}>
       <motion.div className={s.heroGrid} style={reduced ? undefined : { y: gridY }} aria-hidden="true" />
 
       <motion.div className={s.heroPortrait} style={reduced ? undefined : { y: portraitY }}>
-        <motion.div
-          className={s.heroPortraitInner}
-          {...m({
-            initial: { opacity: 0, y: 80 },
-            animate: { opacity: 1, y: 0 },
-            transition: { duration: 1.4, ease: EASE_EXPO, delay: INTRO_DELAY + 0.1 },
-          })}
+        <div
+          className={`${s.heroPortraitInner} ${s.enter}`}
+          style={{ '--d': '0.1s', '--enter-y': '80px' } as CSSProperties}
         >
           <Image
             src="/radek-cutout.png"
@@ -138,7 +127,7 @@ export default function HomeHero({ lang = 'pl' }: { lang?: Lang }) {
             quality={82}
             sizes="(max-width: 768px) 100vw, 40vw"
           />
-        </motion.div>
+        </div>
       </motion.div>
 
       <motion.div
@@ -148,40 +137,33 @@ export default function HomeHero({ lang = 'pl' }: { lang?: Lang }) {
         <div className={s.heroTop}>
           <ul className={`${s.heroTools} ${s.mono}`}>
             {t.tools.map((tool, i) => (
-              <motion.li key={tool.label} {...m(enter(i * 0.05, 10))}>
+              <li key={tool.label} {...enter(i * 0.05, 10)}>
                 <Link href={tool.href}>/ {tool.label}</Link>
-              </motion.li>
+              </li>
             ))}
           </ul>
-          <motion.p className={s.heroIntro} {...m(enter(0.15, 12))}>
+          <p className={`${s.heroIntro} ${s.enter}`} style={enter(0.15, 12).style}>
             {t.intro}
-          </motion.p>
+          </p>
         </div>
 
         <div className={s.heroBottom}>
           <div className={s.heroCopy}>
             <h1 className={s.heroTitle} aria-label={`${t.line1} ${t.words[0]}`}>
               <span className={s.splitMask} aria-hidden="true">
-                <motion.span
-                  className={s.splitWord}
-                  {...m({
-                    initial: { y: '105%' },
-                    animate: { y: '0%' },
-                    transition: { duration: 1.1, ease: EASE_EXPO, delay: INTRO_DELAY + 0.2 },
-                  })}
-                >
+                <span className={`${s.splitWord} ${s.splitWordIn}`} style={{ '--d': '0.2s' } as CSSProperties}>
                   {t.line1}
-                </motion.span>
+                </span>
               </span>
-              <motion.span className={s.heroWordLine} aria-hidden="true" {...m(enter(0.4, 30))}>
+              <span className={`${s.heroWordLine} ${s.enter}`} style={enter(0.4, 30).style} aria-hidden="true">
                 <span className={s.heroWord}>{word}</span>
                 <span className={s.caret} />
-              </motion.span>
+              </span>
             </h1>
-            <motion.div className={s.actions} {...m(enter(0.55, 16))}>
+            <div className={`${s.actions} ${s.enter}`} style={enter(0.55, 16).style}>
               <RollingLink href={routes.trainings} label={t.primary} variant="dark" />
               <RollingLink href={routes.contact} label={t.secondary} variant="outline" arrow={false} />
-            </motion.div>
+            </div>
           </div>
         </div>
       </motion.div>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import type { CSSProperties } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageHero from '@/components/home/PageHero';
@@ -46,7 +47,7 @@ export default function BlogPage() {
             {posts.map((post, i) => {
               const tone = toneFor(post.category);
               return (
-                <FadeIn as="li" key={post.slug} delay={(i % 3) * 0.06}>
+                <FadeIn as="li" key={post.slug} delay={(i % 3) * 0.06} onMount={i < 3}>
                   <Link
                     href={`/blog/${post.slug}`}
                     className={s.blogCard}
@@ -54,8 +55,13 @@ export default function BlogPage() {
                   >
                     {post.coverImage && (
                       <div className={s.blogCover}>
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={post.coverImage} alt="" loading="lazy" />
+                        <Image
+                          src={post.coverImage}
+                          alt=""
+                          fill
+                          priority={i === 0}
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+                        />
                       </div>
                     )}
                     <div className={s.blogBody}>

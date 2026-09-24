@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import s from './home.module.css';
 import { RollingLink } from './RollingButton';
@@ -45,13 +45,21 @@ const DEFAULT_ACTIVE = 1;
 export default function HomeFormats({ lang = 'pl' }: { lang?: Lang }) {
   const t = COPY[lang];
   const [active, setActive] = useState(DEFAULT_ACTIVE);
+  const [current, setCurrent] = useState(0);
+  const [slider, setSlider] = useState(false);
   const gridRef = useRef<HTMLDivElement>(null);
 
-  // On phones the grid becomes a swipe slider: the dark highlight follows the snapped card
+  // On phones the grid becomes a swipe slider: plain light cards, dots track the snapped one
   const isSlider = () => {
     const el = gridRef.current;
     return !!el && el.scrollWidth > el.clientWidth + 1;
   };
+  useEffect(() => {
+    const sync = () => setSlider(isSlider());
+    sync();
+    window.addEventListener('resize', sync);
+    return () => window.removeEventListener('resize', sync);
+  }, []);
   const cardStep = (el: HTMLDivElement) => {
     const cards = el.children;
     return cards.length > 1 ? (cards[1] as HTMLElement).offsetLeft - (cards[0] as HTMLElement).offsetLeft : el.clientWidth;
@@ -59,7 +67,7 @@ export default function HomeFormats({ lang = 'pl' }: { lang?: Lang }) {
   const onScroll = () => {
     const el = gridRef.current;
     if (!el || !isSlider()) return;
-    setActive(Math.min(t.formats.length - 1, Math.round(el.scrollLeft / cardStep(el))));
+    setCurrent(Math.min(t.formats.length - 1, Math.round(el.scrollLeft / cardStep(el))));
   };
   const goTo = (i: number) => {
     const el = gridRef.current;
@@ -81,7 +89,7 @@ export default function HomeFormats({ lang = 'pl' }: { lang?: Lang }) {
           onMouseLeave={() => { if (!isSlider()) setActive(DEFAULT_ACTIVE); }}
         >
           {t.formats.map((f, i) => {
-            const isActive = i === active;
+            const isActive = !slider && i === active;
             return (
               <article
                 key={f.title}
@@ -122,7 +130,7 @@ export default function HomeFormats({ lang = 'pl' }: { lang?: Lang }) {
               key={f.title}
               type="button"
               tabIndex={-1}
-              className={`${s.formatDot} ${i === active ? s.formatDotOn : ''}`}
+              className={`${s.formatDot} ${i === current ? s.formatDotOn : ''}`}
               onClick={() => goTo(i)}
             />
           ))}

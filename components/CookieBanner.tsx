@@ -85,7 +85,7 @@ export default function CookieBanner() {
           </h2>
           <p style={{ fontSize: 'var(--fs-small)', color: 'var(--muted)', lineHeight: 1.6, margin: '0 0 18px' }}>
             Używamy plików cookies, aby zapewnić działanie strony oraz – za Twoją zgodą – mierzyć ruch i wyświetlać dopasowane treści.
-            Szczegóły w <Link href="/polityka-prywatnosci" style={{ color: 'var(--accent)', textDecoration: 'underline' }}>polityce prywatności</Link>.
+            Szczegóły w <Link href="/polityka-prywatnosci" style={{ color: 'var(--accent-deep)', textDecoration: 'underline' }}>polityce prywatności</Link>.
           </p>
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
             <button
@@ -200,7 +200,7 @@ function btn(kind: 'primary' | 'secondary' | 'ghost'): React.CSSProperties {
     fontFamily: 'inherit',
     transition: 'background 0.2s, color 0.2s',
   };
-  if (kind === 'primary') return { ...base, background: 'var(--accent)', color: 'var(--white)' };
+  if (kind === 'primary') return { ...base, background: 'var(--accent-deep)', color: 'var(--white)' };
   if (kind === 'secondary') return { ...base, background: 'rgba(0,0,0,0.06)', color: 'var(--text)' };
   return { ...base, background: 'transparent', color: 'var(--muted)' };
 }

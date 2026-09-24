@@ -17,11 +17,16 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.pbix.pl/en/trainings' },
 };
 
-export default function TrainingsEnPage() {
+export default async function TrainingsEnPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string; kategoria?: string }>;
+}) {
+  const { category, kategoria } = await searchParams;
   return (
     <main style={{ background: 'var(--white)', minHeight: '100vh' }}>
       <Navbar />
-      <TrainingsEnClient />
+      <TrainingsEnClient initialCategory={category ?? kategoria} />
       <Footer lang="en" />
     </main>
   );

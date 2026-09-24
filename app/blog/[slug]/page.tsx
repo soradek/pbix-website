@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { CSSProperties } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { getAllPosts, getPostBySlug } from '@/lib/blog';
@@ -132,8 +133,13 @@ export default async function BlogPostPage({ params }: Props) {
         <div className={s.postNarrow}>
           {post.coverImage && (
             <div className={`${s.blogCover} ${s.postCover}`}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={post.coverImage} alt={`Ilustracja artykułu: ${post.title}`} />
+              <Image
+                src={post.coverImage}
+                alt={`Ilustracja artykułu: ${post.title}`}
+                fill
+                priority
+                sizes="(max-width: 800px) 100vw, 720px"
+              />
             </div>
           )}
           <div className={s.postBody}>

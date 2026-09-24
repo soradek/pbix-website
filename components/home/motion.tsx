@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, useRef, type ReactNode } from 'react';
+import { Fragment, useRef, type CSSProperties, type ReactNode } from 'react';
 import { motion, useInView, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import s from './home.module.css';
 
@@ -30,6 +30,28 @@ export function SplitHeading({
   const reduced = useReducedMotion();
   const Tag = motion[as];
   const words = text.split(' ');
+
+  // Above-the-fold headings animate in CSS so they paint without waiting for hydration (LCP)
+  if (onMount) {
+    const Plain = as;
+    return (
+      <Plain className={className} aria-label={text}>
+        {words.map((word, i) => (
+          <Fragment key={i}>
+            <span className={s.splitMask} aria-hidden="true">
+              <span
+                className={`${s.splitWord} ${s.splitWordIn} ${accentFrom !== undefined && i >= accentFrom ? accentClassName ?? '' : ''}`}
+                style={{ '--d': `${delay + i * 0.045}s` } as CSSProperties}
+              >
+                {word}
+              </span>
+            </span>
+            {i < words.length - 1 ? ' ' : null}
+          </Fragment>
+        ))}
+      </Plain>
+    );
+  }
 
   const trigger = onMount
     ? { initial: 'hidden', animate: 'shown' }
@@ -63,10 +85,23 @@ interface FadeInProps {
   delay?: number;
   y?: number;
   as?: 'div' | 'p' | 'li' | 'article';
+  /** Animate from first paint in CSS (for above-the-fold content) instead of on scroll */
+  onMount?: boolean;
 }
 
-export function FadeIn({ children, className, delay = 0, y = 28, as = 'div' }: FadeInProps) {
+export function FadeIn({ children, className, delay = 0, y = 28, as = 'div', onMount = false }: FadeInProps) {
   const reduced = useReducedMotion();
+  if (onMount) {
+    const Plain = as;
+    return (
+      <Plain
+        className={`${className ?? ''} ${s.enter}`}
+        style={{ '--d': `${delay}s`, '--enter-y': `${y}px` } as CSSProperties}
+      >
+        {children}
+      </Plain>
+    );
+  }
   const Tag = motion[as];
   if (reduced) return <Tag className={className}>{children}</Tag>;
   return (

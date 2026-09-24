@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SzkoleniasClient from './SzkoleniasClient';
-import { trainings } from '@/data/trainings';
 
 export const metadata: Metadata = {
   title: 'Szkolenia Power BI, Excel, SQL | pbix.pl',
@@ -34,15 +33,11 @@ export default async function SzkoleniasPage({
   const initialCategory = VALID_CATEGORIES.includes(kategoria as (typeof VALID_CATEGORIES)[number])
     ? (kategoria as string)
     : 'Wszystkie';
-  const initialTrainings =
-    initialCategory === 'Wszystkie'
-      ? trainings
-      : trainings.filter((t) => t.category === initialCategory);
 
   return (
     <main style={{ background: 'var(--white)', minHeight: '100vh' }}>
       <Navbar />
-      <SzkoleniasClient initialCategory={initialCategory} initialTrainings={initialTrainings} />
+      <SzkoleniasClient initialCategory={initialCategory} />
       <Footer />
     </main>
   );

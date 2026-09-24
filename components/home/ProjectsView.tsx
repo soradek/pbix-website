@@ -5,6 +5,7 @@ import s from './home.module.css';
 import PageHero from './PageHero';
 import HomeFinalCta from './HomeFinalCta';
 import ProjectVisual from './ProjectVisuals';
+import ReportEmbed from './ReportEmbed';
 import { RollingLink } from './RollingButton';
 import { FadeIn, SectionHead } from './motion';
 import { ROUTES, type Lang } from './lang';
@@ -25,6 +26,7 @@ const COPY = {
     liveSub: 'Raport e-commerce w Power BI. Klikaj, filtruj i przełączaj widoki, tak jak robią to moi klienci.',
     iframeTitle: 'Przykładowy raport Power BI: e-commerce',
     openReport: 'Otwórz raport na pełnym ekranie',
+    loadingReport: 'Ładowanie raportu',
     casesTitle: 'Wybrane wdrożenia',
   },
   en: {
@@ -39,6 +41,7 @@ const COPY = {
     liveSub: 'An e-commerce report in Power BI. Click, filter and switch views, just like my clients do.',
     iframeTitle: 'Sample Power BI report: e-commerce',
     openReport: 'Open the report full screen',
+    loadingReport: 'Loading report',
     casesTitle: 'Selected implementations',
   },
 };
@@ -98,12 +101,7 @@ export default function ProjectsView({ lang = 'pl' }: { lang?: Lang }) {
         <div className={s.container}>
           <SectionHead title={t.liveTitle} sub={t.liveSub} />
           <FadeIn className={s.reportFrame}>
-            <iframe
-              title={t.iframeTitle}
-              src={REPORT_SRC}
-              loading="lazy"
-              allowFullScreen
-            />
+            <ReportEmbed src={REPORT_SRC} title={t.iframeTitle} loadingLabel={t.loadingReport} />
           </FadeIn>
           <div className={s.reportActions}>
             <a className={`${s.btn} ${s.btnGhostDark}`} href={REPORT_SRC} target="_blank" rel="noopener noreferrer">

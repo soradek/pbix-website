@@ -132,13 +132,13 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
               {categoryDisplay}
             </p>
             <SplitHeading as="h1" text={titleDisplay} className={s.trainingTitle} onMount />
-            <FadeIn className={s.actions} delay={0.35} y={16}>
+            <FadeIn className={s.actions} delay={0.35} y={16} onMount>
               <RollingLink href={ROUTES[lang].contact} label={tx.contact} variant="light" />
               <RollingLink href="#program" label={tx.programmeLink} variant="outlineDark" arrow={false} />
             </FadeIn>
           </div>
 
-          <FadeIn className={s.trainingMeta} delay={0.25} y={16}>
+          <FadeIn className={s.trainingMeta} delay={0.25} y={16} onMount>
             <dl className={s.metaList}>
               <div>
                 <dt className={s.mono}>{tx.duration}</dt>

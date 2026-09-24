@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   motion,
   useMotionValueEvent,
@@ -58,6 +58,15 @@ export default function HomeOrbit({ lang = 'pl' }: { lang?: Lang }) {
 
   const [lit, setLit] = useState(reduced ? AREAS.length : 0);
   const [complete, setComplete] = useState(!!reduced);
+  // The section is hidden on phones; skip the animated orb canvas there to save CPU
+  const [desktop, setDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 769px)');
+    const sync = () => setDesktop(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
 
   useMotionValueEvent(scrollYProgress, 'change', raw => {
     if (reduced) return;
@@ -136,7 +145,7 @@ export default function HomeOrbit({ lang = 'pl' }: { lang?: Lang }) {
               className={`${s.orbTint} ${complete ? s.orbFlash : ''}`}
               style={{ '--orb-color': reduced ? 'rgb(30, 153, 83)' : orbColor } as never}
             >
-              <ThinkingOrb state="solving" size={64} theme="light" aria-label={t.orb} />
+              {desktop && <ThinkingOrb state="solving" size={64} theme="light" aria-label={t.orb} />}
             </motion.div>
             <span className={`${s.orbGlow} ${complete ? s.orbGlowOn : ''}`} aria-hidden="true" />
             <p className={`${s.mono} ${s.orbitCounter}`}>

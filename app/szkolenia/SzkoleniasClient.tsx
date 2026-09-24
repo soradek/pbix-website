@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, Suspense, type CSSProperties } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useState, useEffect, type CSSProperties } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useReducedMotion } from 'framer-motion';
 import { trainings, Training } from '@/data/trainings';
@@ -55,23 +55,25 @@ function parseCategory(raw: string | null): string {
 const filterBy = (cat: string) => (cat === 'Wszystkie' ? trainings : trainings.filter(t => t.category === cat));
 
 interface Props {
+  /** Raw ?kategoria / ?category value from the server page (PL key or EN label) */
   initialCategory?: string;
-  initialTrainings?: Training[];
   lang?: Lang;
 }
 
-function SzkoleniasContent({ initialCategory = 'Wszystkie', initialTrainings = trainings, lang = 'pl' }: Props) {
+// Category comes from the server page's searchParams, so the list is fully server-rendered
+// (no useSearchParams → no Suspense fallback → no footer jump / CLS).
+export default function SzkoleniasClient({ initialCategory, lang = 'pl' }: Props) {
   const t = COPY[lang];
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const [activeCategory, setActiveCategory] = useState(initialCategory);
-  const [filtered, setFiltered] = useState(initialTrainings);
+  const startCategory = parseCategory(initialCategory ?? null);
+  const [activeCategory, setActiveCategory] = useState(startCategory);
+  const [filtered, setFiltered] = useState(() => filterBy(startCategory));
 
+  // Client navigations to another ?kategoria re-render the page with new props
   useEffect(() => {
-    const cat = parseCategory(searchParams.get(t.param) ?? searchParams.get('kategoria'));
-    setActiveCategory(cat);
-    setFiltered(filterBy(cat));
-  }, [searchParams, t.param]);
+    setActiveCategory(startCategory);
+    setFiltered(filterBy(startCategory));
+  }, [startCategory]);
 
   const reduced = useReducedMotion();
   const [curtain, setCurtain] = useState<{ cat: string; phase: 'cover' | 'reveal' } | null>(null);
@@ -133,7 +135,7 @@ function SzkoleniasContent({ initialCategory = 'Wszystkie', initialTrainings = t
 
           <ul className={s.trainingGrid}>
             {filtered.map((training, i) => (
-              <FadeIn as="li" key={training.slug} delay={(i % 3) * 0.05} y={20}>
+              <FadeIn as="li" key={training.slug} delay={(i % 3) * 0.05} y={20} onMount={i < 3}>
                 <TrainingCard training={training} lang={lang} />
               </FadeIn>
             ))}
@@ -146,13 +148,6 @@ function SzkoleniasContent({ initialCategory = 'Wszystkie', initialTrainings = t
   );
 }
 
-export default function SzkoleniasClient(props: Props) {
-  return (
-    <Suspense fallback={<div style={{ minHeight: '60vh' }} />}>
-      <SzkoleniasContent {...props} />
-    </Suspense>
-  );
-}
 
 function TrainingCard({ training, lang }: { training: Training; lang: Lang }) {
   const tone = CATEGORY_COLORS[training.category] ?? CATEGORY_COLORS.Wszystkie;
