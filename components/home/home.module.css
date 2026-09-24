@@ -948,62 +948,87 @@
   border-collapse: collapse;
   table-layout: fixed;
   font-size: var(--fs-body);
-  line-height: 1.5;
+  line-height: 1.55;
 }
-.compareColLabel { width: 22%; }
+.compareColLabel { width: 24%; }
+/* The add-on column carries a quiet green wash top to bottom */
+.compareColPlus { background: rgba(30, 153, 83, 0.045); }
 .compareTable th,
 .compareTable td {
-  padding: 20px 28px;
+  padding: 22px 32px;
   text-align: left;
   vertical-align: top;
   border-bottom: 1px solid var(--line);
 }
+/* Every cell after the first gets a divider, whatever its tag (td/th) */
+.compareTable tr > * + * { border-left: 1px solid var(--line); }
 .compareTable tbody tr:last-child > * { border-bottom: 0; }
 .compareTable thead th,
-.compareCorner {
-  padding-top: 26px;
-  padding-bottom: 20px;
+.compareTable .compareCorner {
+  padding-top: 36px;
+  padding-bottom: 24px;
   vertical-align: bottom;
-  background: var(--paper);
+  border-bottom: 2px solid var(--ink);
 }
-.compareTable td + td,
-.compareTable th + th { border-left: 1px solid var(--line); }
 .compareColTitle {
   display: block;
   font-size: var(--fs-h3);
   font-weight: 500;
   letter-spacing: var(--ls-h3);
+  line-height: 1.15;
   color: var(--text);
 }
 .compareColNote {
-  display: inline-block;
-  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: var(--fs-small);
   color: var(--muted);
-  font-size: var(--fs-label);
 }
-.compareColNoteAccent {
-  color: var(--white);
+.compareColNoteAccent { color: var(--accent-deep); font-weight: 500; }
+.compareColNoteAccent::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
   background: var(--accent);
-  padding: 3px 7px;
-  border-radius: 4px;
 }
 .compareTable tbody th {
+  font-size: var(--fs-ui);
   font-weight: 500;
-  color: var(--muted);
-  padding-top: 23px;
+  letter-spacing: var(--ls-text);
+  color: var(--text);
 }
-.compareTable td { color: var(--text); }
+.compareRowNum {
+  display: inline-block;
+  min-width: 28px;
+  margin-right: 8px;
+  font-size: var(--fs-small);
+  font-weight: 400;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.compareTable td { color: var(--muted); }
+.compareTable td:last-child { color: var(--text); }
+.compareTable tbody tr { transition: background-color 0.3s var(--ease); }
+.compareTable tbody tr:hover { background: rgba(11, 13, 12, 0.02); }
+
 .compareShared {
-  margin: 20px 0 0;
   display: flex;
   align-items: center;
-  gap: 16px 28px;
+  gap: 14px 32px;
   flex-wrap: wrap;
-  padding: 18px 28px;
-  border-radius: 16px;
-  border: 1px dashed rgba(11, 13, 12, 0.18);
+  padding: 20px 32px;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
 }
-.compareSharedLabel { margin: 0; color: var(--muted); }
+.compareSharedLabel {
+  margin: 0;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--text);
+}
 .compareShared ul {
   list-style: none;
   margin: 0;
@@ -1012,6 +1037,7 @@
   flex-wrap: wrap;
   gap: 10px 24px;
   font-size: var(--fs-small);
+  color: var(--muted);
 }
 .compareShared li {
   display: inline-flex;
@@ -1459,15 +1485,16 @@
   }
   .compareTable td::before {
     content: attr(data-label);
-    font-family: var(--font-geist-mono), ui-monospace, monospace;
-    font-size: var(--fs-label);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-size: var(--fs-small);
+    font-weight: 500;
     color: var(--muted);
   }
-  .compareTable td:last-child::before { color: var(--accent); }
+  .compareTable td:last-child { background: rgba(30, 153, 83, 0.045); }
+  .compareTable td:last-child::before { color: var(--accent-deep); }
+  .compareTable tr > * + * { border-left: 0; }
+  .compareTable tbody tr:hover { background: transparent; }
   .compareTable tbody tr > td:last-child { border-bottom: 0 !important; }
-  .compareShared { padding: 16px 18px; }
+  .compareShared { padding: 18px; border: 1px solid var(--line); border-radius: 18px; }
 
   .scoreCard { flex-direction: column; align-items: flex-start; }
   .reviewsTrack { grid-auto-columns: 100%; }

@@ -66,7 +66,7 @@ export default function HomeCompare({ lang = 'pl' }: { lang?: Lang }) {
             <colgroup>
               <col className={s.compareColLabel} />
               <col />
-              <col />
+              <col className={s.compareColPlus} />
             </colgroup>
             <thead>
               <tr>
@@ -74,15 +74,18 @@ export default function HomeCompare({ lang = 'pl' }: { lang?: Lang }) {
                 {t.columns.map((col, i) => (
                   <th key={col.title} scope="col">
                     <span className={s.compareColTitle}>{col.title}</span>
-                    <span className={`${s.mono} ${s.compareColNote} ${i === 1 ? s.compareColNoteAccent : ''}`}>{col.note}</span>
+                    <span className={`${s.compareColNote} ${i === 1 ? s.compareColNoteAccent : ''}`}>{col.note}</span>
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {t.rows.map(row => (
+              {t.rows.map((row, r) => (
                 <tr key={row.label}>
-                  <th scope="row" className={s.mono}>{row.label}</th>
+                  <th scope="row">
+                    <span className={s.compareRowNum} aria-hidden="true">{String(r + 1).padStart(2, '0')}</span>
+                    {row.label}
+                  </th>
                   {row.values.map((value, i) => (
                     <td key={i} data-label={t.columns[i].title}>{value}</td>
                   ))}
@@ -90,15 +93,14 @@ export default function HomeCompare({ lang = 'pl' }: { lang?: Lang }) {
               ))}
             </tbody>
           </table>
-        </FadeIn>
-
-        <FadeIn className={s.compareShared} delay={0.1}>
-          <p className={`${s.mono} ${s.compareSharedLabel}`}>{t.sharedLabel}</p>
-          <ul>
-            {t.shared.map(item => (
-              <li key={item}><Tick />{item}</li>
-            ))}
-          </ul>
+          <div className={s.compareShared}>
+            <p className={s.compareSharedLabel}>{t.sharedLabel}</p>
+            <ul>
+              {t.shared.map(item => (
+                <li key={item}><Tick />{item}</li>
+              ))}
+            </ul>
+          </div>
         </FadeIn>
 
         <div className={s.compareCta}>
