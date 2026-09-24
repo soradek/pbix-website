@@ -48,6 +48,8 @@ interface Props {
 export default function CategoryCurtain({ label, text: textOverride, phase, onCovered, onDone }: Props) {
   const { bg, fg } = CATEGORY_COLORS[label] ?? CATEGORY_COLORS.Wszystkie;
   const text = textOverride ?? (label === 'Wszystkie' ? 'Wszystkie szkolenia' : label);
+  // Long two-word names (e.g. 'Wizualizacja danych') sit on two lines
+  const lines = text.length > 16 && text.includes(' ') ? text.replace(' ', '\n') : text;
 
   return (
     <div
@@ -81,10 +83,11 @@ export default function CategoryCurtain({ label, text: textOverride, phase, onCo
             fontWeight: 500,
             letterSpacing: 'var(--ls-display)',
             lineHeight: 'var(--lh-display)',
-            whiteSpace: 'nowrap',
+            whiteSpace: 'pre',
+            textAlign: 'center',
           }}
         >
-          {text}
+          {lines}
         </span>
       </motion.div>
     </div>

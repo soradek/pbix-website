@@ -1230,6 +1230,18 @@
   line-height: 1.45;
 }
 .formatList svg { flex-shrink: 0; margin-top: 3px; }
+.formatDots { display: none; }
+.formatDot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--line);
+  cursor: pointer;
+  transition: width 0.4s var(--ease), background-color 0.3s var(--ease);
+}
+.formatDotOn { width: 22px; background: var(--ink); }
 
 /* ── Quiz band ────────────────────────────────────── */
 .quizBand {
@@ -1368,15 +1380,35 @@
   .hero { min-height: auto; flex-direction: column; }
   .heroInner { padding-top: 28px; padding-bottom: 56px; grid-template-rows: auto; }
   .heroTop { flex-direction: column; gap: 20px; }
-  .heroTools { display: flex; flex-wrap: wrap; gap: 8px 16px; }
-  .heroTools li { white-space: nowrap; }
-  .heroIntro { text-align: left; }
+  /* Tool links give way to the intro, set in the same mono label style */
+  .heroTools { display: none; }
+  .heroIntro {
+    text-align: left;
+    max-width: none;
+    font-family: var(--font-geist-mono), ui-monospace, monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Buttons share one row when they fit, otherwise wrap */
+  .actions { gap: 10px; }
+  .actions > .btn {
+    flex: 1 1 0;
+    min-width: max-content;
+    justify-content: center;
+    padding: 14px 16px;
+    font-size: var(--fs-small);
+  }
+  .actions .rollArrow { display: none; }
   .heroBottom { flex-direction: column; align-items: stretch; margin-top: 32px; }
   .heroTitle { margin: 20px 0 28px; }
   .heroWordLine { white-space: normal; min-height: 2em; }
 
-  .orbitSection { height: 270vh; }
-  .orbitSticky { padding-top: 80px; min-height: 560px; }
+  /* The pinned ring is a desktop-only moment */
+  .orbitSection { display: none; }
   .orbitList { display: none; }
   .orbitCurrentLink {
     display: inline-flex;
@@ -1439,7 +1471,32 @@
 
   .scoreCard { flex-direction: column; align-items: flex-start; }
   .reviewsTrack { grid-auto-columns: 100%; }
-  .formatGrid { grid-template-columns: 1fr; }
+  /* Formats: swipe slider */
+  .formatGrid {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    margin: 0 -20px;
+    padding: 0 20px 4px;
+    scroll-padding: 0 20px;
+    scrollbar-width: none;
+  }
+  .formatGrid::-webkit-scrollbar { display: none; }
+  .formatCard {
+    flex: 0 0 84%;
+    display: flex;
+    flex-direction: column;
+    grid-row: auto;
+    margin-bottom: 0;
+    padding: 24px;
+    scroll-snap-align: start;
+  }
+  .formatBody { display: flex; flex-direction: column; flex: 1; }
+  .formatDesc { flex: 1; margin-bottom: 20px; }
+  .formatList { margin-top: 20px; padding-top: 16px; }
+  .formatDots { display: flex; justify-content: center; gap: 6px; margin-top: 20px; }
 
   .quizBand { flex-direction: column; align-items: flex-start; padding: 28px 24px; }
   .faqAnswer { padding-right: 0; }
@@ -1878,8 +1935,11 @@
   .moduleHead { grid-template-columns: 40px minmax(0, 1fr) 14px; }
   .moduleItems { columns: 1; padding: 0 0 24px 56px; }
 }
-@media (max-width: 560px) {
-  .getsGrid { grid-template-columns: 1fr; }
+@media (max-width: 768px) {
+  .getsGrid { grid-template-columns: 1fr 1fr; gap: 24px 16px; }
+  .getsGrid > li { padding-top: 14px; }
+  .getsTitle { font-size: var(--fs-body); letter-spacing: var(--ls-text); margin: 10px 0 4px; }
+  .getsDesc { font-size: var(--fs-small); line-height: 1.5; }
 }
 
 /* ── Trainings list ───────────────────────────────── */

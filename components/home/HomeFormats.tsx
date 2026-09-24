@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import s from './home.module.css';
 import { RollingLink } from './RollingButton';
@@ -45,6 +45,26 @@ const DEFAULT_ACTIVE = 1;
 export default function HomeFormats({ lang = 'pl' }: { lang?: Lang }) {
   const t = COPY[lang];
   const [active, setActive] = useState(DEFAULT_ACTIVE);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  // On phones the grid becomes a swipe slider: the dark highlight follows the snapped card
+  const isSlider = () => {
+    const el = gridRef.current;
+    return !!el && el.scrollWidth > el.clientWidth + 1;
+  };
+  const cardStep = (el: HTMLDivElement) => {
+    const cards = el.children;
+    return cards.length > 1 ? (cards[1] as HTMLElement).offsetLeft - (cards[0] as HTMLElement).offsetLeft : el.clientWidth;
+  };
+  const onScroll = () => {
+    const el = gridRef.current;
+    if (!el || !isSlider()) return;
+    setActive(Math.min(t.formats.length - 1, Math.round(el.scrollLeft / cardStep(el))));
+  };
+  const goTo = (i: number) => {
+    const el = gridRef.current;
+    if (el) el.scrollTo({ left: i * cardStep(el), behavior: 'smooth' });
+  };
 
   return (
     <section className={`${s.section} ${s.onPaper}`}>
@@ -54,14 +74,19 @@ export default function HomeFormats({ lang = 'pl' }: { lang?: Lang }) {
           sub={t.sub}
         />
 
-        <div className={s.formatGrid} onMouseLeave={() => setActive(DEFAULT_ACTIVE)}>
+        <div
+          ref={gridRef}
+          className={s.formatGrid}
+          onScroll={onScroll}
+          onMouseLeave={() => { if (!isSlider()) setActive(DEFAULT_ACTIVE); }}
+        >
           {t.formats.map((f, i) => {
             const isActive = i === active;
             return (
               <article
                 key={f.title}
                 className={`${s.formatCard} ${isActive ? s.formatActive : ''}`}
-                onMouseEnter={() => setActive(i)}
+                onMouseEnter={() => { if (!isSlider()) setActive(i); }}
                 onFocus={() => setActive(i)}
               >
                 <motion.span
@@ -90,6 +115,17 @@ export default function HomeFormats({ lang = 'pl' }: { lang?: Lang }) {
               </article>
             );
           })}
+        </div>
+        <div className={s.formatDots} aria-hidden="true">
+          {t.formats.map((f, i) => (
+            <button
+              key={f.title}
+              type="button"
+              tabIndex={-1}
+              className={`${s.formatDot} ${i === active ? s.formatDotOn : ''}`}
+              onClick={() => goTo(i)}
+            />
+          ))}
         </div>
       </div>
     </section>

@@ -38,51 +38,51 @@ export default function Footer({ lang = 'pl' }: FooterProps) {
       ];
 
   return (
-    <footer style={{ background: 'var(--paper)', borderTop: '1px solid rgba(0,0,0,0.08)', padding: '60px 24px 40px' }}>
+    <footer className="site-footer" style={{ background: 'var(--paper)', borderTop: '1px solid rgba(0,0,0,0.08)', padding: '60px 24px 40px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '40px', marginBottom: '48px' }}>
           <div>
             <div style={{ fontSize: 'var(--fs-lead)', fontWeight: 600, color: 'var(--text)', marginBottom: '8px' }}>pbix.pl</div>
-            <div style={{ fontSize: 'var(--fs-small)', color: 'var(--muted)', lineHeight: 1.6, maxWidth: '260px' }}>
+            <div className="footer-desc" style={{ fontSize: 'var(--fs-small)', color: 'var(--muted)', lineHeight: 1.6, maxWidth: '260px' }}>
               {isEn
                 ? 'The best of Excel, Power BI and SQL in one place.'
                 : 'Maksimum możliwości Excela, Power BI i SQL w jednym miejscu.'}
             </div>
           </div>
-          <div>
-            <div style={{ fontSize: 'var(--fs-label)', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--muted)', marginBottom: '16px' }}>
+          <div className="footer-col-train">
+            <div className="footer-head" style={{ fontSize: 'var(--fs-label)', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--muted)', marginBottom: '16px' }}>
               {isEn ? 'Trainings' : 'Szkolenia'}
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div className="footer-links" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {trainingLinks.map(link => (
                 <Link key={link.label} href={link.href} style={{ color: 'var(--text)', textDecoration: 'none', fontSize: 'var(--fs-small)', opacity: 0.7 }}>{link.label}</Link>
               ))}
             </div>
           </div>
-          <div>
-            <div style={{ fontSize: 'var(--fs-label)', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--muted)', marginBottom: '16px' }}>
+          <div className="footer-col-nav">
+            <div className="footer-head" style={{ fontSize: 'var(--fs-label)', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--muted)', marginBottom: '16px' }}>
               {isEn ? 'Navigation' : 'Nawigacja'}
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div className="footer-links" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {navLinks.map(link => (
                 <Link key={link.label} href={link.href} style={{ color: 'var(--text)', textDecoration: 'none', fontSize: 'var(--fs-small)', opacity: 0.7 }}>{link.label}</Link>
               ))}
             </div>
           </div>
-          <div>
-            <div style={{ fontSize: 'var(--fs-label)', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--muted)', marginBottom: '16px' }}>
+          <div className="footer-col-contact">
+            <div className="footer-head" style={{ fontSize: 'var(--fs-label)', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--muted)', marginBottom: '16px' }}>
               {isEn ? 'Contact' : 'Kontakt'}
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <div className="footer-links" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <a href="tel:+48573195404" style={{ color: 'var(--accent)', textDecoration: 'none', fontSize: 'var(--fs-small)' }}>+48 573 195 404</a>
               <a href="mailto:kontakt@pbix.pl" style={{ color: 'var(--accent)', textDecoration: 'none', fontSize: 'var(--fs-small)' }}>kontakt@pbix.pl</a>
-              <div style={{ color: 'var(--muted)', fontSize: 'var(--fs-small)' }}>
+              <div className="footer-mct" style={{ color: 'var(--muted)', fontSize: 'var(--fs-small)' }}>
                 {isEn ? 'Microsoft Certified Trainer (MCT)' : 'Certyfikowany Trener Microsoft (MCT)'}
               </div>
             </div>
           </div>
         </div>
-        <div style={{ borderTop: '1px solid rgba(0,0,0,0.08)', paddingTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
+        <div className="footer-bottom" style={{ borderTop: '1px solid rgba(0,0,0,0.08)', paddingTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
           <div style={{ color: 'var(--muted)', fontSize: 'var(--fs-small)' }}>© {new Date().getFullYear()} Radosław Sobczak | pbix.pl | kontakt@pbix.pl</div>
           <div style={{ display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap' }}>
             <Link

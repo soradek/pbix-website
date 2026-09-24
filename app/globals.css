@@ -494,9 +494,14 @@ html {
 @media (max-width: 768px) {
   .desktop-nav { display: none !important; }
   .mobile-menu-btn { display: flex !important; }
-  .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 32px 20px !important; }
-  .footer-grid > :first-child { grid-column: 1 / -1; }
-  footer a { display: inline-block; padding: 6px 0; }
+  /* Compact footer: brand, one wrapped row of links, contact row */
+  .site-footer { padding: 36px 20px 24px !important; }
+  .footer-grid { display: flex !important; flex-direction: column; gap: 16px !important; margin-bottom: 24px !important; }
+  .footer-desc, .footer-head, .footer-col-train, .footer-mct { display: none; }
+  .footer-links { flex-direction: row !important; flex-wrap: wrap; gap: 0 18px !important; }
+  .site-footer a { display: inline-block; padding: 6px 0; }
+  .footer-bottom { padding-top: 16px !important; gap: 4px 16px !important; font-size: var(--fs-label); }
+  .footer-bottom > div:first-child { font-size: var(--fs-label) !important; }
 }
 
 /* ── TABLET/iPad (768px - 1024px) ─────────────────── */
