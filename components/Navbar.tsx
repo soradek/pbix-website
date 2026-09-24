@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { IconPhone } from '@/components/Icons';
 import { RollingLink } from '@/components/home/RollingButton';
 
-const APP_VERSION = '1.15.1';
+const APP_VERSION = '1.15.2';
 
 interface NavLink {
   href: string;
