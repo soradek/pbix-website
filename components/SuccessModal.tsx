@@ -27,7 +27,7 @@ export default function SuccessModal({ onClose, lang = 'pl' }: SuccessModalProps
     >
       <div
         style={{
-          background: '#ffffff',
+          background: 'var(--white)',
           borderRadius: '24px',
           padding: '48px 40px 40px',
           textAlign: 'center',
@@ -43,7 +43,7 @@ export default function SuccessModal({ onClose, lang = 'pl' }: SuccessModalProps
           style={{
             position: 'absolute', top: '16px', right: '16px',
             background: 'none', border: 'none', cursor: 'pointer',
-            color: '#6e6e73', fontSize: '20px', lineHeight: 1,
+            color: 'var(--muted)', fontSize: 'var(--fs-lead)', lineHeight: 1,
             padding: '4px 8px', borderRadius: '8px',
             fontFamily: 'inherit',
           }}
@@ -72,10 +72,10 @@ export default function SuccessModal({ onClose, lang = 'pl' }: SuccessModalProps
           </svg>
         </div>
 
-        <h2 style={{ fontSize: '22px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 12px', letterSpacing: '-0.3px' }}>
+        <h2 style={{ fontSize: 'var(--fs-h3)', fontWeight: 500, color: 'var(--text)', margin: '0 0 12px', letterSpacing: 'var(--ls-h3)' }}>
           {isEn ? 'Your message has been sent.' : 'Twoja wiadomość została wysłana.'}
         </h2>
-        <p style={{ color: '#6e6e73', fontSize: '16px', lineHeight: 1.7, margin: '0 0 28px' }}>
+        <p style={{ color: 'var(--muted)', fontSize: 'var(--fs-body)', lineHeight: 1.7, margin: '0 0 28px' }}>
           {isEn
             ? "I'll get back to you as soon as I can. Talk soon!"
             : 'Odpowiem na nią najszybciej jak tylko będę mógł. Do usłyszenia!'}
@@ -84,9 +84,9 @@ export default function SuccessModal({ onClose, lang = 'pl' }: SuccessModalProps
         <button
           onClick={onClose}
           style={{
-            background: '#1e9953', color: 'white', border: 'none',
+            background: 'var(--accent)', color: 'white', border: 'none',
             padding: '13px 36px', borderRadius: '980px',
-            fontSize: '15px', fontWeight: 600, cursor: 'pointer',
+            fontSize: 'var(--fs-ui)', fontWeight: 600, cursor: 'pointer',
             fontFamily: 'inherit',
           }}
         >

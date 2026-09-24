@@ -238,9 +238,9 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
             right: '16px',
             background: 'none',
             border: 'none',
-            fontSize: '24px',
+            fontSize: 'var(--fs-h3)',
             cursor: 'pointer',
-            color: '#6e6e73',
+            color: 'var(--muted)',
             padding: '0',
             width: '32px',
             height: '32px',
@@ -249,8 +249,8 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
             justifyContent: 'center',
             zIndex: 10,
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = '#1d1d1f')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = '#6e6e73')}
+          onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text)')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--muted)')}
         >
           ✕
         </button>
@@ -277,7 +277,7 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
                     marginBottom: '20px',
                   }}
                 >
-                  <span style={{ fontSize: '12px', color: '#6e6e73', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '1px' }}>
+                  <span style={{ fontSize: 'var(--fs-label)', color: 'var(--muted)', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '1px' }}>
                     Pytanie {currentQuestion + 1} / {questions.length}
                   </span>
                 </motion.div>
@@ -287,7 +287,7 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
                   style={{
                     width: '100%',
                     height: '6px',
-                    background: '#f5f5f7',
+                    background: 'var(--paper)',
                     borderRadius: '3px',
                     overflow: 'hidden',
                   }}
@@ -300,7 +300,7 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
                     transition={{ duration: 0.5 }}
                     style={{
                       height: '100%',
-                      background: '#1e9953',
+                      background: 'var(--accent)',
                     }}
                   />
                 </div>
@@ -309,11 +309,11 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
               {/* Question */}
               <h2
                 style={{
-                  fontSize: 'clamp(18px, 2.2vw, 24px)',
-                  fontWeight: 700,
-                  color: '#1d1d1f',
+                  fontSize: 'var(--fs-h3)',
+                  fontWeight: 500,
+                  color: 'var(--text)',
                   margin: '0 0 18px',
-                  letterSpacing: '-0.5px',
+                  letterSpacing: 'var(--ls-h3)',
                   lineHeight: 1.4,
                   flex: '0 0 auto',
                 }}
@@ -334,8 +334,8 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
                       border: '2px solid rgba(30,153,83,0.2)',
                       borderRadius: '14px',
                       padding: '12px 16px',
-                      fontSize: '13px',
-                      color: '#1d1d1f',
+                      fontSize: 'var(--fs-small)',
+                      color: 'var(--text)',
                       cursor: 'pointer',
                       textAlign: 'left',
                       fontFamily: 'inherit',
@@ -346,7 +346,7 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
                       minHeight: 'auto',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = '#1e9953';
+                      e.currentTarget.style.borderColor = 'var(--accent)';
                       e.currentTarget.style.background = 'rgba(30,153,83,0.04)';
                     }}
                     onMouseLeave={(e) => {
@@ -388,8 +388,8 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
               <div style={{ marginBottom: '14px', flex: '0 0 auto' }}>
                 <div
                   style={{
-                    fontSize: '10px',
-                    color: '#6e6e73',
+                    fontSize: 'var(--fs-label)',
+                    color: 'var(--muted)',
                     textTransform: 'uppercase',
                     letterSpacing: '0.8px',
                     marginBottom: '6px',
@@ -399,11 +399,11 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
                 </div>
                 <div
                   style={{
-                    fontSize: 'clamp(28px, 4vw, 40px)',
-                    fontWeight: 800,
-                    color: '#1e9953',
-                    letterSpacing: '-1.2px',
-                    lineHeight: 1,
+                    fontSize: 'var(--fs-h2)',
+                    fontWeight: 500,
+                    color: 'var(--accent)',
+                    letterSpacing: 'var(--ls-h2)',
+                    lineHeight: 'var(--lh-h2)',
                   }}
                 >
                   {totalScore} / 15
@@ -413,11 +413,11 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
               {/* Level */}
               <h2
                 style={{
-                  fontSize: 'clamp(20px, 2.5vw, 26px)',
-                  fontWeight: 700,
-                  color: '#1d1d1f',
+                  fontSize: 'var(--fs-h3)',
+                  fontWeight: 500,
+                  color: 'var(--text)',
                   margin: '0 0 6px',
-                  letterSpacing: '-0.5px',
+                  letterSpacing: 'var(--ls-h3)',
                   flex: '0 0 auto',
                 }}
               >
@@ -426,8 +426,8 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
 
               <p
                 style={{
-                  color: '#6e6e73',
-                  fontSize: '13px',
+                  color: 'var(--muted)',
+                  fontSize: 'var(--fs-small)',
                   margin: '0 0 16px',
                   lineHeight: 1.5,
                   flex: '0 0 auto',
@@ -453,8 +453,8 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
               >
                 <div
                   style={{
-                    fontSize: '10px',
-                    color: '#6e6e73',
+                    fontSize: 'var(--fs-label)',
+                    color: 'var(--muted)',
                     textTransform: 'uppercase',
                     letterSpacing: '0.8px',
                     marginBottom: '6px',
@@ -465,8 +465,8 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
                 </div>
                 <p
                   style={{
-                    color: '#1d1d1f',
-                    fontSize: '13px',
+                    color: 'var(--text)',
+                    fontSize: 'var(--fs-small)',
                     lineHeight: 1.5,
                     margin: 0,
                     fontWeight: 500,
@@ -483,20 +483,20 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
                 <button
                   onClick={handleViewTrainings}
                   style={{
-                    background: '#1e9953',
+                    background: 'var(--accent)',
                     color: 'white',
                     border: 'none',
                     padding: '12px 24px',
                     borderRadius: '980px',
-                    fontSize: '13px',
+                    fontSize: 'var(--fs-small)',
                     fontWeight: 600,
                     cursor: 'pointer',
                     fontFamily: 'inherit',
                     transition: 'background 0.2s',
                     flex: '0 0 auto',
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = '#17803f')}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = '#1e9953')}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--accent-deep)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--accent)')}
                 >
                   Poznaj szkolenia
                 </button>
@@ -504,11 +504,11 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
                   onClick={handleRestart}
                   style={{
                     background: 'transparent',
-                    color: '#1e9953',
+                    color: 'var(--accent)',
                     border: '2px solid rgba(30,153,83,0.2)',
                     padding: '10px 24px',
                     borderRadius: '980px',
-                    fontSize: '13px',
+                    fontSize: 'var(--fs-small)',
                     fontWeight: 600,
                     cursor: 'pointer',
                     fontFamily: 'inherit',
@@ -516,7 +516,7 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
                     flex: '0 0 auto',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = '#1e9953';
+                    e.currentTarget.style.borderColor = 'var(--accent)';
                     e.currentTarget.style.background = 'rgba(30,153,83,0.04)';
                   }}
                   onMouseLeave={(e) => {

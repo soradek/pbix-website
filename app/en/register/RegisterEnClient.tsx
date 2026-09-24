@@ -47,12 +47,12 @@ export default function RegisterEnClient() {
 
   const inputStyle = (field: keyof typeof formData): React.CSSProperties => ({
     width: '100%',
-    background: '#ffffff',
+    background: 'var(--white)',
     border: `1px solid ${errors[field] ? '#ef4444' : 'rgba(0,0,0,0.12)'}`,
     borderRadius: '12px',
     padding: '14px 16px',
-    color: '#1d1d1f',
-    fontSize: '15px',
+    color: 'var(--text)',
+    fontSize: 'var(--fs-ui)',
     outline: 'none',
     fontFamily: 'inherit',
     boxSizing: 'border-box',
@@ -60,7 +60,7 @@ export default function RegisterEnClient() {
   });
 
   return (
-    <main style={{ background: '#ffffff', minHeight: '100vh' }}>
+    <main style={{ background: 'var(--white)', minHeight: '100vh' }}>
       <Navbar />
       {submitted && <SuccessModal onClose={() => setSubmitted(false)} lang="en" />}
 
@@ -68,11 +68,10 @@ export default function RegisterEnClient() {
         <div style={{ maxWidth: '640px', margin: '0 auto' }}>
           <ScrollReveal>
             <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-              <div style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', color: '#6e6e73', marginBottom: '16px' }}>Registration</div>
-              <h1 style={{ fontSize: 'clamp(40px, 6vw, 64px)', fontWeight: 600, color: '#1d1d1f', letterSpacing: '-2px', margin: '0 0 20px', lineHeight: 1.05 }}>
+              <h1 style={{ fontSize: 'var(--fs-display)', fontWeight: 500, color: 'var(--text)', letterSpacing: 'var(--ls-display)', margin: '0 0 20px', lineHeight: 'var(--lh-display)' }}>
                 Book a training for your team
               </h1>
-              <p style={{ color: '#6e6e73', fontSize: '17px', lineHeight: 1.6, margin: 0 }}>
+              <p style={{ color: 'var(--muted)', fontSize: 'var(--fs-lead)', lineHeight: 1.6, margin: 0 }}>
                 Fill in the form — I will get back to you within 24 hours to discuss the details and tailor the programme to your team&apos;s needs.
               </p>
             </div>
@@ -95,7 +94,7 @@ export default function RegisterEnClient() {
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Full name *</label>
+              <label style={{ display: 'block', fontSize: 'var(--fs-small)', color: 'var(--muted)', marginBottom: '8px' }}>Full name *</label>
               <input
                 type="text"
                 value={formData.name}
@@ -103,14 +102,14 @@ export default function RegisterEnClient() {
                 placeholder="John Smith"
                 maxLength={120}
                 style={inputStyle('name')}
-                onFocus={e => (e.target.style.borderColor = '#1e9953')}
+                onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
                 onBlur={e => (e.target.style.borderColor = errors.name ? '#ef4444' : 'rgba(0,0,0,0.12)')}
               />
-              {errors.name && <div style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px' }}>{errors.name}</div>}
+              {errors.name && <div style={{ color: '#ef4444', fontSize: 'var(--fs-label)', marginTop: '6px' }}>{errors.name}</div>}
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Email *</label>
+              <label style={{ display: 'block', fontSize: 'var(--fs-small)', color: 'var(--muted)', marginBottom: '8px' }}>Email *</label>
               <input
                 type="email"
                 value={formData.email}
@@ -118,14 +117,14 @@ export default function RegisterEnClient() {
                 placeholder="john@company.com"
                 maxLength={254}
                 style={inputStyle('email')}
-                onFocus={e => (e.target.style.borderColor = '#1e9953')}
+                onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
                 onBlur={e => (e.target.style.borderColor = errors.email ? '#ef4444' : 'rgba(0,0,0,0.12)')}
               />
-              {errors.email && <div style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px' }}>{errors.email}</div>}
+              {errors.email && <div style={{ color: '#ef4444', fontSize: 'var(--fs-label)', marginTop: '6px' }}>{errors.email}</div>}
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Training *</label>
+              <label style={{ display: 'block', fontSize: 'var(--fs-small)', color: 'var(--muted)', marginBottom: '8px' }}>Training *</label>
               <select
                 value={formData.training}
                 onChange={e => { setFormData(p => ({ ...p, training: e.target.value })); setErrors(p => ({ ...p, training: '' })); }}
@@ -136,11 +135,11 @@ export default function RegisterEnClient() {
                   <option key={t.slug} value={t.slug}>{getTrainingEnContent(t.slug)?.title ?? t.title} – {t.priceLabel.replace('od ', 'from ')}</option>
                 ))}
               </select>
-              {errors.training && <div style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px' }}>{errors.training}</div>}
+              {errors.training && <div style={{ color: '#ef4444', fontSize: 'var(--fs-label)', marginTop: '6px' }}>{errors.training}</div>}
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Preferred format</label>
+              <label style={{ display: 'block', fontSize: 'var(--fs-small)', color: 'var(--muted)', marginBottom: '8px' }}>Preferred format</label>
               <select
                 value={formData.form}
                 onChange={e => setFormData(p => ({ ...p, form: e.target.value }))}
@@ -154,7 +153,7 @@ export default function RegisterEnClient() {
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Additional information</label>
+              <label style={{ display: 'block', fontSize: 'var(--fs-small)', color: 'var(--muted)', marginBottom: '8px' }}>Additional information</label>
               <textarea
                 value={formData.message}
                 onChange={e => setFormData(p => ({ ...p, message: e.target.value }))}
@@ -162,7 +161,7 @@ export default function RegisterEnClient() {
                 rows={4}
                 maxLength={4000}
                 style={{ ...inputStyle('message'), resize: 'vertical', lineHeight: 1.6 }}
-                onFocus={e => (e.target.style.borderColor = '#1e9953')}
+                onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
                 onBlur={e => (e.target.style.borderColor = 'rgba(0,0,0,0.12)')}
               />
             </div>
@@ -171,19 +170,19 @@ export default function RegisterEnClient() {
               type="submit"
               disabled={loading}
               style={{
-                background: loading ? '#6e6e73' : '#1e9953',
+                background: loading ? 'var(--muted)' : 'var(--accent)',
                 color: 'white', border: 'none', padding: '16px',
-                borderRadius: '12px', fontSize: '16px', fontWeight: 500,
+                borderRadius: '12px', fontSize: 'var(--fs-body)', fontWeight: 500,
                 cursor: loading ? 'not-allowed' : 'pointer',
                 fontFamily: 'inherit', transition: 'background 0.2s', marginTop: '8px',
               }}
-              onMouseEnter={e => { if (!loading) e.currentTarget.style.background = '#17803f'; }}
-              onMouseLeave={e => { if (!loading) e.currentTarget.style.background = '#1e9953'; }}
+              onMouseEnter={e => { if (!loading) e.currentTarget.style.background = 'var(--accent-deep)'; }}
+              onMouseLeave={e => { if (!loading) e.currentTarget.style.background = 'var(--accent)'; }}
             >
               {loading ? 'Sending...' : 'Submit registration'}
             </button>
             {sendError && (
-              <div style={{ color: '#ef4444', fontSize: '14px', textAlign: 'center', marginTop: '8px' }}>
+              <div style={{ color: '#ef4444', fontSize: 'var(--fs-small)', textAlign: 'center', marginTop: '8px' }}>
                 An error occurred. Please try again or email us directly at kontakt@pbix.pl
               </div>
             )}

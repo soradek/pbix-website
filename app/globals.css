@@ -1,6 +1,45 @@
 :root {
-  --background: #ffffff;
-  --foreground: #1d1d1f;
+  --background: #fbfcfb;
+  --foreground: #0b0d0c;
+
+  /* Palette shared by every page */
+  --ink: #0b0d0c;
+  --ink-2: #141816;
+  --ink-3: #1c211e;
+  --paper: #eef1ef;
+  --paper-2: #e4e8e5;
+  --white: #fbfcfb;
+  --text: #0b0d0c;
+  --muted: #5d6661;
+  --muted-dark: rgba(238, 241, 239, 0.62);
+  --line: rgba(11, 13, 12, 0.1);
+  --line-dark: rgba(238, 241, 239, 0.12);
+  --accent: #1e9953;
+  --accent-bright: #2fbf6d;
+  --accent-deep: #146c3a;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Type scale shared by every page: one role per step, each ≥1.25× the previous */
+  --fs-label: 11px;
+  --fs-small: 14px;
+  --fs-ui: 15px;
+  --fs-body: 16px;
+  --fs-lead: clamp(17px, 1.35vw, 20px);
+  --fs-h3: clamp(22px, 1.9vw, 28px);
+  --fs-num: clamp(40px, 4.2vw, 60px);
+  --fs-h2: clamp(36px, 4.2vw, 60px);
+  --fs-display: clamp(48px, 5.4vw, 84px);
+
+  --ls-display: -0.05em;
+  --ls-h2: -0.042em;
+  --ls-h3: -0.03em;
+  --ls-text: -0.01em;
+
+  --lh-display: 0.96;
+  --lh-h2: 1.03;
+  --lh-h3: 1.15;
+  --lh-lead: 1.5;
+  --lh-body: 1.65;
 }
 
 * {
@@ -8,10 +47,48 @@
 }
 
 body {
-  background: #ffffff;
-  color: #1d1d1f;
-  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  background: #fbfcfb;
+  color: #0b0d0c;
+  font-family: var(--font-geist), -apple-system, 'Segoe UI', sans-serif;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
   -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 500;
+}
+
+input, textarea, select, button {
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+/* Category filter tabs: take their section colour on hover, focus and when active */
+.cat-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 20px;
+  border-radius: 980px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: var(--white);
+  color: var(--muted);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.cat-btn:hover,
+.cat-btn:focus-visible,
+.cat-btn[aria-pressed='true'] {
+  background: var(--tone-bg);
+  border-color: var(--tone-bg);
+  color: var(--tone-fg);
+}
+.cat-btn:focus-visible {
+  outline: 2px solid var(--tone-bg);
+  outline-offset: 3px;
 }
 
 html {
@@ -32,6 +109,150 @@ html {
 ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.15);
   border-radius: 3px;
+}
+
+/* ── Hero with portrait ───────────────────────────── */
+.hero-portrait-section {
+  position: relative;
+  overflow: hidden;
+  min-height: min(88vh, 860px);
+  display: flex;
+  align-items: center;
+  padding: 120px 24px 96px;
+  background: #1a1c1b;
+  color: #f4f5f4;
+}
+
+.hero-photo {
+  position: absolute;
+  inset: 0;
+}
+.hero-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(20, 24, 22, 0.94) 0%, rgba(20, 24, 22, 0.82) 42%, rgba(20, 24, 22, 0.45) 100%);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero-inner > * {
+  max-width: 600px;
+}
+
+.hero-byline {
+  font-size: 14px;
+  color: rgba(244, 245, 244, 0.62);
+  margin: 0 0 28px;
+}
+
+.hero-inner > .hero-title {
+  font-size: clamp(44px, 5.4vw, 80px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  color: #f4f5f4;
+  margin: 0 0 32px;
+  max-width: none;
+}
+
+.hero-title-accent {
+  color: #2bb566;
+}
+
+.hero-lead {
+  font-size: clamp(16px, 1.6vw, 19px);
+  line-height: 1.65;
+  color: rgba(244, 245, 244, 0.78);
+  margin: 0 0 44px;
+  max-width: 34em;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.hero-btn-primary {
+  background: #1e9953;
+  color: #f4f5f4;
+  text-decoration: none;
+  padding: 15px 30px;
+  border-radius: 980px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hero-btn-primary:hover { background: #17803f; }
+
+.hero-btn-secondary {
+  color: #f4f5f4;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(244, 245, 244, 0.3);
+  transition: border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hero-btn-secondary:hover { border-color: #f4f5f4; }
+
+.hero-btn-primary:focus-visible,
+.hero-btn-secondary:focus-visible {
+  outline: 2px solid #2bb566;
+  outline-offset: 3px;
+}
+
+/* ── About credentials column ─────────────────────── */
+.about-facts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.about-facts li {
+  padding: 24px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.about-facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.about-facts li {
+  padding: 20px 0 0;
+}
+.about-fact-number {
+  font-size: clamp(26px, 2.6vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: #1d1d1f;
+}
+.about-fact-label {
+  font-size: 13px;
+  line-height: 1.4;
+  color: #6e6e73;
+  margin-top: 8px;
+}
+@media (max-width: 480px) {
+  .about-facts { grid-template-columns: 1fr; gap: 0; }
+  .about-facts li { padding: 16px 0; }
+}
+
+/* ── Chat typing indicator ────────────────────────── */
+@keyframes typingDot {
+  0%, 100% { opacity: 0.25; }
+  50%      { opacity: 1; }
+}
+.typing-dot {
+  animation: typingDot 1.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
 /* ── Floating Chat pulse ──────────────────────────── */
@@ -118,6 +339,60 @@ html {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 24px;
+}
+
+.spec-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  min-height: 240px;
+  padding: 28px;
+  border-radius: 20px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  text-decoration: none;
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.spec-card:hover {
+  border-color: rgba(30, 153, 83, 0.45);
+  transform: translateY(-3px);
+}
+.spec-card:focus-visible {
+  outline: 2px solid #1e9953;
+  outline-offset: 3px;
+}
+.spec-card-icon {
+  margin-bottom: 10px;
+}
+.spec-card-title {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #1d1d1f;
+  margin: 0;
+}
+.spec-card-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6e6e73;
+  margin: 0;
+  flex: 1;
+}
+.spec-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #17803f;
+}
+.spec-card-link svg {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.spec-card:hover .spec-card-link svg {
+  transform: translateX(4px);
 }
 
 .spec-card-hover {
@@ -223,21 +498,22 @@ html {
 
 /* ── TABLET/iPad (768px - 1024px) ─────────────────── */
 @media (max-width: 1024px) and (min-width: 769px) {
-  /* Hero Section — prop to background width */
-  .hero-section {
-    min-height: 60vh !important;
-    padding: 80px 24px 60px !important;
+  /* Hero */
+  .hero-portrait-section {
+    min-height: 60vh;
+    padding: 110px 24px 72px;
   }
-  .hero-section h1 {
-    font-size: clamp(32px, 5vw, 56px) !important;
+  .hero-photo img {
+    object-position: 78% center !important;
   }
-  .hero-section p {
-    font-size: clamp(14px, 1.6vw, 16px) !important;
+  .hero-inner > * {
+    max-width: 70%;
   }
-
-  /* Background: shift to right */
-  .hero-bg {
-    background-position: right center !important;
+  .hero-inner > .hero-title {
+    font-size: clamp(38px, 5.6vw, 56px);
+  }
+  .hero-lead {
+    font-size: 16px;
   }
 
   /* Navbar: hide "Radosław Sobczak" subtitle */
@@ -303,6 +579,25 @@ html {
   .hero-section {
     padding-top: 80px !important;
     min-height: auto !important;
+  }
+  .hero-portrait-section {
+    padding-top: 120px !important;
+    padding-bottom: 64px;
+  }
+  .hero-photo img {
+    object-position: 72% center !important;
+  }
+  .hero-photo::after {
+    background: linear-gradient(180deg, rgba(20, 24, 22, 0.7) 0%, rgba(20, 24, 22, 0.88) 55%, rgba(20, 24, 22, 0.94) 100%);
+  }
+  .hero-byline {
+    margin-bottom: 16px;
+  }
+  .hero-inner > .hero-title {
+    margin-bottom: 20px;
+  }
+  .hero-lead {
+    margin-bottom: 32px;
   }
   .hero-grid {
     grid-template-columns: 1fr !important;

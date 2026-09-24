@@ -73,7 +73,7 @@ export default async function TrainingEnPage({ params }: { params: Promise<{ slu
   };
 
   return (
-    <main style={{ background: '#ffffff', minHeight: '100vh' }}>
+    <main style={{ background: 'var(--white)', minHeight: '100vh' }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }} />
       <Navbar />
       <TrainingPageClient training={training} lang="en" />

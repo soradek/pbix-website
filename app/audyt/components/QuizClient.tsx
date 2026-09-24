@@ -62,7 +62,7 @@ export default function QuizClient() {
   }, [qIndex]);
 
   return (
-    <div style={{ minHeight: '100dvh', background: '#f5f5f7', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100dvh', background: 'var(--paper)', display: 'flex', flexDirection: 'column' }}>
       {/* Minimal header */}
       <header style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <a href="https://pbix.pl" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -75,14 +75,14 @@ export default function QuizClient() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#fff',
-              fontSize: '11px',
+              color: 'var(--white)',
+              fontSize: 'var(--fs-label)',
               fontWeight: 800,
             }}
           >
             PB
           </div>
-          <span style={{ fontSize: '14px', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-0.3px' }}>
+          <span style={{ fontSize: 'var(--fs-small)', fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.3px' }}>
             pbix.pl
           </span>
         </a>

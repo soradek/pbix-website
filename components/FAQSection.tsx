@@ -13,8 +13,7 @@ export default function FAQSection({ items }: { items: FAQItem[] }) {
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
         <ScrollReveal>
           <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-            <div style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', color: '#6e6e73', marginBottom: '16px' }}>FAQ</div>
-            <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 600, color: '#1d1d1f', letterSpacing: '-1px', margin: 0 }}>
+            <h2 style={{ fontSize: 'var(--fs-h2)', fontWeight: 500, color: 'var(--text)', letterSpacing: 'var(--ls-h2)', margin: 0 }}>
               Najczęściej zadawane pytania
             </h2>
           </div>
@@ -38,10 +37,10 @@ export default function FAQSection({ items }: { items: FAQItem[] }) {
                 }}
                 aria-expanded={openIndex === i}
               >
-                <span style={{ fontSize: '17px', fontWeight: 500, color: '#1d1d1f', lineHeight: 1.4 }}>{item.q}</span>
+                <span style={{ fontSize: 'var(--fs-lead)', fontWeight: 500, color: 'var(--text)', lineHeight: 1.4 }}>{item.q}</span>
                 <motion.span
                   animate={{ rotate: openIndex === i ? 45 : 0 }}
-                  style={{ fontSize: '24px', color: '#6e6e73', flexShrink: 0, lineHeight: 1 }}
+                  style={{ fontSize: 'var(--fs-h3)', color: 'var(--muted)', flexShrink: 0, lineHeight: 1 }}
                 >
                   +
                 </motion.span>
@@ -55,7 +54,7 @@ export default function FAQSection({ items }: { items: FAQItem[] }) {
                     transition={{ duration: 0.3 }}
                     style={{ overflow: 'hidden' }}
                   >
-                    <div style={{ paddingBottom: '24px', color: '#6e6e73', fontSize: '16px', lineHeight: 1.75 }}>
+                    <div style={{ paddingBottom: '24px', color: 'var(--muted)', fontSize: 'var(--fs-body)', lineHeight: 1.75 }}>
                       {item.a}
                     </div>
                   </motion.div>

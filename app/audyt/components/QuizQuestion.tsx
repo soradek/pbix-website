@@ -30,7 +30,7 @@ export default function QuizQuestion({ question, questionIndex, total, savedAnsw
   return (
     <div
       style={{
-        background: '#fff',
+        background: 'var(--white)',
         borderRadius: '32px',
         border: '1px solid rgba(0,0,0,0.06)',
         padding: 'clamp(24px, 5vw, 44px)',
@@ -42,8 +42,8 @@ export default function QuizQuestion({ question, questionIndex, total, savedAnsw
       <div style={{ margin: '10px 0 4px' }}>
         <span
           style={{
-            fontSize: '11px',
-            color: '#1e9953',
+            fontSize: 'var(--fs-label)',
+            color: 'var(--accent)',
             fontWeight: 600,
             textTransform: 'uppercase',
             letterSpacing: '1.5px',
@@ -55,9 +55,9 @@ export default function QuizQuestion({ question, questionIndex, total, savedAnsw
 
       <h2
         style={{
-          fontSize: 'clamp(17px, 3vw, 21px)',
+          fontSize: 'var(--fs-lead)',
           fontWeight: 700,
-          color: '#1d1d1f',
+          color: 'var(--text)',
           margin: '8px 0 24px',
           letterSpacing: '-0.4px',
           lineHeight: 1.4,
@@ -80,15 +80,15 @@ export default function QuizQuestion({ question, questionIndex, total, savedAnsw
               animate={isSelected ? { scale: [1, 1.015, 1] } : {}}
               transition={{ duration: 0.2 }}
               style={{
-                background: isSelected ? 'rgba(30,153,83,0.07)' : '#fff',
-                border: `2px solid ${isSelected ? '#1e9953' : 'rgba(0,0,0,0.08)'}`,
+                background: isSelected ? 'rgba(30,153,83,0.07)' : 'var(--white)',
+                border: `2px solid ${isSelected ? 'var(--accent)' : 'rgba(0,0,0,0.08)'}`,
                 borderRadius: '16px',
                 padding: '14px 16px',
                 cursor: selected !== null ? 'default' : 'pointer',
                 textAlign: 'left',
                 fontFamily: 'inherit',
-                fontSize: 'clamp(14px, 2vw, 15px)',
-                color: '#1d1d1f',
+                fontSize: 'var(--fs-body)',
+                color: 'var(--text)',
                 fontWeight: 500,
                 lineHeight: 1.45,
                 transition: 'border-color 0.18s, background 0.18s, opacity 0.18s',
@@ -99,13 +99,13 @@ export default function QuizQuestion({ question, questionIndex, total, savedAnsw
               }}
               onMouseEnter={(e) => {
                 if (selected !== null) return;
-                e.currentTarget.style.borderColor = '#1e9953';
+                e.currentTarget.style.borderColor = 'var(--accent)';
                 e.currentTarget.style.background = 'rgba(30,153,83,0.04)';
               }}
               onMouseLeave={(e) => {
                 if (selected !== null || isSelected) return;
                 e.currentTarget.style.borderColor = 'rgba(0,0,0,0.08)';
-                e.currentTarget.style.background = '#fff';
+                e.currentTarget.style.background = 'var(--white)';
               }}
             >
               <span
@@ -114,12 +114,12 @@ export default function QuizQuestion({ question, questionIndex, total, savedAnsw
                   width: '26px',
                   height: '26px',
                   borderRadius: '8px',
-                  background: isSelected ? '#1e9953' : 'rgba(0,0,0,0.05)',
-                  color: isSelected ? '#fff' : '#6e6e73',
+                  background: isSelected ? 'var(--accent)' : 'rgba(0,0,0,0.05)',
+                  color: isSelected ? 'var(--white)' : 'var(--muted)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '11px',
+                  fontSize: 'var(--fs-label)',
                   fontWeight: 700,
                   letterSpacing: '0',
                   transition: 'background 0.18s, color 0.18s',
@@ -140,8 +140,8 @@ export default function QuizQuestion({ question, questionIndex, total, savedAnsw
           style={{
             background: 'none',
             border: 'none',
-            color: '#6e6e73',
-            fontSize: '13px',
+            color: 'var(--muted)',
+            fontSize: 'var(--fs-small)',
             cursor: 'pointer',
             padding: '6px 0',
             fontFamily: 'inherit',
@@ -151,8 +151,8 @@ export default function QuizQuestion({ question, questionIndex, total, savedAnsw
             gap: '5px',
             transition: 'color 0.15s',
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = '#1d1d1f')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = '#6e6e73')}
+          onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text)')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--muted)')}
         >
           ← Wstecz
         </button>

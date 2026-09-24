@@ -73,19 +73,19 @@ export default function CookieBanner() {
             zIndex: 250,
             maxWidth: '560px',
             margin: '0 auto',
-            background: '#ffffff',
+            background: 'var(--white)',
             border: '1px solid rgba(0,0,0,0.1)',
             borderRadius: '20px',
             boxShadow: '0 24px 64px rgba(0,0,0,0.18)',
             padding: '24px',
           }}
         >
-          <h2 style={{ fontSize: '17px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 8px', letterSpacing: '-0.3px' }}>
+          <h2 style={{ fontSize: 'var(--fs-lead)', fontWeight: 500, color: 'var(--text)', margin: '0 0 8px', letterSpacing: '-0.3px' }}>
             Pliki cookies
           </h2>
-          <p style={{ fontSize: '13px', color: '#6e6e73', lineHeight: 1.6, margin: '0 0 18px' }}>
+          <p style={{ fontSize: 'var(--fs-small)', color: 'var(--muted)', lineHeight: 1.6, margin: '0 0 18px' }}>
             Używamy plików cookies, aby zapewnić działanie strony oraz – za Twoją zgodą – mierzyć ruch i wyświetlać dopasowane treści.
-            Szczegóły w <Link href="/polityka-prywatnosci" style={{ color: '#1e9953', textDecoration: 'underline' }}>polityce prywatności</Link>.
+            Szczegóły w <Link href="/polityka-prywatnosci" style={{ color: 'var(--accent)', textDecoration: 'underline' }}>polityce prywatności</Link>.
           </p>
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
             <button
@@ -141,7 +141,7 @@ export default function CookieBanner() {
             aria-modal="true"
             aria-label="Ustawienia cookies"
             style={{
-              background: '#ffffff',
+              background: 'var(--white)',
               borderRadius: '24px',
               maxWidth: '520px',
               width: '100%',
@@ -151,10 +151,10 @@ export default function CookieBanner() {
               boxShadow: '0 24px 64px rgba(0,0,0,0.20)',
             }}
           >
-            <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 8px', letterSpacing: '-0.4px' }}>
+            <h2 style={{ fontSize: 'var(--fs-lead)', fontWeight: 500, color: 'var(--text)', margin: '0 0 8px', letterSpacing: '-0.4px' }}>
               Ustawienia plików cookies
             </h2>
-            <p style={{ fontSize: '13px', color: '#6e6e73', lineHeight: 1.6, margin: '0 0 24px' }}>
+            <p style={{ fontSize: 'var(--fs-small)', color: 'var(--muted)', lineHeight: 1.6, margin: '0 0 24px' }}>
               Wybierz, na które kategorie cookies wyrażasz zgodę. Możesz w każdej chwili zmienić ustawienia w stopce.
             </p>
 
@@ -194,15 +194,15 @@ function btn(kind: 'primary' | 'secondary' | 'ghost'): React.CSSProperties {
     border: 'none',
     padding: '11px 18px',
     borderRadius: '980px',
-    fontSize: '13px',
+    fontSize: 'var(--fs-small)',
     fontWeight: 600,
     cursor: 'pointer',
     fontFamily: 'inherit',
     transition: 'background 0.2s, color 0.2s',
   };
-  if (kind === 'primary') return { ...base, background: '#1e9953', color: '#ffffff' };
-  if (kind === 'secondary') return { ...base, background: 'rgba(0,0,0,0.06)', color: '#1d1d1f' };
-  return { ...base, background: 'transparent', color: '#6e6e73' };
+  if (kind === 'primary') return { ...base, background: 'var(--accent)', color: 'var(--white)' };
+  if (kind === 'secondary') return { ...base, background: 'rgba(0,0,0,0.06)', color: 'var(--text)' };
+  return { ...base, background: 'transparent', color: 'var(--muted)' };
 }
 
 interface RowProps {
@@ -217,8 +217,8 @@ function ConsentRow({ title, description, checked, disabled, onChange }: RowProp
   return (
     <div style={{ display: 'flex', gap: '14px', padding: '14px 0', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
       <div style={{ flex: 1 }}>
-        <div style={{ fontSize: '14px', fontWeight: 600, color: '#1d1d1f', marginBottom: '4px' }}>{title}</div>
-        <div style={{ fontSize: '12px', color: '#6e6e73', lineHeight: 1.55 }}>{description}</div>
+        <div style={{ fontSize: 'var(--fs-small)', fontWeight: 600, color: 'var(--text)', marginBottom: '4px' }}>{title}</div>
+        <div style={{ fontSize: 'var(--fs-label)', color: 'var(--muted)', lineHeight: 1.55 }}>{description}</div>
       </div>
       <label style={{ display: 'inline-flex', alignItems: 'center', cursor: disabled ? 'not-allowed' : 'pointer', flexShrink: 0 }}>
         <input
@@ -230,7 +230,7 @@ function ConsentRow({ title, description, checked, disabled, onChange }: RowProp
           style={{
             width: '20px',
             height: '20px',
-            accentColor: '#1e9953',
+            accentColor: 'var(--accent)',
             cursor: disabled ? 'not-allowed' : 'pointer',
             opacity: disabled ? 0.5 : 1,
           }}

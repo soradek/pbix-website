@@ -2,20 +2,19 @@
 
 export default function Error({ reset }: { error: Error; reset: () => void }) {
   return (
-    <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#ffffff' }}>
+    <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--white)' }}>
       <div style={{ textAlign: 'center', padding: '40px 24px' }}>
-        <div style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', color: '#6e6e73', marginBottom: '16px' }}>Błąd</div>
-        <h1 style={{ fontSize: '32px', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-1px', margin: '0 0 16px' }}>
+        <h1 style={{ fontSize: 'var(--fs-num)', fontWeight: 500, color: 'var(--text)', letterSpacing: 'var(--ls-h2)', margin: '0 0 16px' }}>
           Coś poszło nie tak
         </h1>
-        <p style={{ color: '#6e6e73', fontSize: '16px', margin: '0 0 32px' }}>
+        <p style={{ color: 'var(--muted)', fontSize: 'var(--fs-body)', margin: '0 0 32px' }}>
           Spróbuj odświeżyć stronę lub wróć za chwilę.
         </p>
         <button
           onClick={reset}
           style={{
-            background: '#1e9953', color: '#fff', border: 'none',
-            padding: '12px 28px', borderRadius: '980px', fontSize: '15px',
+            background: 'var(--accent)', color: 'var(--white)', border: 'none',
+            padding: '12px 28px', borderRadius: '980px', fontSize: 'var(--fs-ui)',
             fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit',
           }}
         >

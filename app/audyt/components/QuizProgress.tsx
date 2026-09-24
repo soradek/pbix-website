@@ -13,10 +13,10 @@ export default function QuizProgress({ current, total }: Props) {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-        <span style={{ fontSize: '11px', color: '#6e6e73', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '2px' }}>
+        <span style={{ fontSize: 'var(--fs-label)', color: 'var(--muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '2px' }}>
           Pytanie {current} z {total}
         </span>
-        <span style={{ fontSize: '11px', color: '#6e6e73', fontWeight: 500 }}>
+        <span style={{ fontSize: 'var(--fs-label)', color: 'var(--muted)', fontWeight: 500 }}>
           {Math.round(pct)}%
         </span>
       </div>
@@ -25,7 +25,7 @@ export default function QuizProgress({ current, total }: Props) {
           initial={{ width: 0 }}
           animate={{ width: `${pct}%` }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          style={{ height: '100%', background: '#1e9953', borderRadius: '3px' }}
+          style={{ height: '100%', background: 'var(--accent)', borderRadius: '3px' }}
         />
       </div>
     </div>

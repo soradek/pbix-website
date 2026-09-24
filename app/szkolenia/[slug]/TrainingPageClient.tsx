@@ -1,69 +1,82 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type CSSProperties } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
 import { Training } from '@/data/trainings';
 import { faqItems, faqItemsEn } from '@/data/faq';
 import { getTrainingEnContent, enTierLabel } from '@/data/trainings-en';
-import ScrollReveal from '@/components/ScrollReveal';
-import {
-  IconFolder, IconFlask, IconAward, IconMessageCircle,
-  IconCheck, IconClock, IconTag,
-} from '@/components/Icons';
+import { toneFor } from '@/data/categoryColors';
+import s from '@/components/home/home.module.css';
+import { FadeIn, SectionHead, SplitHeading, EASE_EXPO } from '@/components/home/motion';
+import { RollingLink } from '@/components/home/RollingButton';
+import HomeFaq from '@/components/home/HomeFaq';
+import HomeFinalCta from '@/components/home/HomeFinalCta';
+import { ROUTES } from '@/components/home/lang';
 
 const t = {
   pl: {
     duration: 'Czas trwania', price: 'Cena netto za grupę', upTo: 'do', people: 'osób',
-    language: 'Język', askDate: 'Kontakt', faqLink: 'Najczęściej zadawane pytania',
-    contactHref: '/kontakt',
+    language: 'Język', contact: 'Napisz do mnie', programmeLink: 'Zobacz program',
+    priceNote: 'Cena obejmuje szkolenie zamknięte, materiały szkoleniowe i certyfikaty dla wszystkich uczestników.',
     about: 'O szkoleniu', prerequisites: 'Wymagania wstępne',
     forWhom: 'Dla kogo', benefits: 'Co zyskasz',
     programme: 'Program szkolenia',
     whatYouGet: 'Co otrzymujesz',
-    materials: 'Materiały', materialsDesc: 'Prezentacje i pliki ćwiczeń do zachowania',
-    workshops: 'Warsztaty', workshopsDesc: 'Praktyczne zadania na realnych danych',
-    certificate: 'Certyfikat', certificateDesc: 'W wersji polskiej i angielskiej, (papierowy oraz cyfrowy)',
-    consultations: 'Konsultacje', consultationsDesc: 'Pytania po szkoleniu na LinkedIn',
-    trainingFaq: 'Pytania o szkolenie', globalFaq: 'Najczęściej zadawane pytania',
-    ctaTitle: 'Gotowy na szkolenie?', ctaDesc: 'Skontaktuj się ze mną przez formularz lub napisz maila.',
-    ctaBtn: 'Zadaj pytanie', emailBtn: 'Napisz email',
-    emailSubject: 'Pytanie o szkoleniu',
+    materials: 'Materiały', materialsDesc: 'Prezentacje i pliki ćwiczeń do zachowania.',
+    workshops: 'Warsztaty', workshopsDesc: 'Praktyczne zadania na realnych danych.',
+    certificate: 'Certyfikat', certificateDesc: 'W wersji polskiej i angielskiej, papierowy oraz cyfrowy.',
+    consultations: 'Konsultacje', consultationsDesc: 'Pytania po szkoleniu na LinkedIn.',
+    faq: 'Pytania o szkolenie',
   },
   en: {
     duration: 'Duration', price: 'Net price per group', upTo: 'up to', people: 'people',
-    language: 'Language', askDate: 'Contact', faqLink: 'Frequently asked questions',
-    contactHref: '/en/contact',
+    language: 'Language', contact: 'Get in touch', programmeLink: 'See the programme',
+    priceNote: 'The price covers a closed training, training materials and certificates for all participants.',
     about: 'About the training', prerequisites: 'Prerequisites',
     forWhom: 'Who is this for', benefits: 'What you\'ll gain',
     programme: 'Training programme',
     whatYouGet: 'What you get',
-    materials: 'Materials', materialsDesc: 'Presentations and exercise files to keep',
-    workshops: 'Workshops', workshopsDesc: 'Hands-on tasks using real business data',
-    certificate: 'Certificate', certificateDesc: 'In Polish and English, (print and digital)',
-    consultations: 'Consultations', consultationsDesc: 'Post-training questions via LinkedIn',
-    trainingFaq: 'Training FAQs', globalFaq: 'Frequently asked questions',
-    ctaTitle: 'Ready to get started?', ctaDesc: 'Contact me via the form or send an email.',
-    ctaBtn: 'Ask a question', emailBtn: 'Send email',
-    emailSubject: 'Training enquiry',
+    materials: 'Materials', materialsDesc: 'Presentations and exercise files to keep.',
+    workshops: 'Workshops', workshopsDesc: 'Hands-on tasks using real business data.',
+    certificate: 'Certificate', certificateDesc: 'In Polish and English, print and digital.',
+    consultations: 'Consultations', consultationsDesc: 'Post-training questions via LinkedIn.',
+    faq: 'Training FAQs',
   },
+};
+
+// Same subset of general questions as on the home page
+const GLOBAL_FAQ_IDX = [0, 1, 2, 4, 5, 9, 10, 13];
+
+// Video mapping: slug overrides category
+const videoBySlug: Record<string, string> = {
+  'excel-ai': '/BG-AI.webm',
+};
+const videoByCategory: Record<string, string> = {
+  'Excel': '/BG-EX.webm',
+  'Power BI': '/BG-BI.mp4',
+  'SQL': '/BG-BI.mp4',
+  'Wizualizacja danych': '/BG-Viz.mp4',
 };
 
 export default function TrainingPageClient({ training, lang = 'pl' }: { training: Training; lang?: 'pl' | 'en' }) {
   const tx = t[lang];
   const en = lang === 'en' ? getTrainingEnContent(training.slug) : undefined;
+  const tone = toneFor(training.category);
 
-  // EN content overrides — fall back to PL if EN not available
+  // EN content overrides, fall back to PL if EN not available
   const titleDisplay = en?.title ?? training.title;
   const descDisplay = en?.description ?? training.description;
   const prereqDisplay = en?.prerequisites ?? training.prerequisites;
   const audienceDisplay = en?.targetAudience ?? training.targetAudience;
   const benefitsDisplay = en?.benefits ?? training.benefits;
   const programDisplay = en?.program ?? training.program;
-  const trainingFaqDisplay = en?.faq ?? training.faq;
-  const globalFaqDisplay = lang === 'en' ? faqItemsEn : faqItems;
+  const trainingFaqDisplay = en?.faq ?? training.faq ?? [];
+  const globalFaq = (lang === 'en' ? faqItemsEn : faqItems);
+  const faqDisplay = [
+    ...trainingFaqDisplay,
+    ...GLOBAL_FAQ_IDX.map(i => globalFaq[i]).filter(Boolean),
+  ].filter((item, i, all) => all.findIndex(x => x.q === item.q) === i);
 
-  // Field mappings for non-content strings
   const categoryDisplay =
     lang === 'en' && training.category === 'Wizualizacja danych'
       ? 'Data Visualisation'
@@ -82,18 +95,7 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
   const [openModule, setOpenModule] = useState<number | null>(0);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Video mapping: slug overrides category
-  const videoBySlug: Record<string, string> = {
-    'excel-ai': '/BG-AI.webm',
-  };
-  const videoByCategory: Record<string, string> = {
-    'Excel': '/BG-EX.webm',
-    'Power BI': '/BG-BI.mp4',
-    'SQL': '/BG-BI.mp4',
-    'Wizualizacja danych': '/BG-Viz.mp4',
-  };
   const videoSrc = videoBySlug[training.slug] ?? videoByCategory[training.category] ?? null;
-  const hasVideo = !!videoSrc;
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -103,418 +105,149 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
     return () => window.removeEventListener('resize', onResize);
   }, [training.slug]);
 
-  // Hero text colors: white on dark video, normal otherwise
-  const heroTextPrimary = hasVideo ? '#ffffff' : '#1d1d1f';
-  const heroTextSecondary = hasVideo ? 'rgba(255,255,255,0.80)' : '#6e6e73';
-  const heroBadgeBg = hasVideo ? 'rgba(255,255,255,0.12)' : 'rgba(30,153,83,0.08)';
-  const heroBadgeBorder = hasVideo ? 'rgba(255,255,255,0.25)' : 'rgba(30,153,83,0.2)';
-  const heroBadgeColor = hasVideo ? '#ffffff' : '#1e9953';
-  const heroDivider = hasVideo ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.08)';
-  const heroPricingBg = hasVideo ? 'rgba(255,255,255,0.10)' : 'rgba(30,153,83,0.06)';
-  const heroPricingBorder = hasVideo ? 'rgba(255,255,255,0.20)' : 'rgba(30,153,83,0.16)';
-  const heroShadow = hasVideo ? '0 1px 8px rgba(0,0,0,0.55)' : 'none';
+  const gets = [
+    { title: tx.materials, desc: tx.materialsDesc },
+    { title: tx.workshops, desc: tx.workshopsDesc },
+    { title: tx.certificate, desc: tx.certificateDesc },
+    { title: tx.consultations, desc: tx.consultationsDesc },
+  ];
 
   return (
-    <>
+    <div className={s.page} style={{ '--tone-bg': tone.bg, '--tone-ink': tone.ink } as CSSProperties}>
       {/* Hero */}
-      <section
-        className="training-hero"
-        style={{
-          padding: '140px 24px 100px',
-          background: hasVideo
-            ? '#001a0a'
-            : 'linear-gradient(180deg, rgba(30,153,83,0.04) 0%, rgba(255,255,255,0) 100%)',
-          borderBottom: '1px solid rgba(0,0,0,0.07)',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-      >
-        {/* Video background (Excel → BG-EX.mp4, Power BI → BG-AI.mp4) */}
-        {hasVideo && !isMobile && (
+      <section className={s.trainingHero}>
+        {videoSrc && !isMobile && (
           <>
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              style={{
-                position: 'absolute',
-                inset: 0,
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                zIndex: 0,
-              }}
-            >
-              <source src={videoSrc!} type={videoSrc!.endsWith('.webm') ? 'video/webm' : 'video/mp4'} />
+            <video className={s.trainingHeroVideo} autoPlay muted loop playsInline preload="metadata" aria-hidden="true">
+              <source src={videoSrc} type={videoSrc.endsWith('.webm') ? 'video/webm' : 'video/mp4'} />
             </video>
-            {/* Semi-transparent overlay for readability */}
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(135deg, rgba(0,20,8,0.72) 0%, rgba(0,40,16,0.60) 50%, rgba(0,20,8,0.70) 100%)',
-              zIndex: 1,
-            }} />
+            <div className={s.trainingHeroShade} />
           </>
         )}
-        <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
-          {/* Category badge */}
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: '6px',
-            background: heroBadgeBg,
-            border: `1px solid ${heroBadgeBorder}`,
-            borderRadius: '980px',
-            padding: '5px 14px',
-            fontSize: '11px',
-            letterSpacing: '1.5px',
-            textTransform: 'uppercase' as const,
-            color: heroBadgeColor,
-            fontWeight: 600,
-            marginBottom: '20px',
-            textShadow: heroShadow,
-          }}>
-            {categoryDisplay}
+        <div className={`${s.container} ${s.trainingHeroGrid}`}>
+          <div>
+            <p className={`${s.mono} ${s.trainingCat}`}>
+              <span className={s.trainingSwatch} aria-hidden="true" />
+              {categoryDisplay}
+            </p>
+            <SplitHeading as="h1" text={titleDisplay} className={s.trainingTitle} onMount />
+            <FadeIn className={s.actions} delay={0.35} y={16}>
+              <RollingLink href={ROUTES[lang].contact} label={tx.contact} variant="light" />
+              <RollingLink href="#program" label={tx.programmeLink} variant="outlineDark" arrow={false} />
+            </FadeIn>
           </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            style={{ fontSize: 'clamp(36px, 6vw, 68px)', fontWeight: 700, color: heroTextPrimary, letterSpacing: '-2px', lineHeight: 1.05, margin: '0 0 32px', textShadow: heroShadow }}
-          >
-            {titleDisplay}
-          </motion.h1>
-
-          {/* Meta row */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', marginBottom: '44px' }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <IconClock size={18} color={heroTextSecondary} />
+          <FadeIn className={s.trainingMeta} delay={0.25} y={16}>
+            <dl className={s.metaList}>
               <div>
-                <div style={{ fontSize: '11px', color: heroTextSecondary, marginBottom: '1px', textTransform: 'uppercase', letterSpacing: '0.8px', textShadow: heroShadow }}>{tx.duration}</div>
-                <div style={{ fontSize: '16px', fontWeight: 600, color: heroTextPrimary, textShadow: heroShadow }}>{durationDisplay}</div>
+                <dt className={s.mono}>{tx.duration}</dt>
+                <dd>{durationDisplay}</dd>
               </div>
-            </div>
-            <div style={{ width: '1px', background: heroDivider }} />
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                <IconTag size={18} color={heroTextSecondary} />
-                <div style={{ fontSize: '11px', color: heroTextSecondary, textTransform: 'uppercase', letterSpacing: '0.8px', textShadow: heroShadow }}>{tx.price}</div>
-              </div>
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                {tiersDisplay.map((tier) => (
-                  <div key={tier.maxPeople} style={{
-                    background: heroPricingBg,
-                    border: `1px solid ${heroPricingBorder}`,
-                    borderRadius: '12px',
-                    padding: '10px 16px',
-                    textAlign: 'center',
-                  }}>
-                    <div style={{ fontSize: '12px', color: heroTextSecondary, marginBottom: '4px', whiteSpace: 'nowrap', textShadow: heroShadow }}>{tx.upTo} {tier.maxPeople} {tx.people}</div>
-                    <div style={{ fontSize: '18px', fontWeight: 700, color: heroTextPrimary, letterSpacing: '-0.3px', textShadow: heroShadow }}>{tier.priceLabel}</div>
-                  </div>
-                ))}
-              </div>
-              <div style={{ marginTop: '10px', fontSize: '12px', color: heroTextSecondary, maxWidth: '420px', lineHeight: 1.6, textShadow: heroShadow }}>
-                Cena obejmuje szkolenie zamknięte. Zawiera materiały szkoleniowe i certyfikaty dla wszystkich uczestników.
-              </div>
-            </div>
-            {training.language && (
-              <>
-                <div style={{ width: '1px', background: 'rgba(0,0,0,0.08)' }} />
+              {training.language && (
                 <div>
-                  <div style={{ fontSize: '11px', color: heroTextSecondary, marginBottom: '1px', textTransform: 'uppercase', letterSpacing: '0.8px', textShadow: heroShadow }}>{tx.language}</div>
-                  <div style={{ fontSize: '15px', fontWeight: 500, color: heroTextPrimary, textShadow: heroShadow }}>{languageDisplay}</div>
+                  <dt className={s.mono}>{tx.language}</dt>
+                  <dd>{languageDisplay}</dd>
                 </div>
-              </>
-            )}
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="cta-group"
-            style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}
-          >
-            <Link href={tx.contactHref} style={{ background: '#1e9953', color: 'white', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 600 }}>
-              {tx.askDate}
-            </Link>
-            <a href="#faq" style={{ border: `1.5px solid ${hasVideo ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.15)'}`, color: hasVideo ? '#ffffff' : '#1d1d1f', textDecoration: 'none', padding: '14px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 500 }}>
-              {tx.faqLink}
-            </a>
-          </motion.div>
+              )}
+            </dl>
+            <p className={`${s.mono} ${s.metaLabel}`}>{tx.price}</p>
+            <dl className={s.metaList}>
+              {tiersDisplay.map(tier => (
+                <div key={tier.maxPeople}>
+                  <dt>{tx.upTo} {tier.maxPeople} {tx.people}</dt>
+                  <dd className={s.metaPrice}>{tier.priceLabel}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className={s.metaNote}>{tx.priceNote}</p>
+          </FadeIn>
         </div>
       </section>
 
-      {/* Description */}
-      <section style={{ padding: '80px 24px' }}>
-        <div className="training-desc-grid" style={{ maxWidth: '900px', margin: '0 auto', display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '56px', alignItems: 'start' }}>
-          <ScrollReveal>
-            <div>
-              <h2 style={{ fontSize: '24px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 18px', letterSpacing: '-0.5px' }}>{tx.about}</h2>
-              <p style={{ color: '#6e6e73', fontSize: '16px', lineHeight: 1.85, margin: 0 }}>{descDisplay}</p>
-            </div>
-          </ScrollReveal>
-          <ScrollReveal delay={0.12}>
-            <div style={{ background: 'rgba(0,0,0,0.02)', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '18px', padding: '24px' }}>
-              <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#1d1d1f', margin: '0 0 12px', textTransform: 'uppercase', letterSpacing: '1px' }}>{tx.prerequisites}</h3>
-              <p style={{ color: '#6e6e73', fontSize: '14px', lineHeight: 1.7, margin: 0 }}>{prereqDisplay}</p>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* For whom + Benefits */}
-      <section style={{ padding: '0 24px 80px' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-          <div className="two-col-grid">
-            <ScrollReveal>
-              <div style={{ background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '20px', padding: '32px', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
-                <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 20px', letterSpacing: '-0.3px' }}>{tx.forWhom}</h2>
-                <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  {audienceDisplay.map((item, i) => (
-                    <li key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-                      <span style={{ color: '#1e9953', flexShrink: 0, marginTop: '1px' }}><IconCheck size={15} color="#1e9953" strokeWidth={2.5} /></span>
-                      <span style={{ color: '#6e6e73', fontSize: '13px', lineHeight: 1.65 }}>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delay={0.12}>
-              <div style={{ background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '20px', padding: '32px', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
-                <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 20px', letterSpacing: '-0.3px' }}>{tx.benefits}</h2>
-                <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  {benefitsDisplay.map((item, i) => (
-                    <li key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-                      <span style={{ color: '#1e9953', flexShrink: 0, marginTop: '1px' }}><IconCheck size={15} color="#1e9953" strokeWidth={2.5} /></span>
-                      <span style={{ color: '#6e6e73', fontSize: '13px', lineHeight: 1.65 }}>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </ScrollReveal>
+      {/* About */}
+      <section className={`${s.section} ${s.onWhite}`}>
+        <div className={`${s.container} ${s.trainingAbout}`}>
+          <div>
+            <SplitHeading text={tx.about} className={s.h2} />
+            <FadeIn as="p" className={s.trainingLead} delay={0.1} y={16}>{descDisplay}</FadeIn>
           </div>
+          <FadeIn className={s.trainingAside} delay={0.2} y={16}>
+            <p className={`${s.mono} ${s.metaLabelLight}`}>{tx.prerequisites}</p>
+            <p className={s.trainingAsideText}>{prereqDisplay}</p>
+          </FadeIn>
+        </div>
+
+        <div className={`${s.container} ${s.trainingLists}`}>
+          {[{ title: tx.forWhom, items: audienceDisplay }, { title: tx.benefits, items: benefitsDisplay }].map((col, c) => (
+            <FadeIn key={col.title} delay={c * 0.1}>
+              <h2 className={s.trainingListTitle}>{col.title}</h2>
+              <ul className={s.plusList}>
+                {col.items.map(item => <li key={item}>{item}</li>)}
+              </ul>
+            </FadeIn>
+          ))}
         </div>
       </section>
 
-      {/* Program - accordion */}
-      <section style={{ padding: '0 24px 80px', background: '#f9f9f9' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto', paddingTop: '80px', paddingBottom: '80px' }}>
-          <ScrollReveal>
-            <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 40px', letterSpacing: '-0.5px' }}>{tx.programme}</h2>
-          </ScrollReveal>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            {programDisplay.map((module, i) => (
-              <ScrollReveal key={i} delay={i * 0.04}>
-                <div style={{ background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+      {/* Program */}
+      <section id="program" className={`${s.section} ${s.onPaper}`}>
+        <div className={s.container}>
+          <SectionHead title={tx.programme} />
+          <ol className={s.moduleList}>
+            {programDisplay.map((module, i) => {
+              const open = openModule === i;
+              return (
+                <li key={module.title} className={s.module}>
                   <button
-                    onClick={() => setOpenModule(openModule === i ? null : i)}
-                    style={{
-                      width: '100%',
-                      background: openModule === i ? 'rgba(30,153,83,0.05)' : 'transparent',
-                      border: 'none',
-                      cursor: 'pointer',
-                      padding: '20px 24px',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      textAlign: 'left',
-                      fontFamily: 'inherit',
-                    }}
-                    aria-expanded={openModule === i}
+                    type="button"
+                    className={s.moduleHead}
+                    onClick={() => setOpenModule(open ? null : i)}
+                    aria-expanded={open}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                      <span style={{ fontSize: '11px', color: '#1e9953', fontWeight: 700, minWidth: '28px', letterSpacing: '0.5px' }}>
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
-                      <span style={{ fontSize: '15px', fontWeight: 600, color: '#1d1d1f' }}>{module.title}</span>
-                    </div>
-                    <motion.span animate={{ rotate: openModule === i ? 45 : 0 }} style={{ color: '#6e6e73', fontSize: '20px', flexShrink: 0, lineHeight: 1 }}>
-                      +
-                    </motion.span>
+                    <span className={`${s.mono} ${s.moduleIndex}`}>{String(i + 1).padStart(2, '0')}</span>
+                    <span className={s.moduleTitle}>{module.title}</span>
+                    <span className={`${s.faqPlus} ${open ? s.faqPlusOpen : ''}`} aria-hidden="true" />
                   </button>
-                  <AnimatePresence>
-                    {openModule === i && (
-                      <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} transition={{ duration: 0.25 }} style={{ overflow: 'hidden' }}>
-                        <ul style={{ margin: 0, padding: '4px 24px 20px 68px', listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                          {module.items.map((item, j) => (
-                            <li key={j} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
-                              <span style={{ color: 'rgba(0,0,0,0.2)', flexShrink: 0, fontSize: '12px', marginTop: '3px' }}>—</span>
-                              <span style={{ color: '#6e6e73', fontSize: '13px', lineHeight: 1.65 }}>{item}</span>
-                            </li>
-                          ))}
+                  <AnimatePresence initial={false}>
+                    {open && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.45, ease: EASE_EXPO }}
+                        style={{ overflow: 'hidden' }}
+                      >
+                        <ul className={s.moduleItems}>
+                          {module.items.map(item => <li key={item}>{item}</li>)}
                         </ul>
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+                </li>
+              );
+            })}
+          </ol>
         </div>
       </section>
 
       {/* What you get */}
-      <section style={{ padding: '80px 24px' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-          <ScrollReveal>
-            <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 40px', letterSpacing: '-0.5px' }}>{tx.whatYouGet}</h2>
-          </ScrollReveal>
-          <div className="receive-grid">
-            {[
-              { icon: <IconFolder size={28} color="#1e9953" />, title: tx.materials, desc: tx.materialsDesc },
-              { icon: <IconFlask size={28} color="#1e9953" />, title: tx.workshops, desc: tx.workshopsDesc },
-              { icon: <IconAward size={28} color="#1e9953" />, title: tx.certificate, desc: tx.certificateDesc },
-              { icon: <IconMessageCircle size={28} color="#1e9953" />, title: tx.consultations, desc: tx.consultationsDesc },
-            ].map((item, i) => (
-              <ScrollReveal key={item.title} delay={i * 0.08} style={{ height: '100%' }}>
-                <div style={{
-                  background: '#ffffff',
-                  border: '1px solid rgba(0,0,0,0.08)',
-                  borderRadius: '18px',
-                  padding: '28px 20px',
-                  textAlign: 'center',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
-                  height: '100%',
-                  boxSizing: 'border-box',
-                }}>
-                  <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '14px' }}>
-                    <div style={{ width: '52px', height: '52px', background: 'rgba(30,153,83,0.08)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                      {item.icon}
-                    </div>
-                  </div>
-                  <div style={{ fontSize: '14px', fontWeight: 600, color: '#1d1d1f', marginBottom: '6px' }}>{item.title}</div>
-                  <div style={{ fontSize: '12px', color: '#6e6e73', lineHeight: 1.6 }}>{item.desc}</div>
-                </div>
-              </ScrollReveal>
+      <section className={`${s.section} ${s.onWhite}`}>
+        <div className={s.container}>
+          <SectionHead title={tx.whatYouGet} />
+          <ol className={s.getsGrid}>
+            {gets.map((item, i) => (
+              <FadeIn as="li" key={item.title} delay={i * 0.08}>
+                <span className={`${s.mono} ${s.getsIndex}`}>{String(i + 1).padStart(2, '0')}</span>
+                <h3 className={s.getsTitle}>{item.title}</h3>
+                <p className={s.getsDesc}>{item.desc}</p>
+              </FadeIn>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      {/* FAQ */}
-      {trainingFaqDisplay && trainingFaqDisplay.length > 0 && (
-        <section style={{ padding: '0 24px 80px' }}>
-          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-            <ScrollReveal>
-              <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 40px', letterSpacing: '-0.5px' }}>{tx.trainingFaq}</h2>
-            </ScrollReveal>
-            <div>
-              {trainingFaqDisplay.map((item, i) => (
-                <FAQItem key={i} item={item} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Global FAQ */}
-      <section id="faq" style={{ padding: '0 24px 80px' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-          <ScrollReveal>
-            <h2 style={{ fontSize: 'clamp(22px, 3vw, 32px)', fontWeight: 700, color: '#1d1d1f', margin: '0 0 40px', letterSpacing: '-0.5px' }}>{tx.globalFaq}</h2>
-          </ScrollReveal>
-          <div>
-            {globalFaqDisplay.map((item, i) => (
-              <FAQItem key={i} item={item} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section style={{ padding: '0 24px 120px' }}>
-        <div style={{ maxWidth: '680px', margin: '0 auto', textAlign: 'center' }}>
-          <ScrollReveal>
-            <div
-              className="cta-box"
-              style={{
-                background: 'linear-gradient(135deg, rgba(30,153,83,0.07) 0%, rgba(30,153,83,0.03) 100%)',
-                border: '1px solid rgba(30,153,83,0.14)',
-                borderRadius: '28px',
-                padding: '64px 48px',
-              }}
-            >
-              <h2 style={{ fontSize: '28px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 14px', letterSpacing: '-0.5px' }}>
-                {tx.ctaTitle}
-              </h2>
-              <p style={{ color: '#6e6e73', fontSize: '15px', lineHeight: 1.7, margin: '0 0 32px' }}>
-                {tx.ctaDesc}
-              </p>
-              <div className="cta-group" style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <Link href={tx.contactHref} style={{ background: '#1e9953', color: 'white', textDecoration: 'none', padding: '13px 28px', borderRadius: '980px', fontSize: '14px', fontWeight: 600 }}>
-                  {tx.ctaBtn}
-                </Link>
-                <EmailButton label={tx.emailBtn} subject={tx.emailSubject} />
-              </div>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-    </>
-  );
-}
-
-function FAQItem({ item }: { item: { q: string; a: string } }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div style={{ borderBottom: '1px solid rgba(0,0,0,0.08)' }}>
-      <button
-        onClick={() => setOpen(!open)}
-        style={{ width: '100%', background: 'none', border: 'none', cursor: 'pointer', padding: '20px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px', textAlign: 'left', fontFamily: 'inherit' }}
-      >
-        <span style={{ fontSize: '15px', fontWeight: 600, color: '#1d1d1f' }}>{item.q}</span>
-        <motion.span animate={{ rotate: open ? 45 : 0 }} style={{ color: '#6e6e73', fontSize: '22px', flexShrink: 0 }}>+</motion.span>
-      </button>
-      <AnimatePresence>
-        {open && (
-          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }} style={{ overflow: 'hidden' }}>
-            <div style={{ paddingBottom: '20px', color: '#6e6e73', fontSize: '14px', lineHeight: 1.75 }}>{item.a}</div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <HomeFaq items={faqDisplay} lang={lang} title={tx.faq} />
+      <HomeFinalCta lang={lang} />
     </div>
-  );
-}
-
-function EmailButton({ label, subject }: { label: string; subject: string }) {
-  const [copied, setCopied] = useState(false);
-  const email = 'kontakt@pbix.pl';
-  const href = (() => {
-    const d = new Date();
-    const date = `${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}`;
-    return `mailto:${email}?subject=${encodeURIComponent(`${date} ${subject}`)}`;
-  })();
-  const handleClick = () => {
-    navigator.clipboard?.writeText(email).catch(() => {});
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
-  };
-  return (
-    <a
-      href={href}
-      onClick={handleClick}
-      style={{
-        border: '1.5px solid rgba(0,0,0,0.15)',
-        color: '#1d1d1f',
-        textDecoration: 'none',
-        padding: '13px 28px',
-        borderRadius: '980px',
-        fontSize: '14px',
-        fontWeight: 500,
-        minWidth: '160px',
-        textAlign: 'center',
-        transition: 'all 0.2s',
-      }}
-    >
-      {copied ? `✓ ${email}` : label}
-    </a>
   );
 }

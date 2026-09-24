@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { IconPhone } from '@/components/Icons';
+import { RollingLink } from '@/components/home/RollingButton';
 
 const APP_VERSION = '1.14.0';
 
@@ -111,10 +112,10 @@ export default function Navbar() {
     >
       <nav style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px', height: '56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         {/* Logo */}
-        <Link href={isEn ? '/en' : '/'} onClick={() => setIsOpen(false)} style={{ textDecoration: 'none' }}>
+        <Link href={isEn ? '/en' : '/'} onClick={() => setIsOpen(false)} title={`v${APP_VERSION}`} style={{ textDecoration: 'none' }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontSize: '20px', fontWeight: 600, color: '#1d1d1f', letterSpacing: '-0.5px' }}>pbix.pl</span>
-            <span className="navbar-subtitle" style={{ fontSize: '10px', color: '#6e6e73', textTransform: 'uppercase', letterSpacing: '1px', lineHeight: 1 }}>Radosław Sobczak</span>
+            <span style={{ fontSize: 'var(--fs-lead)', fontWeight: 600, color: 'var(--text)', letterSpacing: 'var(--ls-h3)', lineHeight: 1.15 }}>pbix.pl</span>
+            <span className="navbar-subtitle" style={{ fontFamily: 'var(--font-geist-mono), ui-monospace, monospace', fontSize: 'var(--fs-label)', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.1em', lineHeight: 1.2 }}>Radosław Sobczak</span>
           </div>
         </Link>
 
@@ -122,14 +123,13 @@ export default function Navbar() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }} className="desktop-nav">
           {/* Language switcher */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontSize: '11px', color: '#6e6e73', fontWeight: 500, letterSpacing: '0.2px' }}>v{APP_VERSION}</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: '2px', background: 'rgba(0,0,0,0.04)', borderRadius: '980px', padding: '3px' }}>
             <Link
               href={isEn ? altUrl : pathname}
               style={{
-                fontSize: '12px', fontWeight: 600, textDecoration: 'none', padding: '4px 10px', borderRadius: '980px',
-                background: !isEn ? '#1d1d1f' : 'transparent',
-                color: !isEn ? '#fff' : '#6e6e73',
+                fontSize: 'var(--fs-label)', fontWeight: 600, textDecoration: 'none', padding: '4px 10px', borderRadius: '980px',
+                background: !isEn ? 'var(--text)' : 'transparent',
+                color: !isEn ? 'var(--white)' : 'var(--muted)',
                 transition: 'all 0.2s',
               }}
             >
@@ -138,9 +138,9 @@ export default function Navbar() {
             <Link
               href={isEn ? pathname : altUrl}
               style={{
-                fontSize: '12px', fontWeight: 600, textDecoration: 'none', padding: '4px 10px', borderRadius: '980px',
-                background: isEn ? '#1d1d1f' : 'transparent',
-                color: isEn ? '#fff' : '#6e6e73',
+                fontSize: 'var(--fs-label)', fontWeight: 600, textDecoration: 'none', padding: '4px 10px', borderRadius: '980px',
+                background: isEn ? 'var(--text)' : 'transparent',
+                color: isEn ? 'var(--white)' : 'var(--muted)',
                 transition: 'all 0.2s',
               }}
             >
@@ -153,7 +153,7 @@ export default function Navbar() {
           <a
             href="tel:+48573195404"
             aria-label="Zadzwoń"
-            style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#1d1d1f', textDecoration: 'none', opacity: 0.7, transition: 'opacity 0.2s', fontSize: '13px' }}
+            style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text)', textDecoration: 'none', opacity: 0.7, transition: 'opacity 0.2s', fontSize: 'var(--fs-small)' }}
             onMouseEnter={e => { e.currentTarget.style.opacity = '1'; }}
             onMouseLeave={e => { e.currentTarget.style.opacity = '0.7'; }}
           >
@@ -166,29 +166,14 @@ export default function Navbar() {
               key={link.label}
               href={link.href}
               onClick={link.onClick}
-              style={{ color: '#1d1d1f', textDecoration: 'none', fontSize: '14px', opacity: 0.7, transition: 'opacity 0.2s' }}
+              style={{ color: 'var(--text)', textDecoration: 'none', fontSize: 'var(--fs-small)', opacity: 0.7, transition: 'opacity 0.2s' }}
               onMouseEnter={e => { e.currentTarget.style.opacity = '1'; }}
               onMouseLeave={e => { e.currentTarget.style.opacity = '0.7'; }}
             >
               {link.label}
             </Link>
           ))}
-          <Link
-            href={ctaHref}
-            style={{
-              backgroundColor: '#1e9953',
-              color: 'white',
-              textDecoration: 'none',
-              fontSize: '14px',
-              padding: '8px 20px',
-              borderRadius: '980px',
-              transition: 'background-color 0.2s',
-            }}
-            onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#17803f')}
-            onMouseLeave={e => (e.currentTarget.style.backgroundColor = '#1e9953')}
-          >
-            {ctaLabel}
-          </Link>
+          <RollingLink href={ctaHref} label={ctaLabel} variant="dark" arrow={false} small />
         </div>
 
         {/* Hamburger */}
@@ -205,9 +190,9 @@ export default function Navbar() {
           }}
         >
           <div style={{ width: '20px', height: '14px', position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <motion.span animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 6 : 0 }} style={{ display: 'block', height: '2px', background: '#1d1d1f', borderRadius: '1px', transformOrigin: 'center' }} />
-            <motion.span animate={{ opacity: isOpen ? 0 : 1 }} style={{ display: 'block', height: '2px', background: '#1d1d1f', borderRadius: '1px' }} />
-            <motion.span animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -6 : 0 }} style={{ display: 'block', height: '2px', background: '#1d1d1f', borderRadius: '1px', transformOrigin: 'center' }} />
+            <motion.span animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 6 : 0 }} style={{ display: 'block', height: '2px', background: 'var(--text)', borderRadius: '1px', transformOrigin: 'center' }} />
+            <motion.span animate={{ opacity: isOpen ? 0 : 1 }} style={{ display: 'block', height: '2px', background: 'var(--text)', borderRadius: '1px' }} />
+            <motion.span animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -6 : 0 }} style={{ display: 'block', height: '2px', background: 'var(--text)', borderRadius: '1px', transformOrigin: 'center' }} />
           </div>
         </button>
       </nav>
@@ -229,11 +214,11 @@ export default function Navbar() {
               {/* Mobile language switcher */}
               <div style={{ display: 'flex', gap: '8px', paddingBottom: '8px', borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
                 <Link href={isEn ? altUrl : pathname} onClick={() => setIsOpen(false)}
-                  style={{ flex: 1, textAlign: 'center', padding: '10px', borderRadius: '10px', background: !isEn ? '#1d1d1f' : 'rgba(0,0,0,0.05)', color: !isEn ? '#fff' : '#6e6e73', textDecoration: 'none', fontSize: '14px', fontWeight: 600 }}>
+                  style={{ flex: 1, textAlign: 'center', padding: '10px', borderRadius: '10px', background: !isEn ? 'var(--text)' : 'rgba(0,0,0,0.05)', color: !isEn ? 'var(--white)' : 'var(--muted)', textDecoration: 'none', fontSize: 'var(--fs-small)', fontWeight: 600 }}>
                   PL
                 </Link>
                 <Link href={isEn ? pathname : altUrl} onClick={() => setIsOpen(false)}
-                  style={{ flex: 1, textAlign: 'center', padding: '10px', borderRadius: '10px', background: isEn ? '#1d1d1f' : 'rgba(0,0,0,0.05)', color: isEn ? '#fff' : '#6e6e73', textDecoration: 'none', fontSize: '14px', fontWeight: 600 }}>
+                  style={{ flex: 1, textAlign: 'center', padding: '10px', borderRadius: '10px', background: isEn ? 'var(--text)' : 'rgba(0,0,0,0.05)', color: isEn ? 'var(--white)' : 'var(--muted)', textDecoration: 'none', fontSize: 'var(--fs-small)', fontWeight: 600 }}>
                   EN
                 </Link>
               </div>
@@ -242,7 +227,7 @@ export default function Navbar() {
                   key={link.label}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  style={{ color: '#1d1d1f', textDecoration: 'none', fontSize: '16px', padding: '12px 0', borderBottom: '1px solid rgba(0,0,0,0.06)' }}
+                  style={{ color: 'var(--text)', textDecoration: 'none', fontSize: 'var(--fs-body)', padding: '12px 0', borderBottom: '1px solid rgba(0,0,0,0.06)' }}
                 >
                   {link.label}
                 </Link>
@@ -251,14 +236,14 @@ export default function Navbar() {
                 href={ctaHref}
                 onClick={() => setIsOpen(false)}
                 style={{
-                  backgroundColor: '#1e9953',
+                  backgroundColor: 'var(--accent)',
                   color: 'white',
                   textDecoration: 'none',
                   textAlign: 'center',
                   padding: '12px',
                   borderRadius: '980px',
                   marginTop: '8px',
-                  fontSize: '15px',
+                  fontSize: 'var(--fs-ui)',
                 }}
               >
                 {ctaLabel}

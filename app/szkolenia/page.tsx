@@ -40,7 +40,7 @@ export default async function SzkoleniasPage({
       : trainings.filter((t) => t.category === initialCategory);
 
   return (
-    <main style={{ background: '#ffffff', minHeight: '100vh' }}>
+    <main style={{ background: 'var(--white)', minHeight: '100vh' }}>
       <Navbar />
       <SzkoleniasClient initialCategory={initialCategory} initialTrainings={initialTrainings} />
       <Footer />

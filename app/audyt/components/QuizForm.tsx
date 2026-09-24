@@ -41,9 +41,9 @@ function InputField({
     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
       <label
         style={{
-          fontSize: '12px',
+          fontSize: 'var(--fs-label)',
           fontWeight: 600,
-          color: '#6e6e73',
+          color: 'var(--muted)',
           textTransform: 'uppercase',
           letterSpacing: '0.8px',
         }}
@@ -59,13 +59,13 @@ function InputField({
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         style={{
-          border: `1.5px solid ${error ? '#DC2626' : focused ? '#1e9953' : 'rgba(0,0,0,0.12)'}`,
+          border: `1.5px solid ${error ? '#DC2626' : focused ? 'var(--accent)' : 'rgba(0,0,0,0.12)'}`,
           borderRadius: '12px',
           padding: '12px 14px',
-          fontSize: '15px',
-          color: '#1d1d1f',
+          fontSize: 'var(--fs-ui)',
+          color: 'var(--text)',
           fontFamily: 'inherit',
-          background: '#fff',
+          background: 'var(--white)',
           outline: 'none',
           transition: 'border-color 0.18s',
           width: '100%',
@@ -73,7 +73,7 @@ function InputField({
         }}
       />
       {error && (
-        <span style={{ fontSize: '12px', color: '#DC2626', fontWeight: 500 }}>{error}</span>
+        <span style={{ fontSize: 'var(--fs-label)', color: '#DC2626', fontWeight: 500 }}>{error}</span>
       )}
     </div>
   );
@@ -141,7 +141,7 @@ export default function QuizForm({ score, answers, onSubmit, onSkip, onBack }: P
   return (
     <div
       style={{
-        background: '#fff',
+        background: 'var(--white)',
         borderRadius: '32px',
         border: '1px solid rgba(0,0,0,0.06)',
         padding: 'clamp(24px, 5vw, 44px)',
@@ -160,23 +160,23 @@ export default function QuizForm({ score, answers, onSubmit, onSkip, onBack }: P
             alignItems: 'center',
             justifyContent: 'center',
             marginBottom: '16px',
-            fontSize: '20px',
+            fontSize: 'var(--fs-lead)',
           }}
         >
           📬
         </div>
         <h2
           style={{
-            fontSize: 'clamp(20px, 3.5vw, 26px)',
-            fontWeight: 800,
-            color: '#1d1d1f',
+            fontSize: 'var(--fs-h3)',
+            fontWeight: 500,
+            color: 'var(--text)',
             margin: '0 0 8px',
-            letterSpacing: '-0.8px',
+            letterSpacing: 'var(--ls-h3)',
           }}
         >
           Prawie gotowe — gdzie wysłać Twój raport?
         </h2>
-        <p style={{ fontSize: '14px', color: '#6e6e73', margin: 0, lineHeight: 1.55 }}>
+        <p style={{ fontSize: 'var(--fs-small)', color: 'var(--muted)', margin: 0, lineHeight: 1.55 }}>
           Wyślę Ci spersonalizowaną analizę z rekomendacjami i szacunkową oszczędnością czasu.
         </p>
       </div>
@@ -244,8 +244,8 @@ export default function QuizForm({ score, answers, onSubmit, onSkip, onBack }: P
                     width: '20px',
                     height: '20px',
                     borderRadius: '6px',
-                    border: `2px solid ${errors.consent ? '#DC2626' : formData.consent ? '#1e9953' : 'rgba(0,0,0,0.15)'}`,
-                    background: formData.consent ? '#1e9953' : '#fff',
+                    border: `2px solid ${errors.consent ? '#DC2626' : formData.consent ? 'var(--accent)' : 'rgba(0,0,0,0.15)'}`,
+                    background: formData.consent ? 'var(--accent)' : 'var(--white)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -260,13 +260,13 @@ export default function QuizForm({ score, answers, onSubmit, onSkip, onBack }: P
                   )}
                 </div>
               </div>
-              <span style={{ fontSize: '13px', color: '#6e6e73', lineHeight: 1.5, fontWeight: 500 }}>
+              <span style={{ fontSize: 'var(--fs-small)', color: 'var(--muted)', lineHeight: 1.5, fontWeight: 500 }}>
                 Wyrażam zgodę na kontakt w sprawie wyników audytu
                 <span style={{ color: '#DC2626' }}> *</span>
               </span>
             </label>
             {errors.consent && (
-              <span style={{ fontSize: '12px', color: '#DC2626', fontWeight: 500, display: 'block', marginTop: '6px', paddingLeft: '30px' }}>
+              <span style={{ fontSize: 'var(--fs-label)', color: '#DC2626', fontWeight: 500, display: 'block', marginTop: '6px', paddingLeft: '30px' }}>
                 {errors.consent}
               </span>
             )}
@@ -279,19 +279,19 @@ export default function QuizForm({ score, answers, onSubmit, onSkip, onBack }: P
             disabled={loading}
             style={{
               width: '100%',
-              background: loading ? '#6e6e73' : '#1e9953',
-              color: '#fff',
+              background: loading ? 'var(--muted)' : 'var(--accent)',
+              color: 'var(--white)',
               border: 'none',
               borderRadius: '980px',
               padding: '15px 32px',
-              fontSize: '15px',
+              fontSize: 'var(--fs-ui)',
               fontWeight: 700,
               cursor: loading ? 'not-allowed' : 'pointer',
               fontFamily: 'inherit',
               transition: 'background 0.2s',
             }}
-            onMouseEnter={(e) => { if (!loading) e.currentTarget.style.background = '#17803f'; }}
-            onMouseLeave={(e) => { if (!loading) e.currentTarget.style.background = '#1e9953'; }}
+            onMouseEnter={(e) => { if (!loading) e.currentTarget.style.background = 'var(--accent-deep)'; }}
+            onMouseLeave={(e) => { if (!loading) e.currentTarget.style.background = 'var(--accent)'; }}
           >
             {loading ? 'Wysyłanie…' : 'Zobacz wynik →'}
           </button>
@@ -302,8 +302,8 @@ export default function QuizForm({ score, answers, onSubmit, onSkip, onBack }: P
             style={{
               background: 'none',
               border: 'none',
-              color: '#6e6e73',
-              fontSize: '13px',
+              color: 'var(--muted)',
+              fontSize: 'var(--fs-small)',
               cursor: 'pointer',
               fontFamily: 'inherit',
               padding: '6px 0',
@@ -311,8 +311,8 @@ export default function QuizForm({ score, answers, onSubmit, onSkip, onBack }: P
               fontWeight: 500,
               transition: 'color 0.15s',
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = '#1d1d1f')}
-            onMouseLeave={(e) => (e.currentTarget.style.color = '#6e6e73')}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text)')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--muted)')}
           >
             Pomiń i zobacz wynik →
           </button>
@@ -325,16 +325,16 @@ export default function QuizForm({ score, answers, onSubmit, onSkip, onBack }: P
           style={{
             background: 'none',
             border: 'none',
-            color: '#6e6e73',
-            fontSize: '13px',
+            color: 'var(--muted)',
+            fontSize: 'var(--fs-small)',
             cursor: 'pointer',
             padding: '0',
             fontFamily: 'inherit',
             fontWeight: 500,
             transition: 'color 0.15s',
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = '#1d1d1f')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = '#6e6e73')}
+          onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text)')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--muted)')}
         >
           ← Wróć do pytań
         </button>

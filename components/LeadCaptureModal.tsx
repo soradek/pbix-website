@@ -99,12 +99,12 @@ export default function LeadCaptureModal({
 
   const inputStyle = (err?: string): React.CSSProperties => ({
     width: '100%',
-    background: '#ffffff',
+    background: 'var(--white)',
     border: `1px solid ${err ? '#ef4444' : 'rgba(0,0,0,0.12)'}`,
     borderRadius: '12px',
     padding: '12px 14px',
-    color: '#1d1d1f',
-    fontSize: '14px',
+    color: 'var(--text)',
+    fontSize: 'var(--fs-small)',
     outline: 'none',
     fontFamily: 'inherit',
     boxSizing: 'border-box',
@@ -143,7 +143,7 @@ export default function LeadCaptureModal({
             transition={{ duration: 0.22 }}
             onClick={(e) => e.stopPropagation()}
             style={{
-              background: '#ffffff',
+              background: 'var(--white)',
               borderRadius: '24px',
               maxWidth: '480px',
               width: '100%',
@@ -183,31 +183,31 @@ export default function LeadCaptureModal({
                 <div style={{ width: '64px', height: '64px', background: 'rgba(30,153,83,0.12)', borderRadius: '50%', margin: '0 auto 20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <IconCheck size={32} color="#1e9953" strokeWidth={2.5} />
                 </div>
-                <h3 id="lead-modal-title" style={{ fontSize: '22px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 12px', letterSpacing: '-0.5px' }}>
+                <h3 id="lead-modal-title" style={{ fontSize: 'var(--fs-h3)', fontWeight: 500, color: 'var(--text)', margin: '0 0 12px', letterSpacing: 'var(--ls-h3)' }}>
                   Dziękujemy!
                 </h3>
-                <p style={{ color: '#6e6e73', fontSize: '14px', lineHeight: 1.7, margin: '0 0 24px' }}>
+                <p style={{ color: 'var(--muted)', fontSize: 'var(--fs-small)', lineHeight: 1.7, margin: '0 0 24px' }}>
                   Pobieranie pliku zostanie rozpoczęte automatycznie. Jeśli nic się nie dzieje, kliknij poniższy link.
                 </p>
                 <a
                   href={`/downloads/${fileName}`}
                   download
-                  style={{ background: '#1e9953', color: 'white', textDecoration: 'none', padding: '12px 24px', borderRadius: '980px', fontSize: '14px', fontWeight: 600, display: 'inline-block' }}
+                  style={{ background: 'var(--accent)', color: 'white', textDecoration: 'none', padding: '12px 24px', borderRadius: '980px', fontSize: 'var(--fs-small)', fontWeight: 600, display: 'inline-block' }}
                 >
                   Pobierz materiał
                 </a>
               </div>
             ) : (
               <>
-                <h3 id="lead-modal-title" style={{ fontSize: '22px', fontWeight: 700, color: '#1d1d1f', margin: '0 0 8px', letterSpacing: '-0.5px', paddingRight: '32px' }}>
+                <h3 id="lead-modal-title" style={{ fontSize: 'var(--fs-h3)', fontWeight: 500, color: 'var(--text)', margin: '0 0 8px', letterSpacing: 'var(--ls-h3)', paddingRight: '32px' }}>
                   {title}
                 </h3>
-                <p style={{ color: '#6e6e73', fontSize: '14px', lineHeight: 1.6, margin: '0 0 24px' }}>
+                <p style={{ color: 'var(--muted)', fontSize: 'var(--fs-small)', lineHeight: 1.6, margin: '0 0 24px' }}>
                   {description}
                 </p>
                 <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                   <div>
-                    <label htmlFor="lead-name" style={{ display: 'block', fontSize: '12px', color: '#6e6e73', marginBottom: '6px' }}>Imię *</label>
+                    <label htmlFor="lead-name" style={{ display: 'block', fontSize: 'var(--fs-label)', color: 'var(--muted)', marginBottom: '6px' }}>Imię *</label>
                     <input
                       id="lead-name"
                       type="text"
@@ -215,13 +215,13 @@ export default function LeadCaptureModal({
                       onChange={(e) => { setName(e.target.value); setErrors(p => ({ ...p, name: undefined })); }}
                       maxLength={120}
                       style={inputStyle(errors.name)}
-                      onFocus={(e) => (e.target.style.borderColor = '#1e9953')}
+                      onFocus={(e) => (e.target.style.borderColor = 'var(--accent)')}
                       onBlur={(e) => (e.target.style.borderColor = errors.name ? '#ef4444' : 'rgba(0,0,0,0.12)')}
                     />
-                    {errors.name && <div style={{ color: '#ef4444', fontSize: '12px', marginTop: '4px' }}>{errors.name}</div>}
+                    {errors.name && <div style={{ color: '#ef4444', fontSize: 'var(--fs-label)', marginTop: '4px' }}>{errors.name}</div>}
                   </div>
                   <div>
-                    <label htmlFor="lead-email" style={{ display: 'block', fontSize: '12px', color: '#6e6e73', marginBottom: '6px' }}>Email *</label>
+                    <label htmlFor="lead-email" style={{ display: 'block', fontSize: 'var(--fs-label)', color: 'var(--muted)', marginBottom: '6px' }}>Email *</label>
                     <input
                       id="lead-email"
                       type="email"
@@ -229,13 +229,13 @@ export default function LeadCaptureModal({
                       onChange={(e) => { setEmail(e.target.value); setErrors(p => ({ ...p, email: undefined })); }}
                       maxLength={254}
                       style={inputStyle(errors.email)}
-                      onFocus={(e) => (e.target.style.borderColor = '#1e9953')}
+                      onFocus={(e) => (e.target.style.borderColor = 'var(--accent)')}
                       onBlur={(e) => (e.target.style.borderColor = errors.email ? '#ef4444' : 'rgba(0,0,0,0.12)')}
                     />
-                    {errors.email && <div style={{ color: '#ef4444', fontSize: '12px', marginTop: '4px' }}>{errors.email}</div>}
+                    {errors.email && <div style={{ color: '#ef4444', fontSize: 'var(--fs-label)', marginTop: '4px' }}>{errors.email}</div>}
                   </div>
                   <div>
-                    <label htmlFor="lead-company" style={{ display: 'block', fontSize: '12px', color: '#6e6e73', marginBottom: '6px' }}>Firma (opcjonalnie)</label>
+                    <label htmlFor="lead-company" style={{ display: 'block', fontSize: 'var(--fs-label)', color: 'var(--muted)', marginBottom: '6px' }}>Firma (opcjonalnie)</label>
                     <input
                       id="lead-company"
                       type="text"
@@ -243,25 +243,25 @@ export default function LeadCaptureModal({
                       onChange={(e) => setCompany(e.target.value)}
                       maxLength={160}
                       style={inputStyle()}
-                      onFocus={(e) => (e.target.style.borderColor = '#1e9953')}
+                      onFocus={(e) => (e.target.style.borderColor = 'var(--accent)')}
                       onBlur={(e) => (e.target.style.borderColor = 'rgba(0,0,0,0.12)')}
                     />
                   </div>
-                  <label style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontSize: '12px', color: '#6e6e73', lineHeight: 1.55, cursor: 'pointer', marginTop: '4px' }}>
+                  <label style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', fontSize: 'var(--fs-label)', color: 'var(--muted)', lineHeight: 1.55, cursor: 'pointer', marginTop: '4px' }}>
                     <input
                       type="checkbox"
                       checked={consent}
                       onChange={(e) => { setConsent(e.target.checked); setErrors(p => ({ ...p, consent: undefined })); }}
-                      style={{ marginTop: '2px', accentColor: '#1e9953', flexShrink: 0 }}
+                      style={{ marginTop: '2px', accentColor: 'var(--accent)', flexShrink: 0 }}
                     />
                     <span>
-                      Wyrażam zgodę na przetwarzanie moich danych osobowych (imię, e-mail, opcjonalnie firma) przez Radosława Sobczaka (pbix.pl) w celu przesłania materiału oraz kontaktu w sprawie szkoleń. Zgodę mogę wycofać w dowolnym momencie pisząc na <a href="mailto:kontakt@pbix.pl" style={{ color: '#1e9953' }} onClick={(e) => e.stopPropagation()}>kontakt@pbix.pl</a>. Szczegóły w <a href="/polityka-prywatnosci" target="_blank" rel="noopener noreferrer" style={{ color: '#1e9953' }} onClick={(e) => e.stopPropagation()}>polityce prywatności</a>.
+                      Wyrażam zgodę na przetwarzanie moich danych osobowych (imię, e-mail, opcjonalnie firma) przez Radosława Sobczaka (pbix.pl) w celu przesłania materiału oraz kontaktu w sprawie szkoleń. Zgodę mogę wycofać w dowolnym momencie pisząc na <a href="mailto:kontakt@pbix.pl" style={{ color: 'var(--accent)' }} onClick={(e) => e.stopPropagation()}>kontakt@pbix.pl</a>. Szczegóły w <a href="/polityka-prywatnosci" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)' }} onClick={(e) => e.stopPropagation()}>polityce prywatności</a>.
                     </span>
                   </label>
-                  {errors.consent && <div style={{ color: '#ef4444', fontSize: '12px', marginTop: '-6px' }}>{errors.consent}</div>}
+                  {errors.consent && <div style={{ color: '#ef4444', fontSize: 'var(--fs-label)', marginTop: '-6px' }}>{errors.consent}</div>}
 
                   {status === 'error' && (
-                    <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-start', background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: '10px', padding: '10px 12px', color: '#ef4444', fontSize: '12px', lineHeight: 1.5 }}>
+                    <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-start', background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: '10px', padding: '10px 12px', color: '#ef4444', fontSize: 'var(--fs-label)', lineHeight: 1.5 }}>
                       <IconAlertCircle size={16} color="#ef4444" />
                       <span>{errorMsg}</span>
                     </div>
@@ -271,20 +271,20 @@ export default function LeadCaptureModal({
                     type="submit"
                     disabled={status === 'loading'}
                     style={{
-                      background: status === 'loading' ? '#6e6e73' : '#1e9953',
+                      background: status === 'loading' ? 'var(--muted)' : 'var(--accent)',
                       color: 'white',
                       border: 'none',
                       padding: '14px',
                       borderRadius: '12px',
-                      fontSize: '15px',
+                      fontSize: 'var(--fs-ui)',
                       fontWeight: 600,
                       cursor: status === 'loading' ? 'not-allowed' : 'pointer',
                       fontFamily: 'inherit',
                       transition: 'background 0.2s',
                       marginTop: '4px',
                     }}
-                    onMouseEnter={(e) => { if (status !== 'loading') e.currentTarget.style.background = '#17803f'; }}
-                    onMouseLeave={(e) => { if (status !== 'loading') e.currentTarget.style.background = '#1e9953'; }}
+                    onMouseEnter={(e) => { if (status !== 'loading') e.currentTarget.style.background = 'var(--accent-deep)'; }}
+                    onMouseLeave={(e) => { if (status !== 'loading') e.currentTarget.style.background = 'var(--accent)'; }}
                   >
                     {status === 'loading' ? 'Wysyłanie…' : 'Pobierz materiał'}
                   </button>

@@ -15,26 +15,14 @@ export default function ClientsMarquee({ lang = 'pl' }: { lang?: 'pl' | 'en' }) 
       }}
     >
       <div style={{ textAlign: 'center', marginBottom: '80px', maxWidth: '800px', margin: '0 auto 80px' }}>
-        <div
-          style={{
-            fontSize: '11px',
-            fontWeight: 500,
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            color: 'rgba(255, 255, 255, 0.7)',
-            marginBottom: '16px',
-          }}
-        >
-          {lang === 'en' ? 'Trusted Partners' : 'Zaufani Partnerzy'}
-        </div>
         <h2
           style={{
-            fontSize: 'clamp(28px, 5vw, 52px)',
-            fontWeight: 700,
-            color: '#ffffff',
-            letterSpacing: '-0.02em',
+            fontSize: 'var(--fs-h2)',
+            fontWeight: 500,
+            color: 'var(--white)',
+            letterSpacing: 'var(--ls-h2)',
             margin: 0,
-            lineHeight: 1.2,
+            lineHeight: 'var(--lh-h2)',
           }}
         >
           {lang === 'en' ? 'These Companies I\'ve Already Trained' : 'Te firmy już szkoliłem'}

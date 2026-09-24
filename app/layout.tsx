@@ -1,14 +1,14 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { geist, geistMono } from '@/app/fonts';
 import { headers } from 'next/headers';
 import './globals.css';
 import TrackingScripts from '@/components/TrackingScripts';
+import Preloader from '@/components/Preloader';
 import GA4Router from '@/components/GA4Router';
 import CookieBanner from '@/components/CookieBanner';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-const inter = Inter({ subsets: ['latin', 'latin-ext'], weight: ['400', '500', '600', '700'], display: 'swap' });
 
 const siteUrl = 'https://www.pbix.pl/';
 
@@ -153,7 +153,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           }}
         />
       </head>
-      <body className={inter.className} style={{ margin: 0, background: '#ffffff', color: '#1d1d1f' }}>
+      <body className={`${geist.variable} ${geistMono.variable}`} style={{ margin: 0 }}>
+        <Preloader />
         <TrackingScripts />
         <GA4Router />
         <CookieBanner />

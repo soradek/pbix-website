@@ -26,7 +26,7 @@ export default function TrainingCard({ training, index = 0 }: TrainingCardProps)
       transition={{ duration: 0.5, delay: index * 0.08 }}
       whileHover={{ y: -4 }}
       style={{
-        background: '#ffffff',
+        background: 'var(--white)',
         border: '1px solid rgba(0,0,0,0.08)',
         borderRadius: '20px',
         padding: '28px',
@@ -50,23 +50,23 @@ export default function TrainingCard({ training, index = 0 }: TrainingCardProps)
         {categoryIcons[training.category] || <IconBarChart size={24} color="#1e9953" />}
       </div>
       <div>
-        <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1px', color: '#1e9953', marginBottom: '8px', fontWeight: 500 }}>{training.category}</div>
-        <h3 style={{ fontSize: '18px', fontWeight: 600, color: '#1d1d1f', margin: 0, lineHeight: 1.3 }}>{training.title}</h3>
+        <div style={{ fontSize: 'var(--fs-label)', textTransform: 'uppercase', letterSpacing: '1px', color: 'var(--accent)', marginBottom: '8px', fontWeight: 500 }}>{training.category}</div>
+        <h3 style={{ fontSize: 'var(--fs-lead)', fontWeight: 500, color: 'var(--text)', letterSpacing: 'var(--ls-text)', margin: 0, lineHeight: 1.3 }}>{training.title}</h3>
       </div>
-      <div style={{ color: '#6e6e73', fontSize: '14px', lineHeight: 1.6, flex: 1 }}>
+      <div style={{ color: 'var(--muted)', fontSize: 'var(--fs-small)', lineHeight: 1.6, flex: 1 }}>
         {training.description.substring(0, 120)}...
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', paddingTop: '12px', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
         <div>
-          <div style={{ fontSize: '11px', color: '#6e6e73', fontWeight: 500 }}>{training.duration}</div>
-          <div style={{ fontSize: '16px', fontWeight: 700, color: '#1e9953', marginTop: '2px' }}>{training.priceLabel}</div>
+          <div style={{ fontSize: 'var(--fs-label)', color: 'var(--muted)', fontWeight: 500 }}>{training.duration}</div>
+          <div style={{ fontSize: 'var(--fs-body)', fontWeight: 700, color: 'var(--accent)', marginTop: '2px' }}>{training.priceLabel}</div>
         </div>
         <Link
           href={`/szkolenia/${training.slug}`}
           style={{
-            color: '#1e9953',
+            color: 'var(--accent)',
             textDecoration: 'none',
-            fontSize: '13px',
+            fontSize: 'var(--fs-small)',
             display: 'flex',
             alignItems: 'center',
             gap: '4px',

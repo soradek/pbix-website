@@ -1,117 +1,147 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, Suspense, type CSSProperties } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import ScrollReveal from '@/components/ScrollReveal';
 import Link from 'next/link';
+import { useReducedMotion } from 'framer-motion';
 import { trainings, Training } from '@/data/trainings';
-import { IconBarChart, IconExcel, IconDatabase, IconPieChart, IconArrowRight } from '@/components/Icons';
-import LevelTestCTA from '@/components/LevelTestCTA';
+import { getTrainingEnContent, enPriceLabel } from '@/data/trainings-en';
+import CategoryCurtain, { CATEGORY_COLORS, curtainAlreadyShown, markCurtainShown } from '@/components/CategoryCurtain';
+import s from '@/components/home/home.module.css';
+import PageHero from '@/components/home/PageHero';
+import HomeFinalCta from '@/components/home/HomeFinalCta';
+import { FadeIn } from '@/components/home/motion';
+import type { Lang } from '@/components/home/lang';
 
 const categories = ['Wszystkie', 'Power BI', 'Excel', 'SQL', 'Wizualizacja danych'] as const;
+const VALID_CATEGORIES: string[] = ['Power BI', 'Excel', 'SQL', 'Wizualizacja danych'];
 
-const getCategoryIcon = (cat: string, size = 20) => {
-  if (cat === 'Power BI') return <IconBarChart size={size} color="currentColor" />;
-  if (cat === 'Excel') return <IconExcel size={size} color="currentColor" />;
-  if (cat === 'SQL') return <IconDatabase size={size} color="currentColor" />;
-  if (cat === 'Wizualizacja danych') return <IconPieChart size={size} color="currentColor" />;
-  return null;
+const EN_LABELS: Record<string, string> = {
+  Wszystkie: 'All',
+  'Wizualizacja danych': 'Data Visualisation',
 };
 
-const VALID_CATEGORIES = ['Power BI', 'Excel', 'SQL', 'Wizualizacja danych'];
+const COPY = {
+  pl: {
+    base: '/szkolenia',
+    param: 'kategoria',
+    title: 'Szkolenia',
+    lead: 'Specjalistyczne kursy z Power BI, Excela, SQL i wizualizacji danych. Czas trwania i zakres dopasowuję do zespołu.',
+    details: 'Szczegóły',
+    allCurtain: 'Wszystkie szkolenia',
+  },
+  en: {
+    base: '/en/trainings',
+    param: 'category',
+    title: 'Trainings',
+    lead: 'Specialised courses in Power BI, Excel, SQL and data visualisation. I tailor the duration and scope to your team.',
+    details: 'Details',
+    allCurtain: 'All trainings',
+  },
+};
+
+function label(cat: string, lang: Lang) {
+  return lang === 'en' ? EN_LABELS[cat] ?? cat : cat;
+}
+
+// Accepts both the PL key and the EN label, so shared links work on either site
+function parseCategory(raw: string | null): string {
+  if (!raw) return 'Wszystkie';
+  if (VALID_CATEGORIES.includes(raw)) return raw;
+  const fromEn = Object.keys(EN_LABELS).find(k => EN_LABELS[k] === raw);
+  return fromEn && fromEn !== 'Wszystkie' ? fromEn : 'Wszystkie';
+}
+
+const filterBy = (cat: string) => (cat === 'Wszystkie' ? trainings : trainings.filter(t => t.category === cat));
 
 interface Props {
   initialCategory?: string;
   initialTrainings?: Training[];
+  lang?: Lang;
 }
 
-function SzkoleniasContent({ initialCategory = 'Wszystkie', initialTrainings = trainings }: Props) {
+function SzkoleniasContent({ initialCategory = 'Wszystkie', initialTrainings = trainings, lang = 'pl' }: Props) {
+  const t = COPY[lang];
   const searchParams = useSearchParams();
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [filtered, setFiltered] = useState(initialTrainings);
 
   useEffect(() => {
-    const kat = searchParams.get('kategoria');
-    const cat = kat && VALID_CATEGORIES.includes(kat) ? kat : 'Wszystkie';
+    const cat = parseCategory(searchParams.get(t.param) ?? searchParams.get('kategoria'));
     setActiveCategory(cat);
-    setFiltered(cat === 'Wszystkie' ? trainings : trainings.filter((t) => t.category === cat));
-  }, [searchParams]);
+    setFiltered(filterBy(cat));
+  }, [searchParams, t.param]);
+
+  const reduced = useReducedMotion();
+  const [curtain, setCurtain] = useState<{ cat: string; phase: 'cover' | 'reveal' } | null>(null);
+
+  function applyCategory(cat: string) {
+    setActiveCategory(cat);
+    setFiltered(filterBy(cat));
+    const params = new URLSearchParams();
+    if (cat !== 'Wszystkie') params.set(t.param, label(cat, lang));
+    router.replace(`${t.base}${params.size ? `?${params}` : ''}`, { scroll: false });
+  }
 
   function handleCategory(cat: string) {
-    setActiveCategory(cat);
-    setFiltered(cat === 'Wszystkie' ? trainings : trainings.filter((t) => t.category === cat));
-    const params = new URLSearchParams();
-    if (cat !== 'Wszystkie') params.set('kategoria', cat);
-    router.replace(`/szkolenia${params.size ? `?${params}` : ''}`, { scroll: false });
+    if (cat === activeCategory || curtain) return;
+    if (reduced || curtainAlreadyShown(cat)) {
+      applyCategory(cat);
+      return;
+    }
+    markCurtainShown(cat);
+    setCurtain({ cat, phase: 'cover' });
   }
 
   return (
     <>
-      {/* Hero */}
-      <section style={{ padding: '140px 24px 72px', textAlign: 'center' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '2px', color: '#6e6e73', marginBottom: '16px' }}>Oferta</div>
-          <h1 style={{ fontSize: 'clamp(44px, 8vw, 76px)', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-2.5px', lineHeight: 1.05, margin: '0 0 20px' }}>
-            Szkolenia
-          </h1>
-          <p style={{ fontSize: '18px', color: '#6e6e73', lineHeight: 1.65, margin: 0, fontWeight: 400 }}>
-            Specjalistyczne kursy z Power BI, Excel, SQL i wizualizacji danych.<br />
-            Każde szkolenie – 2 dni intensywnej, praktycznej nauki.
-          </p>
-        </div>
-      </section>
+      {curtain && (
+        <CategoryCurtain
+          label={curtain.cat}
+          text={curtain.cat === 'Wszystkie' ? t.allCurtain : label(curtain.cat, lang)}
+          phase={curtain.phase}
+          onCovered={() => {
+            applyCategory(curtain.cat);
+            setCurtain({ cat: curtain.cat, phase: 'reveal' });
+          }}
+          onDone={() => setCurtain(null)}
+        />
+      )}
 
-      {/* Category filter */}
-      <section style={{ padding: '0 24px 56px' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '56px' }}>
-            {categories.map((cat) => {
-              const active = activeCategory === cat;
+      <PageHero title={t.title} lead={t.lead} />
+
+      <section className={`${s.onWhite} ${s.trainingsSection}`}>
+        <div className={s.container}>
+          <div className={s.catFilters} role="group">
+            {categories.map(cat => {
+              const tone = CATEGORY_COLORS[cat];
               return (
                 <button
                   key={cat}
+                  type="button"
                   onClick={() => handleCategory(cat)}
-                  aria-pressed={active}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    background: active ? '#1e9953' : '#ffffff',
-                    border: `1px solid ${active ? '#1e9953' : 'rgba(0,0,0,0.1)'}`,
-                    color: active ? 'white' : '#6e6e73',
-                    padding: '12px 20px',
-                    borderRadius: '980px',
-                    fontSize: '13px',
-                    fontWeight: 500,
-                    cursor: 'pointer',
-                    transition: 'all 0.2s',
-                    fontFamily: 'inherit',
-                    boxShadow: active ? '0 4px 12px rgba(30,153,83,0.25)' : 'none',
-                  }}
+                  aria-pressed={activeCategory === cat}
+                  className="cat-btn"
+                  style={{ '--tone-bg': tone.bg, '--tone-fg': tone.fg } as CSSProperties}
                 >
-                  {cat !== 'Wszystkie' && (
-                    <span style={{ display: 'flex', color: active ? 'rgba(255,255,255,0.85)' : '#6e6e73' }}>
-                      {getCategoryIcon(cat, 14)}
-                    </span>
-                  )}
-                  {cat}
+                  {label(cat, lang)}
                 </button>
               );
             })}
           </div>
 
-          <div className="training-grid">
-            {filtered.map((training) => (
-              <TrainingCardLocal key={training.slug} training={training} />
+          <ul className={s.trainingGrid}>
+            {filtered.map((training, i) => (
+              <FadeIn as="li" key={training.slug} delay={(i % 3) * 0.05} y={20}>
+                <TrainingCard training={training} lang={lang} />
+              </FadeIn>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
-      {/* Level test CTA – TODO: wyłączone tymczasowo
-      <LevelTestCTA />
-      */}
+      <HomeFinalCta lang={lang} />
     </>
   );
 }
@@ -124,55 +154,30 @@ export default function SzkoleniasClient(props: Props) {
   );
 }
 
-function TrainingCardLocal({ training }: { training: Training }) {
+function TrainingCard({ training, lang }: { training: Training; lang: Lang }) {
+  const tone = CATEGORY_COLORS[training.category] ?? CATEGORY_COLORS.Wszystkie;
+  const en = lang === 'en' ? getTrainingEnContent(training.slug) : undefined;
+  const title = en?.title ?? training.title;
+  const desc = en?.description ?? training.description;
+  const duration = lang === 'en' ? training.duration.replace('2 dni / 16 godzin', '2 days / 16 hours') : training.duration;
+  const price = lang === 'en' ? enPriceLabel(training.price) : training.priceLabel;
+  const href = lang === 'en' ? `/en/trainings/${training.slug}` : `/szkolenia/${training.slug}`;
+
   return (
-    <Link href={`/szkolenia/${training.slug}`} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
-      <div
-        style={{
-          background: '#ffffff',
-          border: '1px solid rgba(0,0,0,0.08)',
-          borderRadius: '20px',
-          padding: '28px',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '14px',
-          transition: 'all 0.25s',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.borderColor = 'rgba(30,153,83,0.3)';
-          e.currentTarget.style.boxShadow = '0 8px 28px rgba(30,153,83,0.10)';
-          e.currentTarget.style.transform = 'translateY(-3px)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.borderColor = 'rgba(0,0,0,0.08)';
-          e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.04)';
-          e.currentTarget.style.transform = 'translateY(0)';
-        }}
-      >
-        <div style={{ width: '44px', height: '44px', background: 'rgba(30,153,83,0.08)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#1e9953' }}>
-          {getCategoryIcon(training.category, 22)}
-        </div>
-
+    <Link
+      href={href}
+      className={s.trainingCard}
+      style={{ '--tone-bg': tone.bg, '--tone-ink': tone.ink } as CSSProperties}
+    >
+      <p className={`${s.mono} ${s.blogCat}`}>{label(training.category, lang)}</p>
+      <h2 className={s.relatedTitle}>{title}</h2>
+      <p className={s.blogExcerpt}>{desc.substring(0, 110).trim()}…</p>
+      <div className={s.trainingCardFoot}>
         <div>
-          <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#1e9953', marginBottom: '5px', fontWeight: 600 }}>{training.category}</div>
-          <h3 style={{ fontSize: '16px', fontWeight: 600, color: '#1d1d1f', margin: 0, lineHeight: 1.35 }}>{training.title}</h3>
+          <p className={`${s.mono} ${s.trainingCardDuration}`}>{duration}</p>
+          <p className={s.trainingCardPrice}>{price}</p>
         </div>
-
-        <p style={{ color: '#6e6e73', fontSize: '13px', lineHeight: 1.65, margin: 0, flex: 1 }}>
-          {training.description.substring(0, 90)}...
-        </p>
-
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14px', borderTop: '1px solid rgba(0,0,0,0.06)', marginTop: 'auto' }}>
-          <div>
-            <div style={{ fontSize: '10px', color: '#6e6e73', marginBottom: '2px' }}>{training.duration}</div>
-            <div style={{ fontSize: '16px', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-0.3px' }}>{training.priceLabel}</div>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#1e9953', fontSize: '13px', fontWeight: 500 }}>
-            Szczegóły <IconArrowRight size={14} color="#1e9953" />
-          </div>
-        </div>
+        <span className={`${s.mono} ${s.relatedMore}`}>{COPY[lang].details} →</span>
       </div>
     </Link>
   );

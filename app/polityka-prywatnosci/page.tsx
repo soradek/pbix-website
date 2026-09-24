@@ -17,18 +17,15 @@ export const metadata: Metadata = {
 
 export default function PolitykaPrywatnosciPage() {
   return (
-    <main style={{ background: '#ffffff' }}>
+    <main style={{ background: 'var(--white)' }}>
       <Navbar />
 
       <article style={{ padding: '120px 24px 80px' }}>
         <div style={{ maxWidth: '760px', margin: '0 auto' }}>
-          <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '2px', color: '#6e6e73', marginBottom: '16px' }}>
-            Informacja prawna
-          </div>
-          <h1 style={{ fontSize: 'clamp(36px, 6vw, 52px)', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-1.5px', lineHeight: 1.1, margin: '0 0 16px' }}>
+          <h1 style={{ fontSize: 'var(--fs-h2)', fontWeight: 500, color: 'var(--text)', letterSpacing: 'var(--ls-h2)', lineHeight: 'var(--lh-h2)', margin: '0 0 16px' }}>
             Polityka prywatności
           </h1>
-          <p style={{ color: '#6e6e73', fontSize: '14px', margin: '0 0 48px' }}>
+          <p style={{ color: 'var(--muted)', fontSize: 'var(--fs-small)', margin: '0 0 48px' }}>
             Ostatnia aktualizacja: 28 kwietnia 2026
           </p>
 
@@ -220,7 +217,7 @@ export default function PolitykaPrywatnosciPage() {
               danych osobowych, ustawy o świadczeniu usług drogą elektroniczną oraz Prawa komunikacji
               elektronicznej.
             </p>
-            <p style={{ color: '#6e6e73', fontSize: '13px', marginTop: '24px' }}>
+            <p style={{ color: 'var(--muted)', fontSize: 'var(--fs-small)', marginTop: '24px' }}>
               Wersja obowiązująca od: 28 kwietnia 2026 r.
             </p>
           </Section>
@@ -232,15 +229,15 @@ export default function PolitykaPrywatnosciPage() {
   );
 }
 
-const linkStyle: React.CSSProperties = { color: '#1e9953', textDecoration: 'underline', textUnderlineOffset: '3px' };
+const linkStyle: React.CSSProperties = { color: 'var(--accent)', textDecoration: 'underline', textUnderlineOffset: '3px' };
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section style={{ marginBottom: '40px' }}>
-      <h2 style={{ fontSize: '22px', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-0.4px', margin: '0 0 16px' }}>
+      <h2 style={{ fontSize: 'var(--fs-h3)', fontWeight: 500, color: 'var(--text)', letterSpacing: 'var(--ls-h3)', margin: '0 0 16px' }}>
         {title}
       </h2>
-      <div style={{ fontSize: '15px', lineHeight: 1.75, color: '#1d1d1f' }}>
+      <div style={{ fontSize: 'var(--fs-ui)', lineHeight: 1.75, color: 'var(--text)' }}>
         {children}
       </div>
     </section>

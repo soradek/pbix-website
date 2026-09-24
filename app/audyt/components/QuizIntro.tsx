@@ -10,7 +10,7 @@ export default function QuizIntro({ onStart }: Props) {
   return (
     <div
       style={{
-        background: '#fff',
+        background: 'var(--white)',
         borderRadius: '32px',
         border: '1px solid rgba(0,0,0,0.06)',
         overflow: 'hidden',
@@ -56,37 +56,21 @@ export default function QuizIntro({ onStart }: Props) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div
-            style={{
-              display: 'inline-block',
-              background: 'rgba(255,255,255,0.15)',
-              borderRadius: '980px',
-              padding: '5px 14px',
-              fontSize: '11px',
-              color: 'rgba(255,255,255,0.9)',
-              fontWeight: 600,
-              letterSpacing: '1.5px',
-              textTransform: 'uppercase',
-              marginBottom: '16px',
-            }}
-          >
-            ITM Industry Europe 2026
-          </div>
           <h1
             style={{
-              fontSize: 'clamp(26px, 5vw, 38px)',
-              fontWeight: 800,
-              color: '#fff',
+              fontSize: 'var(--fs-h2)',
+              fontWeight: 500,
+              color: 'var(--white)',
               margin: '0 0 12px',
-              letterSpacing: '-1.5px',
-              lineHeight: 1.15,
+              letterSpacing: 'var(--ls-h2)',
+              lineHeight: 'var(--lh-h2)',
             }}
           >
             Audyt dojrzałości raportowej
           </h1>
           <p
             style={{
-              fontSize: 'clamp(14px, 2.2vw, 17px)',
+              fontSize: 'var(--fs-lead)',
               color: 'rgba(255,255,255,0.82)',
               margin: 0,
               fontWeight: 500,
@@ -107,8 +91,8 @@ export default function QuizIntro({ onStart }: Props) {
         >
           <p
             style={{
-              fontSize: '15px',
-              color: '#6e6e73',
+              fontSize: 'var(--fs-ui)',
+              color: 'var(--muted)',
               lineHeight: 1.65,
               margin: '0 0 28px',
             }}
@@ -135,7 +119,7 @@ export default function QuizIntro({ onStart }: Props) {
                 key={stat.label}
                 style={{
                   flex: '1 1 80px',
-                  background: '#f5f5f7',
+                  background: 'var(--paper)',
                   borderRadius: '16px',
                   padding: '14px 16px',
                   textAlign: 'center',
@@ -143,17 +127,17 @@ export default function QuizIntro({ onStart }: Props) {
               >
                 <div
                   style={{
-                    fontSize: '22px',
-                    fontWeight: 800,
-                    color: '#1e9953',
-                    letterSpacing: '-0.5px',
+                    fontSize: 'var(--fs-h3)',
+                    fontWeight: 500,
+                    color: 'var(--accent)',
+                    letterSpacing: 'var(--ls-h3)',
                     lineHeight: 1,
                     marginBottom: '4px',
                   }}
                 >
                   {stat.value}
                 </div>
-                <div style={{ fontSize: '11px', color: '#6e6e73', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 600 }}>
+                <div style={{ fontSize: 'var(--fs-label)', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 600 }}>
                   {stat.label}
                 </div>
               </div>
@@ -164,12 +148,12 @@ export default function QuizIntro({ onStart }: Props) {
             onClick={onStart}
             style={{
               width: '100%',
-              background: '#1e9953',
-              color: '#fff',
+              background: 'var(--accent)',
+              color: 'var(--white)',
               border: 'none',
               borderRadius: '980px',
               padding: '16px 32px',
-              fontSize: '16px',
+              fontSize: 'var(--fs-body)',
               fontWeight: 700,
               cursor: 'pointer',
               fontFamily: 'inherit',
@@ -177,11 +161,11 @@ export default function QuizIntro({ onStart }: Props) {
               letterSpacing: '-0.2px',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#17803f';
+              e.currentTarget.style.background = 'var(--accent-deep)';
               e.currentTarget.style.transform = 'translateY(-1px)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#1e9953';
+              e.currentTarget.style.background = 'var(--accent)';
               e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
@@ -212,8 +196,8 @@ export default function QuizIntro({ onStart }: Props) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#fff',
-              fontSize: '13px',
+              color: 'var(--white)',
+              fontSize: 'var(--fs-small)',
               fontWeight: 800,
               flexShrink: 0,
             }}
@@ -221,8 +205,8 @@ export default function QuizIntro({ onStart }: Props) {
             RS
           </div>
           <div>
-            <div style={{ fontSize: '13px', fontWeight: 600, color: '#1d1d1f' }}>Radosław Sobczak</div>
-            <div style={{ fontSize: '11px', color: '#6e6e73' }}>PBIX.pl · Certyfikowany Trener Microsoft (MCT)</div>
+            <div style={{ fontSize: 'var(--fs-small)', fontWeight: 600, color: 'var(--text)' }}>Radosław Sobczak</div>
+            <div style={{ fontSize: 'var(--fs-label)', color: 'var(--muted)' }}>PBIX.pl · Certyfikowany Trener Microsoft (MCT)</div>
           </div>
         </motion.div>
       </div>

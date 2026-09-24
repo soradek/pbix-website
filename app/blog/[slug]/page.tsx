@@ -1,11 +1,15 @@
 import type { Metadata } from 'next';
+import type { CSSProperties } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { getAllPosts, getPostBySlug } from '@/lib/blog';
 import { trainings } from '@/data/trainings';
-import { IconArrowRight } from '@/components/Icons';
+import { toneFor } from '@/data/categoryColors';
+import HomeFinalCta from '@/components/home/HomeFinalCta';
+import { SectionHead, SplitHeading } from '@/components/home/motion';
+import s from '@/components/home/home.module.css';
 
 export const dynamicParams = false;
 
@@ -100,8 +104,10 @@ export default async function BlogPostPage({ params }: Props) {
     inLanguage: 'pl-PL',
   };
 
+  const tone = toneFor(post.category);
+
   return (
-    <main style={{ background: '#ffffff' }}>
+    <main className={s.page} style={{ '--tone-bg': tone.bg, '--tone-ink': tone.ink } as CSSProperties}>
       <Navbar />
 
       <script
@@ -109,95 +115,64 @@ export default async function BlogPostPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <article style={{ padding: '120px 24px 80px' }}>
-        <div style={{ maxWidth: '720px', margin: '0 auto' }}>
-          <Link
-            href="/blog"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#6e6e73', textDecoration: 'none', fontSize: '13px', marginBottom: '24px' }}
-          >
-            ← Wszystkie artykuły
-          </Link>
-
-          <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '2px', color: '#1e9953', fontWeight: 600, marginBottom: '16px' }}>
-            {post.category}
+      <article className={s.post}>
+        <header className={s.postHeader}>
+          <div className={s.postNarrow}>
+            <Link href="/blog" className={`${s.mono} ${s.postBack}`}>
+              ← Wszystkie artykuły
+            </Link>
+            <p className={`${s.mono} ${s.blogCat}`}>{post.category}</p>
+            <SplitHeading as="h1" text={post.title} className={s.postTitle} onMount />
+            <p className={`${s.mono} ${s.blogMeta}`}>
+              {formatDate(post.date)} · {post.readingTime} czytania
+            </p>
           </div>
+        </header>
 
-          <h1 style={{ fontSize: 'clamp(32px, 5vw, 46px)', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-1.5px', lineHeight: 1.15, margin: '0 0 20px' }}>
-            {post.title}
-          </h1>
-
-          <div style={{ fontSize: '14px', color: '#6e6e73', marginBottom: '32px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <span>{formatDate(post.date)}</span>
-            <span>·</span>
-            <span>{post.readingTime} czytania</span>
-          </div>
-
+        <div className={s.postNarrow}>
           {post.coverImage && (
-            <div style={{ borderRadius: '20px', overflow: 'hidden', marginBottom: '40px', background: '#0f3a22', aspectRatio: '1200 / 630' }}>
+            <div className={`${s.blogCover} ${s.postCover}`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={post.coverImage}
-                alt={`Ilustracja artykułu: ${post.title}`}
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-              />
+              <img src={post.coverImage} alt={`Ilustracja artykułu: ${post.title}`} />
             </div>
           )}
-
-          <div style={{ borderTop: '1px solid rgba(0,0,0,0.08)', paddingTop: '32px' }}>
+          <div className={s.postBody}>
             <Post />
           </div>
         </div>
       </article>
 
       {related.length > 0 && (
-        <section style={{ padding: '60px 24px 100px', background: '#f9f9f9' }}>
-          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-            <h2 style={{ fontSize: 'clamp(24px, 3vw, 32px)', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-0.6px', margin: '0 0 32px', textAlign: 'center' }}>
-              Powiązane szkolenia
-            </h2>
-
-            <div className="training-grid">
-              {related.map((t) => (
-                <Link
-                  key={t.slug}
-                  href={`/szkolenia/${t.slug}`}
-                  style={{ textDecoration: 'none', display: 'block' }}
-                >
-                  <div
-                    style={{
-                      background: '#ffffff',
-                      border: '1px solid rgba(0,0,0,0.08)',
-                      borderRadius: '20px',
-                      padding: '24px',
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '12px',
-                    }}
-                  >
-                    <div style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '1.5px', color: '#1e9953', fontWeight: 600 }}>
-                      {t.category}
-                    </div>
-                    <h3 style={{ fontSize: '17px', fontWeight: 600, color: '#1d1d1f', margin: 0, lineHeight: 1.35 }}>
-                      {t.title}
-                    </h3>
-                    <p style={{ color: '#6e6e73', fontSize: '13px', lineHeight: 1.6, margin: 0, flex: 1 }}>
-                      {t.description.substring(0, 90)}...
-                    </p>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '12px', borderTop: '1px solid rgba(0,0,0,0.06)' }}>
-                      <span style={{ fontSize: '14px', fontWeight: 700, color: '#1d1d1f' }}>{t.priceLabel}</span>
-                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', color: '#1e9953', fontSize: '13px', fontWeight: 500 }}>
-                        Szczegóły <IconArrowRight size={14} color="#1e9953" />
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+        <section className={`${s.onPaper} ${s.sectionTight}`}>
+          <div className={s.container}>
+            <SectionHead title="Powiązane szkolenia" />
+            <ul className={s.relatedGrid}>
+              {related.map((t) => {
+                const tt = toneFor(t.category);
+                return (
+                  <li key={t.slug}>
+                    <Link
+                      href={`/szkolenia/${t.slug}`}
+                      className={s.relatedCard}
+                      style={{ '--tone-bg': tt.bg, '--tone-ink': tt.ink } as CSSProperties}
+                    >
+                      <p className={`${s.mono} ${s.blogCat}`}>{t.category}</p>
+                      <h3 className={s.relatedTitle}>{t.title}</h3>
+                      <p className={s.blogExcerpt}>{t.description.substring(0, 110).trim()}…</p>
+                      <p className={`${s.mono} ${s.relatedFoot}`}>
+                        <span>{t.priceLabel}</span>
+                        <span className={s.relatedMore}>Szczegóły →</span>
+                      </p>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </section>
       )}
 
+      <HomeFinalCta />
       <Footer />
     </main>
   );

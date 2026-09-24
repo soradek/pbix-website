@@ -42,7 +42,7 @@ function getLevel(score: number): LevelConfig {
   return {
     label: 'Zaawansowany',
     icon: '🟢',
-    color: '#1e9953',
+    color: 'var(--accent)',
     description:
       'Twoja firma jest na zaawansowanym poziomie dojrzałości raportowej. Korzystacie z dashboardów, automatyzacji i macie kulturę pracy z danymi. Warto teraz optymalizować i rozszerzać.',
     estimate:
@@ -118,7 +118,7 @@ export default function QuizResult({ score, answers }: Props) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         style={{
-          background: '#fff',
+          background: 'var(--white)',
           borderRadius: '32px',
           border: '1px solid rgba(0,0,0,0.06)',
           padding: 'clamp(28px, 5vw, 44px)',
@@ -129,14 +129,14 @@ export default function QuizResult({ score, answers }: Props) {
         <div style={{ textAlign: 'center', marginBottom: '28px' }}>
           <ScoreGauge score={score} maxScore={30} color={level.color} />
           <div style={{ marginTop: '16px' }}>
-            <div style={{ fontSize: '28px', marginBottom: '6px' }}>{level.icon}</div>
+            <div style={{ fontSize: 'var(--fs-h3)', marginBottom: '6px' }}>{level.icon}</div>
             <h2
               style={{
-                fontSize: 'clamp(22px, 4vw, 28px)',
-                fontWeight: 800,
-                color: '#1d1d1f',
+                fontSize: 'var(--fs-h3)',
+                fontWeight: 500,
+                color: 'var(--text)',
                 margin: '0 0 4px',
-                letterSpacing: '-0.8px',
+                letterSpacing: 'var(--ls-h3)',
               }}
             >
               {level.label}
@@ -148,7 +148,7 @@ export default function QuizResult({ score, answers }: Props) {
                 color: level.color,
                 borderRadius: '980px',
                 padding: '4px 14px',
-                fontSize: '12px',
+                fontSize: 'var(--fs-label)',
                 fontWeight: 700,
                 letterSpacing: '0.5px',
               }}
@@ -159,7 +159,7 @@ export default function QuizResult({ score, answers }: Props) {
         </div>
 
         {/* Description */}
-        <p style={{ fontSize: '14px', color: '#6e6e73', lineHeight: 1.65, margin: '0 0 16px' }}>
+        <p style={{ fontSize: 'var(--fs-small)', color: 'var(--muted)', lineHeight: 1.65, margin: '0 0 16px' }}>
           {level.description}
         </p>
 
@@ -176,8 +176,8 @@ export default function QuizResult({ score, answers }: Props) {
             alignItems: 'flex-start',
           }}
         >
-          <span style={{ fontSize: '18px', flexShrink: 0 }}>⏱</span>
-          <p style={{ fontSize: '13px', color: '#1d1d1f', fontWeight: 600, margin: 0, lineHeight: 1.5 }}>
+          <span style={{ fontSize: 'var(--fs-lead)', flexShrink: 0 }}>⏱</span>
+          <p style={{ fontSize: 'var(--fs-small)', color: 'var(--text)', fontWeight: 600, margin: 0, lineHeight: 1.5 }}>
             {level.estimate}
           </p>
         </div>
@@ -194,8 +194,8 @@ export default function QuizResult({ score, answers }: Props) {
         >
           <div
             style={{
-              fontSize: '10px',
-              color: '#1e9953',
+              fontSize: 'var(--fs-label)',
+              color: 'var(--accent)',
               textTransform: 'uppercase',
               letterSpacing: '1.5px',
               fontWeight: 700,
@@ -204,7 +204,7 @@ export default function QuizResult({ score, answers }: Props) {
           >
             Rekomendacja
           </div>
-          <p style={{ fontSize: '14px', color: '#1d1d1f', fontWeight: 600, margin: 0, lineHeight: 1.55 }}>
+          <p style={{ fontSize: 'var(--fs-small)', color: 'var(--text)', fontWeight: 600, margin: 0, lineHeight: 1.55 }}>
             {level.recommendation}
           </p>
         </div>
@@ -230,7 +230,7 @@ export default function QuizResult({ score, answers }: Props) {
                 <circle cx="10" cy="10" r="10" fill="#1e9953" />
                 <path d="M5.5 10.5L8.5 13.5L14.5 7" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              <span style={{ fontSize: '14px', fontWeight: 600, color: '#1d1d1f' }}>
+              <span style={{ fontSize: 'var(--fs-small)', fontWeight: 600, color: 'var(--text)' }}>
                 Wysłano — odezwę się wkrótce.
               </span>
             </motion.div>
@@ -253,13 +253,13 @@ export default function QuizResult({ score, answers }: Props) {
                   autoFocus
                   style={{
                     flex: 1,
-                    border: `1.5px solid ${emailFocused ? '#1e9953' : 'rgba(0,0,0,0.12)'}`,
+                    border: `1.5px solid ${emailFocused ? 'var(--accent)' : 'rgba(0,0,0,0.12)'}`,
                     borderRadius: '980px',
                     padding: '13px 18px',
-                    fontSize: '15px',
-                    color: '#1d1d1f',
+                    fontSize: 'var(--fs-ui)',
+                    color: 'var(--text)',
                     fontFamily: 'inherit',
-                    background: '#fff',
+                    background: 'var(--white)',
                     outline: 'none',
                     transition: 'border-color 0.18s',
                   }}
@@ -268,12 +268,12 @@ export default function QuizResult({ score, answers }: Props) {
                   onClick={handleSendContact}
                   disabled={contactState === 'sending'}
                   style={{
-                    background: contactState === 'sending' ? '#6e6e73' : '#1e9953',
-                    color: '#fff',
+                    background: contactState === 'sending' ? 'var(--muted)' : 'var(--accent)',
+                    color: 'var(--white)',
                     border: 'none',
                     borderRadius: '980px',
                     padding: '13px 20px',
-                    fontSize: '14px',
+                    fontSize: 'var(--fs-small)',
                     fontWeight: 700,
                     cursor: contactState === 'sending' ? 'not-allowed' : 'pointer',
                     fontFamily: 'inherit',
@@ -283,8 +283,8 @@ export default function QuizResult({ score, answers }: Props) {
                     alignItems: 'center',
                     gap: '6px',
                   }}
-                  onMouseEnter={(e) => { if (contactState !== 'sending') e.currentTarget.style.background = '#17803f'; }}
-                  onMouseLeave={(e) => { if (contactState !== 'sending') e.currentTarget.style.background = '#1e9953'; }}
+                  onMouseEnter={(e) => { if (contactState !== 'sending') e.currentTarget.style.background = 'var(--accent-deep)'; }}
+                  onMouseLeave={(e) => { if (contactState !== 'sending') e.currentTarget.style.background = 'var(--accent)'; }}
                 >
                   {contactState === 'sending' ? (
                     'Wysyłam…'
@@ -299,7 +299,7 @@ export default function QuizResult({ score, answers }: Props) {
                 </button>
               </div>
               {contactState === 'error' && (
-                <span style={{ fontSize: '12px', color: '#DC2626', paddingLeft: '4px' }}>
+                <span style={{ fontSize: 'var(--fs-label)', color: '#DC2626', paddingLeft: '4px' }}>
                   Coś poszło nie tak — spróbuj ponownie.
                 </span>
               )}
@@ -312,12 +312,12 @@ export default function QuizResult({ score, answers }: Props) {
               whileTap={{ scale: 0.995 }}
               style={{
                 width: '100%',
-                background: '#1e9953',
-                color: '#fff',
+                background: 'var(--accent)',
+                color: 'var(--white)',
                 border: 'none',
                 borderRadius: '980px',
                 padding: '15px 32px',
-                fontSize: '15px',
+                fontSize: 'var(--fs-ui)',
                 fontWeight: 700,
                 cursor: 'pointer',
                 fontFamily: 'inherit',
@@ -327,8 +327,8 @@ export default function QuizResult({ score, answers }: Props) {
                 justifyContent: 'center',
                 gap: '8px',
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = '#17803f')}
-              onMouseLeave={(e) => (e.currentTarget.style.background = '#1e9953')}
+              onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--accent-deep)')}
+              onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--accent)')}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M1.5 4L8 9L14.5 4" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -346,11 +346,11 @@ export default function QuizResult({ score, answers }: Props) {
             width: '100%',
             marginTop: '10px',
             background: 'transparent',
-            color: '#6e6e73',
+            color: 'var(--muted)',
             border: '1.5px solid rgba(0,0,0,0.1)',
             borderRadius: '980px',
             padding: '13px 32px',
-            fontSize: '14px',
+            fontSize: 'var(--fs-small)',
             fontWeight: 600,
             cursor: 'pointer',
             fontFamily: 'inherit',
@@ -361,12 +361,12 @@ export default function QuizResult({ score, answers }: Props) {
             gap: '7px',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = '#1e9953';
-            e.currentTarget.style.color = '#1e9953';
+            e.currentTarget.style.borderColor = 'var(--accent)';
+            e.currentTarget.style.color = 'var(--accent)';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.borderColor = 'rgba(0,0,0,0.1)';
-            e.currentTarget.style.color = '#6e6e73';
+            e.currentTarget.style.color = 'var(--muted)';
           }}
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -385,7 +385,7 @@ export default function QuizResult({ score, answers }: Props) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.15 }}
         style={{
-          background: '#fff',
+          background: 'var(--white)',
           borderRadius: '32px',
           border: '1px solid rgba(0,0,0,0.06)',
           padding: 'clamp(24px, 4vw, 36px)',
@@ -394,9 +394,9 @@ export default function QuizResult({ score, answers }: Props) {
       >
         <h3
           style={{
-            fontSize: '15px',
+            fontSize: 'var(--fs-ui)',
             fontWeight: 700,
-            color: '#1d1d1f',
+            color: 'var(--text)',
             margin: '0 0 16px',
             letterSpacing: '-0.3px',
           }}
@@ -413,20 +413,20 @@ export default function QuizResult({ score, answers }: Props) {
                 justifyContent: 'space-between',
                 gap: '12px',
                 padding: '10px 14px',
-                background: '#f5f5f7',
+                background: 'var(--paper)',
                 borderRadius: '12px',
               }}
             >
-              <span style={{ fontSize: '13px', color: '#1d1d1f', fontWeight: 500, flex: 1 }}>
+              <span style={{ fontSize: 'var(--fs-small)', color: 'var(--text)', fontWeight: 500, flex: 1 }}>
                 {a.area}
               </span>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
-                <span style={{ fontSize: '16px' }}>{pointsIcon(a.points)}</span>
+                <span style={{ fontSize: 'var(--fs-body)' }}>{pointsIcon(a.points)}</span>
                 <span
                   style={{
-                    fontSize: '11px',
+                    fontSize: 'var(--fs-label)',
                     fontWeight: 700,
-                    color: '#6e6e73',
+                    color: 'var(--muted)',
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px',
                   }}
@@ -446,9 +446,9 @@ export default function QuizResult({ score, answers }: Props) {
         transition={{ delay: 0.4 }}
         style={{ textAlign: 'center', padding: '16px 0 8px' }}
       >
-        <p style={{ fontSize: '12px', color: '#6e6e73', margin: 0 }}>
+        <p style={{ fontSize: 'var(--fs-label)', color: 'var(--muted)', margin: 0 }}>
           Powered by{' '}
-          <a href="https://pbix.pl" style={{ color: '#1e9953', textDecoration: 'none', fontWeight: 600 }}>
+          <a href="https://pbix.pl" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: 600 }}>
             PBIX.pl
           </a>{' '}
           · Radosław Sobczak · MCT

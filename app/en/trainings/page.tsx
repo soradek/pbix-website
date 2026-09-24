@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function TrainingsEnPage() {
   return (
-    <main style={{ background: '#ffffff', minHeight: '100vh' }}>
+    <main style={{ background: 'var(--white)', minHeight: '100vh' }}>
       <Navbar />
       <TrainingsEnClient />
       <Footer lang="en" />

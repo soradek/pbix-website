@@ -6,7 +6,6 @@ import Footer from '@/components/Footer';
 import ScrollReveal from '@/components/ScrollReveal';
 import { trainings } from '@/data/trainings';
 import SuccessModal from '@/components/SuccessModal';
-import { IconPhone, IconMail } from '@/components/Icons';
 
 export default function KontaktClient() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', training: '', message: '' });
@@ -47,12 +46,12 @@ export default function KontaktClient() {
 
   const inputStyle = (field: keyof typeof formData): React.CSSProperties => ({
     width: '100%',
-    background: '#ffffff',
+    background: 'var(--white)',
     border: `1px solid ${errors[field] ? '#ef4444' : 'rgba(0,0,0,0.12)'}`,
     borderRadius: '12px',
     padding: '14px 16px',
-    color: '#1d1d1f',
-    fontSize: '15px',
+    color: 'var(--text)',
+    fontSize: 'var(--fs-ui)',
     outline: 'none',
     fontFamily: 'inherit',
     boxSizing: 'border-box',
@@ -60,7 +59,7 @@ export default function KontaktClient() {
   });
 
   return (
-    <main style={{ background: '#ffffff', minHeight: '100vh' }}>
+    <main style={{ background: 'var(--white)', minHeight: '100vh' }}>
       <Navbar />
 
       {submitted && <SuccessModal onClose={() => setSubmitted(false)} />}
@@ -69,34 +68,12 @@ export default function KontaktClient() {
         <div style={{ maxWidth: '640px', margin: '0 auto' }}>
           <ScrollReveal>
             <div style={{ textAlign: 'center', marginBottom: '64px' }}>
-              <div style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', color: '#6e6e73', marginBottom: '16px' }}>Kontakt</div>
-              <h1 style={{ fontSize: 'clamp(40px, 6vw, 64px)', fontWeight: 600, color: '#1d1d1f', letterSpacing: '-2px', margin: '0 0 20px', lineHeight: 1.05 }}>
+              <h1 style={{ fontSize: 'var(--fs-display)', fontWeight: 500, color: 'var(--text)', letterSpacing: 'var(--ls-display)', margin: '0 0 20px', lineHeight: 'var(--lh-display)' }}>
                 Napisz do mnie
               </h1>
-              <p style={{ color: '#6e6e73', fontSize: '17px', lineHeight: 1.6, margin: '0 0 32px' }}>
+              <p style={{ color: 'var(--muted)', fontSize: 'var(--fs-lead)', lineHeight: 1.6, margin: 0 }}>
                 Opisz potrzeby swojego zespołu, a dobiorę szkolenie dopasowane do<br />poziomu i celów Twojej firmy.
               </p>
-              {/* Direct contact options */}
-              <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <a
-                  href="tel:+48573195404"
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 20px', borderRadius: '980px', border: '1px solid rgba(0,0,0,0.12)', color: '#1d1d1f', textDecoration: 'none', fontSize: '14px', fontWeight: 500, transition: 'border-color 0.2s' }}
-                  onMouseEnter={e => (e.currentTarget.style.borderColor = '#1e9953')}
-                  onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(0,0,0,0.12)')}
-                >
-                  <IconPhone size={16} color="#1e9953" />
-                  +48 573 195 404
-                </a>
-                <a
-                  href="mailto:kontakt@pbix.pl"
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 20px', borderRadius: '980px', border: '1px solid rgba(0,0,0,0.12)', color: '#1d1d1f', textDecoration: 'none', fontSize: '14px', fontWeight: 500, transition: 'border-color 0.2s' }}
-                  onMouseEnter={e => (e.currentTarget.style.borderColor = '#1e9953')}
-                  onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(0,0,0,0.12)')}
-                >
-                  <IconMail size={16} color="#1e9953" />
-                  kontakt@pbix.pl
-                </a>
-              </div>
             </div>
           </ScrollReveal>
 
@@ -117,7 +94,7 @@ export default function KontaktClient() {
             </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Imię i nazwisko *</label>
+                <label style={{ display: 'block', fontSize: 'var(--fs-small)', color: 'var(--muted)', marginBottom: '8px' }}>Imię i nazwisko *</label>
                 <input
                   type="text"
                   value={formData.name}
@@ -125,14 +102,14 @@ export default function KontaktClient() {
                   placeholder="Jan Kowalski"
                   maxLength={120}
                   style={inputStyle('name')}
-                  onFocus={e => (e.target.style.borderColor = '#1e9953')}
+                  onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
                   onBlur={e => (e.target.style.borderColor = errors.name ? '#ef4444' : 'rgba(0,0,0,0.12)')}
                 />
-                {errors.name && <div style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px' }}>{errors.name}</div>}
+                {errors.name && <div style={{ color: '#ef4444', fontSize: 'var(--fs-label)', marginTop: '6px' }}>{errors.name}</div>}
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Email *</label>
+                <label style={{ display: 'block', fontSize: 'var(--fs-small)', color: 'var(--muted)', marginBottom: '8px' }}>Email *</label>
                 <input
                   type="email"
                   value={formData.email}
@@ -140,14 +117,14 @@ export default function KontaktClient() {
                   placeholder="jan@firma.pl"
                   maxLength={254}
                   style={inputStyle('email')}
-                  onFocus={e => (e.target.style.borderColor = '#1e9953')}
+                  onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
                   onBlur={e => (e.target.style.borderColor = errors.email ? '#ef4444' : 'rgba(0,0,0,0.12)')}
                 />
-                {errors.email && <div style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px' }}>{errors.email}</div>}
+                {errors.email && <div style={{ color: '#ef4444', fontSize: 'var(--fs-label)', marginTop: '6px' }}>{errors.email}</div>}
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Telefon (opcjonalnie)</label>
+                <label style={{ display: 'block', fontSize: 'var(--fs-small)', color: 'var(--muted)', marginBottom: '8px' }}>Telefon (opcjonalnie)</label>
                 <input
                   type="tel"
                   value={formData.phone}
@@ -155,13 +132,13 @@ export default function KontaktClient() {
                   placeholder="+48 573 195 404"
                   maxLength={30}
                   style={inputStyle('phone')}
-                  onFocus={e => (e.target.style.borderColor = '#1e9953')}
+                  onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
                   onBlur={e => (e.target.style.borderColor = 'rgba(0,0,0,0.12)')}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Szkolenie (opcjonalnie)</label>
+                <label style={{ display: 'block', fontSize: 'var(--fs-small)', color: 'var(--muted)', marginBottom: '8px' }}>Szkolenie (opcjonalnie)</label>
                 <select
                   value={formData.training}
                   onChange={e => setFormData(p => ({ ...p, training: e.target.value }))}
@@ -175,7 +152,7 @@ export default function KontaktClient() {
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '13px', color: '#6e6e73', marginBottom: '8px' }}>Wiadomość *</label>
+                <label style={{ display: 'block', fontSize: 'var(--fs-small)', color: 'var(--muted)', marginBottom: '8px' }}>Wiadomość *</label>
                 <textarea
                   value={formData.message}
                   onChange={e => { setFormData(p => ({ ...p, message: e.target.value })); setErrors(p => ({ ...p, message: '' })); }}
@@ -183,29 +160,29 @@ export default function KontaktClient() {
                   rows={5}
                   maxLength={4000}
                   style={{ ...inputStyle('message'), resize: 'vertical', lineHeight: 1.6 }}
-                  onFocus={e => (e.target.style.borderColor = '#1e9953')}
+                  onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
                   onBlur={e => (e.target.style.borderColor = errors.message ? '#ef4444' : 'rgba(0,0,0,0.12)')}
                 />
-                {errors.message && <div style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px' }}>{errors.message}</div>}
+                {errors.message && <div style={{ color: '#ef4444', fontSize: 'var(--fs-label)', marginTop: '6px' }}>{errors.message}</div>}
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
                 style={{
-                  background: loading ? '#6e6e73' : '#1e9953',
+                  background: loading ? 'var(--muted)' : 'var(--accent)',
                   color: 'white', border: 'none', padding: '16px',
-                  borderRadius: '12px', fontSize: '16px', fontWeight: 500,
+                  borderRadius: '12px', fontSize: 'var(--fs-body)', fontWeight: 500,
                   cursor: loading ? 'not-allowed' : 'pointer',
                   fontFamily: 'inherit', transition: 'background 0.2s', marginTop: '8px',
                 }}
-                onMouseEnter={e => { if (!loading) e.currentTarget.style.background = '#17803f'; }}
-                onMouseLeave={e => { if (!loading) e.currentTarget.style.background = '#1e9953'; }}
+                onMouseEnter={e => { if (!loading) e.currentTarget.style.background = 'var(--accent-deep)'; }}
+                onMouseLeave={e => { if (!loading) e.currentTarget.style.background = 'var(--accent)'; }}
               >
                 {loading ? 'Wysyłanie...' : 'Wyślij wiadomość'}
               </button>
               {sendError && (
-                <div style={{ color: '#ef4444', fontSize: '14px', textAlign: 'center', marginTop: '8px' }}>
+                <div style={{ color: '#ef4444', fontSize: 'var(--fs-small)', textAlign: 'center', marginTop: '8px' }}>
                   Wystąpił błąd podczas wysyłania. Spróbuj ponownie lub napisz bezpośrednio na kontakt@pbix.pl
                 </div>
               )}

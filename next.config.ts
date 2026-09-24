@@ -15,6 +15,8 @@ const csp = [
   "img-src 'self' data: https:",
   "media-src 'self'",
   "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com https://*.google-analytics.com https://www.googletagmanager.com",
+  // Embedded sample report on /projekty and /en/projects
+  "frame-src 'self' https://app.powerbi.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",

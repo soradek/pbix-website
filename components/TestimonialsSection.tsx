@@ -33,8 +33,8 @@ function TestimonialCard({ t, small = false }: { t: Testimonial; small?: boolean
       <StarRow small={small} />
       {!small && (
         <div style={{
-          fontSize: '64px',
-          lineHeight: 0.7,
+          fontSize: 'var(--fs-num)',
+          lineHeight: 'var(--lh-h2)',
           color: 'rgba(255,255,255,0.35)',
           fontFamily: 'Georgia, serif',
           marginBottom: '16px',
@@ -44,7 +44,7 @@ function TestimonialCard({ t, small = false }: { t: Testimonial; small?: boolean
         </div>
       )}
       <p style={{
-        color: '#ffffff',
+        color: 'var(--white)',
         fontSize: small ? '13px' : '15px',
         lineHeight: 1.65,
         margin: small ? '0 0 16px' : '0 0 20px',
@@ -90,8 +90,8 @@ function TestimonialCard({ t, small = false }: { t: Testimonial; small?: boolean
           )}
         </div>
         <div>
-          <div style={{ fontSize: small ? '13px' : '14px', fontWeight: 700, color: '#ffffff' }}>{t.name}</div>
-          <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.65)', marginTop: '2px' }}>{t.role} · {t.company}</div>
+          <div style={{ fontSize: small ? '13px' : '14px', fontWeight: 700, color: 'var(--white)' }}>{t.name}</div>
+          <div style={{ fontSize: 'var(--fs-label)', color: 'rgba(255,255,255,0.65)', marginTop: '2px' }}>{t.role} · {t.company}</div>
         </div>
       </div>
     </div>
@@ -150,12 +150,11 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
   };
 
   return (
-    <section style={{ padding: isMobile ? '72px 16px' : '120px 24px', background: '#f5f5f7' }}>
+    <section style={{ padding: isMobile ? '72px 16px' : '120px 24px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <ScrollReveal>
           <div style={{ textAlign: 'center', marginBottom: isMobile ? '40px' : '72px' }}>
-            <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '2px', color: '#6e6e73', marginBottom: '16px' }}>Opinie</div>
-            <h2 style={{ fontSize: 'clamp(24px, 4vw, 48px)', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-1px', margin: 0 }}>
+            <h2 style={{ fontSize: 'var(--fs-h2)', fontWeight: 500, color: 'var(--text)', letterSpacing: 'var(--ls-h2)', margin: 0 }}>
               Co mówią uczestnicy
             </h2>
           </div>
@@ -193,14 +192,14 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
             onClick={prev}
             style={{
               width: '44px', height: '44px', borderRadius: '50%',
-              background: '#ffffff', border: '1.5px solid rgba(0,0,0,0.12)',
-              color: '#1d1d1f', fontSize: '18px', cursor: 'pointer',
+              background: 'var(--white)', border: '1.5px solid rgba(0,0,0,0.12)',
+              color: 'var(--text)', fontSize: 'var(--fs-lead)', cursor: 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               boxShadow: '0 2px 8px rgba(0,0,0,0.08)', transition: 'all 0.2s', flexShrink: 0,
               outline: 'none',
             }}
-            onMouseEnter={e => { e.currentTarget.style.background = '#1e9953'; e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = '#1e9953'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = '#ffffff'; e.currentTarget.style.color = '#1d1d1f'; e.currentTarget.style.borderColor = 'rgba(0,0,0,0.12)'; }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'var(--accent)'; e.currentTarget.style.color = 'var(--white)'; e.currentTarget.style.borderColor = 'var(--accent)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'var(--white)'; e.currentTarget.style.color = 'var(--text)'; e.currentTarget.style.borderColor = 'rgba(0,0,0,0.12)'; }}
             aria-label="Poprzednia opinia"
           >
             ←
@@ -214,7 +213,7 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
                 style={{
                   width: i === clampedActive ? '24px' : '12px', height: '12px',
                   borderRadius: '4px',
-                  background: i === clampedActive ? '#1e9953' : 'rgba(0,0,0,0.18)',
+                  background: i === clampedActive ? 'var(--accent)' : 'rgba(0,0,0,0.18)',
                   border: 'none', cursor: 'pointer', padding: 0,
                   transition: 'all 0.3s ease',
                   outline: 'none',
@@ -228,14 +227,14 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
             onClick={next}
             style={{
               width: '44px', height: '44px', borderRadius: '50%',
-              background: '#1e9953', border: 'none',
-              color: '#ffffff', fontSize: '18px', cursor: 'pointer',
+              background: 'var(--accent)', border: 'none',
+              color: 'var(--white)', fontSize: 'var(--fs-lead)', cursor: 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               boxShadow: '0 4px 12px rgba(30,153,83,0.35)', transition: 'all 0.2s', flexShrink: 0,
               outline: 'none',
             }}
-            onMouseEnter={e => { e.currentTarget.style.background = '#17803f'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(30,153,83,0.5)'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = '#1e9953'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(30,153,83,0.35)'; }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'var(--accent-deep)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(30,153,83,0.5)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'var(--accent)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(30,153,83,0.35)'; }}
             aria-label="Następna opinia"
           >
             →

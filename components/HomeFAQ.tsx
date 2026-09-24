@@ -19,7 +19,7 @@ export default function HomeFAQ({ lang = 'pl' }: { lang?: 'pl' | 'en' }) {
   const badge = lang === 'en' ? '4,500+ trained professionals · MCT certified' : '4 500+ przeszkolonych pracowników · certyfikat MCT';
 
   return (
-    <section id="faq" style={{ padding: '120px 24px', background: '#f9f9f9' }}>
+    <section id="faq" style={{ padding: '120px 24px', background: 'var(--paper)' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div className="faq-cta-grid">
 
@@ -27,8 +27,7 @@ export default function HomeFAQ({ lang = 'pl' }: { lang?: 'pl' | 'en' }) {
           <div>
             <ScrollReveal>
               <div style={{ marginBottom: '48px' }}>
-                <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '2px', color: '#6e6e73', marginBottom: '16px' }}>FAQ</div>
-                <h2 style={{ fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 700, color: '#1d1d1f', letterSpacing: '-1px', margin: 0 }}>
+                <h2 style={{ fontSize: 'var(--fs-h2)', fontWeight: 500, color: 'var(--text)', letterSpacing: 'var(--ls-h2)', margin: 0 }}>
                   {heading}
                 </h2>
               </div>
@@ -47,10 +46,10 @@ export default function HomeFAQ({ lang = 'pl' }: { lang?: 'pl' | 'en' }) {
                       }}
                       aria-expanded={faqOpen === i}
                     >
-                      <span style={{ fontSize: '16px', fontWeight: 500, color: '#1d1d1f', lineHeight: 1.4 }}>{item.q}</span>
+                      <span style={{ fontSize: 'var(--fs-body)', fontWeight: 500, color: 'var(--text)', lineHeight: 1.4 }}>{item.q}</span>
                       <motion.span
                         animate={{ rotate: faqOpen === i ? 45 : 0 }}
-                        style={{ fontSize: '24px', color: faqOpen === i ? '#1e9953' : '#6e6e73', flexShrink: 0, lineHeight: 1 }}
+                        style={{ fontSize: 'var(--fs-h3)', color: faqOpen === i ? 'var(--accent)' : 'var(--muted)', flexShrink: 0, lineHeight: 1 }}
                       >
                         +
                       </motion.span>
@@ -64,7 +63,7 @@ export default function HomeFAQ({ lang = 'pl' }: { lang?: 'pl' | 'en' }) {
                           transition={{ duration: 0.3 }}
                           style={{ overflow: 'hidden', willChange: 'height' }}
                         >
-                          <div style={{ paddingBottom: '22px', color: '#6e6e73', fontSize: '15px', lineHeight: 1.75 }}>
+                          <div style={{ paddingBottom: '22px', color: 'var(--muted)', fontSize: 'var(--fs-ui)', lineHeight: 1.75 }}>
                             {item.a}
                           </div>
                         </motion.div>
@@ -83,21 +82,21 @@ export default function HomeFAQ({ lang = 'pl' }: { lang?: 'pl' | 'en' }) {
                 background: 'linear-gradient(135deg, #003d20 0%, #1e9953 55%, #006633 100%)',
                 borderRadius: '28px', padding: '56px 48px', textAlign: 'center',
               }}>
-                <h2 style={{ fontSize: 'clamp(22px, 2.5vw, 30px)', fontWeight: 700, color: '#ffffff', letterSpacing: '-0.8px', margin: '0 0 14px', lineHeight: 1.2 }}>
+                <h2 style={{ fontSize: 'var(--fs-h3)', fontWeight: 500, color: 'var(--white)', letterSpacing: 'var(--ls-h3)', margin: '0 0 14px', lineHeight: 1.2 }}>
                   {ctaTitle}
                 </h2>
-                <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px', lineHeight: 1.75, margin: '0 0 36px' }}>
+                <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 'var(--fs-ui)', lineHeight: 1.75, margin: '0 0 36px' }}>
                   {ctaDesc}
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  <Link href={ctaHref} style={{ background: '#ffffff', color: '#1e9953', textDecoration: 'none', padding: '15px 32px', borderRadius: '980px', fontSize: '15px', fontWeight: 700, display: 'block', textAlign: 'center' }}>
+                  <Link href={ctaHref} style={{ background: 'var(--white)', color: 'var(--accent)', textDecoration: 'none', padding: '15px 32px', borderRadius: '980px', fontSize: 'var(--fs-ui)', fontWeight: 700, display: 'block', textAlign: 'center' }}>
                     {ctaBtn}
                   </Link>
-                  <Link href={trainingsHref} style={{ border: '1.5px solid rgba(255,255,255,0.35)', color: '#ffffff', textDecoration: 'none', padding: '15px 32px', borderRadius: '980px', fontSize: '15px', fontWeight: 500, display: 'block', textAlign: 'center' }}>
+                  <Link href={trainingsHref} style={{ border: '1.5px solid rgba(255,255,255,0.35)', color: 'var(--white)', textDecoration: 'none', padding: '15px 32px', borderRadius: '980px', fontSize: 'var(--fs-ui)', fontWeight: 500, display: 'block', textAlign: 'center' }}>
                     {trainingsLabel}
                   </Link>
                 </div>
-                <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.55)', fontSize: '13px' }}>
+                <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.55)', fontSize: 'var(--fs-small)' }}>
                   {badge}
                 </div>
               </div>
