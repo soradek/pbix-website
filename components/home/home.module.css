@@ -1403,7 +1403,7 @@
     font-size: var(--fs-small);
   }
   .actions .rollArrow { display: none; }
-  .heroBottom { flex-direction: column; align-items: stretch; margin-top: 32px; }
+  .heroBottom { flex-direction: column; align-items: stretch; margin-top: 96px; }
   .heroTitle { margin: 20px 0 28px; }
   .heroWordLine { white-space: normal; min-height: 2em; }
 
