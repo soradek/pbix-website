@@ -142,7 +142,14 @@ export default function HomeOrbit({ lang = 'pl' }: { lang?: Lang }) {
             <p className={`${s.mono} ${s.orbitCounter}`}>
               <b>{String(lit).padStart(2, '0')}</b> / {AREAS.length}
             </p>
-            <p className={s.orbitCurrent} aria-live="polite">{current}</p>
+            <p className={s.orbitCurrent} aria-live="polite">
+              {lit > 0 ? (
+                // Ring labels are hidden on phones, so the centre label doubles as the link
+                <Link href={AREAS[lit - 1].href} className={s.orbitCurrentLink}>{current}</Link>
+              ) : (
+                current
+              )}
+            </p>
           </div>
 
           <ul className={s.orbitList}>

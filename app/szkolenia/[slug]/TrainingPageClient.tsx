@@ -93,7 +93,8 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
     : training.pricingTiers;
 
   const [openModule, setOpenModule] = useState<number | null>(0);
-  const [isMobile, setIsMobile] = useState(false);
+  // null until measured, so phones never start loading the hero video
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
   const videoSrc = videoBySlug[training.slug] ?? videoByCategory[training.category] ?? null;
 
@@ -116,7 +117,7 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
     <div className={s.page} style={{ '--tone-bg': tone.bg, '--tone-ink': tone.ink } as CSSProperties}>
       {/* Hero */}
       <section className={s.trainingHero}>
-        {videoSrc && !isMobile && (
+        {videoSrc && isMobile === false && (
           <>
             <video className={s.trainingHeroVideo} autoPlay muted loop playsInline preload="metadata" aria-hidden="true">
               <source src={videoSrc} type={videoSrc.endsWith('.webm') ? 'video/webm' : 'video/mp4'} />

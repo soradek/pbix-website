@@ -42,7 +42,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       return <Link href={url} style={style}>{children}</Link>;
     },
     blockquote: ({ children }: { children?: ReactNode }) => (
-      <blockquote style={{ borderLeft: '4px solid #1e9953', padding: '8px 20px', margin: '24px 0', color: '#3a3a3c', fontSize: 'var(--fs-lead)', lineHeight: 1.7, background: 'rgba(30,153,83,0.05)', borderRadius: '0 8px 8px 0' }}>
+      <blockquote style={{ padding: '4px 22px', margin: '28px 0', color: 'var(--text)', fontSize: 'var(--fs-lead)', lineHeight: 1.65, background: 'var(--paper)', borderRadius: '14px' }}>
         {children}
       </blockquote>
     ),

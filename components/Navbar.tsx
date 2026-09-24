@@ -185,7 +185,11 @@ export default function Navbar() {
             background: 'none',
             border: 'none',
             cursor: 'pointer',
-            padding: '8px',
+            width: '44px',
+            height: '44px',
+            marginRight: '-12px',
+            alignItems: 'center',
+            justifyContent: 'center',
             display: 'none',
           }}
         >
@@ -201,54 +205,74 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
+            className="mobile-menu"
+            initial={{ clipPath: 'inset(0 0 100% 0)' }}
+            animate={{ clipPath: 'inset(0 0 0% 0)' }}
+            exit={{ clipPath: 'inset(0 0 100% 0)' }}
+            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              background: 'rgba(255,255,255,0.98)',
-              borderTop: '1px solid rgba(0,0,0,0.08)',
-              overflow: 'hidden',
+              position: 'fixed',
+              top: '57px',
+              left: 0,
+              right: 0,
+              height: 'calc(100dvh - 57px)',
+              background: 'var(--paper)',
+              display: 'flex',
+              flexDirection: 'column',
+              padding: '24px 20px calc(24px + env(safe-area-inset-bottom))',
+              overflowY: 'auto',
             }}
           >
-            <div style={{ padding: '16px 24px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {/* Mobile language switcher */}
-              <div style={{ display: 'flex', gap: '8px', paddingBottom: '8px', borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
-                <Link href={isEn ? altUrl : pathname} onClick={() => setIsOpen(false)}
-                  style={{ flex: 1, textAlign: 'center', padding: '10px', borderRadius: '10px', background: !isEn ? 'var(--text)' : 'rgba(0,0,0,0.05)', color: !isEn ? 'var(--white)' : 'var(--muted)', textDecoration: 'none', fontSize: 'var(--fs-small)', fontWeight: 600 }}>
-                  PL
-                </Link>
-                <Link href={isEn ? pathname : altUrl} onClick={() => setIsOpen(false)}
-                  style={{ flex: 1, textAlign: 'center', padding: '10px', borderRadius: '10px', background: isEn ? 'var(--text)' : 'rgba(0,0,0,0.05)', color: isEn ? 'var(--white)' : 'var(--muted)', textDecoration: 'none', fontSize: 'var(--fs-small)', fontWeight: 600 }}>
-                  EN
-                </Link>
-              </div>
-              {navLinks.map(link => (
-                <Link
+            <nav aria-label={isEn ? 'Main menu' : 'Menu główne'} style={{ display: 'flex', flexDirection: 'column' }}>
+              {navLinks.map((link, i) => (
+                <motion.div
                   key={link.label}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  style={{ color: 'var(--text)', textDecoration: 'none', fontSize: 'var(--fs-body)', padding: '12px 0', borderBottom: '1px solid rgba(0,0,0,0.06)' }}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.08 + i * 0.05 }}
+                  style={{ borderBottom: '1px solid var(--line)' }}
                 >
-                  {link.label}
-                </Link>
+                  <Link
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    style={{ display: 'flex', alignItems: 'baseline', gap: '14px', padding: '14px 0', color: 'var(--text)', textDecoration: 'none', fontSize: 'var(--fs-h3)', fontWeight: 500, letterSpacing: 'var(--ls-h3)' }}
+                  >
+                    <span style={{ fontFamily: 'var(--font-geist-mono), ui-monospace, monospace', fontSize: 'var(--fs-label)', color: 'var(--accent)', letterSpacing: '0.1em' }}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    {link.label}
+                  </Link>
+                </motion.div>
               ))}
-              <Link
-                href={ctaHref}
-                onClick={() => setIsOpen(false)}
-                style={{
-                  backgroundColor: 'var(--accent)',
-                  color: 'white',
-                  textDecoration: 'none',
-                  textAlign: 'center',
-                  padding: '12px',
-                  borderRadius: '980px',
-                  marginTop: '8px',
-                  fontSize: 'var(--fs-ui)',
-                }}
-              >
-                {ctaLabel}
-              </Link>
-            </div>
+            </nav>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.35 }}
+              style={{ marginTop: 'auto', paddingTop: '32px', display: 'flex', flexDirection: 'column', gap: '20px' }}
+            >
+              <RollingLink href={ctaHref} label={isEn ? 'Get in touch' : 'Napisz do mnie'} variant="dark" fullWidth />
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontFamily: 'var(--font-geist-mono), ui-monospace, monospace', fontSize: 'var(--fs-label)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                <div style={{ display: 'flex', gap: '4px' }}>
+                  {[
+                    { label: 'PL', href: isEn ? altUrl : pathname, on: !isEn },
+                    { label: 'EN', href: isEn ? pathname : altUrl, on: isEn },
+                  ].map(l => (
+                    <Link
+                      key={l.label}
+                      href={l.href}
+                      onClick={() => setIsOpen(false)}
+                      aria-current={l.on ? 'true' : undefined}
+                      style={{ padding: '12px 12px', minWidth: '44px', textAlign: 'center', borderRadius: '8px', textDecoration: 'none', color: l.on ? 'var(--white)' : 'var(--muted)', background: l.on ? 'var(--ink)' : 'transparent' }}
+                    >
+                      {l.label}
+                    </Link>
+                  ))}
+                </div>
+                <span style={{ color: 'var(--muted)' }}>v{APP_VERSION}</span>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -40,7 +40,7 @@ export default function Footer({ lang = 'pl' }: FooterProps) {
   return (
     <footer style={{ background: 'var(--paper)', borderTop: '1px solid rgba(0,0,0,0.08)', padding: '60px 24px 40px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '40px', marginBottom: '48px' }}>
+        <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '40px', marginBottom: '48px' }}>
           <div>
             <div style={{ fontSize: 'var(--fs-lead)', fontWeight: 600, color: 'var(--text)', marginBottom: '8px' }}>pbix.pl</div>
             <div style={{ fontSize: 'var(--fs-small)', color: 'var(--muted)', lineHeight: 1.6, maxWidth: '260px' }}>
@@ -83,7 +83,7 @@ export default function Footer({ lang = 'pl' }: FooterProps) {
           </div>
         </div>
         <div style={{ borderTop: '1px solid rgba(0,0,0,0.08)', paddingTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-          <div style={{ color: 'var(--muted)', fontSize: 'var(--fs-small)' }}>© 2025 Radosław Sobczak | pbix.pl | kontakt@pbix.pl</div>
+          <div style={{ color: 'var(--muted)', fontSize: 'var(--fs-small)' }}>© {new Date().getFullYear()} Radosław Sobczak | pbix.pl | kontakt@pbix.pl</div>
           <div style={{ display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap' }}>
             <Link
               href={isEn ? '/en/privacy-policy' : '/polityka-prywatnosci'}

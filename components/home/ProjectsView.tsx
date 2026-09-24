@@ -24,6 +24,7 @@ const COPY = {
     liveTitle: 'Przykładowy raport, na żywo',
     liveSub: 'Raport e-commerce w Power BI. Klikaj, filtruj i przełączaj widoki, tak jak robią to moi klienci.',
     iframeTitle: 'Przykładowy raport Power BI: e-commerce',
+    openReport: 'Otwórz raport na pełnym ekranie',
     casesTitle: 'Wybrane wdrożenia',
   },
   en: {
@@ -37,6 +38,7 @@ const COPY = {
     liveTitle: 'A sample report, live',
     liveSub: 'An e-commerce report in Power BI. Click, filter and switch views, just like my clients do.',
     iframeTitle: 'Sample Power BI report: e-commerce',
+    openReport: 'Open the report full screen',
     casesTitle: 'Selected implementations',
   },
 };
@@ -103,6 +105,11 @@ export default function ProjectsView({ lang = 'pl' }: { lang?: Lang }) {
               allowFullScreen
             />
           </FadeIn>
+          <div className={s.reportActions}>
+            <a className={`${s.btn} ${s.btnGhostDark}`} href={REPORT_SRC} target="_blank" rel="noopener noreferrer">
+              {t.openReport} ↗
+            </a>
+          </div>
         </div>
       </section>
 

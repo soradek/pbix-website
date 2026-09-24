@@ -592,6 +592,7 @@
   font-weight: 500;
   letter-spacing: var(--ls-h3);
 }
+.orbitCurrentLink { color: inherit; text-decoration: none; }
 .orbitList {
   list-style: none;
   margin: 0;
@@ -1377,6 +1378,14 @@
   .orbitSection { height: 270vh; }
   .orbitSticky { padding-top: 80px; min-height: 560px; }
   .orbitList { display: none; }
+  .orbitCurrentLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--accent);
+  }
+  .orbitCurrentLink::after { content: '→'; color: var(--accent); font-size: 0.8em; }
   .orbitSvg { height: auto; width: min(76vw, 50vh); }
 
   .aboutGrid { grid-template-columns: 1fr; }
@@ -1535,6 +1544,7 @@
   border: 1px solid var(--line-dark);
 }
 .reportFrame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.reportActions { display: flex; justify-content: center; margin-top: 24px; }
 .reportNote { color: var(--muted-dark); text-align: center; margin: 20px 0 0; }
 
 @media (max-width: 900px) {
@@ -1543,7 +1553,9 @@
   .pageHeroSide { justify-self: start; }
   .projectsSection { padding: 88px 0; }
   .project { grid-template-columns: 1fr; padding: 56px 0; gap: 36px; }
-  .projectFlip .projectBody, .projectFlip .projectVisualWrap { order: 0; }
+  .projectBody, .projectFlip .projectBody { order: 2; }
+  .projectVisualWrap, .projectFlip .projectVisualWrap { order: 1; }
+  .project { gap: 28px; }
   .projectVisual { padding: 6px; border-radius: 14px; }
   .reportFrame { border-radius: 14px; }
 }

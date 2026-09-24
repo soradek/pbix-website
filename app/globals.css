@@ -494,6 +494,9 @@ html {
 @media (max-width: 768px) {
   .desktop-nav { display: none !important; }
   .mobile-menu-btn { display: flex !important; }
+  .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 32px 20px !important; }
+  .footer-grid > :first-child { grid-column: 1 / -1; }
+  footer a { display: inline-block; padding: 6px 0; }
 }
 
 /* ── TABLET/iPad (768px - 1024px) ─────────────────── */
