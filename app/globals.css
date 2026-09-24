@@ -820,3 +820,6 @@ html {
   .cta-box { padding: 36px 20px !important; }
   .training-hero { padding-left: 16px !important; padding-right: 16px !important; }
 }
+
+/* Cookie banner is server-rendered; hidden before first paint once consent exists */
+html.has-consent .cookie-banner { display: none !important; }

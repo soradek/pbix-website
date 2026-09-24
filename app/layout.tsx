@@ -87,8 +87,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const pathname = headersList.get('x-pathname') ?? '/';
   const lang = pathname.startsWith('/en') ? 'en' : 'pl';
   return (
-    <html lang={lang}>
+    <html lang={lang} suppressHydrationWarning>
       <head>
+        {/* Hide the server-rendered cookie banner before first paint when consent is already stored */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "try{localStorage.getItem('pbix_consent_v1')&&document.documentElement.classList.add('has-consent')}catch(e){}",
+          }}
+        />
         {/* Facebook / Messenger app id (Next.js metadata API doesn't expose fb:*) */}
         <meta property="fb:app_id" content="966242223397117" />
         {/* Structured Data – Person + Organization */}

@@ -7,17 +7,18 @@ import { getStoredConsent, setConsent } from '@/lib/consent';
 
 type View = 'hidden' | 'banner' | 'settings';
 
+// The banner is server-rendered so first-time visitors see it with the page (it no longer
+// arrives seconds later after hydration and drags LCP). Returning visitors never see it:
+// an inline <head> script adds html.has-consent before first paint and CSS hides .cookie-banner.
 export default function CookieBanner() {
-  const [view, setView] = useState<View>('hidden');
+  const [view, setView] = useState<View>('banner');
   const [analytics, setAnalytics] = useState(false);
   const [marketing, setMarketing] = useState(false);
 
   useEffect(() => {
     const existing = getStoredConsent();
-    if (!existing) {
-      const t = setTimeout(() => setView('banner'), 600);
-      return () => clearTimeout(t);
-    }
+    if (!existing) return;
+    setView('hidden');
     setAnalytics(existing.analytics);
     setMarketing(existing.marketing);
   }, []);
@@ -26,6 +27,7 @@ export default function CookieBanner() {
     const handler = () => {
       const current = getStoredConsent();
       if (!current) {
+        document.documentElement.classList.remove('has-consent');
         setView('banner');
         setAnalytics(false);
         setMarketing(false);
@@ -58,7 +60,8 @@ export default function CookieBanner() {
       {view === 'banner' && (
         <motion.div
           key="banner"
-          initial={{ y: 100, opacity: 0 }}
+          className="cookie-banner"
+          initial={false}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -70,7 +73,7 @@ export default function CookieBanner() {
             bottom: '20px',
             left: '20px',
             right: '20px',
-            zIndex: 250,
+            zIndex: 150,
             maxWidth: '560px',
             margin: '0 auto',
             background: 'var(--white)',
@@ -84,7 +87,7 @@ export default function CookieBanner() {
             Pliki cookies
           </h2>
           <p style={{ fontSize: 'var(--fs-small)', color: 'var(--muted)', lineHeight: 1.6, margin: '0 0 18px' }}>
-            Używamy plików cookies, aby zapewnić działanie strony oraz – za Twoją zgodą – mierzyć ruch i wyświetlać dopasowane treści.
+            Używamy plików cookies, aby zapewnić działanie strony oraz, za Twoją zgodą, mierzyć ruch i wyświetlać dopasowane treści.
             Szczegóły w <Link href="/polityka-prywatnosci" style={{ color: 'var(--accent-deep)', textDecoration: 'underline' }}>polityce prywatności</Link>.
           </p>
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
