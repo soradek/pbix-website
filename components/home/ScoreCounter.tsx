@@ -33,7 +33,9 @@ export default function ScoreCounter({ lang = 'pl' }: { lang?: Lang }) {
 
   return (
     <div ref={ref}>
-      <div className={s.scoreValue} aria-label={lang === 'en' ? 'Average rating 4.92 out of 5' : 'Średnia ocena 4,92 na 5'}>
+      <div className={s.scoreValue}>
+        {/* Static value in the server HTML; the animated counter below starts at 0 */}
+        <span className={s.srOnly}>{lang === 'en' ? 'Average rating 4.92/5' : 'Średnia ocena 4,92/5'}</span>
         <span aria-hidden="true">{lang === 'en' ? value.toFixed(2) : value.toFixed(2).replace('.', ',')}</span>
         <small aria-hidden="true">/5</small>
       </div>

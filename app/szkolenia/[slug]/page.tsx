@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { trainings, getTrainingBySlug } from '@/data/trainings';
 import TrainingPageClient from './TrainingPageClient';
+import { getHubForTraining } from '@/data/localHubs';
 import { OG_IMAGES, TWITTER_IMAGES } from '@/lib/og';
 
 export async function generateStaticParams() {
@@ -44,6 +45,7 @@ export default async function TrainingPage({ params }: { params: Promise<{ slug:
   const { slug } = await params;
   const training = getTrainingBySlug(slug);
   if (!training) notFound();
+  const hub = getHubForTraining(slug);
 
   const courseSchema = {
     '@context': 'https://schema.org',
@@ -76,7 +78,7 @@ export default async function TrainingPage({ params }: { params: Promise<{ slug:
         dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
       />
       <Navbar />
-      <TrainingPageClient training={training} />
+      <TrainingPageClient training={training} hub={hub && { slug: hub.slug, name: hub.name }} />
       <Footer />
     </main>
   );

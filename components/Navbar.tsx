@@ -27,6 +27,8 @@ function getAltUrl(pathname: string): string {
       .replace(/^\/privacy-policy$/, '/polityka-prywatnosci');
   }
   if (pathname === '/') return '/en';
+  // Local Poznań hubs are Polish-only
+  if (/^\/szkolenia-[a-z-]+-poznan$/.test(pathname)) return '/en/trainings';
   return '/en' + pathname
     .replace(/^\/szkolenia(\/|$)/, '/trainings$1')
     .replace(/^\/kontakt$/, '/contact')

@@ -1,4 +1,4 @@
-import { clients } from '@/data/clients';
+import { clients as allClients, type Client } from '@/data/clients';
 import s from './home.module.css';
 import type { Lang } from './lang';
 
@@ -7,9 +7,14 @@ const COPY = {
   en: { label: 'Companies whose teams I have trained' },
 };
 
-export default function HomeLogos({ lang = 'pl' }: { lang?: Lang }) {
-  const t = COPY[lang];
-  const doubled = [...clients, ...clients];
+// Short lists are repeated so one copy of the marquee is wider than the viewport
+const MIN_PER_COPY = 16;
+
+export default function HomeLogos({ lang = 'pl', items, label }: { lang?: Lang; items?: Client[]; label?: string }) {
+  const t = { ...COPY[lang], ...(label ? { label } : {}) };
+  const clients = items ?? allClients;
+  const copy = Array.from({ length: Math.ceil(MIN_PER_COPY / clients.length) }, () => clients).flat();
+  const doubled = [...copy, ...copy];
 
   return (
     <section className={s.logos} aria-label={t.label}>

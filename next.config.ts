@@ -35,6 +35,12 @@ const nextConfig: NextConfig = {
     qualities: [75, 80, 82],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
   },
+  async redirects() {
+    return [
+      // Retired reporting-maturity quiz (archived outside the repo)
+      { source: '/audyt', destination: '/szkolenia', permanent: true },
+    ];
+  },
   async headers() {
     return [
       {
