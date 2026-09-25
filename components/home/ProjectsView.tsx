@@ -23,7 +23,6 @@ const COPY = {
     solution: 'Rozwiązanie',
     result: 'Rezultat',
     liveTitle: 'Przykładowy raport, na żywo',
-    liveSub: 'Raport e-commerce w Power BI. Klikaj, filtruj i przełączaj widoki, tak jak robią to moi klienci.',
     iframeTitle: 'Przykładowy raport Power BI: e-commerce',
     openReport: 'Otwórz raport na pełnym ekranie',
     loadingReport: 'Ładowanie raportu',
@@ -38,7 +37,6 @@ const COPY = {
     solution: 'Solution',
     result: 'Result',
     liveTitle: 'A sample report, live',
-    liveSub: 'An e-commerce report in Power BI. Click, filter and switch views, just like my clients do.',
     iframeTitle: 'Sample Power BI report: e-commerce',
     openReport: 'Open the report full screen',
     loadingReport: 'Loading report',
@@ -99,7 +97,7 @@ export default function ProjectsView({ lang = 'pl' }: { lang?: Lang }) {
 
       <section id="raport" className={`${s.section} ${s.onInk}`}>
         <div className={s.container}>
-          <SectionHead title={t.liveTitle} sub={t.liveSub} />
+          <SectionHead title={t.liveTitle} />
           <FadeIn className={s.reportFrame}>
             <ReportEmbed src={REPORT_SRC} title={t.iframeTitle} loadingLabel={t.loadingReport} />
           </FadeIn>

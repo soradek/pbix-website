@@ -6,7 +6,6 @@ import { ROUTES, type Lang } from './lang';
 const COPY = {
   pl: {
     title: 'Gotowy program albo szyty na miarę',
-    sub: 'Każde szkolenie prowadzę dla jednego zespołu. Możesz wybrać program z oferty albo zamówić wersję dedykowaną.',
     columns: [
       { title: 'Program z oferty', note: 'Standard' },
       { title: 'Szkolenie dedykowane', note: 'Opcja dodatkowa' },
@@ -25,7 +24,6 @@ const COPY = {
   },
   en: {
     title: 'A ready programme or a tailored one',
-    sub: 'Every training is run for one team only. Choose a programme from the offer or order a bespoke version.',
     columns: [
       { title: 'Standard programme', note: 'Standard' },
       { title: 'Bespoke training', note: 'Add-on option' },
@@ -59,7 +57,7 @@ export default function HomeCompare({ lang = 'pl' }: { lang?: Lang }) {
   return (
     <section className={`${s.section} ${s.onPaper}`}>
       <div className={s.container}>
-        <SectionHead title={t.title} sub={t.sub} />
+        <SectionHead title={t.title} />
 
         <FadeIn className={s.compareCard}>
           <table className={s.compareTable}>

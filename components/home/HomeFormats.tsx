@@ -18,7 +18,6 @@ function Tick() {
 const COPY = {
   pl: {
     title: 'Wybierz, jak ma wyglądać szkolenie',
-    sub: 'Cena jest ustalana za grupę, nie za osobę. Każdy uczestnik dostaje certyfikat w wersji polskiej i angielskiej.',
     cta: 'Napisz do mnie',
     formats: [
       { title: 'Stacjonarnie u Was', desc: 'Zamknięte szkolenie w Waszej firmie, w dowolnym miejscu w Polsce.', items: ['Na Waszym sprzęcie lub moich laptopach', 'Projektor na życzenie', 'Grupa do 12 osób'] },
@@ -29,7 +28,6 @@ const COPY = {
   },
   en: {
     title: 'Choose how the training should look',
-    sub: 'Pricing is per group, not per person. Every participant receives a certificate in English and Polish.',
     cta: 'Get in touch',
     formats: [
       { title: 'On-site at your company', desc: 'A closed training at your company, anywhere in Poland.', items: ['On your equipment or my laptops', 'Projector on request', 'Groups of up to 12'] },
@@ -77,10 +75,7 @@ export default function HomeFormats({ lang = 'pl' }: { lang?: Lang }) {
   return (
     <section className={`${s.section} ${s.onPaper}`}>
       <div className={s.container}>
-        <SectionHead
-          title={t.title}
-          sub={t.sub}
-        />
+        <SectionHead title={t.title} />
 
         <div
           ref={gridRef}

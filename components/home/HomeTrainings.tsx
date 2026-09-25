@@ -44,12 +44,10 @@ const CATEGORIES: { key: Training['category']; title: Record<Lang, string>; desc
 const COPY = {
   pl: {
     title: 'Czego uczę',
-    sub: 'Czas trwania i zakres dopasowuję do zespołu. Wybierz najwygodniejszą formę: stacjonarnie u Was w firmie albo online.',
     all: 'Wszystkie z kategorii',
   },
   en: {
     title: 'What I teach',
-    sub: 'I tailor the length and scope to your team. Choose the format that suits you best: on-site at your company or online.',
     all: 'All in this category',
   },
 };
@@ -61,7 +59,7 @@ export default function HomeTrainings({ lang = 'pl' }: { lang?: Lang }) {
   return (
     <section className={`${s.section} ${s.onInk}`}>
       <div className={s.container}>
-        <SectionHead title={t.title} sub={t.sub} />
+        <SectionHead title={t.title} />
 
         <div className={s.trainGrid}>
           {CATEGORIES.map((cat, i) => {

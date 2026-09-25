@@ -6,7 +6,6 @@ import type { Lang } from './lang';
 const COPY = {
   pl: {
     title: 'Od zapytania do szkolenia',
-    sub: 'Trzy kroki, zawsze w tej kolejności.',
     step: 'Krok',
     steps: [
       {
@@ -25,7 +24,6 @@ const COPY = {
   },
   en: {
     title: 'From enquiry to training',
-    sub: 'Three steps, always in this order.',
     step: 'Step',
     steps: [
       {
@@ -51,7 +49,7 @@ export default function HomeProcess({ lang = 'pl' }: { lang?: Lang }) {
   return (
     <section className={`${s.section} ${s.onWhite}`}>
       <div className={s.container}>
-        <SectionHead title={t.title} sub={t.sub} />
+        <SectionHead title={t.title} />
 
         <ol className={s.processGrid} style={{ listStyle: 'none', margin: 0, padding: 0 }}>
           {t.steps.map((step, i) => (
