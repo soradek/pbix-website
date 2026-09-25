@@ -79,7 +79,7 @@ const localBusinessSchema = {
     name: 'Corporate Data Trainings',
     itemListElement: [
       { '@type': 'Offer', itemOffered: { '@type': 'Course', name: 'Microsoft Power BI Training', courseMode: ['onsite', 'online'] } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Course', name: 'MS Excel Training', courseMode: ['onsite', 'online'] } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Course', name: 'Microsoft Excel Training', courseMode: ['onsite', 'online'] } },
       { '@type': 'Offer', itemOffered: { '@type': 'Course', name: 'Microsoft SQL Server Training', courseMode: ['onsite', 'online'] } },
     ],
   },

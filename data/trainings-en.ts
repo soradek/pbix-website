@@ -15,7 +15,7 @@ export const trainingsEn: TrainingEnContent[] = [
     slug: 'microsoft-power-bi',
     description:
       'Microsoft Power BI training is the ideal starting point for teams wanting to enter the world of modern data analysis and dynamic reporting. Participants learn the complete Power BI workflow — from importing and transforming data, through building clear visualisations, to publishing reports accessible online and on mobile devices. The course prioritises hands-on practice, so participants create their own production-ready reports during the sessions.',
-    prerequisites: 'Basic knowledge of MS Excel recommended',
+    prerequisites: 'Basic knowledge of Microsoft Excel recommended',
     language: 'Polish or English',
     targetAudience: [
       'Teams working with Power BI Desktop looking to develop advanced data modelling and transformation skills',
@@ -48,7 +48,7 @@ export const trainingsEn: TrainingEnContent[] = [
     slug: 'microsoft-dax',
     description:
       'Microsoft DAX training introduces your team to the Data Analysis Expressions language — the essential tool for building advanced analytical models in Power BI. Participants develop the ability to create precise measures, calculated columns and complex expressions that extract significantly more value from data than standard visualisations alone.',
-    prerequisites: 'Basic knowledge of MS Excel and Power BI',
+    prerequisites: 'Basic knowledge of Microsoft Excel and Power BI',
     targetAudience: [
       'Analysts who need tools for building comprehensive reports and multidimensional analyses',
       'Teams working with Power BI Desktop developing advanced data modelling skills',
@@ -75,7 +75,7 @@ export const trainingsEn: TrainingEnContent[] = [
     slug: 'microsoft-power-query-powerbi',
     description:
       'Microsoft Power Query training is for teams that want to take full control of the data preparation process in Power BI. Participants explore the Power Query editor in depth — learning to automate data ingestion, clean data from sources ranging from Excel and SQL databases to PDF files, and combine data from multiple heterogeneous sources without manual intervention.',
-    prerequisites: 'Basic knowledge of MS Excel and Power BI',
+    prerequisites: 'Basic knowledge of Microsoft Excel and Power BI',
     targetAudience: [
       'Teams regularly working with Power BI who need tools for advanced data transformation',
       'Departments looking to automate data preparation from multiple heterogeneous sources',
@@ -100,9 +100,9 @@ export const trainingsEn: TrainingEnContent[] = [
   },
   {
     slug: 'excel-poziom-podstawowy',
-    title: 'MS Excel – Beginner Level',
+    title: 'Microsoft Excel – Beginner Level',
     description:
-      'MS Excel: Beginner Level is a solid foundation for teams that want to use Excel confidently in day-to-day work. Over two days, participants master worksheet management, basic formulas, data formatting and pivot tables — all through practical real-world examples.',
+      'Microsoft Excel: Beginner Level is a solid foundation for teams that want to use Excel confidently in day-to-day work. Over two days, participants master worksheet management, basic formulas, data formatting and pivot tables — all through practical real-world examples.',
     prerequisites: 'None — beginner-friendly, starting from scratch',
     targetAudience: [
       'Employees starting with Excel or with only basic prior experience',
@@ -128,10 +128,10 @@ export const trainingsEn: TrainingEnContent[] = [
   },
   {
     slug: 'excel-poziom-srednio-zaawansowany',
-    title: 'MS Excel – Intermediate Level',
+    title: 'Microsoft Excel – Intermediate Level',
     description:
-      'MS Excel Intermediate training is for teams that already know the spreadsheet basics and want to significantly improve their efficiency. Participants master advanced lookup and logic functions, learn to create dynamic pivot tables and apply formula-based conditional formatting — skills that make a real difference in everyday analytical work.',
-    prerequisites: 'Basic knowledge of MS Excel (beginner level or equivalent)',
+      'Microsoft Excel Intermediate training is for teams that already know the spreadsheet basics and want to significantly improve their efficiency. Participants master advanced lookup and logic functions, learn to create dynamic pivot tables and apply formula-based conditional formatting — skills that make a real difference in everyday analytical work.',
+    prerequisites: 'Basic knowledge of Microsoft Excel (beginner level or equivalent)',
     targetAudience: [
       'Employees who have completed beginner level or independently mastered Excel fundamentals',
       'Office and analytical teams regularly using spreadsheets',
@@ -156,10 +156,10 @@ export const trainingsEn: TrainingEnContent[] = [
   },
   {
     slug: 'excel-poziom-zaawansowany',
-    title: 'MS Excel – Advanced Level',
+    title: 'Microsoft Excel – Advanced Level',
     description:
-      'MS Excel Advanced training is for experienced Excel teams that want to fully leverage the capabilities of the modern spreadsheet. The programme covers dynamic and array functions from Excel 365, Power Query and Power Pivot tools, advanced scenario analyses and interactive dashboard creation — knowledge that genuinely raises the analytical competency of the whole department.',
-    prerequisites: 'Good knowledge of MS Excel at intermediate level',
+      'Microsoft Excel Advanced training is for experienced Excel teams that want to fully leverage the capabilities of the modern spreadsheet. The programme covers dynamic and array functions from Excel 365, Power Query and Power Pivot tools, advanced scenario analyses and interactive dashboard creation — knowledge that genuinely raises the analytical competency of the whole department.',
+    prerequisites: 'Good knowledge of Microsoft Excel at intermediate level',
     targetAudience: [
       'Teams with intermediate Excel experience',
       'Analytical, controlling and BI departments working with large datasets',
@@ -185,8 +185,8 @@ export const trainingsEn: TrainingEnContent[] = [
   {
     slug: 'excel-vba',
     description:
-      'MS Excel VBA training opens the door to genuine automation in spreadsheets. The team will learn Visual Basic for Applications from the first line of code — through variables, loops and conditional logic, to creating custom functions, user forms and responding to Excel events. After the training, repetitive tasks that used to take hours will be completed with a single click.',
-    prerequisites: 'Good knowledge of MS Excel at advanced level',
+      'Microsoft Excel VBA training opens the door to genuine automation in spreadsheets. The team will learn Visual Basic for Applications from the first line of code — through variables, loops and conditional logic, to creating custom functions, user forms and responding to Excel events. After the training, repetitive tasks that used to take hours will be completed with a single click.',
+    prerequisites: 'Good knowledge of Microsoft Excel at advanced level',
     targetAudience: [
       'Advanced Excel users looking for tools to automate repetitive tasks',
       'Analytical and controlling departments wanting to create custom functions and reporting tools',
@@ -213,8 +213,8 @@ export const trainingsEn: TrainingEnContent[] = [
   {
     slug: 'excel-power-query',
     description:
-      'MS Excel Power Query training is for teams that want to put an end to manual copy-and-paste in Excel once and for all. Participants learn to import, combine and transform data from different sources directly in Excel — without macros, without programming, without tedious manual operations. Power Query in Excel uses the same technology as Power BI, but is available natively within the spreadsheet.',
-    prerequisites: 'Good knowledge of MS Excel (intermediate level or above)',
+      'Microsoft Excel Power Query training is for teams that want to put an end to manual copy-and-paste in Excel once and for all. Participants learn to import, combine and transform data from different sources directly in Excel — without macros, without programming, without tedious manual operations. Power Query in Excel uses the same technology as Power BI, but is available natively within the spreadsheet.',
+    prerequisites: 'Good knowledge of Microsoft Excel (intermediate level or above)',
     targetAudience: [
       'Teams working with Excel at intermediate or advanced level',
       'Departments regularly consolidating reports from multiple files or systems into one spreadsheet',
@@ -268,8 +268,8 @@ export const trainingsEn: TrainingEnContent[] = [
   {
     slug: 'excel-bi',
     description:
-      "MS Excel BI training shows that Excel is capable of much more than a spreadsheet — it is a full Business Intelligence platform available without additional licences. The team will learn to combine Power Query, Power Pivot and advanced charts into a single cohesive ecosystem, building interactive analytical dashboards directly in Excel. Think of it as 'Power BI inside Excel' — no separate tool to deploy.",
-    prerequisites: 'Good knowledge of MS Excel (advanced level or completed Power Query training)',
+      "Microsoft Excel BI training shows that Excel is capable of much more than a spreadsheet — it is a full Business Intelligence platform available without additional licences. The team will learn to combine Power Query, Power Pivot and advanced charts into a single cohesive ecosystem, building interactive analytical dashboards directly in Excel. Think of it as 'Power BI inside Excel' — no separate tool to deploy.",
+    prerequisites: 'Good knowledge of Microsoft Excel (advanced level or completed Power Query training)',
     targetAudience: [
       'Advanced Excel teams wanting to build professional analytical dashboards',
       'Analytical and controlling departments reporting to management without access to Power BI',
@@ -295,7 +295,7 @@ export const trainingsEn: TrainingEnContent[] = [
   {
     slug: 'powerpoint',
     description:
-      'MS PowerPoint training is a visual communication course for teams that want their presentations to speak for themselves. Participants learn to design cohesive corporate templates, choose the right charts and layouts for specific data, use animations purposefully and build a slide narrative that leads the audience from question to answer. The result: presentations that look professional and genuinely persuade.',
+      'Microsoft PowerPoint training is a visual communication course for teams that want their presentations to speak for themselves. Participants learn to design cohesive corporate templates, choose the right charts and layouts for specific data, use animations purposefully and build a slide narrative that leads the audience from question to answer. The result: presentations that look professional and genuinely persuade.',
     prerequisites: 'Basic knowledge of the Microsoft Office suite',
     targetAudience: [
       'Managers and specialists regularly presenting data and reports to management or clients',
@@ -321,10 +321,10 @@ export const trainingsEn: TrainingEnContent[] = [
   },
   {
     slug: 'excel-powerpoint-wizualizacja',
-    title: 'MS Excel + PowerPoint – Data Visualisation',
+    title: 'Microsoft Excel + PowerPoint – Data Visualisation',
     description:
-      'MS Excel + PowerPoint — Data Visualisation is a complete course for teams that want to master the entire reporting value chain: from raw data in Excel to a polished, persuasive PowerPoint presentation. Participants learn chart selection principles, visual consistency between tools and techniques for creating management reports that are both analytically rigorous and aesthetically professional.',
-    prerequisites: 'Good knowledge of MS Excel and basic knowledge of MS PowerPoint',
+      'Microsoft Excel + PowerPoint — Data Visualisation is a complete course for teams that want to master the entire reporting value chain: from raw data in Excel to a polished, persuasive PowerPoint presentation. Participants learn chart selection principles, visual consistency between tools and techniques for creating management reports that are both analytically rigorous and aesthetically professional.',
+    prerequisites: 'Good knowledge of Microsoft Excel and basic knowledge of Microsoft PowerPoint',
     targetAudience: [
       'Analysts and controllers regularly creating management reports or client presentations',
       'Finance, sales and operations specialists reporting results on weekly or monthly cycles',
@@ -349,10 +349,10 @@ export const trainingsEn: TrainingEnContent[] = [
   },
   {
     slug: 'excel-ai',
-    title: 'MS Excel AI – Working with AI Tools',
+    title: 'Microsoft Excel AI – Working with AI Tools',
     description:
-      'MS Excel AI is an intensive two-day course for teams that want to genuinely accelerate their Excel work using artificial intelligence tools. Participants learn how to effectively use AI chatbots and assistants for generating formulas, cleaning data and automating repetitive tasks — without needing advanced technical knowledge. The programme combines practical AI applications with Excel automation fundamentals, so the impact is visible from day one.',
-    prerequisites: 'Basic knowledge of MS Excel',
+      'Microsoft Excel AI is an intensive two-day course for teams that want to genuinely accelerate their Excel work using artificial intelligence tools. Participants learn how to effectively use AI chatbots and assistants for generating formulas, cleaning data and automating repetitive tasks — without needing advanced technical knowledge. The programme combines practical AI applications with Excel automation fundamentals, so the impact is visible from day one.',
+    prerequisites: 'Basic knowledge of Microsoft Excel',
     language: 'Polish or English',
     targetAudience: [
       'Teams working with Excel at beginner or intermediate level',

@@ -71,7 +71,7 @@ export const trainings: Training[] = [
       { q: 'Czy muszę znać język DAX przed szkoleniem?', a: 'Nie. Podstawy DAX są integralną częścią szkolenia. W zaawansowanych modułach omawiamy złożone formuły i optymalizację – wszystko dostosowane do aktualnego poziomu uczestników.' },
       { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz pliki warsztatowe. Po szkoleniu udostępniam listę sprawdzonych źródeł do samodzielnej nauki.' },
     ],
-    prerequisites: 'Mile widziana podstawowa znajomość MS Excel',
+    prerequisites: 'Mile widziana podstawowa znajomość Microsoft Excel',
     language: 'polski lub angielski',
   },
   {
@@ -113,7 +113,7 @@ export const trainings: Training[] = [
       { q: 'Czym różni się szkolenie DAX od szkolenia Microsoft Power BI?', a: 'Szkolenie Power BI obejmuje cały cykl pracy: od importu danych po publikację raportów, z wprowadzeniem do DAX. Szkolenie DAX skupia się wyłącznie na języku formuł – zaawansowane miary, Time Intelligence, RLS i optymalizacja kodu. To kurs dla osób, które już pracują w Power BI i chcą pisać precyzyjne obliczenia.' },
       { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz pliki warsztatowe. Po szkoleniu udostępniam listę sprawdzonych źródeł do samodzielnej nauki.' },
     ],
-    prerequisites: 'Podstawowa znajomość MS Excel i Power BI',
+    prerequisites: 'Podstawowa znajomość Microsoft Excel i Power BI',
   },
   {
     slug: 'microsoft-power-query-powerbi',
@@ -154,11 +154,11 @@ export const trainings: Training[] = [
       { q: 'Czy muszę znać język M przed szkoleniem?', a: 'Nie. Szkolenie omawia język M od podstaw – zaczynamy od graficznego edytora zapytań, a dopiero potem przechodzimy do ręcznej edycji kodu. Większość uczestników nie pisze ani jednej linii M przed szkoleniem.' },
       { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz pliki warsztatowe. Po szkoleniu udostępniam listę sprawdzonych źródeł do samodzielnej nauki.' },
     ],
-    prerequisites: 'Podstawowa znajomość MS Excel i Power BI',
+    prerequisites: 'Podstawowa znajomość Microsoft Excel i Power BI',
   },
   {
     slug: 'excel-ai',
-    title: 'MS Excel AI – współpraca z chatbotami',
+    title: 'Microsoft Excel AI – współpraca z chatbotami',
     category: 'Excel',
     duration: '2 dni / 16 godzin',
     price: 5500,
@@ -168,7 +168,7 @@ export const trainings: Training[] = [
       { maxPeople: 7, price: 6300, priceLabel: '6 300 zł' },
       { maxPeople: 10, price: 7500, priceLabel: '7 500 zł' },
     ],
-    description: 'Szkolenie MS Excel AI to intensywny, dwudniowy kurs dla zespołów, które chcą realnie przyspieszyć pracę z Excelem dzięki narzędziom sztucznej inteligencji. Pracownicy uczą się, jak skutecznie korzystać z chatbotów i asystentów AI do generowania formuł, czyszczenia danych i automatyzacji powtarzalnych zadań – bez konieczności zaawansowanej wiedzy technicznej. Program łączy praktyczne zastosowania AI z podstawami automatyzacji w Excelu, dzięki czemu efekty są widoczne już od pierwszego dnia.',
+    description: 'Szkolenie Microsoft Excel AI to intensywny, dwudniowy kurs dla zespołów, które chcą realnie przyspieszyć pracę z Excelem dzięki narzędziom sztucznej inteligencji. Pracownicy uczą się, jak skutecznie korzystać z chatbotów i asystentów AI do generowania formuł, czyszczenia danych i automatyzacji powtarzalnych zadań – bez konieczności zaawansowanej wiedzy technicznej. Program łączy praktyczne zastosowania AI z podstawami automatyzacji w Excelu, dzięki czemu efekty są widoczne już od pierwszego dnia.',
     targetAudience: [
       'Zespoły pracujące z Excelem na poziomie podstawowym i średniozaawansowanym',
       'Działy analityczne i raportowe szukające nowych narzędzi do zwiększenia efektywności',
@@ -199,12 +199,12 @@ export const trainings: Training[] = [
       { q: 'Jakich narzędzi AI dotyczy szkolenie?', a: 'Szkolenie obejmuje m.in. ChatGPT, Microsoft Copilot oraz inne narzędzia AI dostępne w ekosystemie Excela i pracy z danymi.' },
       { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz pliki warsztatowe. Po szkoleniu udostępniam listę sprawdzonych źródeł do samodzielnej nauki.' },
     ],
-    prerequisites: 'Podstawowa znajomość MS Excel',
+    prerequisites: 'Podstawowa znajomość Microsoft Excel',
     language: 'polski lub angielski',
   },
   {
     slug: 'excel-poziom-podstawowy',
-    title: 'MS Excel – Poziom podstawowy',
+    title: 'Microsoft Excel – Poziom podstawowy',
     category: 'Excel',
     duration: '2 dni / 16 godzin',
     price: 3400,
@@ -214,7 +214,7 @@ export const trainings: Training[] = [
       { maxPeople: 7, price: 4400, priceLabel: '4 400 zł' },
       { maxPeople: 10, price: 5250, priceLabel: '5 250 zł' },
     ],
-    description: 'Szkolenie MS Excel: Poziom podstawowy to solidny start dla zespołów, które chcą sprawnie korzystać z Excela w codziennej pracy. W ciągu dwóch dni pracownicy opanują obsługę arkuszy, podstawowe formuły, formatowanie danych i tworzenie tabel przestawnych – wszystko na praktycznych przykładach z życia zawodowego.',
+    description: 'Szkolenie Microsoft Excel: Poziom podstawowy to solidny start dla zespołów, które chcą sprawnie korzystać z Excela w codziennej pracy. W ciągu dwóch dni pracownicy opanują obsługę arkuszy, podstawowe formuły, formatowanie danych i tworzenie tabel przestawnych – wszystko na praktycznych przykładach z życia zawodowego.',
     targetAudience: [
       'Pracownicy zaczynający pracę z Excelem lub posiadający jedynie szczątkowe doświadczenie',
       'Zespoły, które potrzebują umiejętności arkuszowych w codziennych obowiązkach',
@@ -245,7 +245,7 @@ export const trainings: Training[] = [
   },
   {
     slug: 'excel-poziom-srednio-zaawansowany',
-    title: 'MS Excel – Poziom średniozaawansowany',
+    title: 'Microsoft Excel – Poziom średniozaawansowany',
     category: 'Excel',
     duration: '2 dni / 16 godzin',
     price: 3900,
@@ -255,7 +255,7 @@ export const trainings: Training[] = [
       { maxPeople: 7, price: 4800, priceLabel: '4 800 zł' },
       { maxPeople: 10, price: 5500, priceLabel: '5 500 zł' },
     ],
-    description: 'Szkolenie MS Excel na poziomie średniozaawansowanym to kurs dla zespołów, które znają już podstawy arkusza kalkulacyjnego i chcą znacząco podnieść swoją efektywność. Pracownicy opanują zaawansowane funkcje wyszukiwania i logiki, nauczą się tworzyć dynamiczne tabele przestawne oraz stosować formatowanie warunkowe oparte na formułach – umiejętności, które robią realną różnicę w codziennej pracy analitycznej.',
+    description: 'Szkolenie Microsoft Excel na poziomie średniozaawansowanym to kurs dla zespołów, które znają już podstawy arkusza kalkulacyjnego i chcą znacząco podnieść swoją efektywność. Pracownicy opanują zaawansowane funkcje wyszukiwania i logiki, nauczą się tworzyć dynamiczne tabele przestawne oraz stosować formatowanie warunkowe oparte na formułach – umiejętności, które robią realną różnicę w codziennej pracy analitycznej.',
     targetAudience: [
       'Pracownicy, którzy ukończyli poziom podstawowy lub samodzielnie opanowali fundamenty Excela',
       'Zespoły biurowe i analityczne regularnie korzystające z arkuszy kalkulacyjnych',
@@ -282,11 +282,11 @@ export const trainings: Training[] = [
       { q: 'Czy szkolenie dotyczy Excela 365, czy też starszych wersji?', a: 'Program jest dostosowany do Microsoft 365, ale wszystkie omawiane funkcje (poza XWYSZUKAJ) działają również w Excelu 2019 i 2016. Na początku szkolenia ustalamy, z jakiej wersji korzysta zespół.' },
       { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz pliki warsztatowe. Po szkoleniu udostępniam listę sprawdzonych źródeł do samodzielnej nauki.' },
     ],
-    prerequisites: 'Podstawowa znajomość MS Excel (poziom podstawowy lub równoważny)',
+    prerequisites: 'Podstawowa znajomość Microsoft Excel (poziom podstawowy lub równoważny)',
   },
   {
     slug: 'excel-poziom-zaawansowany',
-    title: 'MS Excel – Poziom zaawansowany',
+    title: 'Microsoft Excel – Poziom zaawansowany',
     category: 'Excel',
     duration: '2 dni / 16 godzin',
     price: 4400,
@@ -296,7 +296,7 @@ export const trainings: Training[] = [
       { maxPeople: 7, price: 5200, priceLabel: '5 200 zł' },
       { maxPeople: 10, price: 5800, priceLabel: '5 800 zł' },
     ],
-    description: 'Szkolenie MS Excel na poziomie zaawansowanym to kurs dla zespołów z doświadczeniem w Excelu, które chcą w pełni wykorzystać możliwości nowoczesnego arkusza. Program obejmuje funkcje dynamiczne i tablicowe z pakietu Excel 365, narzędzia Power Query i Power Pivot, zaawansowane analizy warunkowe oraz tworzenie interaktywnych dashboardów – wiedza, która realnie podnosi kompetencje analityczne całego działu.',
+    description: 'Szkolenie Microsoft Excel na poziomie zaawansowanym to kurs dla zespołów z doświadczeniem w Excelu, które chcą w pełni wykorzystać możliwości nowoczesnego arkusza. Program obejmuje funkcje dynamiczne i tablicowe z pakietu Excel 365, narzędzia Power Query i Power Pivot, zaawansowane analizy warunkowe oraz tworzenie interaktywnych dashboardów – wiedza, która realnie podnosi kompetencje analityczne całego działu.',
     targetAudience: [
       'Zespoły z doświadczeniem w Excelu na poziomie średniozaawansowanym',
       'Działy analityczne, kontrolingowe i BI pracujące z dużymi zbiorami danych',
@@ -323,11 +323,11 @@ export const trainings: Training[] = [
       { q: 'Czy Power Pivot jest częścią programu?', a: 'Tak – Power Pivot to jeden z kluczowych modułów. Uczestnicy uczą się budować modele relacyjne, tworzyć miary DAX i łączyć je z tabelami przestawnymi. To solidne wprowadzenie do modelowania danych bez opuszczania Excela.' },
       { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz pliki warsztatowe. Po szkoleniu udostępniam listę sprawdzonych źródeł do samodzielnej nauki.' },
     ],
-    prerequisites: 'Dobra znajomość MS Excel na poziomie średniozaawansowanym',
+    prerequisites: 'Dobra znajomość Microsoft Excel na poziomie średniozaawansowanym',
   },
   {
     slug: 'excel-vba',
-    title: 'MS Excel VBA',
+    title: 'Microsoft Excel VBA',
     category: 'Excel',
     duration: '2 dni / 16 godzin',
     price: 5600,
@@ -337,7 +337,7 @@ export const trainings: Training[] = [
       { maxPeople: 7, price: 7200, priceLabel: '7 200 zł' },
       { maxPeople: 10, price: 8000, priceLabel: '8 000 zł' },
     ],
-    description: 'Szkolenie MS Excel VBA otwiera drzwi do prawdziwej automatyzacji pracy w arkuszach kalkulacyjnych. Zespół pozna środowisko Visual Basic for Applications od pierwszej linii kodu – przez zmienne, pętle i logikę warunkową, aż po tworzenie własnych funkcji, formularzy użytkownika i reagowanie na zdarzenia Excela. Po szkoleniu powtarzalne zadania, które zajmowały godziny, będą wykonywane jednym kliknięciem.',
+    description: 'Szkolenie Microsoft Excel VBA otwiera drzwi do prawdziwej automatyzacji pracy w arkuszach kalkulacyjnych. Zespół pozna środowisko Visual Basic for Applications od pierwszej linii kodu – przez zmienne, pętle i logikę warunkową, aż po tworzenie własnych funkcji, formularzy użytkownika i reagowanie na zdarzenia Excela. Po szkoleniu powtarzalne zadania, które zajmowały godziny, będą wykonywane jednym kliknięciem.',
     targetAudience: [
       'Zespoły zaawansowanych użytkowników Excela szukające narzędzi do automatyzacji powtarzalnych czynności',
       'Działy analityczne i kontrolingowe chcące tworzyć własne funkcje i narzędzia raportowe',
@@ -365,11 +365,11 @@ export const trainings: Training[] = [
       { q: 'Czy makra VBA działają we wszystkich wersjach Excela?', a: 'Tak – VBA jest obecne w Excelu od wielu lat i działa w wersjach 2016, 2019, 2021 oraz Microsoft 365. Pliki z makrami należy zapisywać w formacie XLSM lub XLAM.' },
       { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz pliki warsztatowe z gotowymi procedurami i funkcjami. Po szkoleniu udostępniam listę sprawdzonych źródeł do samodzielnej nauki.' },
     ],
-    prerequisites: 'Dobra znajomość MS Excel na poziomie zaawansowanym',
+    prerequisites: 'Dobra znajomość Microsoft Excel na poziomie zaawansowanym',
   },
   {
     slug: 'excel-power-query',
-    title: 'MS Excel Power Query',
+    title: 'Microsoft Excel Power Query',
     category: 'Excel',
     duration: '2 dni / 16 godzin',
     price: 3200,
@@ -379,7 +379,7 @@ export const trainings: Training[] = [
       { maxPeople: 7, price: 3900, priceLabel: '3 900 zł' },
       { maxPeople: 10, price: 4500, priceLabel: '4 500 zł' },
     ],
-    description: 'Szkolenie MS Excel Power Query to kurs dla zespołów, które chcą raz na zawsze porzucić ręczne kopiowanie i wklejanie danych do Excela. Pracownicy nauczą się importować, łączyć i przekształcać dane z różnych źródeł bezpośrednio w Excelu – bez makr, bez programowania, bez żmudnych operacji ręcznych. Power Query w Excelu to ta sama technologia co w Power BI, lecz dostępna natywnie w arkuszu.',
+    description: 'Szkolenie Microsoft Excel Power Query to kurs dla zespołów, które chcą raz na zawsze porzucić ręczne kopiowanie i wklejanie danych do Excela. Pracownicy nauczą się importować, łączyć i przekształcać dane z różnych źródeł bezpośrednio w Excelu – bez makr, bez programowania, bez żmudnych operacji ręcznych. Power Query w Excelu to ta sama technologia co w Power BI, lecz dostępna natywnie w arkuszu.',
     targetAudience: [
       'Zespoły pracujące z Excelem na poziomie średniozaawansowanym lub zaawansowanym',
       'Działy regularnie scalające raporty z wielu plików lub systemów do jednego arkusza',
@@ -406,7 +406,7 @@ export const trainings: Training[] = [
       { q: 'Czy Power Query zastąpi moją wiedzę o formułach Excela?', a: 'Nie – to uzupełniające, nie wykluczające się umiejętności. Power Query doskonale radzi sobie z importem, czyszczeniem i transformacją danych przed analizą. Formuły Excela nadal są potrzebne do obliczeń i raportowania.' },
       { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz pliki warsztatowe. Po szkoleniu udostępniam listę sprawdzonych źródeł do samodzielnej nauki.' },
     ],
-    prerequisites: 'Dobra znajomość MS Excel (poziom średniozaawansowany lub wyższy)',
+    prerequisites: 'Dobra znajomość Microsoft Excel (poziom średniozaawansowany lub wyższy)',
   },
   {
     slug: 'microsoft-sql-server',
@@ -452,7 +452,7 @@ export const trainings: Training[] = [
   },
   {
     slug: 'excel-bi',
-    title: 'MS Excel BI',
+    title: 'Microsoft Excel BI',
     category: 'Wizualizacja danych',
     duration: '2 dni / 16 godzin',
     price: 3900,
@@ -462,7 +462,7 @@ export const trainings: Training[] = [
       { maxPeople: 7, price: 4700, priceLabel: '4 700 zł' },
       { maxPeople: 10, price: 5500, priceLabel: '5 500 zł' },
     ],
-    description: 'Szkolenie MS Excel BI pokazuje, że Excel potrafi znacznie więcej niż arkusz kalkulacyjny – to pełnoprawna platforma Business Intelligence dostępna bez dodatkowych licencji. Zespół nauczy się łączyć Power Query, Power Pivot i zaawansowane wykresy w jeden spójny ekosystem, tworząc interaktywne dashboardy analityczne bezpośrednio w Excelu. To "Power BI w Excelu" – bez konieczności wdrażania osobnego narzędzia.',
+    description: 'Szkolenie Microsoft Excel BI pokazuje, że Excel potrafi znacznie więcej niż arkusz kalkulacyjny – to pełnoprawna platforma Business Intelligence dostępna bez dodatkowych licencji. Zespół nauczy się łączyć Power Query, Power Pivot i zaawansowane wykresy w jeden spójny ekosystem, tworząc interaktywne dashboardy analityczne bezpośrednio w Excelu. To "Power BI w Excelu" – bez konieczności wdrażania osobnego narzędzia.',
     targetAudience: [
       'Zespoły zaawansowanych użytkowników Excela chcące tworzyć profesjonalne dashboardy analityczne',
       'Działy analityczne i kontrolingowe raportujące do zarządu bez dostępu do Power BI',
@@ -489,11 +489,11 @@ export const trainings: Training[] = [
       { q: 'Czy muszę wcześniej przejść szkolenie z Power Query lub Power Pivot?', a: 'Nie jest to wymagane, ale znacznie przyspiesza naukę. Szkolenie Excel BI omawia oba narzędzia w kontekście całego ekosystemu BI. Osobne kursy Power Query i Power Pivot pozwalają zgłębić każde z nich bardziej szczegółowo.' },
       { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń oraz pliki warsztatowe. Po szkoleniu udostępniam listę sprawdzonych źródeł do samodzielnej nauki.' },
     ],
-    prerequisites: 'Dobra znajomość MS Excel (poziom zaawansowany lub ukończone szkolenie Power Query)',
+    prerequisites: 'Dobra znajomość Microsoft Excel (poziom zaawansowany lub ukończone szkolenie Power Query)',
   },
   {
     slug: 'powerpoint',
-    title: 'MS PowerPoint',
+    title: 'Microsoft PowerPoint',
     category: 'Wizualizacja danych',
     duration: '2 dni / 16 godzin',
     price: 2700,
@@ -503,7 +503,7 @@ export const trainings: Training[] = [
       { maxPeople: 7, price: 3300, priceLabel: '3 300 zł' },
       { maxPeople: 10, price: 3900, priceLabel: '3 900 zł' },
     ],
-    description: 'Szkolenie MS PowerPoint to kurs komunikacji wizualnej dla zespołów, które chcą, by ich prezentacje mówiły same za siebie. Pracownicy nauczą się projektować spójne szablony firmowe, dobierać wykresy i układy do konkretnych danych, stosować animacje z umiarem oraz budować narrację slajdu, która prowadzi odbiorcę od pytania do odpowiedzi. Efekt: prezentacje, które wyglądają profesjonalnie i są skuteczne.',
+    description: 'Szkolenie Microsoft PowerPoint to kurs komunikacji wizualnej dla zespołów, które chcą, by ich prezentacje mówiły same za siebie. Pracownicy nauczą się projektować spójne szablony firmowe, dobierać wykresy i układy do konkretnych danych, stosować animacje z umiarem oraz budować narrację slajdu, która prowadzi odbiorcę od pytania do odpowiedzi. Efekt: prezentacje, które wyglądają profesjonalnie i są skuteczne.',
     targetAudience: [
       'Menedżerowie i specjaliści regularnie prezentujący dane i raporty zarządowi lub klientom',
       'Analitycy przenoszący wyniki analiz z Excela do prezentacji PowerPoint',
@@ -534,7 +534,7 @@ export const trainings: Training[] = [
   },
   {
     slug: 'excel-powerpoint-wizualizacja',
-    title: 'MS Excel + PowerPoint – Wizualizacja danych',
+    title: 'Microsoft Excel + PowerPoint – Wizualizacja danych',
     category: 'Wizualizacja danych',
     duration: '2 dni / 16 godzin',
     price: 3200,
@@ -544,7 +544,7 @@ export const trainings: Training[] = [
       { maxPeople: 7, price: 3900, priceLabel: '3 900 zł' },
       { maxPeople: 10, price: 4500, priceLabel: '4 500 zł' },
     ],
-    description: 'Szkolenie MS Excel + PowerPoint – Wizualizacja danych to kompletny kurs dla zespołów, które chcą opanować cały łańcuch wartości raportowania: od surowych danych w Excelu po gotową, przekonującą prezentację w PowerPoint. Pracownicy poznają zasady doboru wykresów, spójność wizualną między narzędziami oraz techniki tworzenia raportów zarządczych, które są zarówno analitycznie rzetelne, jak i estetycznie profesjonalne.',
+    description: 'Szkolenie Microsoft Excel + PowerPoint – Wizualizacja danych to kompletny kurs dla zespołów, które chcą opanować cały łańcuch wartości raportowania: od surowych danych w Excelu po gotową, przekonującą prezentację w PowerPoint. Pracownicy poznają zasady doboru wykresów, spójność wizualną między narzędziami oraz techniki tworzenia raportów zarządczych, które są zarówno analitycznie rzetelne, jak i estetycznie profesjonalne.',
     targetAudience: [
       'Analitycy i kontrolerzy regularnie tworzący raporty zarządcze lub prezentacje dla klientów',
       'Specjaliści finansowi, sprzedażowi i operacyjni raportujący wyniki w cyklach tygodniowych lub miesięcznych',
@@ -571,7 +571,7 @@ export const trainings: Training[] = [
       { q: 'Czy szkolenie obejmuje zasady komunikacji wizualnej, czy tylko technikę?', a: 'Obydwa aspekty. Pierwsza część to teoria: dobór wykresu do danych, hierarchia informacji, kolorystyka. Druga to warsztat techniczny: zaawansowane wykresy Excel, dynamiczne łączenie z PowerPoint i tworzenie raportu zarządczego od A do Z.' },
       { q: 'Czy otrzymam materiały szkoleniowe?', a: 'Tak – każdy uczestnik otrzymuje prezentacje, zestawy ćwiczeń, gotowy szablon raportu oraz pliki ćwiczeniowe. Po szkoleniu udostępniam listę sprawdzonych zasobów o wizualizacji danych.' },
     ],
-    prerequisites: 'Dobra znajomość MS Excel i podstawowa znajomość MS PowerPoint',
+    prerequisites: 'Dobra znajomość Microsoft Excel i podstawowa znajomość Microsoft PowerPoint',
   },
 ];
 

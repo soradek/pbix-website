@@ -1802,7 +1802,7 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
   gap: 48px 80px;
   align-items: end;
 }
@@ -1820,7 +1820,9 @@
   background: var(--tone-bg);
 }
 .trainingTitle {
-  font-size: var(--fs-display);
+  /* Long names (e.g. "średniozaawansowany") must fit the 7/11 column */
+  font-size: clamp(40px, 5vw, 64px);
+  overflow-wrap: break-word;
   font-weight: 500;
   letter-spacing: var(--ls-display);
   line-height: 1.02;
