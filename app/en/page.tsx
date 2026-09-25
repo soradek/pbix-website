@@ -10,7 +10,6 @@ import HomeOrbit from '@/components/home/HomeOrbit';
 import HomeAbout from '@/components/home/HomeAbout';
 import HomeTrainings from '@/components/home/HomeTrainings';
 import HomeProcess from '@/components/home/HomeProcess';
-import HomeCompare from '@/components/home/HomeCompare';
 import HomeReviews from '@/components/home/HomeReviews';
 import HomeFormats from '@/components/home/HomeFormats';
 import HomeFaq from '@/components/home/HomeFaq';
@@ -98,7 +97,6 @@ export default function EnHomePage() {
       <HomeAbout lang="en" />
       <HomeTrainings lang="en" />
       <HomeProcess lang="en" />
-      <HomeCompare lang="en" />
       <HomeReviews lang="en" />
       <HomeFormats lang="en" />
       <HomeFaq items={homeFaq} lang="en" />

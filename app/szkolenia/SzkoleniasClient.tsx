@@ -11,7 +11,8 @@ import s from '@/components/home/home.module.css';
 import PageHero from '@/components/home/PageHero';
 import HomeFinalCta from '@/components/home/HomeFinalCta';
 import { FadeIn } from '@/components/home/motion';
-import type { Lang } from '@/components/home/lang';
+import { ROUTES, type Lang } from '@/components/home/lang';
+import { RollingLink } from '@/components/home/RollingButton';
 
 const categories = ['Wszystkie', 'Power BI', 'Excel', 'SQL', 'Wizualizacja danych'] as const;
 const VALID_CATEGORIES: string[] = ['Power BI', 'Excel', 'SQL', 'Wizualizacja danych'];
@@ -29,6 +30,9 @@ const COPY = {
     lead: 'Specjalistyczne kursy z Power BI, Excela, SQL i wizualizacji danych.',
     details: 'Szczegóły',
     allCurtain: 'Wszystkie szkolenia',
+    customTitle: 'Potrzebujesz programu pod Wasze dane?',
+    customText: 'Przygotuję szkolenie dedykowane: na Waszych plikach, raportach i zapytaniach, z zakresem i czasem dopasowanym do zespołu.',
+    customCta: 'Zapytaj o szkolenie dedykowane',
   },
   en: {
     base: '/en/trainings',
@@ -37,6 +41,9 @@ const COPY = {
     lead: 'Specialised courses in Power BI, Excel, SQL and data visualisation.',
     details: 'Details',
     allCurtain: 'All trainings',
+    customTitle: 'Need a programme built on your data?',
+    customText: 'I can prepare a bespoke training on your own files, reports and queries, with scope and length tailored to your team.',
+    customCta: 'Ask about bespoke training',
   },
 };
 
@@ -140,6 +147,13 @@ export default function SzkoleniasClient({ initialCategory, lang = 'pl' }: Props
               </FadeIn>
             ))}
           </ul>
+
+          <div className={s.customNote}>
+            <p>
+              <strong>{t.customTitle}</strong> {t.customText}
+            </p>
+            <RollingLink href={ROUTES[lang].contact} label={t.customCta} variant="outline" arrow={false} />
+          </div>
         </div>
       </section>
 

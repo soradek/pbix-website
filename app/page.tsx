@@ -10,7 +10,6 @@ import HomeOrbit from '@/components/home/HomeOrbit';
 import HomeAbout from '@/components/home/HomeAbout';
 import HomeTrainings from '@/components/home/HomeTrainings';
 import HomeProcess from '@/components/home/HomeProcess';
-import HomeCompare from '@/components/home/HomeCompare';
 import HomeReviews from '@/components/home/HomeReviews';
 import HomeFormats from '@/components/home/HomeFormats';
 import HomeQuiz from '@/components/home/HomeQuiz';
@@ -57,7 +56,6 @@ export default function Home() {
       <HomeAbout />
       <HomeTrainings />
       <HomeProcess />
-      <HomeCompare />
       <HomeReviews />
       <HomeFormats />
       <HomeQuiz />

@@ -936,122 +936,6 @@
   border-radius: 3px;
 }
 
-/* ── Compare ──────────────────────────────────────── */
-.compareCard {
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  overflow: hidden;
-}
-.compareTable {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-  font-size: var(--fs-body);
-  line-height: 1.55;
-}
-.compareColLabel { width: 24%; }
-/* The add-on column carries a quiet green wash top to bottom */
-.compareColPlus { background: rgba(30, 153, 83, 0.045); }
-.compareTable th,
-.compareTable td {
-  padding: 22px 32px;
-  text-align: left;
-  vertical-align: top;
-  border-bottom: 1px solid var(--line);
-}
-/* Every cell after the first gets a divider, whatever its tag (td/th) */
-.compareTable tr > * + * { border-left: 1px solid var(--line); }
-.compareTable tbody tr:last-child > * { border-bottom: 0; }
-.compareTable thead th,
-.compareTable .compareCorner {
-  padding-top: 36px;
-  padding-bottom: 24px;
-  vertical-align: bottom;
-  border-bottom: 2px solid var(--ink);
-}
-.compareColTitle {
-  display: block;
-  font-size: var(--fs-h3);
-  font-weight: 500;
-  letter-spacing: var(--ls-h3);
-  line-height: 1.15;
-  color: var(--text);
-}
-.compareColNote {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-  font-size: var(--fs-small);
-  color: var(--muted);
-}
-.compareColNoteAccent { color: var(--accent-deep); font-weight: 500; }
-.compareColNoteAccent::before {
-  content: '';
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-.compareTable tbody th {
-  font-size: var(--fs-ui);
-  font-weight: 500;
-  letter-spacing: var(--ls-text);
-  color: var(--text);
-}
-.compareRowNum {
-  display: inline-block;
-  min-width: 28px;
-  margin-right: 8px;
-  font-size: var(--fs-small);
-  font-weight: 400;
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
-}
-.compareTable td { color: var(--muted); }
-.compareTable td:last-child { color: var(--text); }
-.compareTable tbody tr { transition: background-color 0.3s var(--ease); }
-.compareTable tbody tr:hover { background: rgba(11, 13, 12, 0.02); }
-
-.compareShared {
-  display: flex;
-  align-items: center;
-  gap: 14px 32px;
-  flex-wrap: wrap;
-  padding: 20px 32px;
-  background: var(--paper);
-  border-top: 1px solid var(--line);
-}
-.compareSharedLabel {
-  margin: 0;
-  font-size: var(--fs-small);
-  font-weight: 500;
-  color: var(--text);
-}
-.compareShared ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 24px;
-  font-size: var(--fs-small);
-  color: var(--muted);
-}
-.compareShared li {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-.compareCta {
-  display: flex;
-  justify-content: flex-start;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-top: 48px;
-}
-
 /* ── Reviews ──────────────────────────────────────── */
 .reviewsLayout {
   display: grid;
@@ -1457,45 +1341,6 @@
 
   .processGrid { grid-template-columns: 1fr; gap: 48px; }
 
-  .compareCard { background: transparent; border: 0; border-radius: 0; overflow: visible; }
-  .compareTable,
-  .compareTable tbody,
-  .compareTable tr,
-  .compareTable th,
-  .compareTable td { display: block; width: 100%; }
-  .compareTable colgroup,
-  .compareTable thead { display: none; }
-  .compareTable tr {
-    margin-bottom: 12px;
-    background: var(--white);
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    overflow: hidden;
-  }
-  .compareTable tbody th {
-    padding: 16px 18px 6px;
-    border: 0;
-  }
-  .compareTable td {
-    display: grid;
-    gap: 4px;
-    padding: 12px 18px;
-    font-size: var(--fs-body);
-    border-left: 0 !important;
-    border-bottom: 1px solid var(--line);
-  }
-  .compareTable td::before {
-    content: attr(data-label);
-    font-size: var(--fs-small);
-    font-weight: 500;
-    color: var(--muted);
-  }
-  .compareTable td:last-child { background: rgba(30, 153, 83, 0.045); }
-  .compareTable td:last-child::before { color: var(--accent-deep); }
-  .compareTable tr > * + * { border-left: 0; }
-  .compareTable tbody tr:hover { background: transparent; }
-  .compareTable tbody tr > td:last-child { border-bottom: 0 !important; }
-  .compareShared { padding: 18px; border: 1px solid var(--line); border-radius: 18px; }
 
   .scoreCard { flex-direction: column; align-items: flex-start; }
   .reviewsTrack { grid-auto-columns: 100%; }
@@ -2175,3 +2020,22 @@ select.formInput { cursor: pointer; }
 .leadDoneTitle { font-size: var(--fs-h3); font-weight: 500; letter-spacing: var(--ls-h3); margin: 8px 0 0; }
 .leadDone .leadLead { margin: 0 0 8px; }
 .leadDone .leadLead a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Bespoke-training note under the trainings list */
+.customNote {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 40px;
+  margin-top: 40px;
+  padding: 28px 32px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--paper);
+}
+.customNote p { margin: 0; max-width: 62ch; color: var(--muted); font-size: var(--fs-ui); line-height: 1.6; }
+.customNote strong { display: block; margin-bottom: 4px; color: var(--text); font-size: var(--fs-lead); font-weight: 500; }
+.customNote .btn { flex-shrink: 0; }
+@media (max-width: 768px) {
+  .customNote { flex-direction: column; align-items: stretch; padding: 22px 20px; }
+}
