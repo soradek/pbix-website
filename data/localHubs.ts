@@ -48,7 +48,7 @@ export const localHubs: LocalHub[] = [
     name: 'Excel',
     metaTitle: 'Szkolenia Excel Poznań i Wielkopolska dla firm | pbix.pl',
     metaDescription:
-      'Zamknięte szkolenia Excel dla zespołów w Poznaniu i Wielkopolsce: od podstaw po Power Query, VBA i AI. W siedzibie firmy lub online. Trener Microsoft MCT.',
+      'Zamknięte szkolenia Excel dla zespołów w Poznaniu i Wielkopolsce: od podstaw po Power Query, VBA i AI. W siedzibie firmy lub online. Cena za grupę.',
     h1: 'Szkolenia Excel dla firm w Poznaniu i Wielkopolsce',
     lead: 'Zamknięte szkolenia dla jednego zespołu, w Waszej siedzibie albo online. Od podstaw arkusza po Power Query, VBA i pracę z AI.',
     local: {
@@ -104,7 +104,7 @@ export const localHubs: LocalHub[] = [
     name: 'Power BI',
     metaTitle: 'Szkolenia Power BI Poznań i Wielkopolska dla firm | pbix.pl',
     metaDescription:
-      'Zamknięte szkolenia Power BI, DAX i Power Query dla zespołów w Poznaniu i Wielkopolsce. W siedzibie firmy lub online. Certyfikowany Trener Microsoft (MCT).',
+      'Zamknięte szkolenia Power BI, DAX i Power Query dla zespołów w Poznaniu i Wielkopolsce. W siedzibie firmy lub online. Cena za grupę, nie za osobę.',
     h1: 'Szkolenia Power BI dla firm w Poznaniu i Wielkopolsce',
     lead: 'Zamknięte szkolenia dla jednego zespołu, w Waszej siedzibie albo online. Od modelu danych przez DAX po publikację raportów.',
     local: {
@@ -157,7 +157,7 @@ export const localHubs: LocalHub[] = [
     name: 'SQL',
     metaTitle: 'Szkolenia SQL Poznań i Wielkopolska dla firm | pbix.pl',
     metaDescription:
-      'Zamknięte szkolenia SQL Server dla analityków i zespołów biznesowych w Poznaniu i Wielkopolsce. W siedzibie firmy lub online. Trener Microsoft MCT.',
+      'Zamknięte szkolenia SQL Server dla analityków i zespołów biznesowych w Poznaniu i Wielkopolsce. W siedzibie firmy lub online. Cena za grupę.',
     h1: 'Szkolenia SQL dla firm w Poznaniu i Wielkopolsce',
     lead: 'Zamknięte szkolenie dla jednego zespołu, w Waszej siedzibie albo online. Zapytania SQL na potrzeby raportowania, bez doświadczenia programistycznego.',
     local: {
