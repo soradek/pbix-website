@@ -3,7 +3,8 @@ import { ImageResponse } from 'next/og';
 export const size = { width: 512, height: 512 };
 export const contentType = 'image/png';
 
-// High-res icon for Android / PWA; favicon.ico stays for browser tabs
+// Same mark as favicon.ico (green "x" from the pbix logo) so every browser tab and
+// Android launcher shows one consistent icon; apple-icon carries the full wordmark
 export default function Icon() {
   return new ImageResponse(
     (
@@ -15,14 +16,15 @@ export default function Icon() {
           alignItems: 'center',
           justifyContent: 'center',
           background: '#0b0d0c',
-          color: '#eef1ef',
-          fontSize: 176,
-          fontWeight: 600,
-          letterSpacing: -8,
           borderRadius: 112,
+          color: '#2fbf6d',
+          fontSize: 470,
+          fontWeight: 700,
+          lineHeight: 1,
+          paddingBottom: 60,
         }}
       >
-        pbi<span style={{ color: '#2fbf6d' }}>x</span>
+        x
       </div>
     ),
     size,
