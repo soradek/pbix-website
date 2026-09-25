@@ -20,6 +20,9 @@ export default function Footer({ lang = 'pl' }: FooterProps) {
         { label: 'Excel', href: '/szkolenia?kategoria=Excel' },
         { label: 'SQL', href: '/szkolenia?kategoria=SQL' },
         { label: 'Wizualizacja danych', href: '/szkolenia?kategoria=Wizualizacja+danych' },
+        { label: 'Szkolenia Excel Poznań', href: '/szkolenia-excel-poznan' },
+        { label: 'Szkolenia Power BI Poznań', href: '/szkolenia-power-bi-poznan' },
+        { label: 'Szkolenia SQL Poznań', href: '/szkolenia-sql-poznan' },
       ];
 
   const navLinks = isEn

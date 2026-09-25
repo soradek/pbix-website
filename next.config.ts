@@ -42,6 +42,12 @@ const nextConfig: NextConfig = {
       { source: '/apple-touch-icon-precomposed.png', destination: '/apple-icon' },
     ];
   },
+  async redirects() {
+    return [
+      // Retired reporting-maturity quiz (archived outside the repo)
+      { source: '/audyt', destination: '/szkolenia', permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

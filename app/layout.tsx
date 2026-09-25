@@ -8,6 +8,7 @@ import GA4Router from '@/components/GA4Router';
 import CookieBanner from '@/components/CookieBanner';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { ORGANIZATION_ID, postalAddressSchema } from '@/lib/business';
 
 
 const siteUrl = 'https://www.pbix.pl/';
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
     template: '%s | pbix.pl',
   },
   description:
-    'Radosław Sobczak – Certyfikowany Trener Microsoft (MCT). Szkolenia Power BI, Excel, SQL i VBA dla firm. 7 lat doświadczenia, ponad 4 500 przeszkolonych pracowników, ocena 4,8/5. Szkolenia stacjonarne i online w Polsce i po angielsku.',
+    'Szkolenia Power BI, Excel i VBA dla firm. Ponad 4 500 przeszkolonych pracowników, ocena 4,92/5. Stacjonarnie, online i po angielsku.',
   keywords: [
     'Power BI szkolenie',
     'szkolenia Excel',
@@ -57,7 +58,7 @@ export const metadata: Metadata = {
     siteName: 'pbix.pl – Radosław Sobczak',
     title: 'Szkolenia AI, Power BI, Excel, SQL | Radosław Sobczak MCT',
     description:
-      'Certyfikowany Trener Microsoft – szkolenia AI, Power BI, Excel, SQL i VBA dla firm w całej Polsce. 7 lat, 4\u00A0500+ przeszkolonych, ocena 4,8/5.',
+      'Szkolenia Power BI, Excel i VBA dla firm. Ponad 4 500 przeszkolonych pracowników, ocena 4,92/5. Stacjonarnie, online i po angielsku.',
     images: [
       {
         url: 'https://www.pbix.pl/og.jpg',
@@ -73,7 +74,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Szkolenia AI, Power BI, Excel, SQL | Radosław Sobczak MCT',
     description:
-      'Certyfikowany Trener Microsoft – szkolenia AI, Power BI, Excel, SQL i VBA dla firm w całej Polsce. 7 lat, 4\u00A0500+ przeszkolonych, ocena 4,8/5.',
+      'Szkolenia Power BI, Excel i VBA dla firm. Ponad 4 500 przeszkolonych pracowników, ocena 4,92/5. Stacjonarnie, online i po angielsku.',
     images: ['https://www.pbix.pl/og.jpg'],
   },
   alternates: {
@@ -122,6 +123,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 },
                 {
                   '@type': 'EducationalOrganization',
+                  '@id': ORGANIZATION_ID,
                   name: 'pbix.pl',
                   url: siteUrl,
                   email: 'kontakt@pbix.pl',
@@ -131,6 +133,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                     name: 'Radosław Sobczak',
                   },
                   areaServed: 'PL',
+                  address: postalAddressSchema(),
                   knowsLanguage: ['pl', 'en'],
                   contactPoint: {
                     '@type': 'ContactPoint',
@@ -145,14 +148,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                   name: 'pbix.pl',
                   description: 'Szkolenia Power BI, Excel, SQL, VBA – Radosław Sobczak MCT',
                   inLanguage: 'pl-PL',
-                  potentialAction: {
-                    '@type': 'SearchAction',
-                    target: {
-                      '@type': 'EntryPoint',
-                      urlTemplate: `${siteUrl}/szkolenia?q={search_term_string}`,
-                    },
-                    'query-input': 'required name=search_term_string',
-                  },
                 },
               ],
             }),

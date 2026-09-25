@@ -18,7 +18,7 @@ export const faqItemsEn: FAQItem[] = [
   },
   {
     q: 'Why should I trust you?',
-    a: 'Over the past 7 years, more than 4,500 employees from companies including Volkswagen, Lufthansa, Coca-Cola and Boston Scientific have attended my Power BI, Excel, SQL and VBA trainings. I am a Microsoft Certified Trainer (MCT) — a title that requires passing a knowledge examination and demonstrating teaching skills directly to Microsoft. I close every training with an anonymous evaluation survey — scores are consistently above 4.8/5. I really know what I\'m doing :)',
+    a: 'Over the past 7 years, more than 4,500 employees from companies including Volkswagen, Lufthansa, Coca-Cola and Boston Scientific have attended my Power BI, Excel, SQL and VBA trainings. I am a Microsoft Certified Trainer (MCT) — a title that requires passing a knowledge examination and demonstrating teaching skills directly to Microsoft. I close every training with an anonymous evaluation survey — the average score is 4.92/5. I really know what I\'m doing :)',
   },
   {
     q: 'Are the sessions practical or theoretical?',
@@ -77,7 +77,7 @@ export const faqItems: FAQItem[] = [
   },
   {
     q: 'Dlaczego warto nam zaufać?',
-    a: 'W ciągu ostatnich 7 lat z moich szkoleń z Power BI, Excela, SQL i VBA skorzystało ponad 4 500 pracowników firm takich jak Volkswagen, Lufthansa, Coca-Cola czy Boston Scientific. Jestem Certyfikowanym Trenerem Microsoftu (MCT) – tytuł ten wymaga zdania egzaminu merytorycznego i potwierdzenia umiejętności dydaktycznych bezpośrednio przez Microsoft. Każde szkolenie kończę anonimową ankietą ewaluacyjną – wyniki są konsekwentnie powyżej 4,8/5.',
+    a: 'W ciągu ostatnich 7 lat z moich szkoleń z Power BI, Excela, SQL i VBA skorzystało ponad 4 500 pracowników firm takich jak Volkswagen, Lufthansa, Coca-Cola czy Boston Scientific. Jestem Certyfikowanym Trenerem Microsoftu (MCT) – tytuł ten wymaga zdania egzaminu merytorycznego i potwierdzenia umiejętności dydaktycznych bezpośrednio przez Microsoft. Każde szkolenie kończę anonimową ankietą ewaluacyjną – średnia ocen wynosi 4,92/5.',
   },
   {
     q: 'Czy zajęcia są praktyczne, czy teoretyczne?',

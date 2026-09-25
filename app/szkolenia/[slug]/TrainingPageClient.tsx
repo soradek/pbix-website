@@ -1,8 +1,10 @@
 'use client';
 
 import { useState, useEffect, type CSSProperties } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Training } from '@/data/trainings';
+import type { LocalHub } from '@/data/localHubs';
 import { faqItems, faqItemsEn } from '@/data/faq';
 import { getTrainingEnContent, enTierLabel } from '@/data/trainings-en';
 import { toneFor } from '@/data/categoryColors';
@@ -58,7 +60,7 @@ const videoByCategory: Record<string, string> = {
   'Wizualizacja danych': '/BG-Viz.mp4',
 };
 
-export default function TrainingPageClient({ training, lang = 'pl' }: { training: Training; lang?: 'pl' | 'en' }) {
+export default function TrainingPageClient({ training, lang = 'pl', hub }: { training: Training; lang?: 'pl' | 'en'; hub?: Pick<LocalHub, 'slug' | 'name'> }) {
   const tx = t[lang];
   const en = lang === 'en' ? getTrainingEnContent(training.slug) : undefined;
   const tone = toneFor(training.category);
@@ -161,6 +163,13 @@ export default function TrainingPageClient({ training, lang = 'pl' }: { training
               ))}
             </dl>
             <p className={s.metaNote}>{tx.priceNote}</p>
+            {hub && (
+              <p className={s.metaNote} style={{ marginTop: 12 }}>
+                <Link href={`/${hub.slug}`} style={{ color: 'inherit' }}>
+                  Szkolenia {hub.name} w Poznaniu i Wielkopolsce
+                </Link>
+              </p>
+            )}
           </FadeIn>
         </div>
       </section>

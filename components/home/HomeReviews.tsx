@@ -1,4 +1,4 @@
-import { testimonials } from '@/data/testimonials';
+import { testimonials, type Testimonial } from '@/data/testimonials';
 import s from './home.module.css';
 import ScoreCounter from './ScoreCounter';
 import ReviewsCarousel from './ReviewsCarousel';
@@ -18,7 +18,7 @@ const COPY = {
   },
 };
 
-export default function HomeReviews({ lang = 'pl' }: { lang?: Lang }) {
+export default function HomeReviews({ lang = 'pl', items = testimonials }: { lang?: Lang; items?: Testimonial[] }) {
   const t = COPY[lang];
   return (
     <section className={`${s.section} ${s.onWhite}`}>
@@ -34,7 +34,7 @@ export default function HomeReviews({ lang = 'pl' }: { lang?: Lang }) {
             <span className={s.mono} style={{ color: 'var(--muted-dark)' }}>{t.people}</span>
           </div>
 
-          <ReviewsCarousel items={testimonials} lang={lang} />
+          <ReviewsCarousel items={items} lang={lang} />
         </FadeIn>
       </div>
     </section>

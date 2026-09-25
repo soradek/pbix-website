@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { IconPhone } from '@/components/Icons';
 import { RollingLink } from '@/components/home/RollingButton';
 
-const APP_VERSION = '1.15.13';
+const APP_VERSION = '1.16.1';
 
 interface NavLink {
   href: string;
@@ -29,6 +29,8 @@ function getAltUrl(pathname: string): string {
   if (pathname === '/') return '/en';
   // The blog is Polish-only; its EN switch goes to the EN home instead of a 404
   if (pathname === '/blog' || pathname.startsWith('/blog/')) return '/en';
+  // Local Poznań hubs are Polish-only
+  if (/^\/szkolenia-[a-z-]+-poznan$/.test(pathname)) return '/en/trainings';
   return '/en' + pathname
     .replace(/^\/szkolenia(\/|$)/, '/trainings$1')
     .replace(/^\/kontakt$/, '/contact')
