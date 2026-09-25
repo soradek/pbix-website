@@ -35,6 +35,13 @@ const nextConfig: NextConfig = {
     qualities: [75, 80, 82],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
   },
+  async rewrites() {
+    return [
+      // iOS Safari requests these fixed paths regardless of <link rel="apple-touch-icon">
+      { source: '/apple-touch-icon.png', destination: '/apple-icon' },
+      { source: '/apple-touch-icon-precomposed.png', destination: '/apple-icon' },
+    ];
+  },
   async headers() {
     return [
       {
