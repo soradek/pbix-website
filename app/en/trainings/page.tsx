@@ -5,10 +5,10 @@ import TrainingsEnClient from './TrainingsEnClient';
 import { OG_IMAGES } from '@/lib/og';
 
 export const metadata: Metadata = {
-  title: 'Power BI, Excel & SQL Trainings | pbix.pl',
+  title: 'Power BI, Excel & SQL Trainings',
   description: 'Corporate trainings in Power BI, Excel, SQL and data visualisation. 2-day intensive workshops with a Microsoft Certified Trainer.',
   openGraph: {
-    title: 'Power BI, Excel & SQL Trainings | pbix.pl',
+    title: 'Power BI, Excel & SQL Trainings',
     description: 'Corporate trainings in Power BI, Excel, SQL and data visualisation.',
     url: 'https://www.pbix.pl/en/trainings',
     siteName: 'pbix.pl',

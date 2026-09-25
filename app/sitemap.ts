@@ -96,5 +96,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: hreflang(`${siteUrl}/kontakt`, `${siteUrl}/en/contact`),
     },
     ...enTrainingPages,
+    {
+      url: `${siteUrl}/polityka-prywatnosci`,
+      changeFrequency: 'yearly', priority: 0.2,
+      alternates: hreflang(`${siteUrl}/polityka-prywatnosci`, `${siteUrl}/en/privacy-policy`),
+    },
+    {
+      url: `${siteUrl}/en/privacy-policy`,
+      changeFrequency: 'yearly', priority: 0.2,
+      alternates: hreflang(`${siteUrl}/polityka-prywatnosci`, `${siteUrl}/en/privacy-policy`),
+    },
   ];
 }

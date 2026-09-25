@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { OG_IMAGES } from '@/lib/og';
 
 export const metadata: Metadata = {
-  title: 'Polityka prywatności | pbix.pl',
+  title: 'Polityka prywatności',
   description: 'Polityka prywatności i informacja o przetwarzaniu danych osobowych zgodnie z RODO.',
   alternates: {
     canonical: 'https://www.pbix.pl/polityka-prywatnosci',
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
     },
   },
   robots: { index: true, follow: true },
+  openGraph: { title: 'Polityka prywatności', url: 'https://www.pbix.pl/polityka-prywatnosci', siteName: 'pbix.pl', locale: 'pl_PL', type: 'website', images: OG_IMAGES },
 };
 
 export default function PolitykaPrywatnosciPage() {

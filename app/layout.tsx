@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: 'Szkolenia AI, Power BI, Excel, SQL | Radosław Sobczak – Certyfikowany Trener Microsoft (MCT)',
-    template: '%s | pbix.pl – Radosław Sobczak',
+    template: '%s | pbix.pl',
   },
   description:
     'Radosław Sobczak – Certyfikowany Trener Microsoft (MCT). Szkolenia Power BI, Excel, SQL i VBA dla firm. 7 lat doświadczenia, ponad 4 500 przeszkolonych pracowników, ocena 4,8/5. Szkolenia stacjonarne i online w Polsce i po angielsku.',

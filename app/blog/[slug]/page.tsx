@@ -14,6 +14,13 @@ import s from '@/components/home/home.module.css';
 
 export const dynamicParams = false;
 
+// Search engines cut descriptions at ~155 characters; trim on a word boundary instead of mid-word
+function metaDescription(text: string, max = 155) {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max - 1);
+  return cut.slice(0, cut.lastIndexOf(' ')).replace(/[,.;:\s—–-]+$/, '') + '…';
+}
+
 export function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }));
 }
@@ -31,13 +38,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // `opengraph-image.tsx` and `twitter-image.tsx` route conventions —
   // do NOT set `images` here or the convention output will be overridden.
   return {
-    title: `${post.title} | pbix.pl`,
-    description: post.excerpt,
+    title: `${post.title}`,
+    description: metaDescription(post.excerpt),
     keywords: post.keywords,
     alternates: { canonical: url },
     openGraph: {
       title: post.title,
-      description: post.excerpt,
+      description: metaDescription(post.excerpt),
       url,
       type: 'article',
       publishedTime: post.date,
@@ -49,7 +56,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     twitter: {
       card: 'summary_large_image',
       title: post.title,
-      description: post.excerpt,
+      description: metaDescription(post.excerpt),
     },
   };
 }

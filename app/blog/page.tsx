@@ -13,13 +13,13 @@ import { toneFor } from '@/data/categoryColors';
 import { OG_IMAGES } from '@/lib/og';
 
 export const metadata: Metadata = {
-  title: 'Blog – Power BI, Excel, SQL | pbix.pl',
+  title: 'Blog – Power BI, Excel, SQL',
   description: 'Praktyczne artykuły o Power BI, Excel, SQL i wizualizacji danych. Realne wskazówki, przemyślenia i checklisty od trenera Microsoft.',
   alternates: {
     canonical: 'https://www.pbix.pl/blog',
   },
   openGraph: {
-    title: 'Blog – Power BI, Excel, SQL | pbix.pl',
+    title: 'Blog – Power BI, Excel, SQL',
     description: 'Praktyczne artykuły o Power BI, Excel, SQL i wizualizacji danych.',
     url: 'https://www.pbix.pl/blog',
     type: 'website',

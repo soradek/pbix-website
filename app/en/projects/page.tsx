@@ -3,7 +3,7 @@ import ProjectsView from '@/components/home/ProjectsView';
 import { OG_IMAGES } from '@/lib/og';
 
 export const metadata: Metadata = {
-  title: 'Power BI Projects – Dashboards & Reporting | pbix.pl',
+  title: 'Power BI Projects – Dashboards & Reporting',
   description:
     'Power BI implementations for manufacturing, FMCG, retail and logistics companies. Sales dashboards, financial reporting automation, HR analytics and supply chain monitoring.',
   keywords: [
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     'reporting automation', 'Power BI case study', 'data analytics Poland',
   ],
   openGraph: {
-    title: 'Power BI Projects – Dashboards & Reporting | pbix.pl',
+    title: 'Power BI Projects – Dashboards & Reporting',
     description: 'How Power BI transforms data into business value — selected implementations.',
     url: 'https://www.pbix.pl/en/projects',
     siteName: 'pbix.pl',

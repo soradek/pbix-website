@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!training) return {};
   const desc = training.description.substring(0, 160);
   return {
-    title: `${training.title} | pbix.pl`,
+    title: `Szkolenie ${training.title}`,
     description: desc,
     keywords: [training.category, 'szkolenie', 'Power BI', 'Excel', 'SQL', 'Radosław Sobczak', 'MCT'],
     openGraph: {

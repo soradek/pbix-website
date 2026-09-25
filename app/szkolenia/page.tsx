@@ -5,10 +5,10 @@ import SzkoleniasClient from './SzkoleniasClient';
 import { OG_IMAGES, TWITTER_IMAGES } from '@/lib/og';
 
 export const metadata: Metadata = {
-  title: 'Szkolenia Power BI, Excel, SQL | pbix.pl',
+  title: 'Szkolenia Power BI, Excel, SQL',
   description: 'Specjalistyczne szkolenia z Power BI, Excel, SQL i wizualizacji danych. 2 dni praktycznych warsztatów z certyfikowanym trenerem Microsoft (MCT).',
   openGraph: {
-    title: 'Szkolenia Power BI, Excel, SQL | pbix.pl',
+    title: 'Szkolenia Power BI, Excel, SQL',
     description: 'Specjalistyczne szkolenia z Power BI, Excel, SQL i wizualizacji danych.',
     url: 'https://www.pbix.pl/szkolenia',
     siteName: 'pbix.pl',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Szkolenia Power BI, Excel, SQL | pbix.pl',
+    title: 'Szkolenia Power BI, Excel, SQL',
     description: 'Specjalistyczne szkolenia z Power BI, Excel, SQL i wizualizacji danych.',
     images: TWITTER_IMAGES,
   },

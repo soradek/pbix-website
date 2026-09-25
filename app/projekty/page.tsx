@@ -3,7 +3,7 @@ import ProjectsView from '@/components/home/ProjectsView';
 import { OG_IMAGES } from '@/lib/og';
 
 export const metadata: Metadata = {
-  title: 'Projekty Power BI – realizacje i wdrożenia | pbix.pl',
+  title: 'Projekty Power BI – realizacje i wdrożenia',
   description:
     'Przykładowe wdrożenia Power BI dla firm produkcyjnych, FMCG, logistyki i retail. Dashboardy sprzedażowe, automatyzacja raportowania finansowego, HR analytics, monitoring łańcucha dostaw.',
   keywords: [
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     'automatyzacja raportowania', 'Power BI case study',
   ],
   openGraph: {
-    title: 'Projekty Power BI – realizacje i wdrożenia | pbix.pl',
+    title: 'Projekty Power BI – realizacje i wdrożenia',
     description: 'Jak Power BI transformuje dane w wartość biznesową — przykładowe realizacje.',
     url: 'https://www.pbix.pl/projekty',
     siteName: 'pbix.pl',

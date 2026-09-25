@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScrollReveal from '@/components/ScrollReveal';
@@ -149,15 +149,20 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
   const [answers, setAnswers] = useState<number[]>([]);
   const [showResult, setShowResult] = useState(false);
 
-  // Disable body scroll when quiz is open
+  const dialogRef = useRef<HTMLDivElement>(null);
+
+  // Disable body scroll, move focus into the dialog and close on Escape while open
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    if (!open) return;
+    document.body.style.overflow = 'hidden';
+    const previous = document.activeElement as HTMLElement | null;
+    dialogRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') handleCloseRef.current(); };
+    window.addEventListener('keydown', onKey);
     return () => {
       document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+      previous?.focus();
     };
   }, [open]);
 
@@ -188,6 +193,8 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
     handleRestart();
     onClose();
   };
+  const handleCloseRef = useRef(handleClose);
+  handleCloseRef.current = handleClose;
 
   const handleViewTrainings = () => {
     router.push('/szkolenia');
@@ -214,9 +221,15 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Quiz: poziom znajomości Excela"
+        tabIndex={-1}
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: 'white',
+          outline: 'none',
+          background: 'var(--white)',
           borderRadius: '32px',
           padding: 'clamp(28px, 4vw, 44px)',
           maxWidth: '640px',
@@ -231,7 +244,9 @@ export default function LevelQuiz({ open, onClose }: LevelQuizProps) {
       >
         {/* Close button (X) - visible for both questions and results */}
         <button
+          type="button"
           onClick={handleClose}
+          aria-label="Zamknij quiz"
           style={{
             position: 'absolute',
             top: '16px',

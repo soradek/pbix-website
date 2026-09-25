@@ -3,10 +3,10 @@ import KontaktClient from './KontaktClient';
 import { OG_IMAGES, TWITTER_IMAGES } from '@/lib/og';
 
 export const metadata: Metadata = {
-  title: 'Kontakt | pbix.pl',
+  title: 'Kontakt',
   description: 'Skontaktuj się z Radosławem Sobczakiem – certyfikowanym trenerem Microsoft. Zamów szkolenie z Power BI, Excel lub SQL dla swojego zespołu.',
   openGraph: {
-    title: 'Kontakt | pbix.pl',
+    title: 'Kontakt',
     description: 'Zamów szkolenie z Power BI, Excel lub SQL dopasowane do potrzeb Twojego zespołu.',
     url: 'https://www.pbix.pl/kontakt',
     siteName: 'pbix.pl',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Kontakt | pbix.pl',
+    title: 'Kontakt',
     description: 'Zamów szkolenie z Power BI, Excel lub SQL.',
     images: TWITTER_IMAGES,
   },

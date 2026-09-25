@@ -27,6 +27,8 @@ function getAltUrl(pathname: string): string {
       .replace(/^\/privacy-policy$/, '/polityka-prywatnosci');
   }
   if (pathname === '/') return '/en';
+  // The blog is Polish-only; its EN switch goes to the EN home instead of a 404
+  if (pathname === '/blog' || pathname.startsWith('/blog/')) return '/en';
   return '/en' + pathname
     .replace(/^\/szkolenia(\/|$)/, '/trainings$1')
     .replace(/^\/kontakt$/, '/contact')

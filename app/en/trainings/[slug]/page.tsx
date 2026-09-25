@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const descFull = en?.description ?? training.description;
   const desc = descFull.substring(0, 160);
   return {
-    title: `${titleDisplay} | pbix.pl`,
+    title: `${titleDisplay} Training`,
     description: desc,
     keywords: [training.category, 'training', 'Power BI', 'Excel', 'SQL', 'corporate training Poland', 'Microsoft Certified Trainer', 'Radosław Sobczak'],
     openGraph: {

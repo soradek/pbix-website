@@ -3,10 +3,10 @@ import ContactEnClient from './ContactEnClient';
 import { OG_IMAGES } from '@/lib/og';
 
 export const metadata: Metadata = {
-  title: 'Contact | pbix.pl',
+  title: 'Contact',
   description: 'Contact Radosław Sobczak – Microsoft Certified Trainer. Book a Power BI, Excel or SQL training for your team.',
   openGraph: {
-    title: 'Contact | pbix.pl',
+    title: 'Contact',
     description: 'Book a Power BI, Excel or SQL corporate training.',
     url: 'https://www.pbix.pl/en/contact',
     siteName: 'pbix.pl',

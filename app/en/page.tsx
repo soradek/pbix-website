@@ -18,7 +18,7 @@ import HomeFinalCta from '@/components/home/HomeFinalCta';
 import { TWITTER_IMAGES } from '@/lib/og';
 
 export const metadata: Metadata = {
-  title: 'Power BI, Excel & SQL Corporate Trainings | Radosław Sobczak MCT',
+  title: { absolute: 'Power BI, Excel & SQL Corporate Trainings | pbix.pl' },
   description:
     'Radosław Sobczak — Microsoft Certified Trainer (MCT) delivering Power BI, Excel, SQL and VBA corporate trainings across Poland and online. 7 years of experience, 4,500+ professionals trained, rated 4.8/5. On-site and remote sessions in English and Polish.',
   keywords: [
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Power BI, Excel & SQL Corporate Trainings | pbix.pl',
+    title: 'Power BI, Excel & SQL Corporate Trainings',
     description: 'MCT-delivered Power BI, Excel and SQL trainings for corporate teams in Poland and online.',
     images: TWITTER_IMAGES,
   },
