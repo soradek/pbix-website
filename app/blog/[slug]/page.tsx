@@ -90,7 +90,7 @@ export default async function BlogPostPage({ params }: Props) {
     image: [
       `https://www.pbix.pl/blog/${post.slug}/opengraph-image`,
       ...(post.coverImage ? [`https://www.pbix.pl${post.coverImage}`] : []),
-      'https://www.pbix.pl/og.jpg',
+      'https://www.pbix.pl/og-2026-09-pl.png',
     ],
     datePublished: post.date,
     dateModified: post.date,
@@ -103,7 +103,7 @@ export default async function BlogPostPage({ params }: Props) {
     publisher: {
       '@type': 'Organization',
       name: 'pbix.pl',
-      logo: { '@type': 'ImageObject', url: 'https://www.pbix.pl/og.jpg' },
+      logo: { '@type': 'ImageObject', url: 'https://www.pbix.pl/icon' },
     },
     mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
     url: postUrl,

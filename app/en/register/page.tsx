@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import RegisterEnClient from './RegisterEnClient';
-import { OG_IMAGES, TWITTER_IMAGES } from '@/lib/og';
+import { OG_IMAGES_EN, TWITTER_IMAGES_EN } from '@/lib/og';
 
 export const metadata: Metadata = {
   title: 'Book a Training',
@@ -12,13 +12,13 @@ export const metadata: Metadata = {
     siteName: 'pbix.pl',
     locale: 'en_US',
     type: 'website',
-    images: OG_IMAGES,
+    images: OG_IMAGES_EN,
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Book a Training',
     description: 'Book a Power BI, Excel or SQL training for your team.',
-    images: TWITTER_IMAGES,
+    images: TWITTER_IMAGES_EN,
   },
   alternates: { canonical: 'https://www.pbix.pl/en/register' },
 };

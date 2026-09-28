@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { OG_IMAGES } from '@/lib/og';
+import { OG_IMAGES_EN } from '@/lib/og';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     },
   },
   robots: { index: true, follow: true },
-  openGraph: { title: 'Privacy Policy', url: 'https://www.pbix.pl/en/privacy-policy', siteName: 'pbix.pl', locale: 'en_US', type: 'website', images: OG_IMAGES },
+  openGraph: { title: 'Privacy Policy', url: 'https://www.pbix.pl/en/privacy-policy', siteName: 'pbix.pl', locale: 'en_US', type: 'website', images: OG_IMAGES_EN },
 };
 
 export default function PrivacyPolicyPage() {

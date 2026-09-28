@@ -14,7 +14,7 @@ import HomeReviews from '@/components/home/HomeReviews';
 import HomeFormats from '@/components/home/HomeFormats';
 import HomeFaq from '@/components/home/HomeFaq';
 import HomeFinalCta from '@/components/home/HomeFinalCta';
-import { TWITTER_IMAGES } from '@/lib/og';
+import { OG_IMAGES_EN, TWITTER_IMAGES_EN } from '@/lib/og';
 
 export const metadata: Metadata = {
   title: { absolute: 'Power BI, Excel & SQL Corporate Trainings | pbix.pl' },
@@ -32,13 +32,13 @@ export const metadata: Metadata = {
     siteName: 'pbix.pl',
     locale: 'en_US',
     type: 'website',
-    images: [{ url: 'https://www.pbix.pl/og.jpg', width: 1200, height: 630 }],
+    images: OG_IMAGES_EN,
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Power BI, Excel & SQL Corporate Trainings',
     description: 'MCT-delivered Power BI, Excel and SQL trainings for corporate teams in Poland and online.',
-    images: TWITTER_IMAGES,
+    images: TWITTER_IMAGES_EN,
   },
   alternates: {
     canonical: 'https://www.pbix.pl/en',

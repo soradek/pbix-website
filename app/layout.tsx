@@ -9,6 +9,7 @@ import CookieBanner from '@/components/CookieBanner';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ORGANIZATION_ID, postalAddressSchema } from '@/lib/business';
+import { OG_IMAGES, TWITTER_IMAGES } from '@/lib/og';
 
 
 const siteUrl = 'https://www.pbix.pl/';
@@ -59,23 +60,14 @@ export const metadata: Metadata = {
     title: 'Szkolenia AI, Power BI, Excel, SQL | Radosław Sobczak MCT',
     description:
       'Szkolenia Power BI, Excel i VBA dla firm. Ponad 4 500 przeszkolonych pracowników, ocena 4,92/5. Stacjonarnie, online i po angielsku.',
-    images: [
-      {
-        url: 'https://www.pbix.pl/og.jpg',
-        secureUrl: 'https://www.pbix.pl/og.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Radosław Sobczak – Certyfikowany Trener Microsoft Power BI, Excel, SQL',
-        type: 'image/jpeg',
-      },
-    ],
+    images: OG_IMAGES,
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Szkolenia AI, Power BI, Excel, SQL | Radosław Sobczak MCT',
     description:
       'Szkolenia Power BI, Excel i VBA dla firm. Ponad 4 500 przeszkolonych pracowników, ocena 4,92/5. Stacjonarnie, online i po angielsku.',
-    images: ['https://www.pbix.pl/og.jpg'],
+    images: TWITTER_IMAGES,
   },
   alternates: {
     canonical: siteUrl,

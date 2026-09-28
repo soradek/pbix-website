@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import ContactEnClient from './ContactEnClient';
-import { OG_IMAGES } from '@/lib/og';
+import { OG_IMAGES_EN } from '@/lib/og';
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     siteName: 'pbix.pl',
     locale: 'en_US',
     type: 'website',
-    images: OG_IMAGES,
+    images: OG_IMAGES_EN,
   },
   alternates: { canonical: 'https://www.pbix.pl/en/contact' },
 };
