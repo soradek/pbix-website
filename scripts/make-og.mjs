@@ -6,22 +6,22 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { createElement as h } from 'react';
 import { ImageResponse } from 'next/dist/compiled/@vercel/og/index.node.js';
 
-export const OG_VERSION = '2026-09b';
+export const OG_VERSION = '2026-09c';
 
 const portrait = `data:image/png;base64,${readFileSync(new URL('../public/radek-cutout.png', import.meta.url)).toString('base64')}`;
 
 const COPY = {
   pl: {
     line1: 'Szkolenia, które',
-    line2a: 'działają',
-    line2b: 'od razu.',
+    accent: 'naprawdę',
+    rest: 'działają.',
     tools: 'Power BI · Excel · AI · VBA',
     who: 'Radosław Sobczak · Certyfikowany Trener Microsoft',
   },
   en: {
     line1: 'Training that',
-    line2a: 'works',
-    line2b: 'from day one.',
+    accent: 'really',
+    rest: 'works.',
     tools: 'Power BI · Excel · AI · VBA',
     who: 'Radosław Sobczak · Microsoft Certified Trainer',
   },
@@ -44,7 +44,7 @@ async function render(lang) {
       h('div', { style: { display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 56, padding: '64px 72px', width: 800, height: '100%' } },
         h('div', { style: { display: 'flex', flexDirection: 'column', fontSize: 84, lineHeight: 1.02, letterSpacing: -4 } },
           h('div', { style: { display: 'flex' } }, t.line1),
-          h('div', { style: { display: 'flex' } }, t.line2a, h('span', { style: { color: '#2fbf6d', marginLeft: 18 } }, t.line2b)),
+          h('div', { style: { display: 'flex' } }, h('span', { style: { color: '#2fbf6d', marginRight: 18 } }, t.accent), t.rest),
         ),
         h('div', { style: { display: 'flex', flexDirection: 'column', gap: 10 } },
           h('div', { style: { display: 'flex', fontSize: 30, color: '#eef1ef' } }, t.tools),
