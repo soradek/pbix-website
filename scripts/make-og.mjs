@@ -6,25 +6,23 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { createElement as h } from 'react';
 import { ImageResponse } from 'next/dist/compiled/@vercel/og/index.node.js';
 
-export const OG_VERSION = '2026-09';
+export const OG_VERSION = '2026-09b';
 
 const portrait = `data:image/png;base64,${readFileSync(new URL('../public/radek-cutout.png', import.meta.url)).toString('base64')}`;
 
 const COPY = {
   pl: {
-    label: 'PBIX.PL · SZKOLENIA DLA FIRM',
-    line1: 'Raporty, które',
-    line2a: 'odświeżają się',
-    line2b: 'same.',
-    tools: 'Power BI · Excel · SQL · VBA',
+    line1: 'Szkolenia, które',
+    line2a: 'działają',
+    line2b: 'od razu.',
+    tools: 'Power BI · Excel · AI · VBA',
     who: 'Radosław Sobczak · Certyfikowany Trener Microsoft',
   },
   en: {
-    label: 'PBIX.PL · CORPORATE TRAINING',
-    line1: 'Reports that',
-    line2a: 'refresh',
-    line2b: 'themselves.',
-    tools: 'Power BI · Excel · SQL · VBA',
+    line1: 'Training that',
+    line2a: 'works',
+    line2b: 'from day one.',
+    tools: 'Power BI · Excel · AI · VBA',
     who: 'Radosław Sobczak · Microsoft Certified Trainer',
   },
 };
@@ -43,8 +41,7 @@ async function render(lang) {
       // soft green glow behind the portrait
       h('div', { style: { position: 'absolute', right: 40, bottom: -160, width: 560, height: 560, borderRadius: 280, background: 'rgba(47,191,109,0.16)', filter: 'blur(60px)' } }),
       h('img', { src: portrait, style: { position: 'absolute', right: 20, bottom: 0, height: 600, width: 372, objectFit: 'contain', objectPosition: 'bottom' } }),
-      h('div', { style: { display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '64px 72px', width: 780, height: '100%' } },
-        h('div', { style: { display: 'flex', fontSize: 20, letterSpacing: 4, color: '#2fbf6d' } }, t.label),
+      h('div', { style: { display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 56, padding: '64px 72px', width: 800, height: '100%' } },
         h('div', { style: { display: 'flex', flexDirection: 'column', fontSize: 84, lineHeight: 1.02, letterSpacing: -4 } },
           h('div', { style: { display: 'flex' } }, t.line1),
           h('div', { style: { display: 'flex' } }, t.line2a, h('span', { style: { color: '#2fbf6d', marginLeft: 18 } }, t.line2b)),
