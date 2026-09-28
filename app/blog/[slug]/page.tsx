@@ -90,7 +90,7 @@ export default async function BlogPostPage({ params }: Props) {
     image: [
       `https://www.pbix.pl/blog/${post.slug}/opengraph-image`,
       ...(post.coverImage ? [`https://www.pbix.pl${post.coverImage}`] : []),
-      'https://www.pbix.pl/og-2026-09d-pl.png',
+      'https://www.pbix.pl/og-2026-09e-pl.png',
     ],
     datePublished: post.date,
     dateModified: post.date,

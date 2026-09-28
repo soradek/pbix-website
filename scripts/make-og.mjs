@@ -6,7 +6,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { createElement as h } from 'react';
 import { ImageResponse } from 'next/dist/compiled/@vercel/og/index.node.js';
 
-export const OG_VERSION = '2026-09d';
+export const OG_VERSION = '2026-09e';
 
 const portrait = `data:image/png;base64,${readFileSync(new URL('../public/radek-cutout.png', import.meta.url)).toString('base64')}`;
 
@@ -41,9 +41,9 @@ async function render(lang) {
       // soft green glow behind the portrait
       h('div', { style: { position: 'absolute', right: 40, bottom: -160, width: 560, height: 560, borderRadius: 280, background: 'rgba(47,191,109,0.16)', filter: 'blur(60px)' } }),
       // site address and contact, pinned bottom-left
-      h('div', { style: { position: 'absolute', left: 72, bottom: 48, display: 'flex', alignItems: 'center', gap: 18, fontSize: 24, color: '#eef1ef' } },
+      h('div', { style: { position: 'absolute', left: 72, bottom: 44, display: 'flex', alignItems: 'center', gap: 22, fontSize: 32, color: '#eef1ef' } },
         h('span', {}, 'www.pbix.pl'),
-        h('span', { style: { width: 6, height: 6, borderRadius: 3, background: '#2fbf6d' } }),
+        h('span', { style: { width: 9, height: 9, borderRadius: 5, background: '#2fbf6d' } }),
         h('span', {}, 'kontakt@pbix.pl'),
       ),
       h('img', { src: portrait, style: { position: 'absolute', right: 20, bottom: 0, height: 600, width: 372, objectFit: 'contain', objectPosition: 'bottom' } }),
